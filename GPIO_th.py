@@ -1,5 +1,7 @@
+import multiprocessing
 import threading
 
+import pygame
 from pynput import keyboard
 
 
@@ -63,7 +65,35 @@ class GPIO:
         self.listener = keyboard.Listener(
             on_press=self.on_press,
             on_release=self.on_release)
-        self.listener.start()
+        # self.listener.start()
+        pygame.init()
+        pygame.key.set_repeat(100, 100)
+        # self.keyboard_th = threading.Thread(target=self.check_keyboard, args=())
+        # self.keyboard_th.start()
+        self.keyboard_mp = None
+
+    def start(self):
+        multiprocessing.set_start_method('spawn')
+        self.keyboard_mp = multiprocessing.Process(target=self.check_keyboard, args=(self.input_key_channel_map, self.pins))
+        self.keyboard_mp.daemon = True
+        self.keyboard_mp.start()
+
+    @staticmethod
+    def check_keyboard(input_key_channel_map, pins):
+        # t = threading.currentThread()
+        p = multiprocessing.current_process()
+        while getattr(p, "do_run", True):
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    channel = input_key_channel_map.get(chr(event.key))
+                    if pins.get(channel):
+                        pins[channel].state = False
+                if event.type == pygame.KEYUP:
+                    channel = input_key_channel_map.get(chr(event.key))
+                    if pins.get(channel):
+                        pins[channel].state = True
+        # print("Stopping thread: check_keyboard()")
+        print("Stopping process: check_keyboard()")
 
     def display_leds(self):
         print()
@@ -113,9 +143,13 @@ gpio = GPIO()
 
 
 def cleanup():
-    gpio.display_th.do_run = False
-    gpio.display_th.join()
-    gpio.listener.stop()
+    # gpio.display_th.do_run = False
+    # gpio.display_th.join()
+    # gpio.keyboard_th.do_run = False
+    # gpio.keyboard_th.join()
+    # gpio.listener.stop()
+    gpio.keyboard_mp.do_run = False
+    gpio.keyboard_mp.join()
 
 
 def input(channel):
@@ -125,7 +159,8 @@ def input(channel):
 def output(channel, state):
     gpio.pins[channel].state = state
     if not gpio.display_th.isAlive():
-        gpio.display_th.start()
+        # gpio.display_th.start()
+        pass
 
 
 def setmode(mode):
