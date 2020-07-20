@@ -1,6 +1,13 @@
+import logging
 import threading
 
 from pynput import keyboard
+
+from logging import NullHandler
+
+
+logger = logging.getLogger(__name__)
+logger.addHandler(NullHandler())
 
 
 BCM = 1
@@ -78,9 +85,7 @@ class GPIO:
                     led = 'o'
                 leds += led + ' [{}]   '.format(channel)
             print('  {}\r'.format(leds), end="")
-            # print(f'{leds}\r', end="")
-            # print("{}".format(leds), end="\r")
-        print("Stopping thread: display_leds()")
+        logger.info("Stopping thread: display_leds()")
 
     def on_press(self, key):
         try:
@@ -89,7 +94,7 @@ class GPIO:
             if str(key.char).isalnum():
                 channel = self.input_key_channel_map.get(key.char)
                 if self.pins.get(channel):
-                    self.pins[channel].state = False
+                    self.pins[channel].state = LOW
         except AttributeError:
             # print('special key {0} pressed'.format(
             #  key))
@@ -126,6 +131,13 @@ def output(channel, state):
     gpio.pins[channel].state = state
     if not gpio.display_th.isAlive():
         gpio.display_th.start()
+        # pass
+
+
+def setkeys(key_to_channel_map):
+    gpio.input_key_channel_map = key_to_channel_map
+    gpio.channel_input_key_map = {v: k for k, v in
+                                  key_to_channel_map.items()}
 
 
 def setmode(mode):
@@ -139,6 +151,11 @@ def setup(channel, mode, pull_up_down=None, initial=None):
         gpio.pins[channel].key = gpio.channel_input_key_map[channel]
         gpio.pins[channel].state = HIGH
     elif mode == OUT:
+        key = gpio.channel_input_key_map.get(channel)
+        if key:
+            # TODO: add logging
+            gpio.channel_input_key_map.pop(channel)
+            gpio.input_key_channel_map.pop(key)
         gpio.ouput_channels.append(channel)
         gpio.pins[channel].state = LOW
 
