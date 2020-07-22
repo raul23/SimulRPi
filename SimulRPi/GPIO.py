@@ -1,9 +1,11 @@
 import logging
 import threading
 
+from logging import NullHandler
+
 from pynput import keyboard
 
-from logging import NullHandler
+from .mapping import default_key_channel_mapping
 
 
 logger = logging.getLogger(__name__)
@@ -18,73 +20,116 @@ OUT = 1
 PUD_UP = 1
 
 
-class PIN:
-    def __init__(self, type, pull_up_down=None, initial=None):
-        self.type = type
+class Pin:
+    def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
+        self.channel = channel
+        self.key = key
+        self.mode = mode
         self.initial = initial
         self.pull_up_down = pull_up_down
-        self.state = None
-        self.key = None
+        self.key = key
+        if mode == IN:
+            self.state = HIGH
+        else:
+            self.state = LOW
+
+
+class PinDB:
+    def __init__(self):
+        self._pins = {}
+        # Only INPUT keys
+        # TODO: explain more
+        self._key_to_pin_map = {}
+
+    def create_pin(self, channel, mode, key=None, pull_up_down=None,
+                   initial=None):
+        self._pins[channel] = Pin(channel, mode, key, pull_up_down, initial)
+        if key:
+            self._key_to_pin_map[key] = self._pins[channel]
+
+    def get_pin_from_channel(self, channel):
+        return self._pins.get(channel)
+
+    def get_pin_from_key(self, key):
+        return self._key_to_pin_map.get(key)
+
+    def get_pin_state(self, channel):
+        pin = self._pins.get(channel)
+        if pin:
+            return self._pins.get(channel).state
+        else:
+            return None
+
+    def set_pin_key(self, channel, new_key):
+        pin = self.get_pin_from_channel(channel)
+        if pin:
+            old_key = pin.key
+            pin.key = new_key
+            del self._key_to_pin_map[old_key]
+            self._key_to_pin_map[new_key] = pin
+            return True
+        else:
+            return False
+
+    def set_pin_state_from_channel(self, channel, state):
+        pin = self.get_pin_from_channel(channel)
+        if pin:
+            pin.state = state
+            return True
+        else:
+            return False
+
+    def set_pin_state_from_key(self, key, state):
+        pin = self.get_pin_from_key(key)
+        if pin:
+            pin.state = state
+            return True
+        else:
+            return False
 
 
 class GPIO:
     def __init__(self):
         self.mode = None
         self.warnings = True
-        self.pins = {}
-        self.count = 0
-        self.channel_input_key_map = {
-            0: '0',
-            1: '1',
-            2: '2',
-            3: '3',
-            4: '4',
-            5: '5',
-            6: '6',
-            7: '7',
-            8: '8',
-            9: '9',
-            10: 'q',
-            11: 'w',
-            12: 'e',
-            13: 'r',
-            14: 't',
-            15: 'y',
-            16: 'u',
-            17: 'i',
-            18: 'o',
-            19: 'p',
-            20: 'a',
-            21: 's',
-            22: 'd',
-            23: 'f',
-            24: 'g',
-            25: 'h',
-            26: 'j',
-            27: 'k'
-        }
-        self.input_key_channel_map = {v: k for k, v in
-                                      self.channel_input_key_map.items()}
-        self.ouput_channels = []
+        self.enable_printing = True
+        self.pin_db = PinDB()
+        self._key_channel_map = default_key_channel_mapping
+        self._channel_key_map = {v: k for k, v in self._key_channel_map.items()}
+        self._ouput_channels = []
         self.display_th = threading.Thread(target=self.display_leds, args=())
         self.listener = keyboard.Listener(
             on_press=self.on_press,
             on_release=self.on_release)
         self.listener.start()
 
+    def add_pin(self, channel, mode, pull_up_down=None, initial=None):
+        if mode == IN:
+            # Get user-defined key associated with INPUT pin (button)
+            # TODO: raise exception if key not found
+            key = self._channel_key_map.get(channel)
+            self.pin_db.create_pin(channel, mode, key, pull_up_down, initial)
+        elif mode == OUT:
+            # No key since it is an OUTPUT pin (e.g. LED)
+            self.pin_db.create_pin(channel, mode, pull_up_down=pull_up_down,
+                                   initial=initial)
+            self._ouput_channels.append(channel)
+
     def display_leds(self):
-        print()
+        if self.enable_printing:
+            print()
         t = threading.currentThread()
         while getattr(t, "do_run", True):
             leds = ''
             # for channel in sorted(self.channel_output_state_map):
-            for channel in self.ouput_channels:
-                if self.pins.get(channel).state == HIGH:
+            for channel in self._ouput_channels:
+                if self.pin_db.get_pin_from_channel(channel).state == HIGH:
                     led = "\033[31mo\033[0m"
                 else:
                     led = 'o'
                 leds += led + ' [{}]   '.format(channel)
-            print('  {}\r'.format(leds), end="")
+            if self.enable_printing:
+                print('  {}\r'.format(leds), end="")
         logger.info("Stopping thread: display_leds()")
 
     def on_press(self, key):
@@ -92,9 +137,9 @@ class GPIO:
             # print('alphanumeric key {0} pressed'.format(
             #      key.char))
             if str(key.char).isalnum():
-                channel = self.input_key_channel_map.get(key.char)
-                if self.pins.get(channel):
-                    self.pins[channel].state = LOW
+                pin = self.pin_db.get_pin_from_key(key.char)
+                if pin:
+                    pin.state = LOW
         except AttributeError:
             # print('special key {0} pressed'.format(
             #  key))
@@ -106,12 +151,38 @@ class GPIO:
             key))
         """
         if key == keyboard.Key.esc:
-            # Stop listener
+            # TODO: Stop listener
             return False
         elif hasattr(key, 'char') and str(key.char).isalnum():
-            channel = self.input_key_channel_map.get(key.char)
-            if self.pins.get(channel):
-                self.pins[channel].state = True
+            pin = self.pin_db.get_pin_from_key(key.char)
+            if pin:
+                pin.state = HIGH
+
+    def update_key_to_channel_map(self, new_map):
+        # TODO: test uniqueness in channel numbers of new map
+        assert len(set(new_map.values())) == len(new_map)
+        msg = "Update of Key-to-Channel Mapping:\n"
+        update_count = 0
+        for key, new_ch in new_map.items():
+            orig_ch = self._key_channel_map.get(key)
+            other_key = self._channel_key_map.get(new_ch)
+            if key == other_key and new_ch == orig_ch:
+                # No updates
+                continue
+            else:
+                update_count += 1
+            self._key_channel_map[other_key] = orig_ch
+            self._key_channel_map[key] = new_ch
+            msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
+                other_key, new_ch, orig_ch)
+            msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
+                key, orig_ch, new_ch)
+            self.pin_db.set_pin_key(new_ch, key)
+            self.pin_db.set_pin_key(orig_ch, other_key)
+        if update_count:
+            logger.info(msg)
+            self._channel_key_map = {v: k for k, v in
+                                     self._key_channel_map.items()}
 
 
 gpio = GPIO()
@@ -123,21 +194,22 @@ def cleanup():
     gpio.listener.stop()
 
 
+def disableprinting():
+    gpio.enable_printing = False
+
+
 def input(channel):
-    return gpio.pins[channel].state
+    return gpio.pin_db.get_pin_state(channel)
 
 
 def output(channel, state):
-    gpio.pins[channel].state = state
+    gpio.pin_db.set_pin_state_from_channel(channel, state)
     if not gpio.display_th.isAlive():
         gpio.display_th.start()
-        # pass
 
 
 def setkeys(key_to_channel_map):
-    gpio.input_key_channel_map = key_to_channel_map
-    gpio.channel_input_key_map = {v: k for k, v in
-                                  key_to_channel_map.items()}
+    gpio.update_key_to_channel_map(key_to_channel_map)
 
 
 def setmode(mode):
@@ -146,18 +218,7 @@ def setmode(mode):
 
 # mode = {IN, OUT}
 def setup(channel, mode, pull_up_down=None, initial=None):
-    gpio.pins[channel] = PIN(mode, pull_up_down=pull_up_down, initial=initial)
-    if mode == IN:
-        gpio.pins[channel].key = gpio.channel_input_key_map[channel]
-        gpio.pins[channel].state = HIGH
-    elif mode == OUT:
-        key = gpio.channel_input_key_map.get(channel)
-        if key:
-            # TODO: add logging
-            gpio.channel_input_key_map.pop(channel)
-            gpio.input_key_channel_map.pop(key)
-        gpio.ouput_channels.append(channel)
-        gpio.pins[channel].state = LOW
+    gpio.add_pin(channel, mode, pull_up_down, initial)
 
 
 def setwarnings(mode):
