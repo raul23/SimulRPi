@@ -11,6 +11,16 @@ from .mapping import default_key_channel_mapping
 logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
 
+# TODO: add as scratch
+"""
+if sys.modules['pygame']:
+    import pygame
+    if not pygame.get_init():
+        logger.debug("pygame is imported but not initialized. pygame will be "
+                     "initialized")
+        logger.debug("pygame initialization...")
+        pygame.init()
+"""
 
 BCM = 1
 HIGH = 1
