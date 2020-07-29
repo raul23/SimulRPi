@@ -13,3 +13,11 @@ API Reference
    :members:
    :undoc-members:
    :show-inheritance:
+
+:mod:`SimulRPi.mapping`
+==================================
+
+.. automodule:: SimulRPi.mapping
+   :members:
+   :undoc-members:
+   :show-inheritance:
