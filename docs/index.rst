@@ -6,10 +6,16 @@
 Welcome to SimulRPi's documentation!
 ====================================
 
+.. raw:: html
+
+   <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png"></p>
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
 
+   README
+   api_reference
 
 
 Indices and tables
