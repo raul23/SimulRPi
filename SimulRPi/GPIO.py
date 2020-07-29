@@ -209,7 +209,7 @@ def output(channel, state):
         logger.debug(e)
 
 
-def setkeys(key_to_channel_map):
+def setkeymap(key_to_channel_map):
     gpio.update_key_to_channel_map(key_to_channel_map)
 
 
