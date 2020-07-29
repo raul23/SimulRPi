@@ -128,5 +128,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# JetBrains files/folders
+.idea/
+
+# macOS files
+.DS_Store
+
 # Test files/folders
 sandbox/
