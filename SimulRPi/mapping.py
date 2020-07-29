@@ -1,3 +1,26 @@
+"""Module that defines a dictionary that maps keys and GPIO channels.
+
+This module defines the default mapping between keys from the keyboard and GPIO
+channels. It is used by the module :mod:`SimulRPi.GPIO`.
+
+Notes
+-----
+28 GPIO channels (from GPIO-0 to GPIO-27) are mapped to keys (numbers [0-9] and
+letters following the qwerty order).
+
+In early RPi models, there are 17 GPIO channels and in late RPi models, there
+are 28 GPIO channels.
+
+References
+----------
+RPi GPIO Header: https://bit.ly/30ZM2Uj
+
+.. important::
+
+    :meth:`~SimulRPi.GPIO.setkeymap` allows you to modify this default keymap.
+
+"""
+
 default_key_channel_mapping = {
     "0": 0,
     "1": 1,
