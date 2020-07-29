@@ -143,10 +143,6 @@ class GPIO:
             pass
 
     def on_release(self, key):
-        """
-        print('{0} released'.format(
-            key))
-        """
         if key == keyboard.Key.esc:
             # TODO: Stop listener
             return False
