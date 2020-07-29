@@ -201,8 +201,16 @@ def input(channel):
 
 def output(channel, state):
     gpio.pin_db.set_pin_state_from_channel(channel, state)
-    if not gpio.display_th.isAlive():
-        gpio.display_th.start()
+    try:
+        if not gpio.display_th.is_alive():
+            gpio.display_th.start()
+    except RuntimeError as e:
+        # This happens when this function is called while the `display_th`
+        # thread is being killed in the main thread. is_alive() returns False
+        # since the thread was killed and then it is being started once again.
+        # By catching this RuntimeError, we give time to the main thread to
+        # exit gracefully without this function crashing anything.
+        logger.debug(e)
 
 
 def setkeys(key_to_channel_map):
