@@ -2,7 +2,7 @@
 
 It also simulates some I/O devices connected to a Raspberry Pi:
 
-    - push buttons by listening to keys pressed/released and
+    - push buttons by listening to keys pressed/released on the keyboard and
     - lighting LEDs by displaying small dots blinking on the terminal along \
     with their GPIO pin number.
 
