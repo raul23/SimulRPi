@@ -1,10 +1,13 @@
-"""Module that simulates `RPi.GPIO`_.
+"""Module that partly simulates `RPi.GPIO`_.
 
-It simulates listening to keys pressed/released and lighting LEDs by displaying
-small dots blinking on the terminal along with their GPIO pin number.
+It also simulates some I/O devices connected to a Raspberry Pi:
 
-When a LED is turn on, it is shown in red on the terminal. The package `pynput`_
-is used to monitor the keyboard for any key pressed.
+    - push buttons by listening to keys pressed/released and
+    - lighting LEDs by displaying small dots blinking on the terminal along \
+    with their GPIO pin number.
+
+When a LED is turn on, it is shown as a small red circle on the terminal. The
+package `pynput`_ is used to monitor the keyboard for any key pressed.
 
 Example: terminal output
     ``o [11]   o [9]   o [10]``
@@ -12,6 +15,13 @@ Example: terminal output
 Where each circle represents a LED (here they are all turn off) and the number
 between brackets is the associated GPIO pin number.
 
+.. important::
+
+    This library is not a Raspberry Pi emulator nor a complete simulator of
+    `RPi.GPIO`_, only the most important functions that I needed for my
+    `Darth-Vader-RPi project`_ were added.
+
+.. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 
@@ -40,8 +50,10 @@ class Pin:
 
     Parameters
     ----------
-    channel
-    mode
+    channel : int
+        GPIO channel number according to the specified numbering system (BOARD or BCM).
+    mode : int
+
     key
     pull_up_down
     initial
@@ -52,6 +64,8 @@ class Pin:
 
     """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
+        import ipdb
+        ipdb.set_trace()
         self.channel = channel
         self.key = key
         self.mode = mode
