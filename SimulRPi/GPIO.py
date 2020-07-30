@@ -21,9 +21,9 @@ between brackets is the associated GPIO pin number.
     `RPi.GPIO`_, only the most important functions that I needed for my
     `Darth-Vader-RPi project`_ were added.
 
-    If there is enough interest in the library, I will eventually mock more
-    functions and constants from `RPi.GPIO`_. Thus, `let me know through pull
-    requests`_ if you want me to add more things to this mock library.
+    If there is enough interest in this library, I will eventually mock more
+    functions from `RPi.GPIO`_. Thus, `let me know through pull requests`_ if
+    you want me to add more things to this mock library.
 
 .. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
 .. _let me know through pull requests: https://github.com/raul23/SimulRPi
