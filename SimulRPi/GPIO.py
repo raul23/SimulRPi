@@ -26,7 +26,7 @@ between brackets is the associated GPIO pin number.
     you want me to add more things to this mock library.
 
 .. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
-.. _let me know through pull requests: https://github.com/raul23/SimulRPi
+.. _let me know through pull requests: https://github.com/raul23/SimulRPi/pulls
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 
@@ -66,6 +66,7 @@ class Pin:
     See Also
     --------
     :class:`PinDB` : Class for storing and accessing :class:`Pin`\s.
+
 
     """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
