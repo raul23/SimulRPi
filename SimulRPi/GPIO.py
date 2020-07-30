@@ -65,8 +65,7 @@ class Pin:
 
     See Also
     --------
-    :class:`PinDB` : Class for storing and accessing :class:`Pin`\s.
-
+    :class:`PinDB` : Class for storing and accessing :class:`Pin`.
 
     """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
