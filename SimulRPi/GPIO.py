@@ -58,7 +58,7 @@ class Pin:
     """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
         import ipdb
-        ipdb.set_trace()
+        # ipdb.set_trace()
         self.channel = channel
         self.key = key
         self.mode = mode
@@ -195,7 +195,7 @@ class Manager:
             if pin:
                 pin.state = HIGH
 
-    def update_key_to_channel_map(self, new_map):
+    def update_keymap(self, new_map):
         # TODO: test uniqueness in channel numbers of new map
         assert len(set(new_map.values())) == len(new_map)
         msg = "Update of Key-to-Channel Mapping:\n"
@@ -258,7 +258,7 @@ def output(channel, state):
 
 
 def setkeymap(key_to_channel_map):
-    manager.update_key_to_channel_map(key_to_channel_map)
+    manager.update_keymap(key_to_channel_map)
 
 
 def setmode(mode):
