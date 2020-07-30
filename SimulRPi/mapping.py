@@ -1,7 +1,7 @@
 """Module that defines a dictionary that maps keys and GPIO channels.
 
 This module defines the default mapping between keys from the keyboard and GPIO
-channels. It is used by the module :mod:`SimulRPi.GPIO`.
+channels. It is used by the module :mod:`GPIO`.
 
 Notes
 -----
