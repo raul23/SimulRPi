@@ -9,8 +9,11 @@ It simulates these I/O devices connected to a Raspberry Pi:
 When a LED is turn on, it is shown as a small red circle on the terminal. The
 package `pynput`_ is used to monitor the keyboard for any key pressed.
 
-Example: terminal output
-    ``o [11]   o [9]   o [10]``
+**Example: terminal output**
+
+.. code::
+
+    o [11]   o [9]   o [10]
 
 Where each circle represents a LED (here they are all turn off) and the number
 between brackets is the associated GPIO pin number.
@@ -124,7 +127,7 @@ class PinDB:
             return False
 
 
-class GPIOManager:
+class Manager:
     """
     """
     def __init__(self):
@@ -219,32 +222,32 @@ class GPIOManager:
                                      self._key_channel_map.items()}
 
 
-gpio_manager = GPIOManager()
+manager = Manager()
 
 
 def cleanup():
-    gpio_manager.display_th.do_run = False
-    gpio_manager.display_th.join()
-    gpio_manager.listener.stop()
+    manager.display_th.do_run = False
+    manager.display_th.join()
+    manager.listener.stop()
 
 
 def disableprinting():
-    gpio_manager.enable_printing = False
+    manager.enable_printing = False
 
 
 def enableprinting():
-    gpio_manager.enable_printing = True
+    manager.enable_printing = True
 
 
 def input(channel):
-    return gpio_manager.pin_db.get_pin_state(channel)
+    return manager.pin_db.get_pin_state(channel)
 
 
 def output(channel, state):
-    gpio_manager.pin_db.set_pin_state_from_channel(channel, state)
+    manager.pin_db.set_pin_state_from_channel(channel, state)
     try:
-        if not gpio_manager.display_th.is_alive():
-            gpio_manager.display_th.start()
+        if not manager.display_th.is_alive():
+            manager.display_th.start()
     except RuntimeError as e:
         # This happens when this function is called while the `display_th`
         # thread is being killed in the main thread. is_alive() returns False
@@ -255,17 +258,17 @@ def output(channel, state):
 
 
 def setkeymap(key_to_channel_map):
-    gpio_manager.update_key_to_channel_map(key_to_channel_map)
+    manager.update_key_to_channel_map(key_to_channel_map)
 
 
 def setmode(mode):
-    gpio_manager.mode = mode
+    manager.mode = mode
 
 
 # mode = {IN, OUT}
 def setup(channel, mode, pull_up_down=None, initial=None):
-    gpio_manager.add_pin(channel, mode, pull_up_down, initial)
+    manager.add_pin(channel, mode, pull_up_down, initial)
 
 
 def setwarnings(mode):
-    gpio_manager.warnings = mode
+    manager.warnings = mode
