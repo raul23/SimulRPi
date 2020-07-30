@@ -137,6 +137,11 @@ class PinDB:
 class GPIO:
     """
     :class:`pynput.keyboard` is ...  `Test`
+
+    See Also
+    --------
+    Pin : Class that represents a GPIO pin.
+
     """
     def __init__(self):
         self.mode = None
