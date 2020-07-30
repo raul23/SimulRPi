@@ -45,16 +45,30 @@ from SimulRPi.mapping import default_key_channel_mapping
 logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
 
+BOARD = 0
 BCM = 1
 HIGH = 1
 LOW = 0
 IN = 0
 OUT = 1
 PUD_UP = 1
+PUD_DOWN = 0
 
 
 class Pin:
     """Class that represents a GPIO pin.
+
+    Parameters
+    ----------
+    channel : int
+        GPIO channel number.
+    mode : int
+        Type of GPIO channel: input (1) or ouput (0).
+    key : str or None, optional
+        Key associated with the GPIO channel, e.g. "g".
+    pull_up_down : int or None, optional
+    initial : int or None, optional
+
     """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
         import ipdb
