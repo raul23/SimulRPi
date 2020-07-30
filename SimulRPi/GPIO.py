@@ -11,7 +11,7 @@ package `pynput`_ is used to monitor the keyboard for any key pressed.
 
 **Example: terminal output**
 
-.. code::
+.. code:: bash
 
     o [11]   o [9]   o [10]
 
