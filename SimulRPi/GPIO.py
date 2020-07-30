@@ -53,16 +53,6 @@ PUD_UP = 1
 class Pin:
     """Class that represents a GPIO pin.
 
-    Parameters
-    ----------
-    channel : int
-        GPIO channel number according to the specified numbering system (BOARD or BCM).
-    mode : int
-
-    key
-    pull_up_down
-    initial
-
     See Also
     --------
     PinDB : Class for storing and accessing :class:`Pin`\s.
@@ -251,6 +241,10 @@ def cleanup():
 
 def disableprinting():
     gpio.enable_printing = False
+
+
+def enableprinting():
+    gpio.enable_printing = True
 
 
 def input(channel):
