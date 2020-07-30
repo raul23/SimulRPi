@@ -40,7 +40,7 @@ from logging import NullHandler
 
 from pynput import keyboard
 
-from .mapping import default_key_channel_mapping
+from mapping import default_key_channel_mapping
 
 logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
@@ -72,7 +72,7 @@ class Pin:
 
 
 class PinDB:
-    """Class for storing and modifying :class:`Pin`\s.
+    """Class for storing and modifying :class:`GPIO.Pin`\s.
     """
     def __init__(self):
         self._pins = {}
