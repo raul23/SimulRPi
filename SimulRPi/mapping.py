@@ -17,7 +17,7 @@ RPi GPIO Header: https://bit.ly/30ZM2Uj
 
 .. important::
 
-    :meth:`~SimulRPi.GPIO.setkeymap` allows you to modify this default keymap.
+    :meth:`GPIO.setkeymap` allows you to modify this default keymap.
 
 """
 
