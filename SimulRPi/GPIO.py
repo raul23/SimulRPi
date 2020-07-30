@@ -1,10 +1,10 @@
-"""Module that partly simulates `RPi.GPIO`_.
+"""Module that partly mocks `RPi.GPIO`_ and simulates some I/O devices.
 
-It also simulates some I/O devices connected to a Raspberry Pi:
+It simulates these I/O devices connected to a Raspberry Pi:
 
     - push buttons by listening to keys pressed/released on the keyboard and
-    - lighting LEDs by displaying small dots blinking on the terminal along \
-    with their GPIO pin number.
+    - LEDs by displaying small dots blinking on the terminal along with their \
+    GPIO pin number.
 
 When a LED is turn on, it is shown as a small red circle on the terminal. The
 package `pynput`_ is used to monitor the keyboard for any key pressed.
@@ -20,6 +20,10 @@ between brackets is the associated GPIO pin number.
     This library is not a Raspberry Pi emulator nor a complete simulator of
     `RPi.GPIO`_, only the most important functions that I needed for my
     `Darth-Vader-RPi project`_ were added.
+
+    If there is enough interest in the library, I will eventually completely
+    mock all functions and constants from `RPi.GPIO`_. Thus, let me know if you
+    want me to add more things to this mock library.
 
 .. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
