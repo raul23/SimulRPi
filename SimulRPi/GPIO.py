@@ -86,6 +86,10 @@ class Pin:
 class PinDB:
     """Class for storing and modifying :class:`Pin`\s.
 
+    See Also
+    --------
+    Pin : Class that represents a GPIO pin.
+
     """
     def __init__(self):
         self._pins = {}
