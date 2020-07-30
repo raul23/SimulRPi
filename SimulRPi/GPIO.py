@@ -1,3 +1,21 @@
+"""Module that simulates `RPi.GPIO`_.
+
+It simulates listening to keys pressed/released and lighting LEDs by displaying
+small dots blinking on the terminal along with their GPIO pin number.
+
+When a LED is turn on, it is shown in red on the terminal. The package `pynput`_
+is used to monitor the keyboard for any key pressed.
+
+Example: terminal output
+    ``o [11]   o [9]   o [10]``
+
+Where each circle represents a LED (here they are all turn off) and the number
+between brackets is the associated GPIO pin number.
+
+.. _pynput: https://pynput.readthedocs.io/en/latest/index.html
+.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
+
+"""
 import logging
 import threading
 from logging import NullHandler
@@ -18,6 +36,21 @@ PUD_UP = 1
 
 
 class Pin:
+    """Class that represents a GPIO pin.
+
+    Parameters
+    ----------
+    channel
+    mode
+    key
+    pull_up_down
+    initial
+
+    See Also
+    --------
+    :class:`PinDB` : Class for storing and accessing :class:`Pin`\s.
+
+    """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
         self.channel = channel
         self.key = key
@@ -32,6 +65,9 @@ class Pin:
 
 
 class PinDB:
+    """Class for storing and modifying :class:`Pin`\s.
+
+    """
     def __init__(self):
         self._pins = {}
         # Only INPUT keys
@@ -86,6 +122,9 @@ class PinDB:
 
 
 class GPIO:
+    """
+    :class:`pynput.keyboard` is ...  `Test`
+    """
     def __init__(self):
         self.mode = None
         self.warnings = True
