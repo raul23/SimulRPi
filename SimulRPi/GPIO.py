@@ -40,7 +40,7 @@ from logging import NullHandler
 
 from pynput import keyboard
 
-from mapping import default_key_channel_mapping
+from SimulRPi.mapping import default_key_channel_mapping
 
 logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
@@ -58,7 +58,7 @@ class Pin:
     """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
         import ipdb
-        # ipdb.set_trace()
+        ipdb.set_trace()
         self.channel = channel
         self.key = key
         self.mode = mode
