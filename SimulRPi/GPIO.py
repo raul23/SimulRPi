@@ -45,6 +45,10 @@ from SimulRPi.mapping import default_key_channel_mapping
 logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
 
+RPI_INFO = {'P1_REVISION': 1}
+RPI_REVISION = 1  # Deprecated
+VERSION = 1
+
 BOARD = 0
 BCM = 1
 HIGH = 1
@@ -63,22 +67,25 @@ class Pin:
     channel : int
         GPIO channel number.
     mode : int
-        Type of GPIO channel: input (1) or ouput (0).
+        Type of GPIO channel: 1 (`INPUT`) or 0 (`OUTPUT`).
     key : str or None, optional
         Key associated with the GPIO channel, e.g. "g".
     pull_up_down : int or None, optional
     initial : int or None, optional
+        Initial value of an output channel, e.g. `GPIO.HIGH`.
+
+    Attributes
+    ----------
+    state : int
+        State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
     """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
-        import ipdb
-        ipdb.set_trace()
         self.channel = channel
-        self.key = key
         self.mode = mode
-        self.initial = initial
-        self.pull_up_down = pull_up_down
         self.key = key
+        self.pull_up_down = pull_up_down
+        self.initial = initial
         if mode == IN:
             self.state = HIGH
         else:
@@ -86,7 +93,17 @@ class Pin:
 
 
 class PinDB:
-    """Class for storing and modifying :class:`GPIO.Pin`\s.
+    """Class for storing and modifying :class:`Pin`\s.
+
+    Each instance of :class:`GPIO.Pin` is saved in a dictionary that maps it
+    to its channel number.
+
+    .. note::
+
+        The dictionary (a "database" of :class:`GPIO.Pin`\s) must be accessed
+        through the different methods available in :class:`PinDB`, e.g.
+        :meth:`get_pin_from_channel`.
+
     """
     def __init__(self):
         self._pins = {}
@@ -96,44 +113,142 @@ class PinDB:
 
     def create_pin(self, channel, mode, key=None, pull_up_down=None,
                    initial=None):
+        """Instantiate :class:`GPIO.Pin` and save it in a dictionary.
+
+        Based on the given parameters, an instance of :class:`GPIO.Pin` is
+        created and added to a dictionary.
+
+        Parameters
+        ----------
+        channel : int
+            GPIO channel number.
+        mode : int
+            Type of GPIO channel: 1 (`INPUT`) or 0 (`OUTPUT`).
+        key : str or None, optional
+            Key associated with the GPIO channel, e.g. "g".
+        pull_up_down : int or None, optional
+        initial : int or None, optional
+            Initial value of an output channel, e.g. `GPIO.HIGH`.
+
+        """
         self._pins[channel] = Pin(channel, mode, key, pull_up_down, initial)
         if key:
             self._key_to_pin_map[key] = self._pins[channel]
 
     def get_pin_from_channel(self, channel):
+        """Get a :class:`Pin` from a given channel.
+
+        Parameters
+        ----------
+        channel : int
+            GPIO channel number associated with the :class:`Pin` to be
+            retrieved.
+
+        Returns
+        -------
+        Pin : :class:`GPIO.Pin` or :obj:`None`
+            If no :class:`Pin` could be retrieved based on a channel,
+            :obj:`None` is returned.
+
+        """
         return self._pins.get(channel)
 
     def get_pin_from_key(self, key):
+        """Get a :class:`Pin` from a given pressed/released key.
+
+        Parameters
+        ----------
+        key : str
+            The pressed/released key that is associated with the :class:`Pin`
+            to be retrieved.
+
+        Returns
+        -------
+        Pin : :class:`GPIO.Pin` or :obj:`None`
+            If no :class:`Pin` could be retrieved based on a pressed/released
+            key, :obj:`None` is returned.
+
+        """
         return self._key_to_pin_map.get(key)
 
     def get_pin_state(self, channel):
+        """Get a :class:`Pin`\'s state from a given channel.
+
+        The state associated with a :class:`Pin` can either be 1 (`HIGH`) or 0
+        (`LOW`).
+
+        Parameters
+        ----------
+        channel : int
+            GPIO channel number associated with the :class:`Pin` whose state is
+            to be returned.
+
+        Returns
+        -------
+        state : int or :obj:`None`
+            If no :class:`Pin` could be retrieved based on the given channel
+            number, then :obj:`None` is returned. Otherwise, the
+            :class:`Pin`\'s is returned.
+
+        """
         pin = self._pins.get(channel)
         if pin:
             return self._pins.get(channel).state
         else:
             return None
 
-    def set_pin_key(self, channel, new_key):
+    def set_pin_key_from_channel(self, channel, key):
+        """Set a :class:`Pin`\'s key from a given channel.
+
+        A :class:`Pin` is retrieved based on a given channel, then its
+        :attr:`key` is set with `key`.
+
+        Parameters
+        ----------
+        channel : int
+            GPIO channel number associated with the :class:`Pin` whose key will
+            be set.
+        new_key : str
+            The new key that a :class:`Pin` will be updated with.
+
+        Returns
+        -------
+        retval : bool
+            Returns True if the :class:`Pin` was successfully set with `key`.
+            Otherwise, it returns False.
+
+        """
         pin = self.get_pin_from_channel(channel)
         if pin:
             old_key = pin.key
-            pin.key = new_key
+            pin.key = key
             del self._key_to_pin_map[old_key]
-            self._key_to_pin_map[new_key] = pin
+            self._key_to_pin_map[key] = pin
             return True
         else:
             return False
 
     def set_pin_state_from_channel(self, channel, state):
-        pin = self.get_pin_from_channel(channel)
-        if pin:
-            pin.state = state
-            return True
-        else:
-            return False
+        """Set a :class:`Pin`\'s state from a given channel.
 
-    def set_pin_state_from_key(self, key, state):
-        pin = self.get_pin_from_key(key)
+        A :class:`Pin` is retrieved based on a given channel, then its
+        :attr:`state` is set with `state`.
+
+        Parameters
+        ----------
+        channel : int
+            GPIO channel number associated with the :class:`Pin` whose state
+            will be set.
+        state : int
+            State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
+        Returns
+        -------
+        retval : bool
+            Returns True if the :class:`Pin` was successfully set with `state`.
+            Otherwise, it returns False.
+
+        """
+        pin = self.get_pin_from_channel(channel)
         if pin:
             pin.state = state
             return True
@@ -142,7 +257,17 @@ class PinDB:
 
 
 class Manager:
-    """
+    """Class that manages
+
+    Attributes
+    ----------
+    mode
+    warnings
+    enable_printing
+    pind_db
+    display_th
+    listener
+
     """
     def __init__(self):
         self.mode = None
@@ -159,6 +284,16 @@ class Manager:
         self.listener.start()
 
     def add_pin(self, channel, mode, pull_up_down=None, initial=None):
+        """
+
+        Parameters
+        ----------
+        channel
+        mode
+        pull_up_down
+        initial
+
+        """
         if mode == IN:
             # Get user-defined key associated with INPUT pin (button)
             # TODO: raise exception if key not found
@@ -171,6 +306,8 @@ class Manager:
             self._ouput_channels.append(channel)
 
     def display_leds(self):
+        """
+        """
         if self.enable_printing:
             print()
         t = threading.currentThread()
@@ -188,6 +325,13 @@ class Manager:
         logger.info("Stopping thread: display_leds()")
 
     def on_press(self, key):
+        """
+
+        Parameters
+        ----------
+        key
+
+        """
         try:
             # print('alphanumeric key {0} pressed'.format(
             #      key.char))
@@ -201,6 +345,13 @@ class Manager:
             pass
 
     def on_release(self, key):
+        """
+
+        Parameters
+        ----------
+        key
+
+        """
         if key == keyboard.Key.esc:
             # TODO: Stop listener
             return False
@@ -210,6 +361,13 @@ class Manager:
                 pin.state = HIGH
 
     def update_keymap(self, new_map):
+        """
+
+        Parameters
+        ----------
+        new_map
+
+        """
         # TODO: test uniqueness in channel numbers of new map
         assert len(set(new_map.values())) == len(new_map)
         msg = "Update of Key-to-Channel Mapping:\n"
@@ -228,8 +386,8 @@ class Manager:
                 other_key, new_ch, orig_ch)
             msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
                 key, orig_ch, new_ch)
-            self.pin_db.set_pin_key(new_ch, key)
-            self.pin_db.set_pin_key(orig_ch, other_key)
+            self.pin_db.set_pin_key_from_channel(new_ch, key)
+            self.pin_db.set_pin_key_from_channel(orig_ch, other_key)
         if update_count:
             logger.info(msg)
             self._channel_key_map = {v: k for k, v in
@@ -240,24 +398,48 @@ manager = Manager()
 
 
 def cleanup():
+    """
+    """
     manager.display_th.do_run = False
     manager.display_th.join()
     manager.listener.stop()
 
 
 def disableprinting():
+    """
+    """
     manager.enable_printing = False
 
 
 def enableprinting():
+    """
+    """
     manager.enable_printing = True
 
 
 def input(channel):
+    """
+    Parameters
+    ----------
+    channel
+
+    Returns
+    -------
+
+    """
     return manager.pin_db.get_pin_state(channel)
 
 
+# TODO: output to several channels, see https://bit.ly/2Dgk2Uf
 def output(channel, state):
+    """
+
+    Parameters
+    ----------
+    channel
+    state
+
+    """
     manager.pin_db.set_pin_state_from_channel(channel, state)
     try:
         if not manager.display_th.is_alive():
@@ -272,17 +454,48 @@ def output(channel, state):
 
 
 def setkeymap(key_to_channel_map):
+    """
+
+    Parameters
+    ----------
+    key_to_channel_map
+
+    """
     manager.update_keymap(key_to_channel_map)
 
 
 def setmode(mode):
+    """
+
+    Parameters
+    ----------
+    mode
+
+    """
     manager.mode = mode
 
 
-# mode = {IN, OUT}
+# TODO: setup more than one channel, see https://bit.ly/2Dgk2Uf
 def setup(channel, mode, pull_up_down=None, initial=None):
+    """
+
+    Parameters
+    ----------
+    channel
+    mode
+    pull_up_down
+    initial
+
+    """
     manager.add_pin(channel, mode, pull_up_down, initial)
 
 
 def setwarnings(mode):
+    """
+
+    Parameters
+    ----------
+    mode
+
+    """
     manager.warnings = mode
