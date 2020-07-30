@@ -11,10 +11,3 @@ div#contents ul p {
     margin-bottom: 0px;
 }
 */
-div.sphinxsidebarwrapper h1.logo {
-    font-size: 20px;
-}
-
-div.sphinxsidebarwrapper h1.logo > a {
-    color: #0532FF;
-}
