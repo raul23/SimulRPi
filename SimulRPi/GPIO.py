@@ -52,11 +52,6 @@ PUD_UP = 1
 
 class Pin:
     """Class that represents a GPIO pin.
-
-    See Also
-    --------
-    PinDB : Class for storing and accessing :class:`Pin`\s.
-
     """
     def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
         import ipdb
@@ -75,11 +70,6 @@ class Pin:
 
 class PinDB:
     """Class for storing and modifying :class:`Pin`\s.
-
-    See Also
-    --------
-    Pin : Class that represents a GPIO pin.
-
     """
     def __init__(self):
         self._pins = {}
@@ -134,14 +124,8 @@ class PinDB:
             return False
 
 
-class GPIO:
+class GPIOManager:
     """
-    :class:`pynput.keyboard` is ...  `Test`
-
-    See Also
-    --------
-    Pin : Class that represents a GPIO pin.
-
     """
     def __init__(self):
         self.mode = None
@@ -235,32 +219,32 @@ class GPIO:
                                      self._key_channel_map.items()}
 
 
-gpio = GPIO()
+gpio_manager = GPIOManager()
 
 
 def cleanup():
-    gpio.display_th.do_run = False
-    gpio.display_th.join()
-    gpio.listener.stop()
+    gpio_manager.display_th.do_run = False
+    gpio_manager.display_th.join()
+    gpio_manager.listener.stop()
 
 
 def disableprinting():
-    gpio.enable_printing = False
+    gpio_manager.enable_printing = False
 
 
 def enableprinting():
-    gpio.enable_printing = True
+    gpio_manager.enable_printing = True
 
 
 def input(channel):
-    return gpio.pin_db.get_pin_state(channel)
+    return gpio_manager.pin_db.get_pin_state(channel)
 
 
 def output(channel, state):
-    gpio.pin_db.set_pin_state_from_channel(channel, state)
+    gpio_manager.pin_db.set_pin_state_from_channel(channel, state)
     try:
-        if not gpio.display_th.is_alive():
-            gpio.display_th.start()
+        if not gpio_manager.display_th.is_alive():
+            gpio_manager.display_th.start()
     except RuntimeError as e:
         # This happens when this function is called while the `display_th`
         # thread is being killed in the main thread. is_alive() returns False
@@ -271,17 +255,17 @@ def output(channel, state):
 
 
 def setkeymap(key_to_channel_map):
-    gpio.update_key_to_channel_map(key_to_channel_map)
+    gpio_manager.update_key_to_channel_map(key_to_channel_map)
 
 
 def setmode(mode):
-    gpio.mode = mode
+    gpio_manager.mode = mode
 
 
 # mode = {IN, OUT}
 def setup(channel, mode, pull_up_down=None, initial=None):
-    gpio.add_pin(channel, mode, pull_up_down, initial)
+    gpio_manager.add_pin(channel, mode, pull_up_down, initial)
 
 
 def setwarnings(mode):
-    gpio.warnings = mode
+    gpio_manager.warnings = mode
