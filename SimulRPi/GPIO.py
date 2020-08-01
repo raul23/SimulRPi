@@ -72,6 +72,7 @@ class Pin:
     key : str or None, optional
         Key associated with the GPIO channel, e.g. "g".
     pull_up_down : int or None, optional
+        Initial value of an input channel, e.g. `GPIO.PUP_UP`.
     initial : int or None, optional
         Initial value of an output channel, e.g. `GPIO.HIGH`.
 
@@ -191,7 +192,7 @@ class PinDB:
         state : int or :obj:`None`
             If no :class:`Pin` could be retrieved based on the given channel
             number, then :obj:`None` is returned. Otherwise, the
-            :class:`Pin`\'s is returned.
+            :class:`Pin`\'s state is returned: 1 (`HIGH`) or 0 (`LOW`).
 
         """
         pin = self._pins.get(channel)
@@ -277,7 +278,6 @@ class Manager:
     display_th : threading.Thread
 
     listener : threading.Thread
-
 
     """
     def __init__(self):
@@ -415,7 +415,23 @@ manager = Manager()
 
 
 def cleanup():
-    """
+    """Clean up any resources (e.g. GPIO channels).
+
+    At the end any program, it is good practice to clean up any resources you
+    might have used. This is no different with RPi.GPIO. By returning all
+    channels you have used back to inputs with no pull up/down, you can avoid
+    accidental damage to your RPi by shorting out the pins. [`RPi.GPIO wiki`_]
+
+    Also, the two threads responsible for displaying "LEDs" on the terminal and
+    listening for keys pressed/released are stopped.
+
+    .. note::
+
+        * It will only clean up GPIO channels that your script has used
+        * It will also clears the pin numbering system in use (*BOARD* or *BCM*)
+
+        **Ref.:** `RPi.GPIO wiki`_
+
     """
     manager.display_th.do_run = False
     manager.display_th.join()
@@ -426,10 +442,15 @@ def input(channel):
     """
     Parameters
     ----------
-    channel
+    channel : int
+        GPIO channel number.
 
     Returns
     -------
+    state : int or :obj:`None`
+        If no :class:`Pin` could be retrieved based on the given channel
+        number, then :obj:`None` is returned. Otherwise, the :class:`Pin`\'s
+        state is returned: 1 (`HIGH`) or 0 (`LOW`).
 
     """
     return manager.pin_db.get_pin_state(channel)
@@ -441,8 +462,10 @@ def output(channel, state):
 
     Parameters
     ----------
-    channel
-    state
+    channel : int
+        GPIO channel number.
+    state : int
+        State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
     """
     manager.pin_db.set_pin_state_from_channel(channel, state)
@@ -497,10 +520,14 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
 
     Parameters
     ----------
-    channel
-    gpio_function
-    pull_up_down
-    initial
+    channel : int
+        GPIO channel number.
+    gpio_function : int
+        Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+    pull_up_down : int or None, optional
+        Initial value of an input channel, e.g. `GPIO.PUP_UP`.
+    initial : int or None, optional
+        Initial value of an output channel, e.g. `GPIO.HIGH`.
 
     """
     manager.add_pin(channel, gpio_function, pull_up_down, initial)
