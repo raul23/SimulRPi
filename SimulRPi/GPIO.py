@@ -32,6 +32,7 @@ between brackets is the associated GPIO pin number.
 .. _let me know through pull requests: https://github.com/raul23/SimulRPi/pulls
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
+.. _RPi.GPIO wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 
 """
 import logging
@@ -66,8 +67,8 @@ class Pin:
     ----------
     channel : int
         GPIO channel number.
-    mode : int
-        Type of GPIO channel: 1 (`INPUT`) or 0 (`OUTPUT`).
+    gpio_function : int
+        Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
     key : str or None, optional
         Key associated with the GPIO channel, e.g. "g".
     pull_up_down : int or None, optional
@@ -80,13 +81,14 @@ class Pin:
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
     """
-    def __init__(self, channel, mode, key=None, pull_up_down=None, initial=None):
+    def __init__(self, channel, gpio_function, key=None, pull_up_down=None,
+                 initial=None):
         self.channel = channel
-        self.mode = mode
+        self.gpio_function = gpio_function
         self.key = key
         self.pull_up_down = pull_up_down
         self.initial = initial
-        if mode == IN:
+        if gpio_function == IN:
             self.state = HIGH
         else:
             self.state = LOW
@@ -111,7 +113,7 @@ class PinDB:
         # TODO: explain more
         self._key_to_pin_map = {}
 
-    def create_pin(self, channel, mode, key=None, pull_up_down=None,
+    def create_pin(self, channel, gpio_function, key=None, pull_up_down=None,
                    initial=None):
         """Instantiate :class:`GPIO.Pin` and save it in a dictionary.
 
@@ -122,8 +124,8 @@ class PinDB:
         ----------
         channel : int
             GPIO channel number.
-        mode : int
-            Type of GPIO channel: 1 (`INPUT`) or 0 (`OUTPUT`).
+        gpio_function : int
+            Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
         key : str or None, optional
             Key associated with the GPIO channel, e.g. "g".
         pull_up_down : int or None, optional
@@ -131,7 +133,8 @@ class PinDB:
             Initial value of an output channel, e.g. `GPIO.HIGH`.
 
         """
-        self._pins[channel] = Pin(channel, mode, key, pull_up_down, initial)
+        self._pins[channel] = Pin(channel, gpio_function, key, pull_up_down,
+                                  initial)
         if key:
             self._key_to_pin_map[key] = self._pins[channel]
 
@@ -257,20 +260,30 @@ class PinDB:
 
 
 class Manager:
-    """Class that manages
+    """Class that manages the pin database (:class:`PinDB`) and the threads
+    responsible for displaying "LEDs" on the terminal and listening for keys
+    pressed/released.
 
     Attributes
     ----------
-    mode
-    warnings
-    enable_printing
-    pind_db
-    display_th
-    listener
+    gpio_function : int
+            Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+    warnings : bool
+
+    enable_printing : bool
+
+    pin_db : PinDB
+
+    display_th : threading.Thread
+
+    listener : threading.Thread
+
 
     """
     def __init__(self):
-        self.mode = None
+        import ipdb
+        # ipdb.set_trace()
+        self.gpio_function = None
         self.warnings = True
         self.enable_printing = True
         self.pin_db = PinDB()
@@ -283,25 +296,29 @@ class Manager:
             on_release=self.on_release)
         self.listener.start()
 
-    def add_pin(self, channel, mode, pull_up_down=None, initial=None):
+    def add_pin(self, channel, gpio_function, pull_up_down=None, initial=None):
         """
 
         Parameters
         ----------
         channel
-        mode
+        gpio_function
         pull_up_down
         initial
 
         """
-        if mode == IN:
+        if gpio_function == IN:
             # Get user-defined key associated with INPUT pin (button)
             # TODO: raise exception if key not found
             key = self._channel_key_map.get(channel)
-            self.pin_db.create_pin(channel, mode, key, pull_up_down, initial)
-        elif mode == OUT:
+            self.pin_db.create_pin(channel, gpio_function,
+                                   key=key,
+                                   pull_up_down=pull_up_down,
+                                   initial=initial)
+        elif gpio_function == OUT:
             # No key since it is an OUTPUT pin (e.g. LED)
-            self.pin_db.create_pin(channel, mode, pull_up_down=pull_up_down,
+            self.pin_db.create_pin(channel, gpio_function,
+                                   pull_up_down=pull_up_down,
                                    initial=initial)
             self._ouput_channels.append(channel)
 
@@ -405,18 +422,6 @@ def cleanup():
     manager.listener.stop()
 
 
-def disableprinting():
-    """
-    """
-    manager.enable_printing = False
-
-
-def enableprinting():
-    """
-    """
-    manager.enable_printing = True
-
-
 def input(channel):
     """
     Parameters
@@ -469,33 +474,52 @@ def setmode(mode):
 
     Parameters
     ----------
-    mode
+    mode :
 
     """
     manager.mode = mode
 
 
+def setprinting(enable_printing):
+    """
+
+    Parameters
+    ----------
+    enable_printing
+
+    """
+    manager.enable_printing = enable_printing
+
+
 # TODO: setup more than one channel, see https://bit.ly/2Dgk2Uf
-def setup(channel, mode, pull_up_down=None, initial=None):
+def setup(channel, gpio_function, pull_up_down=None, initial=None):
     """
 
     Parameters
     ----------
     channel
-    mode
+    gpio_function
     pull_up_down
     initial
 
     """
-    manager.add_pin(channel, mode, pull_up_down, initial)
+    manager.add_pin(channel, gpio_function, pull_up_down, initial)
 
 
-def setwarnings(mode):
-    """
+def setwarnings(enable_warnings):
+    """Set warnings when configuring a GPIO pin other than the default
+    (input).
+
+    It is possible that you have more than one script/circuit on the GPIO of
+    your Raspberry Pi. As a result of this, if RPi.GPIO detects that a pin has
+    been configured to something other than the default (input), you get a
+    warning when you try to configure a script. [`RPi.GPIO wiki`_]
 
     Parameters
     ----------
-    mode
+    enable_warnings : bool
+        Whether to enable the warnings when using a pin other than the default
+        GPIO function (input).
 
     """
-    manager.warnings = mode
+    manager.warnings = enable_warnings
