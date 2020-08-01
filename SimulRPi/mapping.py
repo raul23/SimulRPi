@@ -21,6 +21,7 @@ RPi GPIO Header: https://bit.ly/30ZM2Uj
 
 """
 
+# START
 default_key_channel_mapping = {
     "0": 0,
     "1": 1,
