@@ -66,7 +66,8 @@ class Pin:
     Parameters
     ----------
     channel : int
-        GPIO channel number.
+        GPIO channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
     gpio_function : int
         Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
     key : str or None, optional
@@ -124,7 +125,8 @@ class PinDB:
         Parameters
         ----------
         channel : int
-            GPIO channel number.
+            GPIO channel number based on the numbering system you have specified
+            (`BOARD` or `BCM`).
         gpio_function : int
             Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
         key : str or None, optional
@@ -428,7 +430,7 @@ def cleanup():
     .. note::
 
         * It will only clean up GPIO channels that your script has used
-        * It will also clears the pin numbering system in use (*BOARD* or *BCM*)
+        * It will also clears the pin numbering system in use (`BOARD` or `BCM`)
 
         **Ref.:** `RPi.GPIO wiki`_
 
@@ -439,11 +441,13 @@ def cleanup():
 
 
 def input(channel):
-    """
+    """Read the value of a GPIO pin.
+
     Parameters
     ----------
     channel : int
-        GPIO channel number.
+        GPIO channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
 
     Returns
     -------
@@ -458,12 +462,13 @@ def input(channel):
 
 # TODO: output to several channels, see https://bit.ly/2Dgk2Uf
 def output(channel, state):
-    """
+    """Set the output state of a GPIO pin.
 
     Parameters
     ----------
     channel : int
-        GPIO channel number.
+        GPIO channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
     state : int
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
@@ -493,11 +498,25 @@ def setkeymap(key_to_channel_map):
 
 
 def setmode(mode):
-    """
+    """Set the numbering system used to identify the IO pins on a RPi within
+    `RPi.GPIO`.
+
+    There are two ways of numbering the IO pins on a Raspberry Pi within
+    `RPi.GPIO`:
+
+    1. The BOARD numbering system: refers to the pin numbers on the P1 header of
+       the Raspberry Pi board
+    2. The BCM numbers: refers to the channel numbers on the Broadcom SOC.
 
     Parameters
     ----------
-    mode :
+    mode : int
+        Numbering system used to identify the IO pins on a RPi: `Board` or
+        `BCM`.
+
+    References
+    ----------
+    Function description and more info from `RPi.GPIO wiki`_.
 
     """
     manager.mode = mode
@@ -516,18 +535,35 @@ def setprinting(enable_printing):
 
 # TODO: setup more than one channel, see https://bit.ly/2Dgk2Uf
 def setup(channel, gpio_function, pull_up_down=None, initial=None):
-    """
+    """Setup a GPIO channel as an input or output.
+
+    To configure a channel as an input::
+
+        GPIO.setup(channel, GPIO.IN)
+
+    To configure a channel as an output::
+
+        GPIO.setup(channel, GPIO.OUT)
+
+    You can also specify an initial value for your output channel::
+
+        GPIO.setup(channel, GPIO.OUT, initial=GPIO.HIGH)
 
     Parameters
     ----------
     channel : int
-        GPIO channel number.
+        GPIO channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
     gpio_function : int
         Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
     pull_up_down : int or None, optional
         Initial value of an input channel, e.g. `GPIO.PUP_UP`.
     initial : int or None, optional
         Initial value of an output channel, e.g. `GPIO.HIGH`.
+
+    References
+    ----------
+    `RPi.GPIO` wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 
     """
     manager.add_pin(channel, gpio_function, pull_up_down, initial)
