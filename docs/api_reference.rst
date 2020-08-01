@@ -22,3 +22,7 @@ API Reference
    :members:
    :undoc-members:
    :show-inheritance:
+
+.. literalinclude:: ../SimulRPi/mapping.py
+   :language: python
+   :start-after: START
