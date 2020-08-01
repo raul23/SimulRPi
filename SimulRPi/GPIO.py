@@ -6,7 +6,7 @@ It simulates these I/O devices connected to a Raspberry Pi:
     - LEDs by displaying small dots blinking on the terminal along with their \
     GPIO pin number.
 
-When a LED is turn on, it is shown as a small red circle on the terminal. The
+When a LED is turned on, it is shown as a small red circle on the terminal. The
 package `pynput`_ is used to monitor the keyboard for any key pressed.
 
 .. highlight:: none
@@ -15,12 +15,12 @@ package `pynput`_ is used to monitor the keyboard for any key pressed.
 
     o [11]   o [9]   o [10]
 
-Where each circle represents a LED (here they are all turn off) and the number
+where each circle represents a LED (here they are all turn off) and the number
 between brackets is the associated GPIO pin number.
 
 .. important::
 
-    This library is not a Raspberry Pi emulator nor a complete simulator of
+    This library is not a Raspberry Pi emulator nor a complete mock-up of
     `RPi.GPIO`_, only the most important functions that I needed for my
     `Darth-Vader-RPi project`_ were added.
 
