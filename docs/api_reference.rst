@@ -23,6 +23,7 @@ API Reference
    :undoc-members:
    :show-inheritance:
 
-.. literalinclude:: ../SimulRPi/mapping.py
-   :language: python
-   :start-after: START
+Content of the keymap dictionary (*key:* key from keyboard, *value:* GPIO channel):
+   .. literalinclude:: ../SimulRPi/mapping.py
+      :language: python
+      :start-after: START
