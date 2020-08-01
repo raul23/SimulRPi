@@ -533,7 +533,7 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
     manager.add_pin(channel, gpio_function, pull_up_down, initial)
 
 
-def setwarnings(enable_warnings):
+def setwarnings(show_warnings):
     """Set warnings when configuring a GPIO pin other than the default
     (input).
 
@@ -544,9 +544,9 @@ def setwarnings(enable_warnings):
 
     Parameters
     ----------
-    enable_warnings : bool
-        Whether to enable the warnings when using a pin other than the default
+    show_warnings : bool
+        Whether to show warnings when using a pin other than the default
         GPIO function (input).
 
     """
-    manager.warnings = enable_warnings
+    manager.warnings = show_warnings
