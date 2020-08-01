@@ -281,7 +281,7 @@ class Manager:
 
     """
     def __init__(self):
-        import ipdb
+        # import ipdb
         # ipdb.set_trace()
         self.gpio_function = None
         self.warnings = True
