@@ -25,13 +25,9 @@ It simulates these I/O devices connected to a Raspberry Pi:
 When a LED is turned on, it is shown as a small red circle on the terminal. The
 package `pynput`_ is used to monitor the keyboard for any key pressed.
 
-.. highlight:: none
-
 **Example: terminal output** ::
 
     o [11]   o [9]   o [10]
-
-.. highlight:: python
 
 where each circle represents a LED (here they are all turned off) and the number
 between brackets is the associated GPIO pin number.
