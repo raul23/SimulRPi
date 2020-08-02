@@ -8,7 +8,7 @@ Notes
 In early RPi models, there are 17 GPIO channels and in late RPi models, there
 are 28 GPIO channels.
 
-By default, 28 GPIO channels (from GPIO-0 to GPIO-27) are mapped to alphanum
+By default, 28 GPIO channels (from 0 to 27) are mapped to alphanum
 keys. Alphanum keys are numbers [0-9] and letters following the qwerty order.
 
 However, you can also use special keys such as *alt*, *down*, and *shift*.
