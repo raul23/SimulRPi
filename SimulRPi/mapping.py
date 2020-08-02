@@ -5,19 +5,73 @@ channels. It is used by the module :mod:`GPIO`.
 
 Notes
 -----
-28 GPIO channels (from GPIO-0 to GPIO-27) are mapped to keys (numbers [0-9] and
-letters following the qwerty order).
-
 In early RPi models, there are 17 GPIO channels and in late RPi models, there
 are 28 GPIO channels.
 
+By default, 28 GPIO channels (from GPIO-0 to GPIO-27) are mapped to alphanum
+keys. Alphanum keys are numbers [0-9] and letters following the qwerty order.
+
+However, you can also use special keys such as *alt*, *down*, and *shift*.
+Here is the full list of special keys you can also use with info about some of
+them (taken from `pynput reference`_):
+
+    - :obj:`alt`
+    - :obj:`alt_gr`
+    - :obj:`alt_l`
+    - :obj:`alt_r`
+    - :obj:`backspace`
+    - :obj:`caps_lock`
+    - :obj:`cmd`: A generic command button. On PC platforms, this corresponds to
+      the Super key or Windows key, and on Mac it corresponds to the Command key.
+    - :obj:`cmd_l`: The left command button. On PC platforms, this corresponds
+      to the Super key or Windows key, and on Mac it corresponds to the Command
+      key.
+    - :obj:`cmd_r`: The right command button. On PC platforms, this corresponds
+      to the Super key or Windows key, and on Mac it corresponds to the Command key.
+    - :obj:`ctrl`: A generic Ctrl key.
+    - :obj:`ctrl_l`
+    - :obj:`ctrl_r`
+    - :obj:`delete`
+    - :obj:`down`
+    - :obj:`end`
+    - :obj:`enter`
+    - :obj:`esc`
+    - :obj:`f1`: The function keys. F1 to F20 are defined.
+    - :obj:`home`
+    - :obj:`insert`: The Insert key. This may be undefined for some platforms.
+    - :obj:`left`
+    - :obj:`media_next`
+    - :obj:`media_play_pause`
+    - :obj:`media_previous`
+    - :obj:`media_volume_down`
+    - :obj:`media_volume_mute`
+    - :obj:`media_volume_up`
+    - :obj:`menu`: The Menu key. This may be undefined for some platforms.
+    - :obj:`num_lock`: The NumLock key. This may be undefined for some platforms.
+    - :obj:`page_down`
+    - :obj:`page_up`
+    - :obj:`pause`: The Pause/Break key. This may be undefined for some platforms.
+    - :obj:`print_screen`: The PrintScreen key. This may be undefined for some
+      platforms.
+    - :obj:`right`
+    - :obj:`scroll_lock`
+    - :obj:`shift`
+    - :obj:`shift_l`
+    - :obj:`shift_r`
+    - :obj:`space`
+    - :obj:`tab`
+    - :obj:`up`
+
 References
 ----------
-**RPi Header**: https://bit.ly/30ZM2Uj
+- **RPi Header**: https://bit.ly/30ZM2Uj
+- **pynput**: https://pynput.readthedocs.io/
 
 .. important::
 
     :meth:`GPIO.setkeymap` allows you to modify this default keymap.
+
+.. _pynput reference: https://pynput.readthedocs.io/en/latest/keyboard.html#pynput.keyboard.Key
 
 """
 
