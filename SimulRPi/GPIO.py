@@ -445,15 +445,21 @@ class Manager:
 
     @staticmethod
     def get_key_name(key):
-        """
+        """Get the name of a key as a string.
+
+        The name of the special or alphanumeric key is given by the package
+        `pynput`_.
 
         Parameters
         ----------
-        key : str
+        key : pynput.keyboard.Key or pynput.keyboard.KeyCode
+            The key (from :mod:`pynput.keyboard`) whose name will be returned.
 
         Returns
         -------
         key_name : str or None
+            Returns the name of the given key if one was found by `pynput`_.
+            Otherwise, it returns :obj:`None`.
 
         """
         if hasattr(key, 'char'):
@@ -737,18 +743,20 @@ def setkeymap(key_to_channel_map):
     can be modified by providing your own mapping :obj:`key_to_channel_map`
     containing only the keys and channels that you want to be modified.
 
-    **For example**::
-
-        key_to_channel_map:
-        {
-            "q": 23,
-            "w": 24,
-            "e": 25
-        }
-
     Parameters
     ----------
-    key_to_channel_map
+    key_to_channel_map : dict
+        A dictionary mapping keys and GPIO channels that will be used to update
+        the default keymap found in :mod:`SimulRPi.mapping`.
+
+        **For example**::
+
+            key_to_channel_map:
+            {
+                "q": 23,
+                "w": 24,
+                "e": 25
+            }
 
     """
     manager.update_keymap(key_to_channel_map)
