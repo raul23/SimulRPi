@@ -235,6 +235,7 @@ class PinDB:
         if pin:
             old_key = pin.key
             pin.key = key
+            # Since the key
             del self._key_to_pin_map[old_key]
             self._key_to_pin_map[key] = pin
             return True
@@ -262,6 +263,33 @@ class PinDB:
 
         """
         pin = self.get_pin_from_channel(channel)
+        if pin:
+            pin.state = state
+            return True
+        else:
+            return False
+
+    def set_pin_state_from_key(self, key, state):
+        """Set a :class:`Pin`\'s state from a given key.
+
+        A :class:`Pin` is retrieved based on a given key, then its
+        :attr:`state` is set with `state`.
+
+        Parameters
+        ----------
+        channel : int
+            GPIO channel number associated with the :class:`Pin` whose state
+            will be set.
+        state : int
+            State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
+        Returns
+        -------
+        retval : bool
+            Returns `True` if the :class:`Pin` was successfully set with `state`.
+            Otherwise, it returns `False`.
+
+        """
+        pin = self.get_pin_from_key(key)
         if pin:
             pin.state = state
             return True
@@ -400,49 +428,80 @@ class Manager:
                 print('  {}\r'.format(leds), end="")
         logger.info("Stopping thread: {}()".format(self.display_leds.__name__))
 
-    def on_press(self, key):
+    @staticmethod
+    def get_key_name(key):
         """
 
         Parameters
         ----------
         key
 
+        Returns
+        -------
+
         """
-        try:
-            # print('alphanumeric key {0} pressed'.format(
-            #      key.char))
-            if str(key.char).isalnum():
-                pin = self.pin_db.get_pin_from_key(key.char)
-                if pin:
-                    pin.state = LOW
-        except AttributeError:
-            # print('special key {0} pressed'.format(
-            #  key))
-            pass
+        if hasattr(key, 'char'):
+            # Alphanumeric key
+            key_name = key.char
+        elif hasattr(key, 'name'):
+            # Special key
+            key_name = key.name
+        else:
+            # Unknown key
+            key_name = None
+        return key_name
 
-    def on_release(self, key):
-        """When a valid key is released, set its state to `GPIO.HIGH`.
+    def on_press(self, key):
+        """When a valid key is pressed, set its state to `GPIO.HIGH`.
 
-        `pynput`_ is used to monitor the keyboard for any valid key released.
+        Callback invoked from the thread :attr:`GPIO.Manager.listener`.
+
+        This thread is used to monitor the keyboard for any valid key released.
         Only keys defined in the pin database are treated, i.e. keys that were
         configured with :meth:`GPIO.setup` are further processed.
 
-        Once a valid key is detected as released, its state is change to
+        Once a valid key is detected as released, its state is changed to
         `GPIO.HIGH`.
 
         Parameters
         ----------
-        key :
+        key : pynput.keyboard.Key, pynput.keyboard.KeyCode, or None
+            The key parameter passed to callbacks is
+
+            * a :class:`pynput.keyboard.Key` for special keys,
+            * a :class:`pynput.keyboard.KeyCode` for normal alphanumeric keys, or
+            * :obj:`None` for unknown keys.
+
+            **Ref.:** https://bit.ly/3k4whEs
 
         """
-        print(type(key))
-        if key == keyboard.Key.esc:
-            # TODO: Stop listener
-            return False
-        elif hasattr(key, 'char'): # and str(key.char).isalnum():
-            pin = self.pin_db.get_pin_from_key(key.char)
-            if pin:
-                pin.state = HIGH
+        self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=LOW)
+
+    def on_release(self, key):
+        """When a valid key is released, set its state to `GPIO.HIGH`.
+
+        Callback invoked from the thread :attr:`GPIO.Manager.listener`.
+
+        This thread is used to monitor the keyboard for any valid key released.
+        Only keys defined in the pin database are treated, i.e. keys that were
+        configured with :meth:`GPIO.setup` are further processed.
+
+        Once a valid key is detected as released, its state is changed to
+        `GPIO.HIGH`.
+
+        Parameters
+        ----------
+        key : pynput.keyboard.Key, pynput.keyboard.KeyCode, or None
+            The key parameter passed to callbacks is
+
+            * a :class:`pynput.keyboard.Key` for special keys,
+            * a :class:`pynput.keyboard.KeyCode` for normal alphanumeric keys, or
+            * :obj:`None` for unknown keys.
+
+            **Ref.:** https://bit.ly/3k4whEs
+
+        """
+        self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
 
     def update_keymap(self, new_map):
         """Update the default dictionary mapping keys and GPIO channels.
