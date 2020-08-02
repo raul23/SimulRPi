@@ -407,9 +407,9 @@ class Manager:
 
         .. important::
 
-            :meth:`display_leds` should be run by a thread and eventually stopped
-            from the main thread by setting its ``do_run`` attribute to `False` to
-            let the thread exit from its target function.
+            :meth:`display_leds` should be run by a thread and eventually
+            stopped from the main thread by setting its ``do_run`` attribute to
+            `False` to let the thread exit from its target function.
 
             **For example**:
 
@@ -468,16 +468,16 @@ class Manager:
         return key_name
 
     def on_press(self, key):
-        """When a valid key is pressed, set its state to `GPIO.HIGH`.
+        """When a valid key is pressed, set its state to `GPIO.LOW`.
 
         Callback invoked from the thread :attr:`GPIO.Manager.listener`.
 
-        This thread is used to monitor the keyboard for any valid key released.
+        This thread is used to monitor the keyboard for any valid pressed key.
         Only keys defined in the pin database are treated, i.e. keys that were
         configured with :meth:`GPIO.setup` are further processed.
 
         Once a valid key is detected as released, its state is changed to
-        `GPIO.HIGH`.
+        `GPIO.LOW`.
 
         Parameters
         ----------
@@ -498,7 +498,7 @@ class Manager:
 
         Callback invoked from the thread :attr:`GPIO.Manager.listener`.
 
-        This thread is used to monitor the keyboard for any valid key released.
+        This thread is used to monitor the keyboard for any valid released key.
         Only keys defined in the pin database are treated, i.e. keys that were
         configured with :meth:`GPIO.setup` are further processed.
 
@@ -518,17 +518,6 @@ class Manager:
 
         """
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
-
-    @staticmethod
-    def validate_key(key):
-        if hasattr(keyboard.Key, key):
-            # Special key
-            return True
-        elif len(key) == 1 and key.isalnum():
-            # Alphanum key
-            return True
-        else:
-            return False
 
     def update_keymap(self, new_keymap):
         """Update the default dictionary mapping keys and GPIO channels.
@@ -592,6 +581,45 @@ class Manager:
                 msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
                     key, old_ch, new_ch)
             logger.info(msg)
+
+    @staticmethod
+    def validate_key(key):
+        """Validate if a key is recognized by `pynput`_
+
+        A valid key can either be:
+
+            * a :class:`pynput.keyboard.Key` for special keys (e.g. ``tab`` or \
+            ``up``), or
+            * a :class:`pynput.keyboard.KeyCode` for normal alphanumeric keys.
+
+        Parameters
+        ----------
+        key : str
+            The key (e.g. '`tab`') that will be validated.
+
+        Returns
+        -------
+        retval : bool
+            Returns `True` if it's a valid key. Otherwise, it returns `False`.
+
+        References
+        ----------
+        :mod:`pynput` reference: https://pynput.readthedocs.io/en/latest/keyboard.html#reference
+
+        See Also
+        --------
+        :mod:`SimulRPi.mapping` : for a list of special keys supported by
+                                  `pynput`_.
+
+        """
+        if hasattr(keyboard.Key, key):
+            # Special key
+            return True
+        elif len(key) == 1 and key.isalnum():
+            # Alphanum key
+            return True
+        else:
+            return False
 
     def _update_keymaps_and_pin_db(self, key_channels):
         """Update the two internal keymaps and the pin database.
@@ -733,9 +761,9 @@ def setmode(mode):
     There are two ways of numbering the IO pins on a Raspberry Pi within
     `RPi.GPIO`:
 
-    1. The BOARD numbering system: refers to the pin numbers on the P1 header of
-       the Raspberry Pi board
-    2. The BCM numbers: refers to the channel numbers on the Broadcom SOC.
+    1. The `BOARD` numbering system: refers to the pin numbers on the P1 header
+       of the Raspberry Pi board
+    2. The `BCM` numbers: refers to the channel numbers on the Broadcom SOC.
 
     Parameters
     ----------
