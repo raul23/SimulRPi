@@ -15,7 +15,9 @@ package `pynput`_ is used to monitor the keyboard for any key pressed.
 
     o [11]   o [9]   o [10]
 
-where each circle represents a LED (here they are all turn off) and the number
+.. highlight:: python
+
+where each circle represents a LED (here they are all turned off) and the number
 between brackets is the associated GPIO pin number.
 
 .. important::
@@ -41,7 +43,7 @@ from logging import NullHandler
 
 from pynput import keyboard
 
-from SimulRPi.mapping import default_key_channel_mapping
+from SimulRPi.mapping import default_key_to_channel_map
 
 logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
@@ -73,9 +75,11 @@ class Pin:
     key : str or None, optional
         Key associated with the GPIO channel, e.g. "g".
     pull_up_down : int or None, optional
-        Initial value of an input channel, e.g. `GPIO.PUP_UP`.
+        Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default value is
+        :obj:`None`.
     initial : int or None, optional
-        Initial value of an output channel, e.g. `GPIO.HIGH`.
+        Initial value of an output channel, e.g. `GPIO.HIGH`. Default value is
+        :obj:`None`.
 
     Attributes
     ----------
@@ -104,7 +108,7 @@ class PinDB:
 
     .. note::
 
-        The dictionary (a "database" of :class:`GPIO.Pin`\s) must be accessed
+        The dictionary (a "database" of :class:`Pin`\s) must be accessed
         through the different methods available in :class:`PinDB`, e.g.
         :meth:`get_pin_from_channel`.
 
@@ -132,8 +136,11 @@ class PinDB:
         key : str or None, optional
             Key associated with the GPIO channel, e.g. "g".
         pull_up_down : int or None, optional
+            Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default
+            value is :obj:`None`.
         initial : int or None, optional
-            Initial value of an output channel, e.g. `GPIO.HIGH`.
+            Initial value of an output channel, e.g. `GPIO.HIGH`. Default value
+            is :obj:`None`.
 
         """
         self._pins[channel] = Pin(channel, gpio_function, key, pull_up_down,
@@ -214,14 +221,14 @@ class PinDB:
         channel : int
             GPIO channel number associated with the :class:`Pin` whose key will
             be set.
-        new_key : str
+        key : str
             The new key that a :class:`Pin` will be updated with.
 
         Returns
         -------
         retval : bool
-            Returns True if the :class:`Pin` was successfully set with `key`.
-            Otherwise, it returns False.
+            Returns `True` if the :class:`Pin` was successfully set with `key`.
+            Otherwise, it returns `False`.
 
         """
         pin = self.get_pin_from_channel(channel)
@@ -250,8 +257,8 @@ class PinDB:
         Returns
         -------
         retval : bool
-            Returns True if the :class:`Pin` was successfully set with `state`.
-            Otherwise, it returns False.
+            Returns `True` if the :class:`Pin` was successfully set with `state`.
+            Otherwise, it returns `False`.
 
         """
         pin = self.get_pin_from_channel(channel)
@@ -269,28 +276,31 @@ class Manager:
 
     Attributes
     ----------
-    gpio_function : int
+    gpio_function : int, None
             Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+            Default value is :obj:`None`.
     warnings : bool
-
+        Whether to show warnings when using a pin other than the default GPIO
+        function (input). Default value is `True`.
     enable_printing : bool
-
+        Whether to enable printing on the terminal. Default value is `True`.
     pin_db : PinDB
-
+        A :class:`Pin` database. See :class:`PinDB` on how to access it.
     display_th : threading.Thread
-
+        Thread responsible for displaying blinking dots on the terminal as to
+        simulate LEDs turning on/off on the RPi.
     listener : threading.Thread
-
+        Thread responsible for listening on any pressed or released key as to
+        simulate push buttons on the RPi.
     """
     def __init__(self):
-        # import ipdb
-        # ipdb.set_trace()
         self.gpio_function = None
         self.warnings = True
         self.enable_printing = True
         self.pin_db = PinDB()
-        self._key_channel_map = default_key_channel_mapping
-        self._channel_key_map = {v: k for k, v in self._key_channel_map.items()}
+        self._key_to_channel_map = default_key_to_channel_map
+        self._channel_to_key_map = {v: k for k, v in
+                                    self._key_to_channel_map.items()}
         self._ouput_channels = []
         self.display_th = threading.Thread(target=self.display_leds, args=())
         self.listener = keyboard.Listener(
@@ -299,20 +309,30 @@ class Manager:
         self.listener.start()
 
     def add_pin(self, channel, gpio_function, pull_up_down=None, initial=None):
-        """
+        """Add an input or output pin to the pin database.
+
+        An instance of :class:`Pin` is created with the given arguments and
+        added to the pin database :class:`PinDB`.
 
         Parameters
         ----------
-        channel
-        gpio_function
-        pull_up_down
-        initial
+        channel : int
+            GPIO channel number associated with the :class:`Pin` to be added in
+            the pin database.
+        gpio_function : int
+            Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+        pull_up_down : int or None, optional
+            Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default
+            value is :obj:`None`.
+        initial : int or None, optional
+            Initial value of an output channel, e.g. `GPIO.HIGH`. Default value
+            is :obj:`None`.
 
         """
         if gpio_function == IN:
-            # Get user-defined key associated with INPUT pin (button)
+            # Get user-defined key associated with the INPUT pin (button)
             # TODO: raise exception if key not found
-            key = self._channel_key_map.get(channel)
+            key = self._channel_to_key_map.get(channel)
             self.pin_db.create_pin(channel, gpio_function,
                                    key=key,
                                    pull_up_down=pull_up_down,
@@ -325,7 +345,44 @@ class Manager:
             self._ouput_channels.append(channel)
 
     def display_leds(self):
-        """
+        """Simulate LEDs on a RPi by blinking small dots on a terminal.
+
+        In order to simulate LEDs turning on/off on a RPi, small dots are
+        blinked on the terminal along with their GPIO pin number.
+
+        When a LED is turned on, it is shown as a small red circle on the
+        terminal.
+
+        .. highlight:: none
+
+        **Example: terminal output** ::
+
+            o [11]   o [9]   o [10]
+
+        .. highlight:: python
+
+        where each circle represents a LED (here they are all turned off) and
+        the number between brackets is the associated GPIO pin number.
+
+        .. important::
+
+            :meth:`display_leds` should be run by a thread and eventually stopped
+            from the main thread by setting its ``do_run`` attribute to `False` to
+            let the thread exit from its target function.
+
+            **For example**:
+
+            .. code-block:: python
+
+                th = threading.Thread(target=self.display_leds, args=())
+                th.start()
+
+                # Your other code ...
+
+                # Time to stop thread
+                th.do_run = False
+                th.join()
+
         """
         if self.enable_printing:
             print()
@@ -341,7 +398,7 @@ class Manager:
                 leds += led + ' [{}]   '.format(channel)
             if self.enable_printing:
                 print('  {}\r'.format(leds), end="")
-        logger.info("Stopping thread: display_leds()")
+        logger.info("Stopping thread: {}()".format(self.display_leds.__name__))
 
     def on_press(self, key):
         """
@@ -364,53 +421,107 @@ class Manager:
             pass
 
     def on_release(self, key):
-        """
+        """When a valid key is released, set its state to `GPIO.HIGH`.
+
+        `pynput`_ is used to monitor the keyboard for any valid key released.
+        Only keys defined in the pin database are treated, i.e. keys that were
+        configured with :meth:`GPIO.setup` are further processed.
+
+        Once a valid key is detected as released, its state is change to
+        `GPIO.HIGH`.
 
         Parameters
         ----------
-        key
+        key :
 
         """
+        print(type(key))
         if key == keyboard.Key.esc:
             # TODO: Stop listener
             return False
-        elif hasattr(key, 'char') and str(key.char).isalnum():
+        elif hasattr(key, 'char'): # and str(key.char).isalnum():
             pin = self.pin_db.get_pin_from_key(key.char)
             if pin:
                 pin.state = HIGH
 
     def update_keymap(self, new_map):
-        """
+        """Update the default dictionary mapping keys and GPIO channels.
+
+        ``new_map`` is a dictionary mapping some keys to their new GPIO
+        channels, different from the default key-channel mapping defined in
+        :mod:`SimulRPi.mapping`.
 
         Parameters
         ----------
-        new_map
+        new_map : dict
+            Dictionary that maps keys to their new GPIO channels.
+
+            **For example**::
+
+                "key_to_channel_map":
+                {
+                    "f": 24,
+                    "g": 25,
+                    "h": 23
+                }
 
         """
         # TODO: test uniqueness in channel numbers of new map
         assert len(set(new_map.values())) == len(new_map)
-        msg = "Update of Key-to-Channel Mapping:\n"
-        update_count = 0
-        for key, new_ch in new_map.items():
-            orig_ch = self._key_channel_map.get(key)
-            other_key = self._channel_key_map.get(new_ch)
-            if key == other_key and new_ch == orig_ch:
+        orig_keych = {}
+        for key1, new_ch in new_map.items():
+            old_ch = self._key_to_channel_map.get(key1)
+            key2 = self._channel_to_key_map.get(new_ch)
+            if key1 == key2 and new_ch == old_ch:
                 # No updates
                 continue
             else:
-                update_count += 1
-            self._key_channel_map[other_key] = orig_ch
-            self._key_channel_map[key] = new_ch
-            msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
-                other_key, new_ch, orig_ch)
-            msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
-                key, orig_ch, new_ch)
-            self.pin_db.set_pin_key_from_channel(new_ch, key)
-            self.pin_db.set_pin_key_from_channel(orig_ch, other_key)
-        if update_count:
+                orig_keych.setdefault(key1, old_ch)
+                orig_keych.setdefault(key2, new_ch)
+            self._update_keymaps_and_pin_db(
+                key_channels=[(key1, new_ch), (key2, old_ch)])
+        if orig_keych:
+            # Updates
+            msg = "Update of Key-to-Channel Mapping:\n"
+            for key, old_ch in orig_keych.items():
+                new_ch = self._key_to_channel_map.get(key)
+                msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
+                    key, old_ch, new_ch)
             logger.info(msg)
-            self._channel_key_map = {v: k for k, v in
-                                     self._key_channel_map.items()}
+
+    def _update_keymaps_and_pin_db(self, key_channels):
+        """Update the two internal keymaps and the pin database.
+
+        :obj:`key_channels` is a list of two-tuples where each tuple contains
+        the key and its new channel with which it needs to be updated.
+
+        The different internal data structures need to be updated to reflect
+        these changes:
+
+        * the two semi-private keymaps :obj:`_key_to_channel_map` and \
+        :obj:`_channel_to_key_map`
+        * the pin database who is an instance of :class:`PinDB`
+
+        Parameters
+        ----------
+        key_channels : list of tuple
+            Where each tuple contains the key and its new channel with which it
+            needs to be updated.
+
+            **For example**::
+
+                key_channels = [('f', 25), ('g', 23)])
+
+            where the key *'f'* will be mapped to the GPIO channel 25 and the
+            key *'g'* to the GPIO channel 23.
+
+        """
+        for keych in key_channels:
+            key = keych[0]
+            channel = keych[1]
+            self._key_to_channel_map[key] = channel
+            self._channel_to_key_map[channel] = key
+            self.pin_db.set_pin_key_from_channel(channel, key)
 
 
 manager = Manager()
@@ -487,7 +598,21 @@ def output(channel, state):
 
 
 def setkeymap(key_to_channel_map):
-    """
+    """Set the keymap dictionary with new keys and channels.
+
+    The default dictionary :obj:`default_key_to_channel_map` (defined in
+    :mod:`SimulRPi.mapping` that maps keys from the keyboard to GPIO channels
+    can be modified by providing your own mapping :obj:`key_to_channel_map`
+    containing only the keys and channels that you want to be modified.
+
+    **For example**::
+
+        key_to_channel_map:
+        {
+            "q": 23,
+            "w": 24,
+            "e": 25
+        }
 
     Parameters
     ----------
@@ -523,13 +648,19 @@ def setmode(mode):
 
 
 def setprinting(enable_printing):
-    """
+    """Enable printing on the terminal.
+
+    If printing is enabled, blinking red dots will be shown on the terminal,
+    simulating LEDs on a Raspberry Pi. Otherwise, nothing will be printed on
+    the terminal.
 
     Parameters
     ----------
-    enable_printing
+    enable_printing : bool
+        Whether to enable printing on the terminal.
 
     """
+    # TODO: stop thread too?
     manager.enable_printing = enable_printing
 
 
@@ -557,9 +688,11 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
     gpio_function : int
         Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
     pull_up_down : int or None, optional
-        Initial value of an input channel, e.g. `GPIO.PUP_UP`.
+        Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default value is
+        :obj:`None`.
     initial : int or None, optional
-        Initial value of an output channel, e.g. `GPIO.HIGH`.
+        Initial value of an output channel, e.g. `GPIO.HIGH`. Default value is
+        :obj:`None`.
 
     References
     ----------
@@ -581,8 +714,8 @@ def setwarnings(show_warnings):
     Parameters
     ----------
     show_warnings : bool
-        Whether to show warnings when using a pin other than the default
-        GPIO function (input).
+        Whether to show warnings when using a pin other than the default GPIO
+        function (input).
 
     """
     manager.warnings = show_warnings
