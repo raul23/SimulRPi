@@ -21,7 +21,7 @@ It simulates these I/O devices connected to a Raspberry Pi:
 
 - push buttons by listening to keys pressed/released on the keyboard and
 - LEDs by displaying small dots blinking on the terminal along with their GPIO\
-pin number.
+  pin number.
 
 When a LED is turned on, it is shown as a small red circle on the terminal. The
 package `pynput <https://pynput.readthedocs.io/>`_ is used to monitor the
