@@ -115,7 +115,7 @@ class PinDB:
     """
     def __init__(self):
         self._pins = {}
-        # Only INPUT keys
+        # The other dict is only for INPUT channels with an associated key
         # TODO: explain more
         self._key_to_pin_map = {}
 
@@ -123,8 +123,10 @@ class PinDB:
                    initial=None):
         """Instantiate :class:`GPIO.Pin` and save it in a dictionary.
 
-        Based on the given parameters, an instance of :class:`GPIO.Pin` is
-        created and added to a dictionary.
+        Based on the given arguments, an instance of :class:`GPIO.Pin` is
+        created and added to a dictionary that acts like a database of pins
+        with key being the pin's channel and the value is an instance of
+        :class:`Pin`.
 
         Parameters
         ----------
@@ -145,7 +147,10 @@ class PinDB:
         """
         self._pins[channel] = Pin(channel, gpio_function, key, pull_up_down,
                                   initial)
+        # Update the other internal dict if key is given
         if key:
+            # Input
+            # TODO: assert on gpop_function which should be INPUT?
             self._key_to_pin_map[key] = self._pins[channel]
 
     def get_pin_from_channel(self, channel):
@@ -161,7 +166,8 @@ class PinDB:
         -------
         Pin : :class:`GPIO.Pin` or :obj:`None`
             If no :class:`Pin` could be retrieved based on a channel,
-            :obj:`None` is returned.
+            :obj:`None` is returned. Otherwise, a :class:`Pin` object is
+            returned.
 
         """
         return self._pins.get(channel)
@@ -179,7 +185,8 @@ class PinDB:
         -------
         Pin : :class:`GPIO.Pin` or :obj:`None`
             If no :class:`Pin` could be retrieved based on a pressed/released
-            key, :obj:`None` is returned.
+            key, :obj:`None` is returned. Otherwise, a :class:`Pin` object is
+            returned.
 
         """
         return self._key_to_pin_map.get(key)
@@ -235,7 +242,9 @@ class PinDB:
         if pin:
             old_key = pin.key
             pin.key = key
-            # Since the key
+            # TODO: only update dict if the key is different from the actual
+            # pin's key but then return True or False if no update?
+            # if key != old_key:
             del self._key_to_pin_map[old_key]
             self._key_to_pin_map[key] = pin
             return True
@@ -254,16 +263,18 @@ class PinDB:
             GPIO channel number associated with the :class:`Pin` whose state
             will be set.
         state : int
-            State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
+            State the GPIO channel should take: 1 (`HIGH`) or 0 (`LOW`).
         Returns
         -------
         retval : bool
-            Returns `True` if the :class:`Pin` was successfully set with `state`.
-            Otherwise, it returns `False`.
+            Returns `True` if the :class:`Pin` was successfully set with
+            `state`. Otherwise, it returns `False` because the pin doesn't
+            exist based on the given `channel`.
 
         """
         pin = self.get_pin_from_channel(channel)
         if pin:
+            # TODO: only update state if the state is different from the actual
             pin.state = state
             return True
         else:
@@ -281,16 +292,18 @@ class PinDB:
             GPIO channel number associated with the :class:`Pin` whose state
             will be set.
         state : int
-            State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
+            State the GPIO channel should take: 1 (`HIGH`) or 0 (`LOW`).
         Returns
         -------
         retval : bool
-            Returns `True` if the :class:`Pin` was successfully set with `state`.
-            Otherwise, it returns `False`.
+            Returns `True` if the :class:`Pin` was successfully set with
+            `state`. Otherwise, it returns `False` because the pin doesn't
+            exist based on the given `key`.
 
         """
         pin = self.get_pin_from_key(key)
         if pin:
+            # TODO: only update state if the state is different from the actual
             pin.state = state
             return True
         else:
@@ -425,7 +438,9 @@ class Manager:
                     led = 'o'
                 leds += led + ' [{}]   '.format(channel)
             if self.enable_printing:
-                print('  {}\r'.format(leds), end="")
+                # TODO: if no spaces after LEDs, then if you press tab or down,
+                # it will mess up the display to the right
+                print('  {}     \r'.format(leds), end="")
         logger.info("Stopping thread: {}()".format(self.display_leds.__name__))
 
     @staticmethod
@@ -434,10 +449,11 @@ class Manager:
 
         Parameters
         ----------
-        key
+        key : str
 
         Returns
         -------
+        key_name : str or None
 
         """
         if hasattr(key, 'char'):
@@ -503,16 +519,27 @@ class Manager:
         """
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
 
-    def update_keymap(self, new_map):
+    @staticmethod
+    def validate_key(key):
+        if hasattr(keyboard.Key, key):
+            # Special key
+            return True
+        elif len(key) == 1 and key.isalnum():
+            # Alphanum key
+            return True
+        else:
+            return False
+
+    def update_keymap(self, new_keymap):
         """Update the default dictionary mapping keys and GPIO channels.
 
-        ``new_map`` is a dictionary mapping some keys to their new GPIO
+        ``new_keymap`` is a dictionary mapping some keys to their new GPIO
         channels, different from the default key-channel mapping defined in
         :mod:`SimulRPi.mapping`.
 
         Parameters
         ----------
-        new_map : dict
+        new_keymap : dict
             Dictionary that maps keys to their new GPIO channels.
 
             **For example**::
@@ -525,23 +552,41 @@ class Manager:
                 }
 
         """
+        # TODO: assert keys (str) and channels (int)
         # TODO: test uniqueness in channel numbers of new map
-        assert len(set(new_map.values())) == len(new_map)
+        assert len(set(new_keymap.values())) == len(new_keymap)
         orig_keych = {}
-        for key1, new_ch in new_map.items():
+        for key1, new_ch in new_keymap.items():
             old_ch = self._key_to_channel_map.get(key1)
+            # Case 1: if key's channel is not found, maybe it is a special key
+            # or an alphanum not already in the keymap
+            # Validate the key before updating the keymaps
+            if old_ch is None and not self.validate_key(key1):
+                # Invalid key: the key is neither a special nor an alphanum key
+                orig_keych.setdefault(key1, None)
+                raise LookupError("The key '{}' is invalid: only special and "
+                                  "alphanum keys are accepted".format(key1))
             key2 = self._channel_to_key_map.get(new_ch)
-            if key1 == key2 and new_ch == old_ch:
-                # No updates
+            if key2 is None:
+                # Case 2: the new channel is not associated with any key in the
+                # keymap. Thus, add the key with the new channel in the keymaps
+                orig_keych.setdefault(key1, None)
+                self._update_keymaps_and_pin_db(key_channels=[(key1, new_ch)])
+                continue
+            elif key1 == key2 and new_ch == old_ch:
+                # Case 3: No update necessary since the key with the given
+                # channel is already in the keymap.
                 continue
             else:
+                # Case 4: Update the keymaps to reflect the key with the new
+                # given channel.
                 orig_keych.setdefault(key1, old_ch)
                 orig_keych.setdefault(key2, new_ch)
-            self._update_keymaps_and_pin_db(
-                key_channels=[(key1, new_ch), (key2, old_ch)])
+                self._update_keymaps_and_pin_db(
+                    key_channels=[(key1, new_ch), (key2, old_ch)])
         if orig_keych:
-            # Updates
-            msg = "Update of Key-to-Channel Mapping:\n"
+            # There were updates and/or there are invalid keys
+            msg = "Update of Key-to-Channel Map:\n"
             for key, old_ch in orig_keych.items():
                 new_ch = self._key_to_channel_map.get(key)
                 msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
@@ -652,7 +697,7 @@ def output(channel, state):
         # thread is being killed in the main thread. is_alive() returns False
         # since the thread was killed and then it is being started once again.
         # By catching this RuntimeError, we give time to the main thread to
-        # exit gracefully without this function crashing anything.
+        # exit gracefully without this function crashing the program.
         logger.debug(e)
 
 
