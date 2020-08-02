@@ -13,7 +13,7 @@ are 28 GPIO channels.
 
 References
 ----------
-RPi GPIO Header: https://bit.ly/30ZM2Uj
+**RPi Header**: https://bit.ly/30ZM2Uj
 
 .. important::
 
@@ -22,7 +22,7 @@ RPi GPIO Header: https://bit.ly/30ZM2Uj
 """
 
 # START
-default_key_channel_mapping = {
+default_key_to_channel_map = {
     "0": 0,
     "1": 1,
     "2": 2,
