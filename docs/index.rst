@@ -17,6 +17,11 @@ SimulRPi's documentation
    README
    api_reference
 
+**SimulRPi** is a library that partly fakes
+`RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
+on a Raspberry Pi. See the `README <README.html>`_ for more info about the
+library.
+
 
 Indices and tables
 ==================
