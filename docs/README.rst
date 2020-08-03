@@ -28,6 +28,7 @@ package `pynput <https://pynput.readthedocs.io/>`_ is used to monitor the
 keyboard for any pressed key.
 
 **Example: terminal output**
+
 .. raw:: html
 
    <div align="center">
