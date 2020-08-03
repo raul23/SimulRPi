@@ -36,6 +36,6 @@ keyboard for any pressed key.
    <p><b>Simulating LEDs on a RPi via a terminal</b></p>
    </div>
 
-Each circle represents a LED blinking on a RPi and the number between brackets 
+Each circle represents a LED blinking on an RPi and the number between brackets 
 is the associated GPIO channel number. Here the "LED" on channel 22 toggles
 between on and off when a key is pressed.
