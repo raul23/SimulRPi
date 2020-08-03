@@ -27,9 +27,13 @@ When a LED is turned on, it is shown as a small red circle on the terminal. The
 package `pynput <https://pynput.readthedocs.io/>`_ is used to monitor the
 keyboard for any pressed key.
 
-**Example: terminal output** ::
+**Example: terminal output**
+.. raw:: html
 
-    o [11]   o [9]   o [10]
+   <div align="center">
+   <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
+   <p><b>Turning on/off the lightsaber</b></p>
+   </div>
 
 where each circle represents a LED (here they are all turned off) and the number
 between brackets is the associated GPIO pin number.
