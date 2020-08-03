@@ -33,7 +33,7 @@ keyboard for any pressed key.
 
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
-   <p><b>Simulating LEDs on a RPi via a terminal</b></p>
+   <p><b>Simulating LEDs on an RPi via a terminal</b></p>
    </div>
 
 Each circle represents a LED blinking on an RPi and the number between brackets 
