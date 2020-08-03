@@ -1,10 +1,15 @@
 ======
 README
 ======
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
+.. 
+   image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :align: center
    :alt: SimulRPi logo
+   
+.. raw:: html
+
+   <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png"></p>
 
 .. image:: https://readthedocs.org/projects/simulrpi/badge/?version=latest
    :target: https://simulrpi.readthedocs.io/en/latest/?badge=latest
@@ -33,11 +38,18 @@ keyboard for any pressed key.
 
 **Example: terminal output**
 
-.. image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
+.. 
+   image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
    :target: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
    :align: center
    :alt: Simulating LEDs on an RPi via a terminal
 
+.. raw:: html
+
+   <div align="center">
+   <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
+   <p><b>Simulating LEDs on an RPi via a terminal</b></p>
+   </div>
 
 Each circle represents a LED blinking on an RPi and the number between brackets 
 is the associated GPIO channel number. Here the "LED" on channel 22 toggles
