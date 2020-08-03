@@ -33,8 +33,8 @@ keyboard for any pressed key.
 
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
-   <p><b>Turning on/off the lightsaber</b></p>
+   <p><b>Simulating LEDs on a RPi via a terminal</b></p>
    </div>
 
-where each circle represents a LED (here they are all turned off) and the number
+Each circle represents a LED (here they are all turned off) and the number
 between brackets is the associated GPIO pin number.
