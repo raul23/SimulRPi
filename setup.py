@@ -17,24 +17,30 @@ dirpath = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(dirpath, "README.rst")) as f:
     README = f.read()
 
+# The text of the requirements.txt file
+with open(os.path.join(dirpath, "requirements.txt")) as f:
+    REQUIREMENTS = f.read().split()
+
 setup(name='SimulRPi',
       version=__version__,
-      description='WRITEME',
+      description='A library that partly fakes RPi.GPIO and simulates some I/O '
+                  'devices on a Raspberry Pi.',
       long_description=README,
       long_description_content_type='text/x-rst',
       classifiers=[
+        "Intended Audience :: Developers",
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        "Natural Language :: English",
+        'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Topic :: Software Development :: Libraries'
+        'Topic :: Software Development :: Libraries',
       ],
-      keywords='python raspberrypi rpi library simulation',
+      keywords='python Raspberry Pi GPIO raspberrypi rpi library simulation',
       url='https://github.com/raul23/SimulRPi',
       author='Raul C.',
       author_email='rchfe23@gmail.com',
       license='GPLv3',
       packages=find_packages(exclude=['tests']),
       include_package_data=True,
-      install_requires=[
-          'pynput'
-      ],
+      install_requires=REQUIREMENTS,
       zip_safe=False)
