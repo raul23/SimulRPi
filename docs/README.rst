@@ -16,6 +16,7 @@ README
    :alt: Build Status
    :align: left
 
+
 **SimulRPi** is a library that partly fakes
 `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
@@ -36,6 +37,7 @@ keyboard for any pressed key.
    :target: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
    :align: center
    :alt: Simulating LEDs on an RPi via a terminal
+
 
 Each circle represents a LED blinking on an RPi and the number between brackets 
 is the associated GPIO channel number. Here the "LED" on channel 22 toggles
