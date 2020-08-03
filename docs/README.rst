@@ -37,4 +37,5 @@ keyboard for any pressed key.
    </div>
 
 Each circle represents a LED blinking on a RPi and the number between brackets 
-is the associated GPIO pin number.
+is the associated GPIO channel number. Here the GPIO channel 22 turns on when
+a key is pressed.
