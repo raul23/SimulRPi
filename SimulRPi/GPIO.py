@@ -73,7 +73,7 @@ class Pin:
     gpio_function : int
         Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
     key : str or None, optional
-        Key associated with the GPIO channel, e.g. "g".
+        Key associated with the GPIO channel, e.g. "k".
     pull_up_down : int or None, optional
         Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default value is
         :obj:`None`.
@@ -121,7 +121,7 @@ class PinDB:
 
     def create_pin(self, channel, gpio_function, key=None, pull_up_down=None,
                    initial=None):
-        """Instantiate :class:`GPIO.Pin` and save it in a dictionary.
+        """Create an instance of :class:`GPIO.Pin` and save it in a dictionary.
 
         Based on the given arguments, an instance of :class:`GPIO.Pin` is
         created and added to a dictionary that acts like a database of pins
@@ -131,12 +131,12 @@ class PinDB:
         Parameters
         ----------
         channel : int
-            GPIO channel number based on the numbering system you have specified
-            (`BOARD` or `BCM`).
+            GPIO channel number based on the numbering system you have
+            specified (`BOARD` or `BCM`).
         gpio_function : int
             Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
         key : str or None, optional
-            Key associated with the GPIO channel, e.g. "g".
+            Key associated with the GPIO channel, e.g. "k".
         pull_up_down : int or None, optional
             Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default
             value is :obj:`None`.
@@ -165,7 +165,7 @@ class PinDB:
         Returns
         -------
         Pin : :class:`GPIO.Pin` or :obj:`None`
-            If no :class:`Pin` could be retrieved based on a channel,
+            If no :class:`Pin` could be retrieved based on the given channel,
             :obj:`None` is returned. Otherwise, a :class:`Pin` object is
             returned.
 
@@ -184,8 +184,8 @@ class PinDB:
         Returns
         -------
         Pin : :class:`GPIO.Pin` or :obj:`None`
-            If no :class:`Pin` could be retrieved based on a pressed/released
-            key, :obj:`None` is returned. Otherwise, a :class:`Pin` object is
+            If no :class:`Pin` could be retrieved based on the given key,
+            :obj:`None` is returned. Otherwise, a :class:`Pin` object is
             returned.
 
         """
@@ -370,20 +370,20 @@ class Manager:
             is :obj:`None`.
 
         """
+        key = None
         if gpio_function == IN:
-            # Get user-defined key associated with the INPUT pin (button)
+            # Get key associated with the INPUT pin (button)
             # TODO: raise exception if key not found
             key = self._channel_to_key_map.get(channel)
-            self.pin_db.create_pin(channel, gpio_function,
-                                   key=key,
-                                   pull_up_down=pull_up_down,
-                                   initial=initial)
         elif gpio_function == OUT:
             # No key since it is an OUTPUT pin (e.g. LED)
-            self.pin_db.create_pin(channel, gpio_function,
-                                   pull_up_down=pull_up_down,
-                                   initial=initial)
+            # Save the channel so the thread that displays LEDs knows what
+            # channels are OUTPUT and therefore connected to LEDs.
             self._ouput_channels.append(channel)
+        self.pin_db.create_pin(channel, gpio_function,
+                               key=key,
+                               pull_up_down=pull_up_down,
+                               initial=initial)
 
     def display_leds(self):
         """Simulate LEDs on a RPi by blinking small dots on a terminal.
@@ -482,7 +482,7 @@ class Manager:
         Only keys defined in the pin database are treated, i.e. keys that were
         configured with :meth:`GPIO.setup` are further processed.
 
-        Once a valid key is detected as released, its state is changed to
+        Once a valid key is detected as pressed, its state is changed to
         `GPIO.LOW`.
 
         Parameters
@@ -529,8 +529,8 @@ class Manager:
         """Update the default dictionary mapping keys and GPIO channels.
 
         ``new_keymap`` is a dictionary mapping some keys to their new GPIO
-        channels, different from the default key-channel mapping defined in
-        :mod:`SimulRPi.mapping`.
+        channels, and will be used to update the default key-channel mapping
+        defined in :mod:`SimulRPi.mapping`.
 
         Parameters
         ----------
@@ -618,14 +618,13 @@ class Manager:
                                   `pynput`_.
 
         """
-        if hasattr(keyboard.Key, key):
-            # Special key
-            return True
-        elif len(key) == 1 and key.isalnum():
-            # Alphanum key
-            return True
-        else:
+        if not hasattr(keyboard.Key, key) and \
+                not (len(key) == 1 and key.isalnum()):
+            # Unrecognized key
+            # Neither a special key nor an alphanum key
             return False
+        else:
+            return True
 
     def _update_keymaps_and_pin_db(self, key_channels):
         """Update the two internal keymaps and the pin database.
@@ -668,13 +667,14 @@ manager = Manager()
 def cleanup():
     """Clean up any resources (e.g. GPIO channels).
 
-    At the end any program, it is good practice to clean up any resources you
-    might have used. This is no different with RPi.GPIO. By returning all
-    channels you have used back to inputs with no pull up/down, you can avoid
-    accidental damage to your RPi by shorting out the pins. [`RPi.GPIO wiki`_]
+    At the end of any program, it is good practice to clean up any resources
+    you might have used. This is no different with `RPi.GPIO`_. By returning
+    all channels you have used back to inputs with no pull up/down, you can
+    avoid accidental damage to your RPi by shorting out the pins.
+    [`RPi.GPIO wiki`_]
 
     Also, the two threads responsible for displaying "LEDs" on the terminal and
-    listening for keys pressed/released are stopped.
+    listening for pressed/released keys are stopped.
 
     .. note::
 
