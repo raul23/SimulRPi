@@ -15,7 +15,7 @@ README
 
 **SimulRPi** is a library that partly fakes
 `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
-on a Raspberry Pi.
+on a Raspberry Pi (RPi).
 
 It simulates these I/O devices connected to a Raspberry Pi:
 
