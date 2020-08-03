@@ -36,5 +36,5 @@ keyboard for any pressed key.
    <p><b>Simulating LEDs on a RPi via a terminal</b></p>
    </div>
 
-Each circle represents a LED (here they are all turned off) and the number
-between brackets is the associated GPIO pin number.
+Each circle represents a LED blinking on a RPi and the number between brackets 
+is the associated GPIO pin number.
