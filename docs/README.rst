@@ -9,7 +9,7 @@ README
 .. image:: https://readthedocs.org/projects/simulrpi/badge/?version=latest
    :target: https://simulrpi.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
-   :aligh: left
+   :align: left
 
 .. image:: https://travis-ci.org/raul23/SimulRPi.svg?branch=master
    :target: https://travis-ci.org/raul23/SimulRPi
