@@ -351,7 +351,7 @@ class Manager:
         self.listener = keyboard.Listener(
             on_press=self.on_press,
             on_release=self.on_release)
-        # self.listener.start()
+        self.listener.start()
 
     def add_pin(self, channel, gpio_function, pull_up_down=None, initial=None):
         """Add an input or output pin to the pin database.
