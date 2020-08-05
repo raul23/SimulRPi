@@ -1,9 +1,12 @@
+"""
+
+"""
 import time
 import SimulRPi.GPIO as GPIO
 from SimulRPi.mapping import default_key_to_channel_map as default_map
 
 
-def display_led(led_channel, key_channel):
+def blink_led_if_pressed_key(led_channel, key_channel):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(led_channel, GPIO.OUT)
     GPIO.setup(key_channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -27,4 +30,4 @@ def display_led(led_channel, key_channel):
 
 
 if __name__ == '__main__':
-    display_led(10, 20)
+    blink_led_if_pressed_key(10, 20)
