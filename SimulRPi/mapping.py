@@ -77,32 +77,32 @@ References
 
 # START
 default_key_to_channel_map = {
-    "0": 0,
-    "1": 1,
-    "2": 2,
-    "3": 3,
-    "4": 4,
-    "5": 5,
-    "6": 6,
-    "7": 7,
-    "8": 8,
-    "9": 9,
-    "q": 10,
-    "w": 11,
-    "e": 12,
-    "r": 13,
-    "t": 14,
-    "y": 15,
-    "u": 16,
-    "i": 17,
-    "o": 18,
-    "p": 19,
-    "a": 20,
-    "s": 21,
-    "d": 22,
-    "f": 23,
-    "g": 24,
-    "h": 25,
-    "j": 26,
-    "k": 27
+    "0": 0,  # sudo on mac
+    "1": 1,  # sudo on mac
+    "2": 2,  # sudo on mac
+    "3": 3,  # sudo on mac
+    "4": 4,  # sudo on mac
+    "5": 5,  # sudo on mac
+    "6": 6,  # sudo on mac
+    "7": 7,  # sudo on mac
+    "8": 8,  # sudo on mac
+    "9": 9,  # sudo on mac
+    "q": 10,  # sudo on mac
+    "alt": 11,
+    "alt_l": 12,
+    "alt_r": 13,
+    "alt_gr": 14,
+    "cmd": 15,
+    "cmd_l": 16,
+    "cmd_r": 17,
+    "ctrl": 18,
+    "ctrl_l": 19,
+    "ctrl_r": 20,
+    "media_play_pause": 21,
+    "media_volume_down": 22,
+    "media_volume_mute": 23,
+    "media_volume_up": 24,
+    "shift": 25,
+    "shift_l": 26,
+    "shift_r": 27,
 }
