@@ -6,7 +6,7 @@ def display_led(channel):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(channel, GPIO.OUT)
     start = time.time()
-    while (time.time() - start) < 5:
+    while (time.time() - start) < 4:
         try:
             GPIO.output(channel, GPIO.HIGH)
             time.sleep(0.5)
@@ -18,4 +18,4 @@ def display_led(channel):
 
 
 if __name__ == '__main__':
-    display_led(101)
+    display_led(20)
