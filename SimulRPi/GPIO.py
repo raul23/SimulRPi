@@ -38,7 +38,9 @@ between brackets is the associated GPIO pin number.
 
 """
 import logging
+import os
 import threading
+import time
 from logging import NullHandler
 
 from pynput import keyboard
@@ -213,7 +215,7 @@ class PinDB:
         """
         pin = self._pins.get(channel)
         if pin:
-            return self._pins.get(channel).state
+            return pin.state
         else:
             return None
 
@@ -342,12 +344,14 @@ class Manager:
         self._key_to_channel_map = default_key_to_channel_map
         self._channel_to_key_map = {v: k for k, v in
                                     self._key_to_channel_map.items()}
-        self._ouput_channels = []
+        self._output_channels = []
+        self.nb_prints = 0
+        self._leds = None
         self.display_th = threading.Thread(target=self.display_leds, args=())
         self.listener = keyboard.Listener(
             on_press=self.on_press,
             on_release=self.on_release)
-        self.listener.start()
+        # self.listener.start()
 
     def add_pin(self, channel, gpio_function, pull_up_down=None, initial=None):
         """Add an input or output pin to the pin database.
@@ -379,7 +383,7 @@ class Manager:
             # No key since it is an OUTPUT pin (e.g. LED)
             # Save the channel so the thread that displays LEDs knows what
             # channels are OUTPUT and therefore connected to LEDs.
-            self._ouput_channels.append(channel)
+            self._output_channels.append(channel)
         self.pin_db.create_pin(channel, gpio_function,
                                key=key,
                                pull_up_down=pull_up_down,
@@ -426,21 +430,33 @@ class Manager:
 
         """
         if self.enable_printing:
+            os.system("tput civis")
             print()
         t = threading.currentThread()
         while getattr(t, "do_run", True):
-            leds = ''
+            self._leds = ""
+            last_msg_length = len(self._leds) if self._leds else 0
             # for channel in sorted(self.channel_output_state_map):
-            for channel in self._ouput_channels:
-                if self.pin_db.get_pin_from_channel(channel).state == HIGH:
-                    led = "\033[31mo\033[0m"
+            for channel in self._output_channels:
+                pin = self.pin_db.get_pin_from_channel(channel)
+                # TODO: pin could be None
+                if pin.state == HIGH:
+                    # led = "\033[31mo\033[0m"
+                    led = '\033[1;31;48m' + 'o' + '\033[1;37;0m'
+                    # led = 'r'
                 else:
                     led = 'o'
-                leds += led + ' [{}]   '.format(channel)
+                self._leds += led + ' [{}]   '.format(channel)
             if self.enable_printing:
                 # TODO: if no spaces after LEDs, then if you press tab or down,
                 # it will mess up the display to the right
-                print('  {}     \r'.format(leds), end="")
+                print(' ' * last_msg_length, end='\r')
+                # print(self._leds, end='\r')
+                print('  {}     '.format(self._leds), end="\r")
+                # sys.stdout.flush()
+            self.nb_prints += 1
+        if self.enable_printing and self._leds:
+            print('  {}     '.format(self._leds))
         logger.info("Stopping thread: {}()".format(self.display_leds.__name__))
 
     @staticmethod
@@ -462,11 +478,17 @@ class Manager:
             Otherwise, it returns :obj:`None`.
 
         """
+        # print(key)
         if hasattr(key, 'char'):
-            # Alphanumeric key
-            key_name = key.char
+            # Alphanumeric key (keyboard.KeyCode)
+            if key.char == '\x05':
+                key_name = "insert"
+            elif key.char == '\x1b':
+                key_name = "num_lock"
+            else:
+                key_name = key.char
         elif hasattr(key, 'name'):
-            # Special key
+            # Special key (keyboard.Key)
             key_name = key.name
         else:
             # Unknown key
@@ -684,8 +706,23 @@ def cleanup():
         **Ref.:** `RPi.GPIO wiki`_
 
     """
-    manager.display_th.do_run = False
-    manager.display_th.join()
+    # TODO; first solution was time.sleep(0.01)
+    # Wait a little bit to give the display thread a little bit of time to
+    # display something but no more than 0.3 seconds
+    os.system("tput cnorm ")
+    start = time.time()
+    while manager.nb_prints == 0:
+        if time.time() - start > 0.3:
+            # print("break")
+            break
+    # print(time.time() - start)
+    # Check if display thread is alive. If the ser didn't setup any output
+    # channels for LEDs, then the display thread was never started
+    if manager.display_th.is_alive():
+        manager.display_th.do_run = False
+        manager.display_th.join()
+    # TODO: should the listener thread be started in input (display thread is
+    # started in output) and not when GPIO is imported (in Manager.__init__())
     manager.listener.stop()
 
 
