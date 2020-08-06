@@ -341,9 +341,9 @@ class Manager:
         self.warnings = True
         self.enable_printing = True
         self.pin_db = PinDB()
-        self._key_to_channel_map = default_key_to_channel_map
-        self._channel_to_key_map = {v: k for k, v in
-                                    self._key_to_channel_map.items()}
+        self.key_to_channel_map = default_key_to_channel_map
+        self.channel_to_key_map = {v: k for k, v in
+                                   self.key_to_channel_map.items()}
         self._output_channels = []
         self.nb_prints = 0
         self._leds = None
@@ -378,7 +378,7 @@ class Manager:
         if gpio_function == IN:
             # Get key associated with the INPUT pin (button)
             # TODO: raise exception if key not found
-            key = self._channel_to_key_map.get(channel)
+            key = self.channel_to_key_map.get(channel)
         elif gpio_function == OUT:
             # No key since it is an OUTPUT pin (e.g. LED)
             # Save the channel so the thread that displays LEDs knows what
@@ -574,7 +574,7 @@ class Manager:
         assert len(set(new_keymap.values())) == len(new_keymap)
         orig_keych = {}
         for key1, new_ch in new_keymap.items():
-            old_ch = self._key_to_channel_map.get(key1)
+            old_ch = self.key_to_channel_map.get(key1)
             # Case 1: if key's channel is not found, maybe it is a special key
             # or an alphanum not already in the keymap
             # Validate the key before updating the keymaps
@@ -583,7 +583,7 @@ class Manager:
                 orig_keych.setdefault(key1, None)
                 raise LookupError("The key '{}' is invalid: only special and "
                                   "alphanum keys are accepted".format(key1))
-            key2 = self._channel_to_key_map.get(new_ch)
+            key2 = self.channel_to_key_map.get(new_ch)
             if key2 is None:
                 # Case 2: the new channel is not associated with any key in the
                 # keymap. Thus, add the key with the new channel in the keymaps
@@ -605,7 +605,7 @@ class Manager:
             # There were updates and/or there are invalid keys
             msg = "Update of Key-to-Channel Map:\n"
             for key, old_ch in orig_keych.items():
-                new_ch = self._key_to_channel_map.get(key)
+                new_ch = self.key_to_channel_map.get(key)
                 msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
                     key, old_ch, new_ch)
             logger.info(msg)
@@ -657,8 +657,8 @@ class Manager:
         The different internal data structures need to be updated to reflect
         these changes:
 
-        * the two semi-private keymaps :obj:`_key_to_channel_map` and \
-        :obj:`_channel_to_key_map`
+        * the two keymaps :obj:`key_to_channel_map` and \
+        :obj:`channel_to_key_map`
         * the pin database who is an instance of :class:`PinDB`
 
         Parameters
@@ -678,8 +678,8 @@ class Manager:
         for keych in key_channels:
             key = keych[0]
             channel = keych[1]
-            self._key_to_channel_map[key] = channel
-            self._channel_to_key_map[channel] = key
+            self.key_to_channel_map[key] = channel
+            self.channel_to_key_map[channel] = key
             self.pin_db.set_pin_key_from_channel(channel, key)
 
 
@@ -713,7 +713,6 @@ def cleanup():
     start = time.time()
     while manager.nb_prints == 0:
         if time.time() - start > 0.3:
-            # print("break")
             break
     # print(time.time() - start)
     # Check if display thread is alive. If the ser didn't setup any output
@@ -732,8 +731,8 @@ def input(channel):
     Parameters
     ----------
     channel : int
-        GPIO channel number based on the numbering system you have specified
-        (`BOARD` or `BCM`).
+        Input GPIO channel number based on the numbering system you have
+        specified (`BOARD` or `BCM`).
 
     Returns
     -------
@@ -753,8 +752,8 @@ def output(channel, state):
     Parameters
     ----------
     channel : int
-        GPIO channel number based on the numbering system you have specified
-        (`BOARD` or `BCM`).
+        Output GPIO channel number based on the numbering system you have
+        specified (`BOARD` or `BCM`).
     state : int
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
