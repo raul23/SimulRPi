@@ -10,16 +10,20 @@ to show what it is capable of simulating from a RPi:
     * Turn on/off LEDs
     * Detect pressed keys and perform an action
 
+To do so, `SimulRPi`_ partly fakes `RPi.GPIO`_.
+
 Usage
 -----
 
-Once the `SimulRPi` package is `installed`_, you should have access to
-the :mod:`start_dv` script:
+.. highlight:: console
 
-    ``run_examples [-h] [-v] -e EXAMPLE_NUMBER [-s]``
-                 ``[-l [LED_CHANNEL [LED_CHANNEL ...]]]``
-                 ``[-b BUTTON_CHANNEL] [-t TOTAL_TIME_BLINKING]``
-                 ``[--on TIME_ON] [--off TIME_OFF]``
+Once the **SimulRPi** package is `installed`_, you should have access to
+the :mod:`run_examples` script::
+
+    run_examples [-h] [-v] -e EXAMPLE_NUMBER [-s]
+                 [-l [LED_CHANNEL [LED_CHANNEL ...]]]
+                 [-b BUTTON_CHANNEL] [-t TOTAL_TIME_BLINKING]
+                 [--on TIME_ON] [--off TIME_OFF]
 
 Run the script on the RPi::
 
