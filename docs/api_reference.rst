@@ -33,7 +33,7 @@ API Reference
 :mod:`SimulRPi.run\_examples`
 ==================================
 
-.. automodule:: SimulRPi.run_examples
+.. automodule:: run_examples
    :members:
    :undoc-members:
    :show-inheritance:
