@@ -75,7 +75,7 @@ References
 
 """
 
-# START
+# [start-section]
 default_key_to_channel_map = {
     "0": 0,  # sudo on mac
     "1": 1,  # sudo on mac
@@ -106,6 +106,7 @@ default_key_to_channel_map = {
     "shift_l": 26,
     "shift_r": 27,
 }
+# [end-section]
 
 default_channel_to_key_map = {v: k for k, v in
                               default_key_to_channel_map.items()}
