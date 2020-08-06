@@ -26,5 +26,14 @@ API Reference
 **Content of the keymap dictionary** (*key:* key from keyboard, *value:* GPIO channel):
 
 .. literalinclude:: ../SimulRPi/mapping.py
-   :language: python
-   :start-after: START
+   :language: Python
+   :start-after: [start-section]
+   :end-before: [end-section]
+
+:mod:`SimulRPi.run\_examples`
+==================================
+
+.. automodule:: SimulRPi.run_examples
+   :members:
+   :undoc-members:
+   :show-inheritance:
