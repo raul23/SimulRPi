@@ -16,7 +16,10 @@ Usage
 Once the `SimulRPi` package is `installed`_, you should have access to
 the :mod:`start_dv` script:
 
-    ``run_examples [-h] [--version] [-s] [-e EXAMPLE]``
+    ``run_examples [-h] [-v] -e EXAMPLE_NUMBER [-s]``
+                 ``[-l [LED_CHANNEL [LED_CHANNEL ...]]]``
+                 ``[-b BUTTON_CHANNEL] [-t TOTAL_TIME_BLINKING]``
+                 ``[--on TIME_ON] [--off TIME_OFF]``
 
 Run the script on the RPi::
 
@@ -38,23 +41,52 @@ simulates `RPi.GPIO`_::
 import argparse
 import time
 from SimulRPi import __version__
-from SimulRPi.mapping import default_key_to_channel_map as default_map
-from SimulRPi.utils import turn_off_led, turn_on_led
+from SimulRPi.mapping import default_channel_to_key_map as channel_key_map
+from SimulRPi.utils import blink_led
 
 
 GPIO = None
+DEFAULT_BUTTON_CHANNEL = 20
+DEFAULT_KEY_NAME = channel_key_map[DEFAULT_BUTTON_CHANNEL]
+DEFAULT_LED_CHANNELS = [10, 11, 12]
+DEFAULT_TOTAL_TIME_BLINKING = 4
+DEFAULT_TIME_ON = 0.5
+DEFAULT_TIME_OFF = 0.5
 
 
-def blink_led(channel, time_on, time_off):
-    # GPIO.output(channel, GPIO.HIGH)
-    turn_on_led(channel)
+def ex1_display_led(channel, time_on=2):
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(channel, GPIO.OUT)
+    GPIO.output(channel, GPIO.HIGH)
     time.sleep(time_on)
-    # GPIO.output(channel, GPIO.LOW)
-    turn_off_led(channel)
-    time.sleep(time_off)
+    GPIO.cleanup()
+    return 0
 
 
-def ex1_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
+def ex2_display_three_leds(channels, time_on):
+    GPIO.setmode(GPIO.BCM)
+    for ch in channels:
+        GPIO.setup(ch, GPIO.OUT)
+        GPIO.output(ch, GPIO.HIGH)
+    time.sleep(time_on)
+    GPIO.cleanup()
+    return 0
+
+
+def ex3_detect_key(channel):
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    key_name = channel_key_map[channel]
+    print("Press the key '{}' to exit".format(key_name))
+    while True:
+        if not GPIO.input(channel):
+            print("The key '{}' was pressed".format(key_name))
+            break
+    GPIO.cleanup()
+    return 0
+
+
+def ex4_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
     """Blink a LED for 4 seconds.
 
     The led is turned on for `time_between_on` seconds, and
@@ -90,13 +122,12 @@ def ex1_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
     return 0
 
 
-def ex4_blink_led_if_key(led_channel, key_channel, total_time_blinking=10,
+def ex5_blink_led_if_key(led_channel, key_channel, total_time_blinking=10,
                          time_on=1, time_off=0.5):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(led_channel, GPIO.OUT)
     GPIO.setup(key_channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    reverse_default = {v: k for k, v in default_map.items()}
-    key_name = reverse_default[key_channel]
+    key_name = channel_key_map[key_channel]
     print("Press key '{}' to blink a LED".format(key_name))
     while True:
         try:
@@ -144,28 +175,32 @@ use of the mock library SimulRPi.''',
                         help="Enable simulation mode, i.e. SimulRPi.GPIO wil "
                              "be used for simulating RPi.GPIO.")
     parser.add_argument(
-        "-l", type=int, dest="led_channel", default=[10, 11, 12], nargs=3,
-        help='''The GPIO channels to be used for LEDs.''')
+        "-l", type=int, dest="led_channel", default=DEFAULT_LED_CHANNELS,
+        nargs="*",
+        help='''The GPIO channels to be used for LEDs. If an example only 
+        requires N channels, the first N channels from the provided list will
+        be used.''')
     parser.add_argument(
-        "-b", type=int, default=20, dest="button_channel",
-        help='''The GPIO channel to be used for a push button.''')
+        "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channel",
+        help='''The GPIO channel to be used for a push button. The default 
+        value is channel 20 which is associated with key `{}`'''.format(
+            DEFAULT_KEY_NAME))
     parser.add_argument(
-        "-t", type=float, default=4, dest="total_time_blinking",
+        "-t", type=float, default=DEFAULT_TOTAL_TIME_BLINKING,
+        dest="total_time_blinking",
         help='''Total time in seconds LEDs will be blinking.''')
     parser.add_argument(
-        "--on", type=float, default=0.5, dest="time_on",
+        "--on", type=float, default=DEFAULT_TIME_ON, dest="time_on",
         help='''Time in seconds the LED will stay turned ON.''')
     parser.add_argument(
-        "--off", type=float, default=0.5, dest="time_off",
+        "--off", type=float, default=DEFAULT_TIME_OFF, dest="time_off",
         help='''Time in seconds the LED will stay turned OFF.''')
     return parser.parse_args()
 
 
 def main():
-    global GPIO, GPIO_utils
+    global GPIO
     args = setup_argparser()
-    import ipdb
-    ipdb.set_trace()
     if args.simulation:
         import SimulRPi.GPIO as GPIO
         print("Simulation mode enabled")
@@ -179,12 +214,18 @@ def main():
     retcode = 1
     try:
         if args.example_number == 1:
-            retcode = ex1_blink_led(args.led_channel[0],
+            retcode = ex1_display_led(args.led_channel[0], args.time_on)
+        elif args.example_number == 2:
+            retcode = ex2_display_three_leds(args.led_channel, args.time_on)
+        elif args.example_number == 3:
+            retcode = ex3_detect_key(args.button_channel)
+        elif args.example_number == 4:
+            retcode = ex4_blink_led(args.led_channel[0],
                                     args.total_time_blinking,
                                     args.time_on,
                                     args.time_off)
-        elif args.example_number == 4:
-            retcode = ex4_blink_led_if_key(args.led_channel[0],
+        elif args.example_number == 5:
+            retcode = ex5_blink_led_if_key(args.led_channel[0],
                                            args.button_channel,
                                            args.total_time_blinking,
                                            args.time_on,
