@@ -8,7 +8,7 @@ The code examples test different parts of the mock library `SimulRPi`_ in order
 to show what it is capable of simulating from a RPi:
 
     * Turn on/off LEDs
-    * Detect pressed keys and perform an action
+    * Detect pressed button and perform an action
 
 To do so, `SimulRPi`_ partly fakes `RPi.GPIO`_.
 
@@ -45,72 +45,127 @@ simulates `RPi.GPIO`_::
 import argparse
 import time
 from SimulRPi import __version__
-from SimulRPi.mapping import default_channel_to_key_map as channel_key_map
-from SimulRPi.utils import blink_led
+from SimulRPi.mapping import default_channel_to_key_map
+from SimulRPi.utils import blink_led, turn_on_led
 
 
 GPIO = None
+SIMULATION = False
 DEFAULT_BUTTON_CHANNEL = 20
-DEFAULT_KEY_NAME = channel_key_map[DEFAULT_BUTTON_CHANNEL]
+DEFAULT_KEY_NAME = default_channel_to_key_map[DEFAULT_BUTTON_CHANNEL]
 DEFAULT_LED_CHANNELS = [10, 11, 12]
 DEFAULT_TOTAL_TIME_BLINKING = 4
-DEFAULT_TIME_ON = 0.5
-DEFAULT_TIME_OFF = 0.5
+DEFAULT_TIME_ON = 1
+DEFAULT_TIME_OFF = 1
 
 
-def ex1_display_led(channel, time_on=2):
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(channel, GPIO.OUT)
-    GPIO.output(channel, GPIO.HIGH)
-    time.sleep(time_on)
-    GPIO.cleanup()
-    return 0
+def _show_msg(msg, channel):
+    if SIMULATION:
+        key_name = GPIO.manager.channel_to_key_map[channel]
+        msg = msg.format("key '{}'".format(key_name))
+    else:
+        msg = msg.format("button")
+    print("\n" + msg)
 
 
-def ex2_display_three_leds(channels, time_on):
-    GPIO.setmode(GPIO.BCM)
-    for ch in channels:
-        GPIO.setup(ch, GPIO.OUT)
-        GPIO.output(ch, GPIO.HIGH)
-    time.sleep(time_on)
-    GPIO.cleanup()
-    return 0
+def _show_msg_pressed_button(channel):
+    _show_msg("The {} was pressed", channel)
 
 
-def ex3_detect_key(channel):
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    key_name = channel_key_map[channel]
-    print("Press the key '{}' to exit".format(key_name))
-    while True:
-        if not GPIO.input(channel):
-            print("The key '{}' was pressed".format(key_name))
-            break
-    GPIO.cleanup()
-    return 0
+def _show_msg_to_turn_on(channel):
+    _show_msg("Press the {} to turn on light", channel)
 
 
-def ex4_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
-    """Blink a LED for 4 seconds.
+def ex1_turn_on_led(channel, time_on=3):
+    """**Example 1:** turn on a LED for some specified time.
 
-    The led is turned on for `time_between_on` seconds, and
-
-    Press :obj:`ctrl` + :obj:`c` to stop the blinking and exit from the
-    function.
+    A LED will be turned on for `time_on` seconds.
 
     Parameters
     ----------
     channel : int
-        GPIO channel number based on the numbering system you have specified
-        (`BOARD` or `BCM`).
+        Output GPIO channel number based on the numbering system you have
+        specified (`BOARD` or `BCM`).
+    time_on : float, optional
+        Time in seconds the LED will stay turned ON. The default value is 3
+        seconds.
+
+    """
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(channel, GPIO.OUT)
+    turn_on_led(channel)
+    time.sleep(time_on)
+    GPIO.cleanup()
+
+
+def ex2_turn_on_many_leds(channels, time_on=3):
+    """**Example 2:** turn on multiple LEDs for some specified time.
+
+    All LEDs will be turned on for `time_on` seconds.
+
+    Parameters
+    ----------
+    channels : list
+        List of Output GPIO channel numbers based on the numbering system you
+        have specified (`BOARD` or `BCM`).
+    time_on : float, optional
+        Time in seconds the LEDs will stay turned ON. The default value is 3
+        seconds.
+
+    """
+    GPIO.setmode(GPIO.BCM)
+    for ch in channels:
+        GPIO.setup(ch, GPIO.OUT)
+        turn_on_led(ch)
+    time.sleep(time_on)
+    GPIO.cleanup()
+
+
+def ex3_detect_button(channel):
+    """**Example 3:** Detect if a button is pressed.
+
+    The button
+
+    Parameters
+    ----------
+    channel : int
+        Input GPIO channel number based on the numbering system you have
+        specified (`BOARD` or `BCM`).
+
+    """
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    _show_msg_to_turn_on(channel)
+    while True:
+        if not GPIO.input(channel):
+            _show_msg_pressed_button(channel)
+            break
+    GPIO.cleanup()
+
+
+def ex4_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
+    """Blink a LED for some specified time.
+
+    The led will blink for a total of `total_time_blinking` seconds. The LED
+    will stay turned on for `time_on` seconds before turning off for `time_off`
+    seconds, and so on until `total_time_blinking` seconds elapses.
+
+    Press :obj:`ctrl` + :obj:`c` to stop the blinking completely and exit from
+    the function.
+
+    Parameters
+    ----------
+    channel : int
+        Output GPIO channel number based on the numbering system you have
+        specified (`BOARD` or `BCM`).
     total_time_blinking : float, optional
         Total time in seconds the LED will be blinking. The default value is 4
         seconds.
     time_on : float, optional
-        Time in seconds the LED will stay turned ON. The default value is 0.4
+        Time in seconds the LED will stay turned ON. The default value is 0.5
         seconds.
     time_off : float, optional
-        Time in seconds the LED will stay turned OFF. The default value is 0.4
+        Time in seconds the LED will stay turned OFF. The default value is 0.5
         seconds.
 
     """
@@ -123,20 +178,46 @@ def ex4_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
         except KeyboardInterrupt:
             break
     GPIO.cleanup()
-    return 0
 
 
-def ex5_blink_led_if_key(led_channel, key_channel, total_time_blinking=10,
-                         time_on=1, time_off=0.5):
+def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=10,
+                            time_on=1, time_off=0.5):
+    """Blink a LED for some specified time.
+
+    The led will blink for a total of `total_time_blinking` seconds. The LED
+    will stay turned on for `time_on` seconds before turning off for `time_off`
+    seconds, and so on until `total_time_blinking` seconds elapses.
+
+    Press :obj:`ctrl` + :obj:`c` to stop the blinking completely and exit from
+    the function.
+
+    Parameters
+    ----------
+    led_channel : int
+        Output GPIO channel number based on the numbering system you have
+        specified (`BOARD` or `BCM`).
+    button_channel : int
+        Input GPIO channel number based on the numbering system you have
+        specified (`BOARD` or `BCM`).
+    total_time_blinking : float, optional
+        Total time in seconds the LED will be blinking. The default value is 4
+        seconds.
+    time_on : float, optional
+        Time in seconds the LED will stay turned ON. The default value is 0.5
+        seconds.
+    time_off : float, optional
+        Time in seconds the LED will stay turned OFF. The default value is 0.5
+        seconds.
+
+    """
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(led_channel, GPIO.OUT)
-    GPIO.setup(key_channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    key_name = channel_key_map[key_channel]
-    print("Press key '{}' to blink a LED".format(key_name))
+    GPIO.setup(button_channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    _show_msg_to_turn_on(button_channel)
     while True:
         try:
-            if not GPIO.input(key_channel):
-                print("Key '{}' pressed".format(key_name))
+            if not GPIO.input(button_channel):
+                _show_msg_pressed_button(button_channel)
                 start = time.time()
                 while (time.time() - start) < total_time_blinking:
                     blink_led(led_channel, time_on, time_off)
@@ -144,7 +225,6 @@ def ex5_blink_led_if_key(led_channel, key_channel, total_time_blinking=10,
         except KeyboardInterrupt:
             break
     GPIO.cleanup()
-    return 0
 
 
 def setup_argparser():
@@ -187,7 +267,14 @@ use of the mock library SimulRPi.''',
     parser.add_argument(
         "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channel",
         help='''The GPIO channel to be used for a push button. The default 
-        value is channel 20 which is associated with key `{}`'''.format(
+        value is channel 20 which is associated with the key `{}`.'''.format(
+            DEFAULT_KEY_NAME))
+    parser.add_argument(
+        "-k", default=DEFAULT_KEY_NAME, dest="key_name",
+        help='''The name of the key associated with the button channel. The 
+        name must be one of those recognized by the module `pynput`. See the
+        SimulRPi documentation for a list of valid key names: 
+        https://bit.ly/2Pw1OBe. Example: `alt`, `cmd_r`'''.format(
             DEFAULT_KEY_NAME))
     parser.add_argument(
         "-t", type=float, default=DEFAULT_TOTAL_TIME_BLINKING,
@@ -195,19 +282,29 @@ use of the mock library SimulRPi.''',
         help='''Total time in seconds LEDs will be blinking.''')
     parser.add_argument(
         "--on", type=float, default=DEFAULT_TIME_ON, dest="time_on",
-        help='''Time in seconds the LED will stay turned ON.''')
+        help='''Time in seconds the LED will stay turned ON at a time.''')
     parser.add_argument(
         "--off", type=float, default=DEFAULT_TIME_OFF, dest="time_off",
-        help='''Time in seconds the LED will stay turned OFF.''')
+        help='''Time in seconds the LED will stay turned OFF at a time.''')
     return parser.parse_args()
 
 
 def main():
-    global GPIO
+    """
+
+    Returns
+    -------
+
+    """
+    global GPIO, SIMULATION
     args = setup_argparser()
     if args.simulation:
         import SimulRPi.GPIO as GPIO
+        SIMULATION = True
         print("Simulation mode enabled")
+        if args.key_name != DEFAULT_KEY_NAME:
+            key_channel_map = {args.key_name: args.button_channel}
+            GPIO.setkeymap(key_channel_map)
     else:
         import RPi.GPIO as GPIO
     import SimulRPi.utils as utils
@@ -215,29 +312,26 @@ def main():
     # =======
     # Actions
     # =======
-    retcode = 1
+    retcode = 0
     try:
         if args.example_number == 1:
-            retcode = ex1_display_led(args.led_channel[0], args.time_on)
+            ex1_turn_on_led(args.led_channel[0], args.time_on)
         elif args.example_number == 2:
-            retcode = ex2_display_three_leds(args.led_channel, args.time_on)
+            ex2_turn_on_many_leds(args.led_channel, args.time_on)
         elif args.example_number == 3:
-            retcode = ex3_detect_key(args.button_channel)
+            ex3_detect_button(args.button_channel)
         elif args.example_number == 4:
-            retcode = ex4_blink_led(args.led_channel[0],
-                                    args.total_time_blinking,
-                                    args.time_on,
-                                    args.time_off)
+            ex4_blink_led(args.led_channel[0], args.total_time_blinking,
+                          args.time_on, args.time_off)
         elif args.example_number == 5:
-            retcode = ex5_blink_led_if_key(args.led_channel[0],
-                                           args.button_channel,
-                                           args.total_time_blinking,
-                                           args.time_on,
-                                           args.time_off)
+            ex5_blink_led_if_button(args.led_channel[0], args.button_channel,
+                                    args.total_time_blinking, args.time_on,
+                                    args.time_off)
         else:
             print("Example # {} not found".format(args.example_number))
     except Exception as e:
         print(e)
+        retcode = 1
     finally:
         return retcode
 
