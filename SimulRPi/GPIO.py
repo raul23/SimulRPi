@@ -85,7 +85,7 @@ class Pin:
 
     Attributes
     ----------
-    state : bool
+    state : int
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
     """
@@ -207,7 +207,7 @@ class PinDB:
 
         Returns
         -------
-        state : bool or :obj:`None`
+        state : int or :obj:`None`
             If no :class:`Pin` could be retrieved based on the given channel
             number, then :obj:`None` is returned. Otherwise, the
             :class:`Pin`\'s state is returned: 1 (`HIGH`) or 0 (`LOW`).
@@ -264,7 +264,7 @@ class PinDB:
         channel : int
             GPIO channel number associated with the :class:`Pin` whose state
             will be set.
-        state : bool
+        state : int
             State the GPIO channel should take: 1 (`HIGH`) or 0 (`LOW`).
         Returns
         -------
@@ -292,7 +292,7 @@ class PinDB:
         ----------
         key : str
             The key associated with the :class:`Pin` whose state will be set.
-        state : bool
+        state : int
             State the GPIO channel should take: 1 (`HIGH`) or 0 (`LOW`).
         Returns
         -------
@@ -318,6 +318,11 @@ class Manager:
 
     Attributes
     ----------
+    start_threads: bool
+        TODO
+    mode : int
+        Numbering system used to identify the IO pins on an RPi: `Board` or
+        `BCM`.  Default value :obj:`None`.
     warnings : bool
         Whether to show warnings when using a pin other than the default GPIO
         function (input). Default value is `True`.
@@ -333,6 +338,8 @@ class Manager:
         simulate push buttons on the RPi.
     """
     def __init__(self):
+        self.start_threads = False
+        self.mode = None
         self.warnings = None
         self.enable_printing = None
         self.pin_db = None
@@ -344,8 +351,8 @@ class Manager:
         self.th_display_leds = None
         self.th_listener = None
         self.init_attributes()
-        # TODO: start afterwards?
-        self.th_listener.start()
+        # TODO: start afterwards?ƒf
+        # self.th_listener.start()
 
     def add_pin(self, channel, gpio_function, pull_up_down=None, initial=None):
         """Add an input or output pin to the pin database.
@@ -490,6 +497,24 @@ class Manager:
             key_name = None
         return key_name
 
+    def init_attributes(self):
+        self.warnings = True
+        self.enable_printing = True
+        self.pin_db = PinDB()
+        self.key_to_channel_map = default_key_to_channel_map
+        self.channel_to_key_map = {v: k for k, v in
+                                   self.key_to_channel_map.items()}
+        self._output_channels = []
+        self.nb_prints = 0
+        self._leds = None
+        self.th_display_leds = threading.Thread(name="thread_display_leds",
+                                                target=self.display_leds,
+                                                args=())
+        self.th_listener = keyboard.Listener(
+            on_press=self.on_press,
+            on_release=self.on_release)
+        self.th_listener.name = "thread_listener"
+
     def on_press(self, key):
         """When a valid key is pressed, set its state to `GPIO.LOW`.
 
@@ -541,28 +566,6 @@ class Manager:
 
         """
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
-
-    def init_attributes(self, init_threads=True):
-        self.warnings = True
-        self.enable_printing = True
-        self.pin_db = PinDB()
-        self.key_to_channel_map = default_key_to_channel_map
-        self.channel_to_key_map = {v: k for k, v in
-                                   self.key_to_channel_map.items()}
-        self._output_channels = []
-        self.nb_prints = 0
-        self._leds = None
-        if init_threads:
-            self.th_display_leds = threading.Thread(name="thread_display_leds",
-                                                    target=self.display_leds,
-                                                    args=())
-            self.th_listener = keyboard.Listener(
-                on_press=self.on_press,
-                on_release=self.on_release)
-            self.th_listener.name = "thread_listener"
-        else:
-            self.th_display_leds = None
-            self.th_listener = None
 
     def update_keymap(self, new_keymap):
         """Update the default dictionary mapping keys and GPIO channels.
@@ -739,14 +742,14 @@ def cleanup():
         manager.th_display_leds.do_run = False
         manager.th_display_leds.join()
         logger.debug("Thread stopped: {}".format(manager.th_display_leds.name))
-    # TODO: should the listener thread be started in input (display thread is
-    # started in output) and not when GPIO is imported (in Manager.__init__())
     logger.debug("Stopping thread: {}".format(manager.th_listener.name))
-    manager.th_listener.stop()
-    manager.th_listener.join()
+    if manager.th_listener.is_alive():
+        manager.th_listener.stop()
+        manager.th_listener.join()
     logger.debug("Thread stopped: {}".format(manager.th_listener.name))
     # Reset Manager's attributes
-    manager.init_attributes(init_threads=False)
+    manager.start_threads = False
+    manager.init_attributes()
 
 
 def input(channel):
@@ -766,6 +769,9 @@ def input(channel):
         state is returned: 1 (`HIGH`) or 0 (`LOW`).
 
     """
+    if manager.start_threads and \
+            not manager.th_listener.is_alive():
+        manager.th_listener.start()
     return manager.pin_db.get_pin_state(channel)
 
 
@@ -783,17 +789,23 @@ def output(channel, state):
 
     """
     manager.pin_db.set_pin_state_from_channel(channel, state)
-    try:
-        if hasattr(manager.th_display_leds, 'is_alive') and \
-                not manager.th_display_leds.is_alive():
-            manager.th_display_leds.start()
+    # try:
+    # Check that the thread is not None because this function
+    # might get called while the thread was being killed
+    # It is None because the manager was reset
+    if manager.start_threads and \
+            not manager.th_display_leds.is_alive():
+        manager.th_display_leds.start()
+    """
     except RuntimeError as e:
         # This happens when this function is called while the `th_display_leds`
         # thread is being killed in the main thread. is_alive() returns False
         # since the thread was killed and then it is being started once again.
         # By catching this RuntimeError, we give time to the main thread to
         # exit gracefully without this function crashing the program.
+        # TODO: might not happen anymore with check on thread is None
         logger.debug(e)
+    """
 
 
 def setkeymap(key_to_channel_map):
@@ -900,6 +912,7 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
     `RPi.GPIO` wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 
     """
+    manager.start_threads = True
     manager.add_pin(channel, gpio_function, pull_up_down, initial)
 
 
