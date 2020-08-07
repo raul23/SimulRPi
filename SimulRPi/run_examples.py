@@ -3,8 +3,8 @@
 simulation).
 
 This script allows you to run different code examples on your Raspberry Pi (RPi)
-or computer in which case it will make use of the mock library `SimulRPi`_ wich
-partly fakes `RPi.GPIO`_.
+or computer in which case it will make use of the mock library `SimulRPi`_
+which partly fakes `RPi.GPIO`_.
 
 The code examples test different parts of the mock library `SimulRPi`_ in order
 to show what it is capable of simulating from an RPi:
