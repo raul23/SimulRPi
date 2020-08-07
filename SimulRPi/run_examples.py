@@ -1,16 +1,16 @@
 #!/usr/script/env python
-"""Script for executing examples on a Raspberry Pi or computer (simulation).
+"""Script for executing code examples on a Raspberry Pi or computer (
+simulation).
 
 This script allows you to run different code examples on your Raspberry Pi (RPi)
-or computer in which case it will make use of the mock library `SimulRPi`_.
+or computer in which case it will make use of the mock library `SimulRPi`_ wich
+partly fakes `RPi.GPIO`_.
 
 The code examples test different parts of the mock library `SimulRPi`_ in order
-to show what it is capable of simulating from a RPi:
+to show what it is capable of simulating from an RPi:
 
     * Turn on/off LEDs
     * Detect pressed button and perform an action
-
-To do so, `SimulRPi`_ partly fakes `RPi.GPIO`_.
 
 Usage
 -----
@@ -77,9 +77,9 @@ def _show_msg_to_turn_on(channel):
 
 
 def ex1_turn_on_led(channel, time_on=3):
-    """**Example 1:** turn on a LED for some specified time.
+    """**Example 1:** Turn ON a LED for some specified time.
 
-    A LED will be turned on for `time_on` seconds.
+    A LED will be turned on for ``time_on`` seconds.
 
     Parameters
     ----------
@@ -99,18 +99,18 @@ def ex1_turn_on_led(channel, time_on=3):
 
 
 def ex2_turn_on_many_leds(channels, time_on=3):
-    """**Example 2:** turn on multiple LEDs for some specified time.
+    """**Example 2:** Turn ON multiple LEDs for some specified time.
 
-    All LEDs will be turned on for `time_on` seconds.
+    All LEDs will be turned on for ``time_on`` seconds.
 
     Parameters
     ----------
     channels : list
-        List of Output GPIO channel numbers based on the numbering system you
+        List of output GPIO channel numbers based on the numbering system you
         have specified (`BOARD` or `BCM`).
     time_on : float, optional
-        Time in seconds the LEDs will stay turned ON. The default value is 3
-        seconds.
+        Time in seconds the LEDs will stay turned ON at a time. The default
+        value is 3 seconds.
 
     """
     GPIO.setmode(GPIO.BCM)
@@ -124,7 +124,9 @@ def ex2_turn_on_many_leds(channels, time_on=3):
 def ex3_detect_button(channel):
     """**Example 3:** Detect if a button is pressed.
 
-    The button
+    The function waits for the specified button to be pressed associated with
+    the given ``channel``. As soon as the button is pressed, a message is
+    printed and the function exits.
 
     Parameters
     ----------
@@ -144,11 +146,12 @@ def ex3_detect_button(channel):
 
 
 def ex4_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
-    """Blink a LED for some specified time.
+    """**Example 4:** Blink a LED for some specified time.
 
-    The led will blink for a total of `total_time_blinking` seconds. The LED
-    will stay turned on for `time_on` seconds before turning off for `time_off`
-    seconds, and so on until `total_time_blinking` seconds elapses.
+    The led will blink for a total of ``total_time_blinking`` seconds. The LED
+    will stay turned on for ``time_on`` seconds before turning off for
+    ``time_off`` seconds, and so on until ``total_time_blinking`` seconds
+    elapse.
 
     Press :obj:`ctrl` + :obj:`c` to stop the blinking completely and exit from
     the function.
@@ -162,11 +165,11 @@ def ex4_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
         Total time in seconds the LED will be blinking. The default value is 4
         seconds.
     time_on : float, optional
-        Time in seconds the LED will stay turned ON. The default value is 0.5
-        seconds.
+        Time in seconds the LED will stay turned ON at a time. The default
+        value is 0.5 seconds.
     time_off : float, optional
-        Time in seconds the LED will stay turned OFF. The default value is 0.5
-        seconds.
+        Time in seconds the LED will stay turned OFF at a tme. The default
+        value is 0.5 seconds.
 
     """
     GPIO.setmode(GPIO.BCM)
@@ -182,11 +185,15 @@ def ex4_blink_led(channel, total_time_blinking=4, time_on=0.5, time_off=0.5):
 
 def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=10,
                             time_on=1, time_off=0.5):
-    """Blink a LED for some specified time.
+    """**Example 5:** If a button is pressed, blink a LED for some specified
+    time.
 
-    The led will blink for a total of `total_time_blinking` seconds. The LED
-    will stay turned on for `time_on` seconds before turning off for `time_off`
-    seconds, and so on until `total_time_blinking` seconds elapses.
+    As soon as the specified button from the given ``button_channel`` is
+    pressed, the LED will blink for a total of ``total_time_blinking`` seconds.
+
+    The LED will stay turned on for ``time_on`` seconds before turning off for
+    ``time_off`` seconds, and so on until ``total_time_blinking`` seconds
+    elapse.
 
     Press :obj:`ctrl` + :obj:`c` to stop the blinking completely and exit from
     the function.
@@ -203,11 +210,11 @@ def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=10,
         Total time in seconds the LED will be blinking. The default value is 4
         seconds.
     time_on : float, optional
-        Time in seconds the LED will stay turned ON. The default value is 0.5
-        seconds.
+        Time in seconds the LED will stay turned ON at a time. The default
+        value is 0.5 seconds.
     time_off : float, optional
-        Time in seconds the LED will stay turned OFF. The default value is 0.5
-        seconds.
+        Time in seconds the LED will stay turned OFF at a tme. The default
+        value is 0.5 seconds.
 
     """
     GPIO.setmode(GPIO.BCM)
@@ -231,11 +238,19 @@ def setup_argparser():
     """Setup the argument parser for the command-line script.
 
     The script allows you to run a code examples on your RPi or on your
-    computer in which case it will make use of the mock library `SimulRPi`_.
+    computer in which case it will make use of the module `SimulRPi.GPIO`_
+    which partly fakes `RPi.GPIO`_.
 
     Returns
     -------
-    args :
+    args : argparse.Namespace
+        Simple class used by default by ``parse_args()`` to create an object
+        holding attributes and return it [1]_.
+
+    References
+    ----------
+    .. [1] `argparse.Namespace
+       <https://docs.python.org/3.7/library/argparse.html#argparse.Namespace>`_.
 
     """
     # Setup the parser
@@ -290,10 +305,17 @@ use of the mock library SimulRPi.''',
 
 
 def main():
-    """
+    """Main entry-point to the script.
 
-    Returns
-    -------
+    According to the user's choice of action, the script might run one of the
+    specified code examples.
+
+    If the simulation flag (`-s`) is used, then the the module
+    `SimulRPi.GPIO`_ will be used which partly fakes `RPi.GPIO`_.
+
+    Notes
+    -----
+    Only one action at a time can be performed.
 
     """
     global GPIO, SIMULATION
