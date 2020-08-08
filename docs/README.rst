@@ -109,9 +109,6 @@ Case 1: with a ``try`` and ``except`` blocks
 You can try importing :mod:`RPi.GPIO` first and if it is not found, then fallback
 on the mock module :mod:`SimulRPi.GPIO`.
 
--a
---bal
-
 .. code-block:: python
    :caption: **Case 1:** with a ``try`` and ``except`` blocks
 
