@@ -2,6 +2,8 @@
 README
 ======
 
+.. highlight:: python
+
 .. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
 .. _let me know through pull requests: https://github.com/raul23/SimulRPi/pulls
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
