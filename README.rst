@@ -171,7 +171,7 @@ help message along with a description for each option and their default values::
 Check also the `script's usage <https://simulrpi.readthedocs.io/en/latest/api_reference.html#usage>`_ from the docs for
 the list of available options.
 
-`:star:`
+`:eyes:`
 
    Don't forget the flag *-s* (for simulation) when running the script
    ``run_examples`` if you want to run a code example on your computer, and
