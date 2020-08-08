@@ -235,6 +235,8 @@ the code along with the output from the terminal:
    :align: left
    :alt: Example 01: terminal output
 
+|
+
 The command line for reproducing the same results for example 1 with the script
 ``run_examples`` is the following::
 
@@ -268,6 +270,8 @@ respectively. Here is the code along with the output from the terminal:
    :align: left
    :alt: Example 02: terminal output
 
+|
+
 The command line for reproducing the same results for example 2 with the script
 ``run_examples`` is the following::
 
@@ -299,6 +303,8 @@ printing a message. Here is the code along with the output from the terminal:
    :target: ./docs/_static/images/example_03_terminal_output.png
    :align: left
    :alt: Example 03: terminal output
+
+|
 
 The command line for reproducing the same results for example 3 with the script
 ``run_examples`` is the following::
@@ -346,6 +352,8 @@ the terminal:
    :align: left
    :alt: Example 04: terminal output
 
+|
+
 The command line for reproducing the same results for example 4 with the script
 ``run_examples`` is the following::
 
@@ -390,6 +398,8 @@ code along with the output from the terminal:
    :target: ./docs/_static/images/example_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
+
+|
 
 The command line for reproducing the same results for example 5 with the script
 ``run_examples`` is the following::
