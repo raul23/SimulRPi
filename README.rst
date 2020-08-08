@@ -207,7 +207,7 @@ The code for the examples shown here can be also found as a script in
 
 `:exclamation:`
 
-      Since we are showing how to use the `SimulRPi`_ library, the presented code
+      Since we are showing how to use the ``SimulRPi`` library, the presented code
       examples are to be executed on your computer. However, the script
       `run_examples.py`_ which runs the following code examples can be executed on
       a Raspberry Pi or your computer.
