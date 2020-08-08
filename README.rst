@@ -70,13 +70,13 @@ channel 22 toggles between on and off when a key is pressed.
 
 `:warning:`
 
-      This library is not a Raspberry Pi emulator nor a complete mock-up of 
-      `RPi.GPIO`_, only the most important functions that I needed for my 
-      `Darth-Vader-RPi project`_ were added.
+   This library is not a Raspberry Pi emulator nor a complete mock-up of 
+   `RPi.GPIO`_, only the most important functions that I needed for my 
+   `Darth-Vader-RPi project`_ were added.
 
-      If there is enough interest in this library, I will eventually mock more
-      functions from `RPi.GPIO`_. Thus, `let me know through pull requests`_ if
-      you want me to add more things to this mock library.
+   If there is enough interest in this library, I will eventually mock more
+   functions from `RPi.GPIO`_. Thus, `let me know through pull requests`_ if
+   you want me to add more things to this mock library.
 
 Dependencies
 ============
@@ -171,11 +171,11 @@ help message along with a description for each option and their default values::
 Check also the `script's usage <https://simulrpi.readthedocs.io/en/latest/api_reference.html#usage>`_ from the docs for
 the list of available options.
 
-`:exclamation:`
+`:information_source:`
 
-      Don't forget the flag *-s* (for simulation) when running the script
-      ``run_examples`` if you want to run a code example on your computer, and
-      not on your RPi.
+   Don't forget the flag *-s* (for simulation) when running the script
+   ``run_examples`` if you want to run a code example on your computer, and
+   not on your RPi.
 
 Run an example code
 ~~~~~~~~~~~~~~~~~~~
@@ -205,10 +205,10 @@ The code for the examples shown here can be also found as a script in
 
 `:information_source:`
 
-      Since we are showing how to use the ``SimulRPi`` library, the presented code
-      examples are to be executed on your computer. However, the script
-      `run_examples.py`_ which runs the following code examples can be executed on
-      a Raspberry Pi or your computer.
+   Since we are showing how to use the ``SimulRPi`` library, the presented code
+   examples are to be executed on your computer. However, the script
+   `run_examples.py`_ which runs the following code examples can be executed on
+   a Raspberry Pi or your computer.
 
 Example 1: display 1 LED
 ------------------------
@@ -302,7 +302,7 @@ The command line for reproducing the same results for example 3 with the script
 
    $ run_examples -s -e 3 -k cmd_r
 
-`:warning:`
+`:information_source:`
 
       By default, **SimulRPi** maps the key ``cmd_r`` to channel 17 as can be
       seen from the `default key-to-channel map
@@ -393,7 +393,7 @@ The command line for reproducing the same results for example 5 with the script
 
    $ run_examples -s -e 5 -t 3 -k ctrl_r
 
-`:warning:`
+`:information_source:`
 
    By default, **SimulRPi** maps the key ``ctrl_r`` to channel 20 as can be
    from the `default key-to-channel map
