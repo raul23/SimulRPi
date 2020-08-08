@@ -32,7 +32,7 @@ Each circle represents a blinking LED connected to an RPi and the number
 between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
 
-See the `README <README.html>`_ for more info about the library.
+See the `README <README_docs.html>`_ for more info about the library.
 
 Indices and tables
 ==================
