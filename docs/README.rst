@@ -40,6 +40,17 @@ on a Raspberry Pi (RPi).
 
 Introduction
 ============
+
+For listing command-line options:
+
+-a            command-line option "a"
+-b file       options can have arguments
+              and long descriptions
+--long        options can be long also
+--input=file  long options can also have
+              arguments
+
+
 In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 **SimulRPi** also simulates these I/O devices connected to an RPi:
 
