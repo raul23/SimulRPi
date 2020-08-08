@@ -203,7 +203,7 @@ simulate LEDs and push buttons.
 The code for the examples shown here can be also found as a script in
 `run_examples.py`_.
 
-`:exclamation:`
+`:information_source:`
 
       Since we are showing how to use the ``SimulRPi`` library, the presented code
       examples are to be executed on your computer. However, the script
