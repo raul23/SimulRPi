@@ -207,7 +207,7 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
 .. _examples-label:
 
 Examples
---------
+========
 The examples presented thereafter will show you how to use **SimulRPi** to
 simulate LEDs and push buttons.
 
@@ -222,7 +222,7 @@ The code for the examples shown here can be also found as a script in
    a Raspberry Pi or your computer.
 
 Example 1: display 1 LED
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 **Example 1** consists in displaying one LED on the GPIO channel 11. Here is
 the code along with the output from the terminal:
 
@@ -258,7 +258,7 @@ The command line for reproducing the same results for example 1 with the script
    resources such as stopping threads.
 
 Example 2: display 3 LEDs
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 **Example 2** consists in displaying three LEDs on channels 10, 11, and 12,
 respectively. Here is the code along with the output from the terminal:
 
@@ -290,7 +290,7 @@ The command line for reproducing the same results for example 2 with the script
    $ run_examples -s -e 2
 
 Example 3: detect a pressed key
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------
 **Example 3** consists in detecting if the key :obj:`cmd_r` is pressed and then
 printing a message. Here is the code along with the output from the terminal:
 
@@ -335,7 +335,7 @@ The command line for reproducing the same results for example 3 with the script
    keymap is defined.
 
 Example 4: blink a LED
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 **Example 4** consists in blinking a LED on channel 20 for 4 seconds (or until
 you press :obj:`ctrl` + :obj:`c`). Here is the code along with the output from
 the terminal:
@@ -377,7 +377,7 @@ The command line for reproducing the same results for example 4 with the script
    $ run_examples -s -e 4 -t 4 -l 20
 
 Example 5: blink a LED if a key is pressed
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------
 **Example 5** consists in blinking a LED on channel 10 for 3 seconds if the key
 :obj:`ctrl_r` is pressed. And then, exiting from the program. The program can
 also be terminated at any time by pressing :obj:`ctrl` + :obj:`c`). Here is the
