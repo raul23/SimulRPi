@@ -148,6 +148,7 @@ The different code examples are those presented in
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
+
    - Example 1: :meth:`run_examples.ex1_turn_on_led`
    - Example 2: :meth:`run_examples.ex2_turn_on_many_leds`
    - Example 3: :meth:`run_examples.ex3_detect_button`
@@ -254,7 +255,7 @@ The command line for reproducing the same results for example 1 with the script
 
 .. important::
 
-   Always call ``GPIO.cleanup()`` at the end of your program to free up any
+   Always call :meth:`GPIO.cleanup()` at the end of your program to free up any
    resources such as stopping threads.
 
 Example 2: display 3 LEDs
@@ -329,7 +330,7 @@ The command line for reproducing the same results for example 3 with the script
 
    By default, **SimulRPi** maps the key :obj:`cmd_r` to channel 17 as can be
    seen from the `default key-to-channel map
-   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L97>`_.
+   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L105>`_.
 
    See also the documentation for :mod:`SimulRPi.mapping` where the default
    keymap is defined.
@@ -430,7 +431,7 @@ The command line for reproducing the same results for example 5 with the script
 
    By default, **SimulRPi** maps the key :obj:`ctrl_r` to channel 20 as can be
    from the `default key-to-channel map
-   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L100>`__.
+   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L108>`__.
 
    See also the documentation for :mod:`SimulRPi.mapping` where the default
    keymap is defined.
