@@ -156,14 +156,14 @@ How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
 Once you install the package ``SimulRPi`` (see
 `Installation Instructions <#installation-instructions>`_), you should have
-access to the script :mod:`run_examples` which can be called from anywhere on
+access to the script ``run_examples`` which can be called from anywhere on
 your terminal by providing some arguments, like this for example::
 
    $ run_examples -e 1 -s
 
 The previous command will run the first example (`-e 1`) using the simulation
 package ``SimulRPi`` (`-s`) and the default values for `led_channel` and
-`time_led_on` (see :meth:`run_examples.ex1_turn_on_led`).
+`time_led_on` (see `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`).
 
 For a complete list of supported arguments, provide the `-h` option to show the
 help message along with a description for each option and their default values::
