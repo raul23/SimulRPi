@@ -3,7 +3,7 @@
 It simulates these I/O devices connected to a Raspberry Pi:
 
     - push buttons by listening to keys pressed/released on the keyboard and
-    - LEDs by displaying small dots blinking on the terminal along with their \
+    - LEDs by displaying small circles blinking on the terminal along with their \
     GPIO pin number.
 
 When a LED is turned on, it is shown as a small red circle on the terminal. The
@@ -37,10 +37,10 @@ between brackets is the associated GPIO pin number.
 .. _RPi.GPIO wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 
 """
+import copy
 import logging
 import os
 import threading
-import time
 from logging import NullHandler
 
 from pynput import keyboard
@@ -62,6 +62,8 @@ IN = 0
 OUT = 1
 PUD_UP = 1
 PUD_DOWN = 0
+
+MODES = {'BOARD': BOARD, 'BCM': BCM}
 
 
 class Pin:
@@ -316,13 +318,17 @@ class Manager:
     responsible for displaying "LEDs" on the terminal and listening for keys
     pressed/released.
 
+    The threads are not started right away in :meth:`__init__` but in
+    :meth:`input` for the listener thread and :meth:`output` for the
+    displaying thread.
+
+    They are eventually stopped in :meth:`cleanup`.
+
     Attributes
     ----------
-    start_threads: bool
-        TODO
     mode : int
-        Numbering system used to identify the IO pins on an RPi: `Board` or
-        `BCM`.  Default value :obj:`None`.
+        Numbering system used to identify the I/O pins on an RPi: `BOARD` or
+        `BCM`.  Default value is :obj:`None`.
     warnings : bool
         Whether to show warnings when using a pin other than the default GPIO
         function (input). Default value is `True`.
@@ -330,29 +336,50 @@ class Manager:
         Whether to enable printing on the terminal. Default value is `True`.
     pin_db : PinDB
         A :class:`Pin` database. See :class:`PinDB` on how to access it.
+    key_to_channel_map : dict
+        A dictionary that maps keyboard keys (:obj:`string`) to GPIO channel
+        numbers (:obj:`int`). By default, it takes the keys and values defined
+        in :mod:`SimulRPi.mapping`'s keymap ``default_key_to_channel_map``.
+    channel_to_key_map : dict
+        The reverse dictionary of :attr:`key_to_channel_map`. It maps channels
+        to keys.
+    nb_prints : int
+        Number of times the display thread :attr:`th_display_leds` has printed
+        blinking circles on the terminal. It is used when debugging the display
+        thread :attr:`th_display_leds`.
     th_display_leds : threading.Thread
-        Thread responsible for displaying blinking dots on the terminal as to
-        simulate LEDs turning on/off on the RPi.
+        Thread responsible for displaying small blinking circles on the
+        terminal as to simulate LEDs connected to an RPi.
     th_listener : threading.Thread
         Thread responsible for listening on any pressed or released key as to
-        simulate push buttons on the RPi.
+        simulate push buttons connected to an RPi.
     """
     def __init__(self):
-        self.start_threads = False
+        # TODO: remove start_threads
+        """
+        start_threads: bool
+            Whether to eventually start the threads. This flag is set to `True`
+            when the function :meth:`setup()` is first called. The default value
+            is `False`.
+        """
+        # self.start_threads = False
         self.mode = None
-        self.warnings = None
-        self.enable_printing = None
-        self.pin_db = None
-        self.key_to_channel_map = None
-        self.channel_to_key_map = None
-        self._output_channels = None
-        self.nb_prints = None
+        self.warnings = True
+        self.enable_printing = True
+        self.pin_db = PinDB()
+        self.key_to_channel_map = copy.copy(default_key_to_channel_map)
+        self.channel_to_key_map = {v: k for k, v in
+                                   self.key_to_channel_map.items()}
+        self._output_channels = []
+        self.nb_prints = 0
         self._leds = None
-        self.th_display_leds = None
-        self.th_listener = None
-        self.init_attributes()
-        # TODO: start afterwards?ƒf
-        # self.th_listener.start()
+        self.th_display_leds = threading.Thread(name="thread_display_leds",
+                                                target=self.display_leds,
+                                                args=())
+        self.th_listener = keyboard.Listener(
+            on_press=self.on_press,
+            on_release=self.on_release)
+        self.th_listener.name = "thread_listener"
 
     def add_pin(self, channel, gpio_function, pull_up_down=None, initial=None):
         """Add an input or output pin to the pin database.
@@ -391,9 +418,9 @@ class Manager:
                                initial=initial)
 
     def display_leds(self):
-        """Simulate LEDs on an RPi by blinking small dots on a terminal.
+        """Simulate LEDs on an RPi by blinking small circles on a terminal.
 
-        In order to simulate LEDs turning on/off on an RPi, small dots are
+        In order to simulate LEDs turning on/off on an RPi, small circles are
         blinked on the terminal along with their GPIO pin number.
 
         When a LED is turned on, it is shown as a small red circle on the
@@ -409,6 +436,15 @@ class Manager:
 
         where each circle represents a LED (here they are all turned off) and
         the number between brackets is the associated GPIO pin number.
+
+        .. note::
+
+            If :attr:`enable_printing` is set to `True`, the terminal's cursor
+            will be hidden. It will be eventually shown again in :meth:`cleanup`
+            which is called by the main program when it is exiting.
+
+            The reason is to avoid messing with the display of LEDs by the
+            thread :attr:`th_display_leds`.
 
         .. important::
 
@@ -431,6 +467,7 @@ class Manager:
 
         """
         if self.enable_printing:
+            # Hide the cursor
             os.system("tput civis")
             print()
         th = threading.currentThread()
@@ -444,13 +481,12 @@ class Manager:
                 if pin.state == HIGH:
                     # led = "\033[31mo\033[0m"
                     led = '\033[1;31;48m' + 'o' + '\033[1;37;0m'
-                    # led = 'r'
                 else:
                     led = 'o'
                 self._leds += led + ' [{}]   '.format(channel)
             if self.enable_printing:
-                # TODO: if no spaces after LEDs, then if you press tab or down,
-                # it will mess up the display to the right
+                # If no spaces after the red o's representing the LEDs, then if
+                # you press tab or down, it will mess up the display to the right
                 print(' ' * last_msg_length, end='\r')
                 # print(self._leds, end='\r')
                 print('  {}     '.format(self._leds), end="\r")
@@ -496,24 +532,6 @@ class Manager:
             # Unknown key
             key_name = None
         return key_name
-
-    def init_attributes(self):
-        self.warnings = True
-        self.enable_printing = True
-        self.pin_db = PinDB()
-        self.key_to_channel_map = default_key_to_channel_map
-        self.channel_to_key_map = {v: k for k, v in
-                                   self.key_to_channel_map.items()}
-        self._output_channels = []
-        self.nb_prints = 0
-        self._leds = None
-        self.th_display_leds = threading.Thread(name="thread_display_leds",
-                                                target=self.display_leds,
-                                                args=())
-        self.th_listener = keyboard.Listener(
-            on_press=self.on_press,
-            on_release=self.on_release)
-        self.th_listener.name = "thread_listener"
 
     def on_press(self, key):
         """When a valid key is pressed, set its state to `GPIO.LOW`.
@@ -588,6 +606,13 @@ class Manager:
                     "h": 23
                 }
 
+        .. note::
+
+            If a key is associated to a channel that is already taken by
+            another key, both keys' channels will be swapped. However, if a key
+            is being linked to a :obj:`None` channel, then it will take on the
+            maximum channel number available PLUS 1.
+
         """
         # TODO: assert keys (str) and channels (int)
         # TODO: test uniqueness in channel numbers of new map
@@ -596,13 +621,16 @@ class Manager:
         for key1, new_ch in new_keymap.items():
             old_ch = self.key_to_channel_map.get(key1)
             # Case 1: if key's channel is not found, maybe it is a special key
-            # or an alphanum not already in the keymap
+            # or an alphanumeric key not already in the keymap
             # Validate the key before updating the keymaps
             if old_ch is None and not self.validate_key(key1):
                 # Invalid key: the key is neither a special nor an alphanum key
                 orig_keych.setdefault(key1, None)
-                raise LookupError("The key '{}' is invalid: only special and "
-                                  "alphanum keys are accepted".format(key1))
+                raise TypeError("The key '{}' is invalid: only special and "
+                                "alphanumeric keys recognized by `pynput` are "
+                                "accepted. \nSee the documentation for "
+                                "`SimulRPi.mapping` @ https://bit.ly/3fIsd9o "
+                                "for a list of accepted keys.".format(key1))
             key2 = self.channel_to_key_map.get(new_ch)
             if key2 is None:
                 # Case 2: the new channel is not associated with any key in the
@@ -619,6 +647,16 @@ class Manager:
                 # given channel.
                 orig_keych.setdefault(key1, old_ch)
                 orig_keych.setdefault(key2, new_ch)
+                if old_ch is None:
+                    # The new key is not found in the default keymap at all.
+                    # Thus, its channel is None and must be set to an integer
+                    # channel which is equal to the maximum channel available
+                    # plus one. Hence, the second key whose channel is being
+                    # swapped with this new key will not receive a None channel
+                    # which would be problematic since there can be many keys
+                    # with None channels and the keymap channel_to_key_map
+                    # would only keep one key with the None channel.
+                    old_ch = max(self.channel_to_key_map.keys()) + 1
                 self._update_keymaps_and_pin_db(
                     key_channels=[(key1, new_ch), (key2, old_ch)])
         if orig_keych:
@@ -713,43 +751,60 @@ def cleanup():
     you might have used. This is no different with `RPi.GPIO`_. By returning
     all channels you have used back to inputs with no pull up/down, you can
     avoid accidental damage to your RPi by shorting out the pins.
-    [`RPi.GPIO wiki`_]
+    [**Ref:** `RPi.GPIO wiki`_]
 
     Also, the two threads responsible for displaying "LEDs" on the terminal and
     listening for pressed/released keys are stopped.
 
     .. note::
 
-        * It will only clean up GPIO channels that your script has used
-        * It will also clears the pin numbering system in use (`BOARD` or `BCM`)
+        On an RPi, :meth:`cleanup` will:
+
+            * only clean up GPIO channels that your script has used
+            * also clear the pin numbering system in use (`BOARD` or `BCM`)
 
         **Ref.:** `RPi.GPIO wiki`_
 
+        When using the package ``SimulRPi``, :meth:`cleanup` will:
+
+            * stop the displaying thread :attr:`Manager.th_display_leds`
+            * stop the listener thread :attr:`Manager.th_listener`
+            * show the cursor again which was hidden in \
+            :meth:`Manager.display_leds`
+            * reset the :obj:`GPIO.manager`'s attributes (an instance of \
+            :class:`Manager`)
+
     """
     global manager
-    # TODO; first solution was time.sleep(0.01)
+    # setprinting(False)
+    # Show cursor again
+    os.system("tput cnorm ")
+    # NOTE: code not used anymore. To be removed
     # Wait a little bit to give the display thread a little bit of time to
     # display something but no more than 0.3 seconds
-    os.system("tput cnorm ")
+    """
     start = time.time()
     while manager.nb_prints == 0:
         if time.time() - start > 0.3:
             break
-    # print(time.time() - start)
-    # Check if display thread is alive. If the ser didn't setup any output
+    """
+    # Check if display thread is alive. If the user didn't setup any output
     # channels for LEDs, then the display thread was never started
     if manager.th_display_leds.is_alive():
         manager.th_display_leds.do_run = False
         manager.th_display_leds.join()
         logger.debug("Thread stopped: {}".format(manager.th_display_leds.name))
-    logger.debug("Stopping thread: {}".format(manager.th_listener.name))
+    # Check if listener thread is alive. If the user didn't setup any input
+    # channels for buttons, then the listener thread was never started
     if manager.th_listener.is_alive():
+        logger.debug("Stopping thread: {}".format(manager.th_listener.name))
         manager.th_listener.stop()
         manager.th_listener.join()
-    logger.debug("Thread stopped: {}".format(manager.th_listener.name))
+        logger.debug("Thread stopped: {}".format(manager.th_listener.name))
     # Reset Manager's attributes
-    manager.start_threads = False
-    manager.init_attributes()
+    # TODO: necessary to so?
+    del manager
+    manager = Manager()
 
 
 def input(channel):
@@ -769,8 +824,12 @@ def input(channel):
         state is returned: 1 (`HIGH`) or 0 (`LOW`).
 
     """
+    # TODO: remove start_threads
+    """
     if manager.start_threads and \
-            not manager.th_listener.is_alive():
+    """
+    # Start the listener thread only if it not already alive
+    if not manager.th_listener.is_alive():
         manager.th_listener.start()
     return manager.pin_db.get_pin_state(channel)
 
@@ -789,13 +848,14 @@ def output(channel, state):
 
     """
     manager.pin_db.set_pin_state_from_channel(channel, state)
-    # try:
-    # Check that the thread is not None because this function
-    # might get called while the thread was being killed
-    # It is None because the manager was reset
+    # TODO: remove start_threads
+    """
     if manager.start_threads and \
-            not manager.th_display_leds.is_alive():
+    """
+    # Start the display thread only if it not already alive
+    if not manager.th_display_leds.is_alive():
         manager.th_display_leds.start()
+    # TODO: remove the following
     """
     except RuntimeError as e:
         # This happens when this function is called while the `th_display_leds`
@@ -812,9 +872,9 @@ def setkeymap(key_to_channel_map):
     """Set the keymap dictionary with new keys and channels.
 
     The default dictionary :obj:`default_key_to_channel_map` (defined in
-    :mod:`SimulRPi.mapping` that maps keys from the keyboard to GPIO channels
-    can be modified by providing your own mapping :obj:`key_to_channel_map`
-    containing only the keys and channels that you want to be modified.
+    :mod:`SimulRPi.mapping`) that maps keyboard keys to GPIO channels can be
+    modified by providing your own mapping ``key_to_channel_map`` containing
+    only the keys and channels that you want to be modified.
 
     Parameters
     ----------
@@ -836,10 +896,10 @@ def setkeymap(key_to_channel_map):
 
 
 def setmode(mode):
-    """Set the numbering system used to identify the IO pins on an RPi within
+    """Set the numbering system used to identify the I/O pins on an RPi within
     `RPi.GPIO`.
 
-    There are two ways of numbering the IO pins on a Raspberry Pi within
+    There are two ways of numbering the I/O pins on a Raspberry Pi within
     `RPi.GPIO`:
 
     1. The `BOARD` numbering system: refers to the pin numbers on the P1 header
@@ -849,7 +909,7 @@ def setmode(mode):
     Parameters
     ----------
     mode : int
-        Numbering system used to identify the IO pins on an RPi: `Board` or
+        Numbering system used to identify the I/O pins on an RPi: `BOARD` or
         `BCM`.
 
     References
@@ -857,15 +917,18 @@ def setmode(mode):
     Function description and more info from `RPi.GPIO wiki`_.
 
     """
+    assert mode in MODES.values(), \
+        "Wrong mode: {}. Mode should be one these values: {}".format(
+            mode, list(MODES.values()))
     manager.mode = mode
 
 
 def setprinting(enable_printing):
     """Enable printing on the terminal.
 
-    If printing is enabled, blinking red dots will be shown on the terminal,
-    simulating LEDs on a Raspberry Pi. Otherwise, nothing will be printed on
-    the terminal.
+    If printing is enabled, small blinking red circles will be shown on the
+    terminal, simulating LEDs connected to a Raspberry Pi. Otherwise, nothing
+    will be printed on the terminal.
 
     Parameters
     ----------
@@ -873,7 +936,7 @@ def setprinting(enable_printing):
         Whether to enable printing on the terminal.
 
     """
-    # TODO: stop thread too?
+    # TODO: stop display thread too?
     manager.enable_printing = enable_printing
 
 
@@ -912,7 +975,9 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
     `RPi.GPIO` wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 
     """
-    manager.start_threads = True
+    # TODO: assert on mode
+    # TODO: remove start_threads
+    # manager.start_threads = True
     manager.add_pin(channel, gpio_function, pull_up_down, initial)
 
 
@@ -923,7 +988,7 @@ def setwarnings(show_warnings):
     It is possible that you have more than one script/circuit on the GPIO of
     your Raspberry Pi. As a result of this, if RPi.GPIO detects that a pin has
     been configured to something other than the default (input), you get a
-    warning when you try to configure a script. [`RPi.GPIO wiki`_]
+    warning when you try to configure a script. [**Ref:** `RPi.GPIO wiki`_]
 
     Parameters
     ----------
