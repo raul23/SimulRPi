@@ -1,4 +1,5 @@
-"""Module that defines a dictionary that maps keys and GPIO channels.
+"""Module that defines the :ref:`dictionary <content-default-keymap-label>`
+that  maps keys and GPIO channels.
 
 This module defines the default mapping between keyboard keys and GPIO
 channels. It is used by :mod:`GPIO` when monitoring the keyboard with the
@@ -70,10 +71,10 @@ References
 
 .. important::
 
-    * :meth:`GPIO.setkeymap` allows you to modify this default keymap.
+    * :meth:`GPIO.setkeymap` allows you to modify the default keymap.
 
-    * The keys for the default dictionary :attr:`default_key_to_channel_map` \
-    must be strings and their values (the channels) should be integers.
+    * The keys for the default keymap :attr:`default_key_to_channel_map` must \
+    be strings and their values (the channels) should be integers.
 
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _pynput reference: https://pynput.readthedocs.io/en/latest/keyboard.html#pynput.keyboard.Key
