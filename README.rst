@@ -88,7 +88,7 @@ Dependencies
 
 Installation instructions
 =========================
-1. Install the ``SimulRPi`` package with `pip`::
+1. Install the ``SimulRPi`` package with *pip*::
 
    $ pip install -i https://test.pypi.org/simple/ --extra-index-url=https://pypi.org/simple/ SimulRPi
 
