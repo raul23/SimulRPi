@@ -207,6 +207,9 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
 |
 |
 
+-s   Enable simulation mode, i.e. SimulRPi.GPIO wil be used
+                        for simulating RPi.GPIO. (default: False)
+
 .. _examples-label:
 
 Examples
