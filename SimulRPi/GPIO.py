@@ -606,6 +606,7 @@ class Manager:
                     "h": 23
                 }
 
+
         .. note::
 
             If a key is associated to a channel that is already taken by
