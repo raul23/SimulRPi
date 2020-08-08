@@ -176,7 +176,7 @@ the list of available options.
 `:exclamation:`
 
       Don't forget the flag *-s* (for simulation) when running the script
-      ``run_examples.py`` if you want to run a code example on your computer, and
+      ``run_examples`` if you want to run a code example on your computer, and
       not on your RPi.
 
 Run an example code
