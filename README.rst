@@ -6,8 +6,6 @@ README
 .. _let me know through pull requests: https://github.com/raul23/SimulRPi/pulls
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _run_examples.py: #script-run-examples-py
-.. _SimulRPi: https://github.com/raul23/SimulRPi
-.. _SimulRPi.GPIO: https://github.com/raul23/SimulRPi
 
 ..
    TODO: change URL for SimulRPi.GPIO that points to its documentation
