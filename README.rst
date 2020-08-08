@@ -18,8 +18,10 @@ README
 
 .. raw:: html
 
-   <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png"></p>
-   <p align="center"> 🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b></p>
+   <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
+   <br>🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
+   </p>
+   
 
 .. image:: https://readthedocs.org/projects/simulrpi/badge/?version=latest
    :target: https://simulrpi.readthedocs.io/en/latest/?badge=latest
