@@ -352,8 +352,6 @@ the terminal:
    :align: left
    :alt: Example 04: terminal output
 
-|
-
 The command line for reproducing the same results for example 4 with the script
 ``run_examples`` is the following::
 
