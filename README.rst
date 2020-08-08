@@ -205,12 +205,12 @@ simulate LEDs and push buttons.
 The code for the examples shown here can be also found as a script in
 `run_examples.py`_.
 
-.. note::
+`:exclamation:`
 
-   Since we are showing how to use the `SimulRPi`_ library, the presented code
-   examples are to be executed on your computer. However, the script
-   `run_examples.py`_ which runs the following code examples can be executed on
-   a Raspberry Pi or your computer.
+      Since we are showing how to use the `SimulRPi`_ library, the presented code
+      examples are to be executed on your computer. However, the script
+      `run_examples.py`_ which runs the following code examples can be executed on
+      a Raspberry Pi or your computer.
 
 Example 1: display 1 LED
 ------------------------
