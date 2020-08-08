@@ -163,7 +163,7 @@ your terminal by providing some arguments, like this for example::
 
 The previous command will run the first example (`-e 1`) using the simulation
 package ``SimulRPi`` (`-s`) and the default values for `led_channel` and
-`time_led_on` (see `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`).
+`time_led_on` (see `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_).
 
 For a complete list of supported arguments, provide the `-h` option to show the
 help message along with a description for each option and their default values::
