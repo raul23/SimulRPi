@@ -106,7 +106,7 @@ Use the library in your own code
 --------------------------------
 Case 1: with a ``try`` and ``except`` blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-You can try importing py:mod:`RPi.GPIO` first and if it is not found, then fallback
+You can try importing :mod:`RPi.GPIO` first and if it is not found, then fallback
 on the mock module :mod:`SimulRPi.GPIO`.
 
 .. code-block:: python
