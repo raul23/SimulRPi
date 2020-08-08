@@ -70,7 +70,10 @@ References
 
 .. important::
 
-    :meth:`GPIO.setkeymap` allows you to modify this default keymap.
+    * :meth:`GPIO.setkeymap` allows you to modify this default keymap.
+
+    * The keys for the default dictionary :attr:`default_key_to_channel_map` \
+    must be strings and their values (the channels) should be integers.
 
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _pynput reference: https://pynput.readthedocs.io/en/latest/keyboard.html#pynput.keyboard.Key
