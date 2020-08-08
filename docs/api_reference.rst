@@ -23,6 +23,8 @@ API Reference
    :undoc-members:
    :show-inheritance:
 
+.. _content-default-keymap-label:
+
 **Content of the default keymap dictionary** (*key:* key from keyboard, *value:* GPIO channel):
 
 .. literalinclude:: ../SimulRPi/mapping.py
@@ -33,13 +35,16 @@ API Reference
 .. important::
 
    There are some platform limitations on using some of the keyboard keys with
-   ``pynput``. For instance, on macOS some keys may require that you run your
-   script as root with `sudo`. All alphanumeric keys and some special keys
-   (:obj:`backspace` and :obj:`right`) require `sudo`. In the previous list,
-   I commented those keys that need `sudo` on macOS. The others don't need
-   `sudo` on macOS such as :obj:`cmd_r` and :obj:`shift`.
+   ``pynput``.
 
-   For more information about those limitations, see `pynput
+   For instance, on macOS some keboard keys may require that you run your
+   script as *root* with `sudo`. All alphanumeric keys and some special keys
+   (e.g. :obj:`backspace` and :obj:`right`) require `sudo`. In the content of
+   :ref:`default_key_to_channel_map <content-default-keymap-label>` shown
+   previously, I commented those keyboard keys that need `sudo` on macOS. The
+   others don't need `sudo` on macOS such as :obj:`cmd_r` and :obj:`shift`.
+
+   For more information about those platform limitations, see `pynput
    documentation <https://pynput.readthedocs.io/en/latest/limitations.html>`_.
 
 .. warning::
