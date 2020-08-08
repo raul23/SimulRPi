@@ -70,14 +70,15 @@ Each circle represents a blinking LED connected to an RPi and the number
 between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
 
-> `:warning:`
-   This library is not a Raspberry Pi emulator nor a complete mock-up of 
-   `RPi.GPIO`_, only the most important functions that I needed for my 
-   `Darth-Vader-RPi project`_ were added.
+`:warning:`
 
-   If there is enough interest in this library, I will eventually mock more
-   functions from `RPi.GPIO`_. Thus, `let me know through pull requests`_ if
-   you want me to add more things to this mock library.
+      This library is not a Raspberry Pi emulator nor a complete mock-up of 
+      `RPi.GPIO`_, only the most important functions that I needed for my 
+      `Darth-Vader-RPi project`_ were added.
+
+      If there is enough interest in this library, I will eventually mock more
+      functions from `RPi.GPIO`_. Thus, `let me know through pull requests`_ if
+      you want me to add more things to this mock library.
 
 Dependencies
 ============
