@@ -255,7 +255,7 @@ The command line for reproducing the same results for example 1 with the script
 
    $ run_examples -s -e 1 -l 11
 
-.. important::
+.. warning::
 
    Always call :meth:`GPIO.cleanup()` at the end of your program to free up any
    resources such as stopping threads.
@@ -328,7 +328,7 @@ The command line for reproducing the same results for example 3 with the script
 
    $ run_examples -s -e 3 -k cmd_r
 
-.. important::
+.. note::
 
    By default, **SimulRPi** maps the key :obj:`cmd_r` to channel 17 as can be
    seen from the `default key-to-channel map
@@ -429,7 +429,7 @@ The command line for reproducing the same results for example 5 with the script
 
    $ run_examples -s -e 5 -t 3 -k ctrl_r
 
-.. important::
+.. note::
 
    By default, **SimulRPi** maps the key :obj:`ctrl_r` to channel 20 as can be
    from the `default key-to-channel map
