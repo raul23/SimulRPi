@@ -241,8 +241,8 @@ The command line for reproducing the same results for example 1 with the script
 
 `:warning:`
 
-   Always call ``GPIO.cleanup()`` at the end of your program to free up any
-   resources such as stopping threads.
+   Always call `GPIO.cleanup() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup>`_ 
+   at the end of your program to free up any resources such as stopping threads.
 
 Example 2: display 3 LEDs
 -------------------------
@@ -308,10 +308,10 @@ The command line for reproducing the same results for example 3 with the script
 
       By default, **SimulRPi** maps the key ``cmd_r`` to channel 17 as can be
       seen from the `default key-to-channel map
-      <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L97>`_.
+      <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L105>`_.
 
-      See also the documentation for :mod:`SimulRPi.mapping` where the default
-      keymap is defined.
+      See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_ 
+      where the default keymap is defined.
 
 Example 4: blink a LED
 ----------------------
@@ -340,21 +340,21 @@ the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_04_terminal_output.gif
-   :target: ./_static/images/example_04_terminal_output.gif
+.. image:: ./docs/_static/images/example_04_terminal_output.gif
+   :target: ./docs/_static/images/example_04_terminal_output.gif
    :align: left
    :alt: Example 04: terminal output
 
 The command line for reproducing the same results for example 4 with the script
-``run_examples.py`` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 4 -t 4 -l 20
 
 Example 5: blink a LED if a key is pressed
 ------------------------------------------
 **Example 5** consists in blinking a LED on channel 10 for 3 seconds if the key
-:obj:`ctrl_r` is pressed. And then, exiting from the program. The program can
-also be terminated at any time by pressing :obj:`ctrl` + :obj:`c`). Here is the
+``ctrl_r`` is pressed. And then, exiting from the program. The program can
+also be terminated at any time by pressing ``ctrl`` + ``c``). Here is the
 code along with the output from the terminal:
 
 .. code-block:: python
@@ -391,15 +391,15 @@ code along with the output from the terminal:
    :alt: Example 05: terminal output
 
 The command line for reproducing the same results for example 5 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 5 -t 3 -k ctrl_r
 
 `:warning:`
 
-   By default, **SimulRPi** maps the key :obj:`ctrl_r` to channel 20 as can be
+   By default, **SimulRPi** maps the key ``ctrl_r`` to channel 20 as can be
    from the `default key-to-channel map
-   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L100>`__.
+   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L108>`__.
 
-   See also the documentation for :mod:`SimulRPi.mapping` where the default
-   keymap is defined.
+   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_ 
+   where the default keymap is defined.
