@@ -218,7 +218,6 @@ Example 1: display 1 LED
 the code along with the output from the terminal:
 
 .. code-block:: python
-   :caption: **Example 1:** display one LED on channel 11
 
    import SimulRPi.GPIO as GPIO
 
@@ -230,20 +229,17 @@ the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_01_terminal_output.png
-   :target: ./_static/images/example_01_terminal_output.png
+.. image:: ./docs/_static/images/example_01_terminal_output.png
+   :target: ./docs/_static/images/example_01_terminal_output.png
    :align: left
    :alt: Example 01: terminal output
 
-|
-|
-
 The command line for reproducing the same results for example 1 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 1 -l 11
 
-.. important::
+`:warning:`
 
    Always call ``GPIO.cleanup()`` at the end of your program to free up any
    resources such as stopping threads.
@@ -254,7 +250,6 @@ Example 2: display 3 LEDs
 respectively. Here is the code along with the output from the terminal:
 
 .. code-block:: python
-   :caption: **Example 2:** display three LEDs
 
    import SimulRPi.GPIO as GPIO
 
@@ -267,26 +262,22 @@ respectively. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_02_terminal_output.png
-   :target: ./_static/images/example_02_terminal_output.png
+.. image:: ./docs/_static/images/example_02_terminal_output.png
+   :target: ./docs/_static/images/example_02_terminal_output.png
    :align: left
    :alt: Example 02: terminal output
 
-|
-|
-
 The command line for reproducing the same results for example 2 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 2
 
 Example 3: detect a pressed key
 -------------------------------
-**Example 3** consists in detecting if the key :obj:`cmd_r` is pressed and then
+**Example 3** consists in detecting if the key ``cmd_r`` is pressed and then
 printing a message. Here is the code along with the output from the terminal:
 
 .. code-block:: python
-   :caption: **Example 3:** detect if :obj:`cmd_r` is pressed
 
    import SimulRPi.GPIO as GPIO
 
@@ -303,36 +294,32 @@ printing a message. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_03_terminal_output.png
-   :target: ./_static/images/example_03_terminal_output.png
+.. image:: ./docs/_static/images/example_03_terminal_output.png
+   :target: ./docs/_static/images/example_03_terminal_output.png
    :align: left
    :alt: Example 03: terminal output
 
-|
-|
-
 The command line for reproducing the same results for example 3 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 3 -k cmd_r
 
-.. important::
+`:warning:`
 
-   By default, **SimulRPi** maps the key :obj:`cmd_r` to channel 17 as can be
-   seen from the `default key-to-channel map
-   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L97>`_.
+      By default, **SimulRPi** maps the key ``cmd_r`` to channel 17 as can be
+      seen from the `default key-to-channel map
+      <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L97>`_.
 
-   See also the documentation for :mod:`SimulRPi.mapping` where the default
-   keymap is defined.
+      See also the documentation for :mod:`SimulRPi.mapping` where the default
+      keymap is defined.
 
 Example 4: blink a LED
 ----------------------
 **Example 4** consists in blinking a LED on channel 20 for 4 seconds (or until
-you press :obj:`ctrl` + :obj:`c`). Here is the code along with the output from
+you press ``ctrl`` + ``c``). Here is the code along with the output from
 the terminal:
 
 .. code-block:: python
-   :caption: **Example 4:** blink a LED for 4 seconds
 
    import time
    import SimulRPi.GPIO as GPIO
@@ -358,12 +345,8 @@ the terminal:
    :align: left
    :alt: Example 04: terminal output
 
-|
-|
-|
-
 The command line for reproducing the same results for example 4 with the script
-:mod:`run_examples` is the following::
+``run_examples.py`` is the following::
 
    $ run_examples -s -e 4 -t 4 -l 20
 
@@ -375,7 +358,6 @@ also be terminated at any time by pressing :obj:`ctrl` + :obj:`c`). Here is the
 code along with the output from the terminal:
 
 .. code-block:: python
-   :caption: **Example 5:** blink a LED for 3 seconds if :obj:`ctrl_r` is pressed
 
    import time
    import SimulRPi.GPIO as GPIO
@@ -403,21 +385,17 @@ code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_05_terminal_output.gif
-   :target: ./_static/images/example_05_terminal_output.gif
+.. image:: ./docs/_static/images/example_05_terminal_output.gif
+   :target: ./docs/_static/images/example_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
-
-|
-|
-|
 
 The command line for reproducing the same results for example 5 with the script
 :mod:`run_examples` is the following::
 
    $ run_examples -s -e 5 -t 3 -k ctrl_r
 
-.. important::
+`:warning:`
 
    By default, **SimulRPi** maps the key :obj:`ctrl_r` to channel 20 as can be
    from the `default key-to-channel map
