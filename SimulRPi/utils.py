@@ -25,6 +25,21 @@ def blink_led(channel, time_on, time_off):
     time.sleep(time_off)
 
 
+# TODO: description
+def convert_keys_to_int(d: dict):
+    # Taken from https://stackoverflow.com/a/62625676
+    new_dict = {}
+    for k, v in d.items():
+        try:
+            new_key = int(k)
+        except ValueError:
+            new_key = k
+        if type(v) == dict:
+            v = convert_keys_to_int(v)
+        new_dict[new_key] = v
+    return new_dict
+
+
 def turn_off_led(channel):
     """Turn off a LED from a given channel.
 
