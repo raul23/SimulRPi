@@ -14,7 +14,7 @@ SimulRPi's documentation
    :maxdepth: 2
    :caption: Contents
 
-   README
+   README_docs
    api_reference
 
 **SimulRPi** is a library that partly fakes
