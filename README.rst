@@ -110,7 +110,6 @@ You can try importing ``RPi.GPIO`` first and if it is not found, then fallback
 on the mock module ``SimulRPi.GPIO``.
 
 .. code-block:: python
-   :caption: **Case 1:** with a ``try`` and ``except`` blocks
 
    try:
        import RPi.GPIO as GPIO
@@ -128,7 +127,6 @@ Or maybe you have a flag to tell whether you want to work with the simulation
 module or the real one.
 
 .. code-block:: python
-   :caption: **Case 2:** with a simulation flag
 
    if simulation:
        import SimulRPi.GPIO as GPIO
@@ -139,7 +137,7 @@ module or the real one.
 
 Script ``run_examples.py``
 --------------------------
-The script :mod:`run_examples` allows you to run different code examples on
+The script ``run_examples`` allows you to run different code examples on
 your RPi or computer. If it is run on your computer, it will make use of the
 module `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
 
