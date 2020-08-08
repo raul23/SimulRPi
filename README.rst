@@ -137,12 +137,12 @@ module or the real one.
 
 Script ``run_examples.py``
 --------------------------
-The script ``run_examples`` allows you to run different code examples on
+The script ``run_examples.py`` allows you to run different code examples on
 your RPi or computer. If it is run on your computer, it will make use of the
 module `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
 
 The different code examples are those presented in
-:ref:`Examples <examples-label>` and show the capability of `SimulRPi.GPIO`_
+`Examples <#examples>` and show the capability of `SimulRPi.GPIO`_
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
@@ -201,8 +201,6 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
 |
 |
 |
-
-.. _examples-label:
 
 Examples
 ========
