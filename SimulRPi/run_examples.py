@@ -370,7 +370,8 @@ def main():
     # =======
     retcode = 0
     # Set the numbering system used to identify the I/O pins on an RPi
-    GPIO.setmode(GPIO.MODES[args.mode.upper()])
+    modes = {'BOARD': GPIO.BOARD, 'BCM': GPIO.BCM}
+    GPIO.setmode(modes[args.mode.upper()])
     try:
         if args.example_number == 1:
             ex1_turn_on_led(args.led_channel[0], args.time_led_on)
