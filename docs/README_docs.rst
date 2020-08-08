@@ -383,7 +383,7 @@ Example 5: blink a LED if a key is pressed
 ------------------------------------------
 **Example 5** consists in blinking a LED on channel 10 for 3 seconds if the key
 :obj:`ctrl_r` is pressed. And then, exiting from the program. The program can
-also be terminated at any time by pressing :obj:`ctrl` + :obj:`c`). Here is the
+also be terminated at any time by pressing :obj:`ctrl` + :obj:`c`. Here is the
 code along with the output from the terminal:
 
 .. code-block:: python
