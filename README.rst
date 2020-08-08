@@ -161,22 +161,22 @@ your terminal by providing some arguments, like this for example::
 
    $ run_examples -e 1 -s
 
-The previous command will run the first example (`-e 1`) using the simulation
-package ``SimulRPi`` (`-s`) and the default values for `led_channel` and
-`time_led_on` (see `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_).
+The previous command will run the first example (*-e 1*) using the simulation
+package ``SimulRPi`` (*-s*) and the default values for *led_channel* and
+*time_led_on* (see `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_).
 
-For a complete list of supported arguments, provide the `-h` option to show the
+For a complete list of supported arguments, provide the *-h* option to show the
 help message along with a description for each option and their default values::
 
    $ run_examples -h
 
-Check also the `script's usage <api_reference.html#usage>`_ from the docs for
+Check also the `script's usage <https://simulrpi.readthedocs.io/en/latest/api_reference.html#usage>`_ from the docs for
 the list of available options.
 
 .. important::
 
-   Don't forget the flag `-s` (for simulation) when running the script
-   :mod:`run_examples` if you want to run a code example on your computer, and
+   Don't forget the flag *-s* (for simulation) when running the script
+   ``run_examples.py`` if you want to run a code example on your computer, and
    not on your RPi.
 
 Run an example code
@@ -185,15 +185,15 @@ Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
 
 Here is the command line for blinking a LED (on channel 21) for a total of 5
-seconds if the key :obj:`cmd_r` is pressed when the simulation package
+seconds if the key ``cmd_r`` is pressed when the simulation package
 ``SimulRPi`` is used::
 
    $ run_examples -s -e 5 -l 21 -t 5 -k cmd_r
 
 **Output:**
 
-.. image:: ./_static/images/run_examples_05_terminal_output.gif
-   :target: ./_static/images/run_examples_05_terminal_output.gif
+.. image:: ./docs/_static/images/run_examples_05_terminal_output.gif
+   :target: ./docs/_static/images/run_examples_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
