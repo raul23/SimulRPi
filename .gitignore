@@ -136,3 +136,4 @@ dmypy.json
 
 # Test files/folders
 sandbox/
+test.py
