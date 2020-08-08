@@ -173,11 +173,11 @@ help message along with a description for each option and their default values::
 Check also the `script's usage <https://simulrpi.readthedocs.io/en/latest/api_reference.html#usage>`_ from the docs for
 the list of available options.
 
-.. important::
+`:warning:`
 
-   Don't forget the flag *-s* (for simulation) when running the script
-   ``run_examples.py`` if you want to run a code example on your computer, and
-   not on your RPi.
+      Don't forget the flag *-s* (for simulation) when running the script
+      ``run_examples.py`` if you want to run a code example on your computer, and
+      not on your RPi.
 
 Run an example code
 ~~~~~~~~~~~~~~~~~~~
@@ -196,11 +196,6 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    :target: ./docs/_static/images/run_examples_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
-
-|
-|
-|
-|
 
 Examples
 ========
