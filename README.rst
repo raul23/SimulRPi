@@ -146,11 +146,11 @@ The different code examples are those presented in
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
-   - Example 1: `ex1_turn_on_led <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
-   - Example 2: `ex2_turn_on_many_leds <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds>`_
-   - Example 3: `ex3_detect_button <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button>`_
-   - Example 4: `ex4_blink_led <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex4_blink_led>`_
-   - Example 5: `ex5_blink_led_if_button <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex5_blink_led_if_button>`_
+   - Example 1: `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
+   - Example 2: `ex2_turn_on_many_leds() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds>`_
+   - Example 3: `ex3_detect_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button>`_
+   - Example 4: `ex4_blink_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex4_blink_led>`_
+   - Example 5: `ex5_blink_led_if_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex5_blink_led_if_button>`_
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
