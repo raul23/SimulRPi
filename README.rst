@@ -137,8 +137,8 @@ module or the real one.
 
    # Rest of your code
 
-Script :obj:`run_examples.py`
------------------------------
+Script `run_examples.py`
+------------------------
 The script :mod:`run_examples` allows you to run different code examples on
 your RPi or computer. If it is run on your computer, it will make use of the
 module `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
