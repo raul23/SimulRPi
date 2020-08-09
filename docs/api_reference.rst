@@ -29,6 +29,7 @@ API Reference
 
 .. literalinclude:: ../SimulRPi/default_keymap.py
    :language: Python
+   :end-before: [end-section]
 
 .. important::
 
