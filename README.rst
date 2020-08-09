@@ -408,8 +408,9 @@ the terminal:
    :align: left
    :alt: Example 04: terminal output
 
-|
-|
+..
+   1 line break on GitHub and 3 on PyPI
+
 |
 
 The command line for reproducing the same results for example 4 with the script
