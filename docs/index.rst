@@ -41,4 +41,7 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
+
+..
+   TODO: search page doesn't do anything
+   * :ref:`search`
