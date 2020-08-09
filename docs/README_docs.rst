@@ -2,15 +2,22 @@
 README
 ======
 
-.. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
+.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _let me know through pull requests: https://github.com/raul23/SimulRPi/pulls
+.. _pynput: https://pynput.readthedocs.io/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _run_examples.py: #script-run-examples-py
 .. _SimulRPi: https://github.com/raul23/SimulRPi
-.. _SimulRPi.GPIO: https://github.com/raul23/SimulRPi
+..
+   For README on GitHub and PyPI
+   _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
+.. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
+.. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
+.. _SimulRPi PyPI: https://test.pypi.org/project/SimulRPi/
 
 ..
-   TODO: change URL for SimulRPi.GPIO that points to its documentation
+   TODO: change URLs for 'SimulRPi.GPIO' and 'SimulRPi pypi' that point to the
+   real one
 
 .. 
    image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
@@ -46,11 +53,11 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 **SimulRPi** also simulates these I/O devices connected to an RPi:
 
 - push buttons by listening to keys pressed/released on the keyboard and
-- LEDs by displaying small dots blinking on the terminal along with their GPIO \
+- LEDs by displaying small dots blinking on the terminal along with their GPIO
   pin number.
 
 When a LED is turned on, it is shown as a small red circle on the terminal. The
-package `pynput <https://pynput.readthedocs.io/>`_ is used to monitor the
+package `pynput`_ is used to monitor the
 keyboard for any pressed key.
 
 **Example: terminal output**
@@ -76,7 +83,7 @@ channel 22 toggles between on and off when a key is pressed.
 
     This library is not a Raspberry Pi emulator nor a complete mock-up of
     `RPi.GPIO`_, only the most important functions that I needed for my
-    `Darth-Vader-RPi project`_ were added.
+    `Darth-Vader-RPi`_ project were added.
 
     If there is enough interest in this library, I will eventually mock more
     functions from `RPi.GPIO`_. Thus, `let me know through pull requests`_ if
@@ -85,7 +92,7 @@ channel 22 toggles between on and off when a key is pressed.
 Dependencies
 ============
 * **Platforms:** macOS, Linux
-* **Python**: 3.5, 3.6, 3.7
+* **Python**: 3.5, 3.6, 3.7, 3.8
 * ``pynput`` >=1.6.8: for monitoring the keyboard for any pressed key
 
 Installation instructions
@@ -99,8 +106,6 @@ Installation instructions
 2. Test your installation by importing ``SimulRPi`` and printing its version::
 
    $ python -c "import SimulRPi; print(SimulRPi.__version__)"
-
-   Check that the version is the latest one.
 
 Usage
 =====
@@ -141,6 +146,8 @@ module or the real one.
 
 Script :obj:`run_examples.py`
 -----------------------------
+Description
+~~~~~~~~~~~
 The script :mod:`run_examples` allows you to run different code examples on
 your RPi or computer. If it is run on your computer, it will make use of the
 module `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
@@ -185,23 +192,9 @@ How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
 Once you install the package ``SimulRPi`` (see
 `Installation Instructions <#installation-instructions>`_), you should have
-access to the script :mod:`run_examples` which can be called from anywhere on
-your terminal by providing some arguments, like this for example::
+access to the script :mod:`run_examples` which can be called from the terminal
+by providing some arguments: ``$ run_examples -s -e 1``.
 
-   $ run_examples -e 1 -s
-
-The previous command will run the first example (`-e 1`) using the simulation
-package ``SimulRPi`` (`-s`) and the default values for `led_channel` and
-`time_led_on` (see :meth:`run_examples.ex1_turn_on_led`).
-
-.. important::
-
-   Don't forget the flag `-s` (for simulation) when running the script
-   :mod:`run_examples` if you want to run a code example on your computer, and
-   not on your RPi.
-
-Run an example code
-~~~~~~~~~~~~~~~~~~~
 Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
 
@@ -222,6 +215,12 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
 |
 |
 |
+
+.. important::
+
+   Don't forget the flag `-s` (for simulation) when running the script
+   :mod:`run_examples` if you want to run a code example on your computer, and
+   not on your RPi.
 
 .. _examples-label:
 
@@ -453,3 +452,21 @@ The command line for reproducing the same results for example 5 with the script
 
    See also the documentation for :mod:`SimulRPi.mapping` where the default
    keymap is defined.
+
+Resources
+=========
+..
+   For README on GitHub and pypi
+   * `SimulRPi documentation`_: from readthedocs
+
+* `SimulRPi GitHub`_
+* `SimulRPi PyPI`_
+* `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
+  Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
+  testing on a computer if no RPi available
+
+References
+==========
+* `pynput`_: package used for monitoring the keyboard for any pressed keys as to
+  simulate push buttons connected to an RPi
+* `RPi.GPIO`_: a module to control RPi GPIO channels
