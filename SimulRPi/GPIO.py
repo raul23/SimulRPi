@@ -2,12 +2,15 @@
 
 It simulates these I/O devices connected to a Raspberry Pi:
 
-    - push buttons by listening to keys pressed/released on the keyboard and
-    - LEDs by displaying small circles blinking on the terminal along with their \
-    GPIO pin number.
+    - push buttons by listening to pressed keyboard keys and
+    - LEDs by displaying small circles blinking on the terminal along with \
+    their GPIO pin number.
 
 When a LED is turned on, it is shown as a small red circle on the terminal. The
-package `pynput`_ is used to monitor the keyboard for any key pressed.
+package `pynput`_ is used to monitor the keyboard for any pressed key.
+
+..
+    TODO: also found in README_docs
 
 .. highlight:: none
 
@@ -27,11 +30,16 @@ between brackets is the associated GPIO pin number.
     `Darth-Vader-RPi project`_ were added.
 
     If there is enough interest in this library, I will eventually mock more
-    functions from `RPi.GPIO`_. Thus, `let me know through pull requests`_ if
-    you want me to add more things to this mock library.
+    functions from `RPi.GPIO`_. Thus,
+    `let me know through SimulRPi's issues page`_ if you want me to add more
+    things to this mock library.
+
+..
+    TODO: also found in README_docs.rst
 
 .. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
-.. _let me know through pull requests: https://github.com/raul23/SimulRPi/pulls
+.. _let me know through SimulRPi's issues page:
+    https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _RPi.GPIO wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
@@ -344,9 +352,9 @@ class Manager:
         The reverse dictionary of :attr:`key_to_channel_map`. It maps channels
         to keys.
     nb_prints : int
-        Number of times the display thread :attr:`th_display_leds` has printed
-        blinking circles on the terminal. It is used when debugging the display
-        thread :attr:`th_display_leds`.
+        Number of times the displaying thread :attr:`th_display_leds` has
+        printed blinking circles on the terminal. It is used when debugging the
+        displaying thread.
     th_display_leds : threading.Thread
         Thread responsible for displaying small blinking circles on the
         terminal as to simulate LEDs connected to an RPi.
@@ -444,7 +452,7 @@ class Manager:
             which is called by the main program when it is exiting.
 
             The reason is to avoid messing with the display of LEDs by the
-            thread :attr:`th_display_leds`.
+            displaying thread :attr:`th_display_leds`.
 
         .. important::
 
@@ -466,6 +474,7 @@ class Manager:
                 th.join()
 
         """
+        # TODO: explain order outputs are setup is how the channels are shown
         if self.enable_printing:
             # Hide the cursor
             os.system("tput civis")
@@ -500,7 +509,7 @@ class Manager:
 
     @staticmethod
     def get_key_name(key):
-        """Get the name of a key as a string.
+        """Get the name of a keyboard key as a string.
 
         The name of the special or alphanumeric key is given by the package
         `pynput`_.
@@ -508,13 +517,14 @@ class Manager:
         Parameters
         ----------
         key : pynput.keyboard.Key or pynput.keyboard.KeyCode
-            The key (from :mod:`pynput.keyboard`) whose name will be returned.
+            The keyboard key (from :mod:`pynput.keyboard`) whose name will be
+            returned.
 
         Returns
         -------
         key_name : str or None
-            Returns the name of the given key if one was found by `pynput`_.
-            Otherwise, it returns :obj:`None`.
+            Returns the name of the given keyboard key if one was found by
+            `pynput`_. Otherwise, it returns :obj:`None`.
 
         """
         # print(key)
@@ -535,7 +545,7 @@ class Manager:
         return key_name
 
     def on_press(self, key):
-        """When a valid key is pressed, set its state to `GPIO.LOW`.
+        """When a valid keyboard key is pressed, set its state to `GPIO.LOW`.
 
         Callback invoked from the thread :attr:`GPIO.Manager.th_listener`.
 
@@ -561,7 +571,7 @@ class Manager:
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=LOW)
 
     def on_release(self, key):
-        """When a valid key is released, set its state to `GPIO.HIGH`.
+        """When a valid keyboard key is released, set its state to `GPIO.HIGH`.
 
         Callback invoked from the thread :attr:`GPIO.Manager.th_listener`.
 
@@ -596,7 +606,8 @@ class Manager:
         Parameters
         ----------
         new_keymap : dict
-            Dictionary that maps keys to their new GPIO channels.
+            Dictionary that maps keys (:obj:`str`) to their new GPIO channels
+            (:obj:`int`).
 
             **For example**::
 
@@ -613,7 +624,7 @@ class Manager:
             If a key is associated to a channel that is already taken by
             another key, both keys' channels will be swapped. However, if a key
             is being linked to a :obj:`None` channel, then it will take on the
-            maximum channel number available PLUS 1.
+            maximum channel number available + 1.
 
         """
         # TODO: assert keys (str) and channels (int)
@@ -782,7 +793,7 @@ def cleanup():
     # Show cursor again
     os.system("tput cnorm ")
     # NOTE: code not used anymore. To be removed
-    # Wait a little bit to give the display thread a little bit of time to
+    # Wait a little bit to give the displaying thread a little bit of time to
     # display something but no more than 0.3 seconds
     """
     start = time.time()
@@ -790,8 +801,8 @@ def cleanup():
         if time.time() - start > 0.3:
             break
     """
-    # Check if display thread is alive. If the user didn't setup any output
-    # channels for LEDs, then the display thread was never started
+    # Check if displaying thread is alive. If the user didn't setup any output
+    # channels for LEDs, then the displaying thread was never started
     if manager.th_display_leds.is_alive():
         manager.th_display_leds.do_run = False
         manager.th_display_leds.join()
@@ -825,6 +836,12 @@ def input(channel):
         number, then :obj:`None` is returned. Otherwise, the :class:`Pin`\'s
         state is returned: 1 (`HIGH`) or 0 (`LOW`).
 
+
+    .. note::
+
+        The listener thread (for monitoring pressed key) is started if it is
+        not alive, i.e. it is not already running.
+
     """
     # TODO: remove start_threads
     """
@@ -848,13 +865,19 @@ def output(channel, state):
     state : int
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
+
+    .. note::
+
+        The displaying thread (for showing "LEDs" on the terminal) is started
+        if it is not alive, i.e. it is not already running.
+
     """
     manager.pin_db.set_pin_state_from_channel(channel, state)
     # TODO: remove start_threads
     """
     if manager.start_threads and \
     """
-    # Start the display thread only if it not already alive
+    # Start the displaying thread only if it not already alive
     if not manager.th_display_leds.is_alive():
         manager.th_display_leds.start()
     # TODO: remove the following
@@ -881,8 +904,9 @@ def setkeymap(key_to_channel_map):
     Parameters
     ----------
     key_to_channel_map : dict
-        A dictionary mapping keys and GPIO channels that will be used to update
-        the default keymap found in :mod:`SimulRPi.mapping`.
+        A dictionary mapping keys (:obj:`str`) and GPIO channels (:obj:`int`)
+        that will be used to update the default keymap found in
+        :mod:`SimulRPi.mapping`.
 
         **For example**::
 
@@ -938,7 +962,7 @@ def setprinting(enable_printing):
         Whether to enable printing on the terminal.
 
     """
-    # TODO: stop display thread too?
+    # TODO: stop displaying thread too?
     manager.enable_printing = enable_printing
 
 
@@ -974,7 +998,7 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
 
     References
     ----------
-    `RPi.GPIO` wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
+    `RPi.GPIO wiki`_
 
     """
     # TODO: assert on mode
