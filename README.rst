@@ -212,7 +212,9 @@ How to run the script
 Once you install the package ``SimulRPi`` (see
 `Installation Instructions <#installation-instructions>`_), you should have
 access to the script ``run_examples`` which can be called from the terminal
-by providing some arguments. For example: ``run_examples -e 1 -s``.
+by providing some arguments.
+
+For example: ``run_examples -e 1 -s``.
 
 Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
