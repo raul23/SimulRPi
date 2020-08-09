@@ -25,12 +25,10 @@ API Reference
 
 .. _content-default-keymap-label:
 
-**Content of the default keymap dictionary** (*key:* key from keyboard, *value:* GPIO channel):
+**Content of the default keymap dictionary** (*key:* keyboard key, *value:* GPIO channel):
 
-.. literalinclude:: ../SimulRPi/mapping.py
+.. literalinclude:: ../SimulRPi/default_keymap.py
    :language: Python
-   :start-after: [start-section]
-   :end-before: [end-section]
 
 .. important::
 
@@ -38,7 +36,7 @@ API Reference
    ``pynput``.
 
    For instance, on macOS some keboard keys may require that you run your
-   script as *root* with `sudo`. All alphanumeric keys and some special keys
+   script with `sudo`. All alphanumeric keys and some special keys
    (e.g. :obj:`backspace` and :obj:`right`) require `sudo`. In the content of
    :ref:`default_key_to_channel_map <content-default-keymap-label>` shown
    previously, I commented those keyboard keys that need `sudo` on macOS. The
