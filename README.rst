@@ -2,7 +2,7 @@
 README
 ======
 
-.. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
+.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _install: #installation-instructions
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
@@ -10,6 +10,7 @@ README
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
 .. _run_examples.py: #script-run-examples-py
+.. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
 .. _SimulRPi PyPI: https://test.pypi.org/project/SimulRPi/
@@ -93,7 +94,7 @@ channel 22 toggles between on and off when a key is pressed.
 
    This library is not a Raspberry Pi emulator nor a complete mock-up of 
    `RPi.GPIO`_, only the most important functions that I needed for my 
-   `Darth-Vader-RPi project`_ were added.
+   `Darth-Vader-RPi`_ project were added.
 
    If there is enough interest in this library, I will eventually mock more
    functions from `RPi.GPIO`_. Thus,
