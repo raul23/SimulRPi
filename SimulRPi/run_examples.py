@@ -1,13 +1,15 @@
 #!/usr/script/env python
-"""Script for executing code examples on a Raspberry Pi or computer (
-simulation).
+"""Script for executing code examples on a Raspberry Pi or computer (simulation).
 
 This script allows you to run different code examples on your Raspberry Pi (RPi)
 or computer in which case it will make use of the mock library `SimulRPi`_
 which partly fakes `RPi.GPIO`_.
 
-The code examples test different parts of the mock library `SimulRPi`_ in order
-to show what it is capable of simulating from an RPi:
+..
+   TODO: change URLs for 'SimulRPi.GPIO' to point to the real one
+
+The code examples test different parts of the mock library ``SimulRPi`` in
+order to show what it is capable of simulating from an RPi:
 
     * Turn on/off LEDs
     * Detect pressed button and perform an action
@@ -32,19 +34,26 @@ Run the script on the RPi::
 
     $ run_examples
 
-Run the code for example #1 on your computer using `SimulRPi.GPIO`_ which
-simulates `RPi.GPIO`_::
+Run the code for example **#1** on your computer using `SimulRPi.GPIO`_ which
+simulates `RPi.GPIO`_: and default values for the options `-l` (channel 10) and
+-`-on` (1 second)::
 
     $ run_examples -s -e 1
 
-.. _installed: https://github.com/raul23/SimulRPi#readme
+.. _installed:
+    https://simulrpi.readthedocs.io/en/latest/README_docs.html#installation-instructions
 .. _RPi.GPIO:
     https://pypi.org/project/RPi.GPIO/
-.. _SimulRPi: https://github.com/raul23/SimulRPi
-.. _SimulRPi.GPIO: https://github.com/raul23/SimulRPi
+.. _SimulRPi: https://test.pypi.org/project/SimulRPi/
+.. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
+.. _script's usage: #usage
+
+..
+    TODO: add URL for installed that points to installation section
+    TODO: find if we can load the list of options from a separate file
+    TODO: place default values in separate file
 
 """
-# TODO: add URL for installed that points to installation section
 import argparse
 import time
 import traceback
@@ -153,6 +162,14 @@ def ex3_detect_button(channel):
         Input GPIO channel number based on the numbering system you have
         specified (`BOARD` or `BCM`).
 
+
+    .. note::
+
+        If the simulation mode is enabled (`-s`), the specified keyboard key
+        will be detected if pressed. The keyboard key can be specified through
+        the command line options `-b` (button channel) or `-k` (the key name,
+        e.g. 'ctrl'). See `script's usage`_.
+
     """
     msg = "Ex 3: detect if the {key_or_button} [{channel}] is pressed\n".format(
         key_or_button={}, channel=channel)
@@ -238,6 +255,17 @@ def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=4,
         Time in seconds the LED will stay turned OFF at a time. The default
         value is 0.5 seconds.
 
+
+    .. note::
+
+        If the simulation mode is enabled (`-s`), the specified keyboard key
+        will be detected if pressed. The keyboard key can be specified through
+        the command line options `-b` (button channel) or `-k` (the key name,
+        e.g. 'ctrl'). See `script's usage`_.
+
+    ..
+        TODO: find if we can avoid duplicates of notes and other notices
+
     """
     msg = "Ex 5: if the {key_or_button} [{button_channel}] is pressed, blink " \
           "a LED [{led_channel}] for {time} second{plural}".format(
@@ -318,9 +346,9 @@ use of the mock library SimulRPi.''',
             DEFAULT_KEY_NAME))
     parser.add_argument(
         "-k", default=DEFAULT_KEY_NAME, dest="key_name",
-        help='''The name of the key associated with the button channel. The 
-        name must be one of those recognized by the module `pynput`. See the
-        SimulRPi documentation for a list of valid key names: 
+        help='''The name of the keyboard key associated with the button 
+        channel. The name must be one of those recognized by the module 
+        `pynput`. See the SimulRPi documentation for a list of valid key names: 
         https://bit.ly/2Pw1OBe. Example: `alt`, `cmd_r`'''.format(
             DEFAULT_KEY_NAME))
     parser.add_argument(
