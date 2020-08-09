@@ -96,7 +96,7 @@ Installation instructions
 
    It will install the dependency ``pynput`` if it is not already found in your system.
 
-2. Test your installation with::
+2. Test your installation by importing ``SimulRPi`` and printing its version::
 
    $ python -c "import SimulRPi; print(SimulRPi.__version__)"
 
