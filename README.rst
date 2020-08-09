@@ -17,20 +17,19 @@ README
 ..
    TODO: change URL for SimulRPi.GPIO that points to its documentation
 
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
+..
+   GitHub README: PyPI doesn't accept `raw`
+   image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :align: center
    :alt: SimulRPi logo
 
-🚧 **Work-In-Progress**
-
-..
-   GitHub README: PyPI doesn't accept `raw`
-   raw:: html
+.. raw:: html
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
    <br>🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
    </p>
-   
+
+🚧 **Work-In-Progress**
 
 .. image:: https://readthedocs.org/projects/simulrpi/badge/?version=latest
    :target: https://simulrpi.readthedocs.io/en/latest/?badge=latest
