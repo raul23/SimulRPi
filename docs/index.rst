@@ -12,16 +12,16 @@ SimulRPi's documentation
    <br> 🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
    </p>
 
+**SimulRPi** is a library that partly fakes
+`RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
+on a Raspberry Pi (RPi).
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents
 
    README_docs
    api_reference
-
-**SimulRPi** is a library that partly fakes
-`RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
-on a Raspberry Pi (RPi).
 
 .. raw:: html
 
