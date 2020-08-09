@@ -12,24 +12,33 @@ README
 .. _run_examples.py: #script-run-examples-py
 .. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
-.. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
+
+..
+   IMPORTANT:
+   GitHub and readthedocs _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
+   PyPI doesn't need URL to SimulRPi's PyPI
+
 .. _SimulRPi PyPI: https://test.pypi.org/project/SimulRPi/
 
 ..
-   TODO: change URL for SimulRPi.GPIO that points to its documentation
+   NOTES:
+   PyPI doesn't accept `raw`
+   GitHub doesn't recognize image's :align: center, only PyPI
 
 ..
-   GitHub README: PyPI doesn't accept `raw`
-   image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
+   IMPORTANT: PyPI
+   PyPI doesn't accept `raw` along with construction sign
+
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :align: center
    :alt: SimulRPi logo
 
+🚧 **Work-In-Progress**
+
 ..
-   🚧 **Work-In-Progress**
-
-.. raw:: html
-
+   IMPORTANT: GitHub and readthedocs
+   raw:: html
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
    <br>🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
    </p>
@@ -65,13 +74,16 @@ keyboard for any pressed key.
 
 **Example: terminal output**
 
+..
+   IMPORTANT: PyPI
+
 .. image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
    :target: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
    :align: center
    :alt: Simulating LEDs on an RPi via a terminal
 
 ..
-   GitHub README: PyPI doesn't accept `raw`
+   IMPORTANT: GitHub and readthedocs
    raw:: html
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
@@ -83,14 +95,12 @@ between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
 
 ..
-   important::
-   GitHub and PyPI doesn't recognize `important`
+   IMPORTANT:
+   GitHub uses `:warning:`
+   PyPI uses **Important**
+   readthedocs uses `.. important::`
 
-..
-   For GitHub README
-   `:warning:`
-
-**Warning**
+**Important**
 
    This library is not a Raspberry Pi emulator nor a complete mock-up of 
    `RPi.GPIO`_, only the most important functions that I needed for my 
@@ -111,7 +121,7 @@ Installation instructions
 =========================
 1. Install the ``SimulRPi`` package with *pip*::
 
-   $ pip install -i https://test.pypi.org/simple/ --extra-index-url=https://pypi.org/simple/ SimulRPi
+   $ pip install SimulRPi
 
    It will install the dependency ``pynput`` if it is not already found in your system.
 
@@ -129,7 +139,8 @@ You can try importing ``RPi.GPIO`` first and if it is not found, then fallback
 on the mock module ``SimulRPi.GPIO``.
 
 ..
-   GitHub and PyPI don't recognize `:mod:` [used in README_docs)
+   IMPORTANT:
+   GitHub and PyPI don't recognize `:mod:`
    Also they don't recognize :caption: (used in code-block)
 
 .. code-block:: python
@@ -163,13 +174,21 @@ Script ``run_examples.py``
 The script `run_examples`_ which you have access to once you `install`_ the
 ``SimulRPi`` package allows you to run different code examples on your RPi or
 computer. If it is run on your computer, it will make use of the module
-`SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
+``SimulRPi.GPIO`` which partly fakes `RPi.GPIO`_.
 
 ..
-   PyPI wasn't able a good URL for Examples section name
+   IMPORTANT: GitHub and PyPI
+   Use `SimulRPi.GPIO`_ on paragraph above
+
+..
+   IMPORTANT:
+   PyPI wasn't able to generate a good URL for 'Examples' section name
+
+   GitHub and readthedocs
+   `Examples <#examples>`_
 
 The different code examples are those presented in
-`Examples <#id5>`_ and show the capability of ``SimulRPi.GPIO``
+`Examples <#id4>`_ and show the capability of ``SimulRPi.GPIO``
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 ..
@@ -234,9 +253,21 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    :alt: Example 05: terminal output
 
 ..
-   1 line break on GitHub and 3 on PyPI
+   IMPORTANT:
+   1 line break on GitHub
+   4 on PyPI
+   4 on readthedocs
 
 |
+|
+|
+|
+
+..
+   IMPORTANT:
+   GitHub uses `:star:`
+   PyPI uses **Important**
+   readthedocs uses `.. important::`
 
 **Important**
 
@@ -284,8 +315,12 @@ the code along with the output from the terminal:
    :alt: Example 01: terminal output
 
 ..
-   1 line break on GitHub and 2 on PyPI
+   IMPORTANT:
+   1 line break on GitHub
+   2 on PyPI
+   2 on readthedocs
 
+|
 |
 
 The command line for reproducing the same results for example 1 with the script
@@ -322,8 +357,12 @@ respectively. Here is the code along with the output from the terminal:
    :alt: Example 02: terminal output
 
 ..
-   1 line break on GitHub and 2 on PyPI
+   IMPORTANT:
+   1 line break on GitHub
+   2 on PyPI
+   2 on readthedocs
 
+|
 |
 
 The command line for reproducing the same results for example 2 with the script
@@ -359,8 +398,13 @@ printing a message. Here is the code along with the output from the terminal:
    :alt: Example 03: terminal output
 
 ..
-   1 line break on GitHub and 2 on PyPI
+   IMPORTANT:
+   1 line break on GitHub
+   3 on PyPI
+   2 on readthedocs
 
+|
+|
 |
 
 The command line for reproducing the same results for example 3 with the script
@@ -410,7 +454,14 @@ the terminal:
    :alt: Example 04: terminal output
 
 ..
-   0 line break on GitHub and 3 on PyPI
+   IMPORTANT:
+   0 line break on GitHub
+   3 on PyPI
+   3 on readthedocs
+
+|
+|
+|
 
 The command line for reproducing the same results for example 4 with the script
 ``run_examples`` is the following::
@@ -458,8 +509,13 @@ code along with the output from the terminal:
    :alt: Example 05: terminal output
 
 ..
-   1 line break on GitHub and 3 on PyPI
+   IMPORTANT:
+   1 line break on GitHub
+   3 on PyPI
+   3 on readthedocs
 
+|
+|
 |
 
 The command line for reproducing the same results for example 5 with the script
@@ -478,12 +534,22 @@ The command line for reproducing the same results for example 5 with the script
 
 Resources
 =========
+
 ..
-   README_docs doesn't need link to documentation, only GitHub and PyPI
-   README on GitHub: no link to SimulRPi's GitHub
+   IMPORTANT:
+   On GitHub:
+   * `SimulRPi documentation`_
+   * `SimulRPi PyPI`_
+   On PiPy:
+   * `SimulRPi documentation`_
+   * `SimulRPi GitHub`_
+   On readthedocs:
+   * `SimulRPi GitHub`_
+   * `SimulRPi PyPI`_
+
 
 * `SimulRPi documentation`_
-* `SimulRPi PyPI`_
+* `SimulRPi GitHub`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
   testing on a computer when no RPi available
