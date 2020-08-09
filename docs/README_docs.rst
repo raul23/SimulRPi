@@ -207,7 +207,7 @@ How to run the script
 Once you install the package ``SimulRPi`` (see
 `Installation Instructions <#installation-instructions>`_), you should have
 access to the script :mod:`run_examples` which can be called from the terminal
-by providing some arguments: ``$ run_examples -s -e 1``.
+by providing some arguments. For example: ``$ run_examples -s -e 1``.
 
 Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
@@ -359,7 +359,7 @@ The command line for reproducing the same results for example 3 with the script
 
 .. note::
 
-   By default, **SimulRPi** maps the key :obj:`cmd_r` to channel 17 as can be
+   By default, ``SimulRPi`` maps the key :obj:`cmd_r` to channel 17 as can be
    seen from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19>`_.
 
@@ -463,7 +463,7 @@ The command line for reproducing the same results for example 5 with the script
 
 .. note::
 
-   By default, **SimulRPi** maps the key :obj:`ctrl_r` to channel 20 as can be
+   By default, ``SimulRPi`` maps the key :obj:`ctrl_r` to channel 20 as can be
    from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L22>`__.
 
@@ -480,7 +480,7 @@ Resources
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
-  testing on a computer if no RPi available
+  testing on a computer when no RPi available
 
 References
 ==========
