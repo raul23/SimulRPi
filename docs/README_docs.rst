@@ -62,7 +62,7 @@ package `pynput`_ is used to monitor the
 keyboard for any pressed key.
 
 ..
-   TODO: also found in GPIO module description
+   TODO: also found in GPIO module description and README
 
 **Example: terminal output**
 
@@ -95,7 +95,7 @@ channel 22 toggles between on and off when a key is pressed.
     things to this mock library.
 
 ..
-   TODO: also found in GPIO module description
+   TODO: also found in GPIO module description and README
 
 Dependencies
 ============
@@ -207,7 +207,7 @@ How to run the script
 Once you install the package ``SimulRPi`` (see
 `Installation Instructions <#installation-instructions>`_), you should have
 access to the script :mod:`run_examples` which can be called from the terminal
-by providing some arguments. For example: ``$ run_examples -s -e 1``.
+by providing some arguments. For example: ``run_examples -s -e 1``.
 
 Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
@@ -232,7 +232,7 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
 
 .. important::
 
-   Don't forget the flag `-s` (for simulation) when running the script
+   Don't forget the flag *-s* (for simulation) when running the script
    :mod:`run_examples` if you want to run a code example on your computer, and
    not on your RPi.
 
