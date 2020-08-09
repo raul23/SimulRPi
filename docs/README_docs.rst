@@ -361,7 +361,7 @@ The command line for reproducing the same results for example 3 with the script
 
    By default, **SimulRPi** maps the key :obj:`cmd_r` to channel 17 as can be
    seen from the `default key-to-channel map
-   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L19>`_.
+   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19>`_.
 
    See also the documentation for :mod:`SimulRPi.mapping` where the default
    keymap is defined.
@@ -465,7 +465,7 @@ The command line for reproducing the same results for example 5 with the script
 
    By default, **SimulRPi** maps the key :obj:`ctrl_r` to channel 20 as can be
    from the `default key-to-channel map
-   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L22>`__.
+   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L22>`__.
 
    See also the documentation for :mod:`SimulRPi.mapping` where the default
    keymap is defined.
