@@ -107,7 +107,7 @@ Installation instructions
 =========================
 1. Install the ``SimulRPi`` package with `pip`::
 
-   $ pip install -i https://test.pypi.org/simple/ --extra-index-url=https://pypi.org/simple/ SimulRPi
+   $ pip install SimulRPi
 
    It will install the dependency ``pynput`` if it is not already found in your system.
 
