@@ -48,4 +48,7 @@ setup(name='SimulRPi',
       packages=find_packages(exclude=['tests']),
       include_package_data=True,
       install_requires=REQUIREMENTS,
+      entry_points={
+          'console_scripts': ['run_exampels=SimulRPi.run_examples:main']
+      },
       zip_safe=False)
