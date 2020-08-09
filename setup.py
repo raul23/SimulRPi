@@ -28,7 +28,7 @@ setup(name='SimulRPi',
       long_description=README,
       long_description_content_type='text/x-rst',
       classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
