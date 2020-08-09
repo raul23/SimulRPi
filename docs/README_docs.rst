@@ -157,6 +157,30 @@ Here is a list of the functions associated with each code example:
    - Example 4: :meth:`run_examples.ex4_blink_led`
    - Example 5: :meth:`run_examples.ex5_blink_led_if_button`
 
+List of options
+~~~~~~~~~~~~~~~
+
+To display the list of options and their descriptions: ``run_examples -h``
+
+   -e       The number of the code example you want to run. It is required. (
+            default: None)
+   -m       Set the numbering system used to identify the I/O pins on an RPi. (
+            default: BCM)
+   -s       Enable simulation mode, i.e. SimulRPi.GPIO wil be use for
+            simulating RPi.GPIO. (default: False)
+   -l       The GPIO channels to be used for LEDs. If an example only requires
+            1 channel, the first channel from the provided list will be used.
+            (default: [10, 11, 12])
+   -b       The GPIO channel to be used for a push button. The default value is
+            channel 20 which is associated with the key *alt_r*. (default: 13)
+   -t       Total time in seconds LEDs will be blinking. (default: 4)
+   -k       The name of the key associated with the button channel. The name
+            must be one of those recognized by the module *pynput*. See the
+            SimulRPi documentation for a list of valid key names:
+            https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *alt_r*)
+   --on     Time in seconds the LED will stay turned ON at a time. (default: 1)
+   --off    Time in seconds the LED will stay turned OFF at a time. (default: 1)
+
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
 Once you install the package ``SimulRPi`` (see
@@ -169,14 +193,6 @@ your terminal by providing some arguments, like this for example::
 The previous command will run the first example (`-e 1`) using the simulation
 package ``SimulRPi`` (`-s`) and the default values for `led_channel` and
 `time_led_on` (see :meth:`run_examples.ex1_turn_on_led`).
-
-For a complete list of supported arguments, provide the `-h` option to show the
-help message along with a description for each option and their default values::
-
-   $ run_examples -h
-
-Check also the `script's usage <api_reference.html#usage>`_ from the docs for
-the list of available options.
 
 .. important::
 
@@ -206,9 +222,6 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
 |
 |
 |
-
--s   Enable simulation mode, i.e. SimulRPi.GPIO wil be used
-                        for simulating RPi.GPIO. (default: False)
 
 .. _examples-label:
 
