@@ -409,7 +409,7 @@ the terminal:
    :alt: Example 04: terminal output
 
 ..
-   1 line break on GitHub and 3 on PyPI
+   0 line break on GitHub and 3 on PyPI
 
 The command line for reproducing the same results for example 4 with the script
 ``run_examples`` is the following::
@@ -456,8 +456,9 @@ code along with the output from the terminal:
    :align: left
    :alt: Example 05: terminal output
 
-|
-|
+..
+   1 line break on GitHub and 3 on PyPI
+
 |
 
 The command line for reproducing the same results for example 5 with the script
