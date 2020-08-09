@@ -489,11 +489,12 @@ class Manager:
                 # you press tab or down, it will mess up the display to the right
                 print(' ' * last_msg_length, end='\r')
                 # print(self._leds, end='\r')
-                print('  {}     '.format(self._leds), end="\r")
+                # TODO: use _add_spaces... and explain
+                print('  {}                                         '.format(self._leds), end="\r")
                 # sys.stdout.flush()
             self.nb_prints += 1
         if self.enable_printing and self._leds:
-            print('  {}     '.format(self._leds))
+            print('  {}                                             '.format(self._leds))
         # logger.debug("Stopping thread: {}()".format(self.display_leds.__name__))
         logger.debug("Stopping thread: {}".format(th.name))
 
