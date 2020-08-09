@@ -320,7 +320,9 @@ respectively. Here is the code along with the output from the terminal:
    :align: left
    :alt: Example 02: terminal output
 
-|
+..
+   1 line break on GitHub and 2 on PyPI
+
 |
 
 The command line for reproducing the same results for example 2 with the script
