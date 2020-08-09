@@ -232,7 +232,9 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    :align: left
    :alt: Example 05: terminal output
 
-|
+..
+   2 line breaks on GitHub and 3 on PyPI
+
 |
 |
 
