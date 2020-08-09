@@ -480,9 +480,9 @@ Resources
 =========
 ..
    README_docs doesn't need link to documentation, only GitHub and PyPI
+   README on GitHub: no link to SimulRPi's GitHub
 
 * `SimulRPi documentation`_
-* `SimulRPi GitHub`_
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
