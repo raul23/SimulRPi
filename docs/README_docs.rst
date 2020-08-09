@@ -3,11 +3,12 @@ README
 ======
 
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
-.. _let me know through pull requests: https://github.com/raul23/SimulRPi/pulls
+.. _install: #installation-instructions
+.. _let me know through SimulRPi's issues page:
+    https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _run_examples.py: #script-run-examples-py
-.. _SimulRPi: https://github.com/raul23/SimulRPi
 ..
    For README on GitHub and PyPI
    _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
@@ -16,7 +17,7 @@ README
 .. _SimulRPi PyPI: https://test.pypi.org/project/SimulRPi/
 
 ..
-   TODO: change URLs for 'SimulRPi.GPIO' and 'SimulRPi pypi' that point to the
+   TODO: change URLs for 'SimulRPi.GPIO' and 'SimulRPi pypi' to point to the
    real one
 
 .. 
@@ -52,13 +53,16 @@ Introduction
 In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 **SimulRPi** also simulates these I/O devices connected to an RPi:
 
-- push buttons by listening to keys pressed/released on the keyboard and
-- LEDs by displaying small dots blinking on the terminal along with their GPIO
+- push buttons by listening to pressed keyboard keys and
+- LEDs by displaying small circles blinking on the terminal along with their GPIO
   pin number.
 
 When a LED is turned on, it is shown as a small red circle on the terminal. The
 package `pynput`_ is used to monitor the
 keyboard for any pressed key.
+
+..
+   TODO: also found in GPIO module description
 
 **Example: terminal output**
 
@@ -86,8 +90,12 @@ channel 22 toggles between on and off when a key is pressed.
     `Darth-Vader-RPi`_ project were added.
 
     If there is enough interest in this library, I will eventually mock more
-    functions from `RPi.GPIO`_. Thus, `let me know through pull requests`_ if
-    you want me to add more things to this mock library.
+    functions from `RPi.GPIO`_. Thus,
+    `let me know through SimulRPi's issues page`_ if you want me to add more
+    things to this mock library.
+
+..
+   TODO: also found in GPIO module description
 
 Dependencies
 ============
@@ -148,12 +156,13 @@ Script :obj:`run_examples.py`
 -----------------------------
 Description
 ~~~~~~~~~~~
-The script :mod:`run_examples` allows you to run different code examples on
-your RPi or computer. If it is run on your computer, it will make use of the
-module `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
+The script :mod:`run_examples` which you have access to once you `install`_ the
+``SimulRPi`` package allows you to run different code examples on your RPi or
+computer. If it is run on your computer, it will make use of the module
+`SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
 
 The different code examples are those presented in
-:ref:`Examples <examples-label>` and show the capability of `SimulRPi.GPIO`_
+:ref:`Examples <examples-label>` and show the capability of ``SimulRPi.GPIO``
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
@@ -167,26 +176,31 @@ Here is a list of the functions associated with each code example:
 List of options
 ~~~~~~~~~~~~~~~
 
-To display the list of options and their descriptions: ``run_examples -h``
+To display the script's list of options and their descriptions:
+``run_examples -h``
 
-   -e       The number of the code example you want to run. It is required. (
-            default: None)
-   -m       Set the numbering system used to identify the I/O pins on an RPi. (
-            default: BCM)
-   -s       Enable simulation mode, i.e. SimulRPi.GPIO wil be use for
-            simulating RPi.GPIO. (default: False)
+   -e       The number of the code example you want to run. It is required.
+            (default: None)
+   -m       Set the numbering system used to identify the I/O pins on an RPi.
+            (default: BCM)
+   -s       Enable simulation mode, i.e. ``SimulRPi.GPIO`` wil be use for
+            simulating ``RPi.GPIO``. (default: False)
    -l       The GPIO channels to be used for LEDs. If an example only requires
             1 channel, the first channel from the provided list will be used.
             (default: [10, 11, 12])
    -b       The GPIO channel to be used for a push button. The default value is
-            channel 20 which is associated with the key *alt_r*. (default: 13)
+            channel 20 which is associated with the keyboard key *alt_r*.
+            (default: 13)
    -t       Total time in seconds LEDs will be blinking. (default: 4)
    -k       The name of the key associated with the button channel. The name
             must be one of those recognized by the module *pynput*. See the
-            SimulRPi documentation for a list of valid key names:
+            *SimulRPi* documentation for a list of valid key names:
             https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *alt_r*)
    --on     Time in seconds the LED will stay turned ON at a time. (default: 1)
    --off    Time in seconds the LED will stay turned OFF at a time. (default: 1)
+
+..
+   TODO: find if we can put this list of options in a separate file
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
@@ -226,15 +240,15 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
 
 Examples
 ========
-The examples presented thereafter will show you how to use **SimulRPi** to
+The examples presented thereafter will show you how to use ``SimulRPi`` to
 simulate LEDs and push buttons.
 
 The code for the examples shown here can be also found as a script in
-`run_examples.py`_.
+:mod:`run_examples`.
 
 .. note::
 
-   Since we are showing how to use the `SimulRPi`_ library, the presented code
+   Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
    `run_examples.py`_ which runs the following code examples can be executed on
    a Raspberry Pi or your computer.
@@ -347,10 +361,13 @@ The command line for reproducing the same results for example 3 with the script
 
    By default, **SimulRPi** maps the key :obj:`cmd_r` to channel 17 as can be
    seen from the `default key-to-channel map
-   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L105>`_.
+   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L19>`_.
 
    See also the documentation for :mod:`SimulRPi.mapping` where the default
    keymap is defined.
+
+..
+   TODO: fnd if there is a way to get the line no automatically
 
 Example 4: blink a LED
 ----------------------
@@ -448,7 +465,7 @@ The command line for reproducing the same results for example 5 with the script
 
    By default, **SimulRPi** maps the key :obj:`ctrl_r` to channel 20 as can be
    from the `default key-to-channel map
-   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L108>`__.
+   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/mapping.py#L22>`__.
 
    See also the documentation for :mod:`SimulRPi.mapping` where the default
    keymap is defined.
