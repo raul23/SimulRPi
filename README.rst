@@ -25,6 +25,7 @@ README
    :alt: SimulRPi logo
 
 .. raw:: html
+
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
    <br>🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
    </p>
