@@ -236,7 +236,6 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    2 line breaks on GitHub and 3 on PyPI
 
 |
-|
 
 **Important**
 
