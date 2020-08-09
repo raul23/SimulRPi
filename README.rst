@@ -233,7 +233,7 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    :alt: Example 05: terminal output
 
 ..
-   2 line breaks on GitHub and 3 on PyPI
+   1 line break on GitHub and 3 on PyPI
 
 |
 
@@ -282,7 +282,9 @@ the code along with the output from the terminal:
    :align: left
    :alt: Example 01: terminal output
 
-|
+..
+   1 line break on GitHub and 2 on PyPI
+
 |
 
 The command line for reproducing the same results for example 1 with the script
