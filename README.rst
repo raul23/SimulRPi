@@ -18,9 +18,8 @@ README
    GitHub and readthedocs _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
    PyPI doesn't need URL to SimulRPi's PyPI
 
-.. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
-
-.. _SimulRPi PyPI: https://test.pypi.org/project/SimulRPi/
+.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
+.. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 
 ..
    NOTES:
