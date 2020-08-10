@@ -13,12 +13,8 @@ README
    For README on GitHub and PyPI
    _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
-.. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
-.. _SimulRPi PyPI: https://test.pypi.org/project/SimulRPi/
-
-..
-   TODO: change URLs for 'SimulRPi.GPIO' and 'SimulRPi pypi' to point to the
-   real one
+.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
+.. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 
 .. 
    image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
