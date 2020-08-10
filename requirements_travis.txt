@@ -1,3 +1,2 @@
 lxml>=4.4.0
 py-common-utils @ https://github.com/raul23/py-common-utils/tarball/master
-pynput>=1.6.8
