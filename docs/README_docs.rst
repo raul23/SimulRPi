@@ -490,11 +490,12 @@ Change Log
 
 TODOs
 =====
-* Write unit tests
+* Write unit tests: high priority
 * Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
-  ``ssh``) and post results
+  ``ssh``) and post results: high priority
 * Investigate further why no keyboard keys could be detected when connecting to
-  an RPi through ``ssh`` and running the script :mod:`run_examples` with ``sudo``
+  an RPi through ``ssh`` and running the script :mod:`run_examples` with
+  ``sudo``: low priority
 
 Resources
 =========
