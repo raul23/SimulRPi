@@ -6,23 +6,23 @@ except ImportError:
     import SimulRPi.GPIO as GPIO
 
 
-def blink_led(channel, time_on, time_off):
+def blink_led(channel, time_led_on, time_led_off):
     """Blink one LED.
 
-    A LED on the given `channel` will be turned on and off for `time_one` and
-    `time_off` seconds, respectively.
+    A LED on the given `channel` will be turned on and off for ``time_led_on``
+    seconds and `time_led_off` seconds, respectively.
 
     Parameters
     ----------
     channel
-    time_on
-    time_off
+    time_led_on
+    time_led_off
 
     """
     turn_on_led(channel)
-    time.sleep(time_on)
+    time.sleep(time_led_on)
     turn_off_led(channel)
-    time.sleep(time_off)
+    time.sleep(time_led_off)
 
 
 # TODO: description
