@@ -491,6 +491,9 @@ Change Log
 TODOs
 =====
 * Write unit tests: high priority
+
+   * Maybe remove ``pynput`` from *requirements_travis.txt*
+
 * Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
   ``ssh``) and post results: high priority
 * Investigate further why no keyboard keys could be detected when connecting to
