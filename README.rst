@@ -18,6 +18,8 @@ README
    GitHub and readthedocs _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
    PyPI doesn't need URL to SimulRPi's PyPI
 
+.. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
+
 .. _SimulRPi PyPI: https://test.pypi.org/project/SimulRPi/
 
 ..
@@ -26,19 +28,21 @@ README
    GitHub doesn't recognize image's :align: center, only PyPI
 
 ..
-   IMPORTANT: PyPI
-   PyPI doesn't accept `raw` along with construction sign
+   IMPORTANT:
+   PyPI along with construction sign
 
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
+..
+   image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :align: center
    :alt: SimulRPi logo
 
-🚧 **Work-In-Progress**
+   🚧 **Work-In-Progress**
 
 ..
    IMPORTANT: GitHub and readthedocs
-   raw:: html
+
+.. raw:: html
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
    <br>🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
    </p>
@@ -77,14 +81,16 @@ keyboard for any pressed key.
 ..
    IMPORTANT: PyPI
 
-.. image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
+..
+   image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
    :target: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
    :align: center
    :alt: Simulating LEDs on an RPi via a terminal
 
 ..
    IMPORTANT: GitHub and readthedocs
-   raw:: html
+
+.. raw:: html
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
    <p><b>Simulating LEDs on an RPi via a terminal</b></p>
@@ -100,7 +106,7 @@ channel 22 toggles between on and off when a key is pressed.
    PyPI uses **Important**
    readthedocs uses `.. important::`
 
-**Important**
+`:warning:`
 
    This library is not a Raspberry Pi emulator nor a complete mock-up of 
    `RPi.GPIO`_, only the most important functions that I needed for my 
@@ -177,21 +183,23 @@ computer. If it is run on your computer, it will make use of the module
 ``SimulRPi.GPIO`` which partly fakes `RPi.GPIO`_.
 
 ..
-   IMPORTANT: GitHub and PyPI
+   IMPORTANT: readthedocs
    Use `SimulRPi.GPIO`_ on paragraph above
 
 ..
    IMPORTANT:
    PyPI wasn't able to generate a good URL for 'Examples' section name
+   `Examples <#id4>`_
 
    GitHub and readthedocs
    `Examples <#examples>`_
 
 The different code examples are those presented in
-`Examples <#id4>`_ and show the capability of ``SimulRPi.GPIO``
+`Examples <#examples>`_ and show the capability of ``SimulRPi.GPIO``
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 ..
+   IMPORTANT:
    GitHub and PyPI don't recognize `:meth:`
 
 Here is a list of the functions associated with each code example:
@@ -259,9 +267,6 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    4 on readthedocs
 
 |
-|
-|
-|
 
 ..
    IMPORTANT:
@@ -269,7 +274,7 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    PyPI uses **Important**
    readthedocs uses `.. important::`
 
-**Important**
+`:star:`
 
    Don't forget the flag *-s* (for simulation) when running the script
    ``run_examples`` if you want to run a code example on your computer, and
@@ -285,7 +290,13 @@ simulate LEDs and push buttons.
 The code for the examples shown here can be also found as a script in
 `run_examples`_.
 
-**Note**
+..
+   IMPORTANT:
+   GitHub uses `:information_source:`
+   PyPI uses **Note**
+   readthedocs uses `.. note::`
+
+:information_source:
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
@@ -321,14 +332,19 @@ the code along with the output from the terminal:
    2 on readthedocs
 
 |
-|
 
 The command line for reproducing the same results for example 1 with the script
 ``run_examples`` is the following::
 
    $ run_examples -s -e 1 -l 11
 
-**Warning**
+..
+   IMPORTANT:
+   GitHub uses `:warning:`
+   PyPI uses **Warning**
+   readthedocs uses `.. warning::`
+
+`:warning:`
 
    Always call `GPIO.cleanup() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup>`_ 
    at the end of your program to free up any resources such as stopping threads.
@@ -404,15 +420,19 @@ printing a message. Here is the code along with the output from the terminal:
    2 on readthedocs
 
 |
-|
-|
 
 The command line for reproducing the same results for example 3 with the script
 ``run_examples`` is the following::
 
    $ run_examples -s -e 3 -k cmd_r
 
-**Note**
+..
+   IMPORTANT:
+   GitHub uses `:information_source:`
+   PyPI uses **Note**
+   readthedocs uses `.. note::`
+
+`:information_source:`
 
       By default, ``SimulRPi`` maps the key ``cmd_r`` to channel 17 as can be
       seen from the `default key-to-channel map
@@ -458,10 +478,6 @@ the terminal:
    0 line break on GitHub
    3 on PyPI
    3 on readthedocs
-
-|
-|
-|
 
 The command line for reproducing the same results for example 4 with the script
 ``run_examples`` is the following::
@@ -515,15 +531,19 @@ code along with the output from the terminal:
    3 on readthedocs
 
 |
-|
-|
 
 The command line for reproducing the same results for example 5 with the script
 ``run_examples`` is the following::
 
    $ run_examples -s -e 5 -t 3 -k ctrl_r
 
-**Note**
+..
+   IMPORTANT:
+   GitHub uses `:information_source:`
+   PyPI uses **Note**
+   readthedocs uses `.. note::`
+
+`:information_source:`
 
    By default, ``SimulRPi`` maps the key ``ctrl_r`` to channel 20 as can be
    from the `default key-to-channel map
@@ -549,7 +569,7 @@ Resources
 
 
 * `SimulRPi documentation`_
-* `SimulRPi GitHub`_
+* `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
   testing on a computer when no RPi available
