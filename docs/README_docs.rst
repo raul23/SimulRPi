@@ -475,7 +475,7 @@ Change Log
 * First version
 * Tested code `examples`_ on different platforms and here are the results:
 
-   * On a RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
+   * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
    * On a computer with ``SimulRPi.GPIO``:
 
@@ -494,7 +494,7 @@ TODOs
 * Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
   ``ssh``) and post results
 * Investigate further why no keyboard keys could be detected when connecting to
-  a RPi through ``ssh`` and running the script :mod:`run_examples` with ``sudo``
+  an RPi through ``ssh`` and running the script :mod:`run_examples` with ``sudo``
 
 Resources
 =========
