@@ -379,7 +379,6 @@ respectively. Here is the code along with the output from the terminal:
    2 on readthedocs
 
 |
-|
 
 The command line for reproducing the same results for example 2 with the script
 ``run_examples`` is the following::
