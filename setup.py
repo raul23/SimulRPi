@@ -38,7 +38,6 @@ setup(name='SimulRPi',
         'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules',
-
       ],
       keywords='Raspberry Pi GPIO pynput library simulation mock',
       url='https://github.com/raul23/SimulRPi',
