@@ -363,14 +363,6 @@ class Manager:
         simulate push buttons connected to an RPi.
     """
     def __init__(self):
-        # TODO: remove start_threads
-        """
-        start_threads: bool
-            Whether to eventually start the threads. This flag is set to `True`
-            when the function :meth:`setup()` is first called. The default value
-            is `False`.
-        """
-        # self.start_threads = False
         self.mode = None
         self.warnings = True
         self.enable_printing = True
@@ -843,10 +835,6 @@ def input(channel):
         not alive, i.e. it is not already running.
 
     """
-    # TODO: remove start_threads
-    """
-    if manager.start_threads and \
-    """
     # Start the listener thread only if it not already alive
     if not manager.th_listener.is_alive():
         manager.th_listener.start()
@@ -873,10 +861,6 @@ def output(channel, state):
 
     """
     manager.pin_db.set_pin_state_from_channel(channel, state)
-    # TODO: remove start_threads
-    """
-    if manager.start_threads and \
-    """
     # Start the displaying thread only if it not already alive
     if not manager.th_display_leds.is_alive():
         manager.th_display_leds.start()
@@ -1002,8 +986,6 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
 
     """
     # TODO: assert on mode
-    # TODO: remove start_threads
-    # manager.start_threads = True
     manager.add_pin(channel, gpio_function, pull_up_down, initial)
 
 
