@@ -2,6 +2,10 @@
 README
 ======
 
+..
+   Bug: can't generate #examples, only #id4
+
+.. _examples: #id4
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _install: #installation-instructions
 .. _let me know through SimulRPi's issues page:
@@ -158,7 +162,7 @@ computer. If it is run on your computer, it will make use of the module
 `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
 
 The different code examples are those presented in
-:ref:`Examples <examples-label>` and show the capability of ``SimulRPi.GPIO``
+`Examples`_ and show the capability of ``SimulRPi.GPIO``
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
@@ -231,8 +235,6 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
    Don't forget the flag *-s* (for simulation) when running the script
    :mod:`run_examples` if you want to run a code example on your computer, and
    not on your RPi.
-
-.. _examples-label:
 
 Examples
 ========
@@ -465,6 +467,34 @@ The command line for reproducing the same results for example 5 with the script
 
    See also the documentation for :mod:`SimulRPi.mapping` where the default
    keymap is defined.
+
+Change Log
+==========
+0.0.0a
+------
+* First version
+* Tested code `examples`_ on different platforms and here are the results:
+
+   * On a RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
+     buttons worked
+   * On a computer with ``SimulRPi.GPIO``:
+
+      * macOS: all examples involving "LEDs" and keyboard keys worked
+      * RPi OS [Debian-based]: all examples involving only "LEDs" worked
+
+        **NOTE:** I was running the script :mod:`run_examples` with ``ssh`` but
+        ``pynput`` doesn't detect any pressed keyboard keys even though I set
+        my environment variable ``Display``, added ``PYTHONPATH`` to
+        *etc/sudoers* and ran the script with ``sudo``. To be further
+        investigated.
+
+TODOs
+=====
+* Write unit tests
+* Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
+  ``ssh``) and post results
+* Investigate further why no keyboard keys could be detected when connecting to
+  a RPi through ``ssh`` and running the script :mod:`run_examples` with ``sudo``
 
 Resources
 =========
