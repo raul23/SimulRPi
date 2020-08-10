@@ -296,7 +296,7 @@ The code for the examples shown here can be also found as a script in
    PyPI uses **Note**
    readthedocs uses `.. note::`
 
-:information_source:
+`:information_source:`
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
@@ -378,7 +378,6 @@ respectively. Here is the code along with the output from the terminal:
    2 on PyPI
    2 on readthedocs
 
-|
 |
 
 The command line for reproducing the same results for example 2 with the script
