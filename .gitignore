@@ -137,3 +137,4 @@ dmypy.json
 # Test files/folders
 sandbox/
 test.py
+README_pypi.rst
