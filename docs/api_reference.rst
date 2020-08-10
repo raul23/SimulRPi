@@ -71,3 +71,11 @@ API Reference
    :members:
    :undoc-members:
    :show-inheritance:
+
+:mod:`SimulRPi.utils`
+==================================
+
+.. automodule:: utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
