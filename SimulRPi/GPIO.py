@@ -864,17 +864,6 @@ def output(channel, state):
     # Start the displaying thread only if it not already alive
     if not manager.th_display_leds.is_alive():
         manager.th_display_leds.start()
-    # TODO: remove the following
-    """
-    except RuntimeError as e:
-        # This happens when this function is called while the `th_display_leds`
-        # thread is being killed in the main thread. is_alive() returns False
-        # since the thread was killed and then it is being started once again.
-        # By catching this RuntimeError, we give time to the main thread to
-        # exit gracefully without this function crashing the program.
-        # TODO: might not happen anymore with check on thread is None
-        logger.debug(e)
-    """
 
 
 def setkeymap(key_to_channel_map):
