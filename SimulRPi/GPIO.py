@@ -51,7 +51,13 @@ import os
 import threading
 from logging import NullHandler
 
-from pynput import keyboard
+try:
+    from pynput import keyboard
+except ImportError:
+    print("`pynput` couldn't be found. Thus, no keyboard keys will be detected "
+          "if pressed or relased.\nIf you need this option, install pynput "
+          "with: pip install pynput.\n")
+    keyboard = None
 
 from SimulRPi.mapping import default_key_to_channel_map
 
@@ -358,9 +364,36 @@ class Manager:
     th_display_leds : threading.Thread
         Thread responsible for displaying small blinking circles on the
         terminal as to simulate LEDs connected to an RPi.
-    th_listener : threading.Thread
+    th_listener : keyboard.Listener
         Thread responsible for listening on any pressed or released key as to
         simulate push buttons connected to an RPi.
+
+        .. note::
+
+            A keyboard listener is a :class:`threading.Thread`, and all
+            callbacks will be invoked from the thread.
+
+            **Ref.:** https://pynput.readthedocs.io/en/latest/keyboard.html#monitoring-the-keyboard
+
+
+    .. important::
+
+        If the module :mod:`pynput.keyboard` couldn't be imported, the
+        listener thread :attr:`th_listener` will not be created and the parts
+        of the ``SimulRPi`` library that monitors the keyboard for any pressed
+        or released key will be ignored. Only the thread
+        :attr:`th_display_leds` that display "LEDs" on the terminal will be
+        created.
+
+        This is necessary for example in the case we are running tests on
+        travis and we don't want travis to install ``pynput`` in a headless
+        setup because an exception will get raised::
+
+            Xlib.error.DisplayNameError: Bad display name ""
+
+        The tests involving ``pynput`` will be performed with a mock version of
+        ``pynput``.
+
     """
     def __init__(self):
         self.mode = None
@@ -376,10 +409,13 @@ class Manager:
         self.th_display_leds = threading.Thread(name="thread_display_leds",
                                                 target=self.display_leds,
                                                 args=())
-        self.th_listener = keyboard.Listener(
-            on_press=self.on_press,
-            on_release=self.on_release)
-        self.th_listener.name = "thread_listener"
+        if keyboard:
+            self.th_listener = keyboard.Listener(
+                on_press=self.on_press,
+                on_release=self.on_release)
+            self.th_listener.name = "thread_listener"
+        else:
+            self.th_listener = None
 
     def add_pin(self, channel, gpio_function, pull_up_down=None, initial=None):
         """Add an input or output pin to the pin database.
@@ -781,18 +817,8 @@ def cleanup():
 
     """
     global manager
-    # setprinting(False)
     # Show cursor again
     os.system("tput cnorm ")
-    # NOTE: code not used anymore. To be removed
-    # Wait a little bit to give the displaying thread a little bit of time to
-    # display something but no more than 0.3 seconds
-    """
-    start = time.time()
-    while manager.nb_prints == 0:
-        if time.time() - start > 0.3:
-            break
-    """
     # Check if displaying thread is alive. If the user didn't setup any output
     # channels for LEDs, then the displaying thread was never started
     if manager.th_display_leds.is_alive():
@@ -801,13 +827,12 @@ def cleanup():
         logger.debug("Thread stopped: {}".format(manager.th_display_leds.name))
     # Check if listener thread is alive. If the user didn't setup any input
     # channels for buttons, then the listener thread was never started
-    if manager.th_listener.is_alive():
+    if manager.th_listener and manager.th_listener.is_alive():
         logger.debug("Stopping thread: {}".format(manager.th_listener.name))
         manager.th_listener.stop()
         manager.th_listener.join()
         logger.debug("Thread stopped: {}".format(manager.th_listener.name))
     # Reset Manager's attributes
-    # TODO: necessary to so?
     del manager
     manager = Manager()
 
@@ -836,7 +861,7 @@ def input(channel):
 
     """
     # Start the listener thread only if it not already alive
-    if not manager.th_listener.is_alive():
+    if manager.th_listener and not manager.th_listener.is_alive():
         manager.th_listener.start()
     return manager.pin_db.get_pin_state(channel)
 
