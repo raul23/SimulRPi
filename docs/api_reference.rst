@@ -25,7 +25,8 @@ API Reference
 
 .. _content-default-keymap-label:
 
-**Content of the default keymap dictionary** (*key:* keyboard key, *value:* GPIO channel):
+**Content of the default keymap dictionary** (*key:* keyboard key as
+:obj:`string`, *value:* GPIO channel as :obj:`int`):
 
 .. literalinclude:: ../SimulRPi/default_keymap.py
    :language: Python
@@ -36,7 +37,7 @@ API Reference
    There are some platform limitations on using some of the keyboard keys with
    ``pynput``.
 
-   For instance, on macOS some keboard keys may require that you run your
+   For instance, on macOS some keyboard keys may require that you run your
    script with `sudo`. All alphanumeric keys and some special keys
    (e.g. :obj:`backspace` and :obj:`right`) require `sudo`. In the content of
    :ref:`default_key_to_channel_map <content-default-keymap-label>` shown
@@ -60,8 +61,8 @@ API Reference
 
 .. note::
 
-   On macOS, the left keys :obj:`alt_l`, :obj:`ctrl_l`, :obj:`cmd_l`, and
-   :obj:`shift_l` are not recognized. Use their generic counterparts instead:
+   On macOS, if the left keys :obj:`alt_l`, :obj:`ctrl_l`, :obj:`cmd_l`, and
+   :obj:`shift_l` are not recognized, use their generic counterparts instead:
    :obj:`alt`, :obj:`ctrl`, :obj:`cmd`, and :obj:`shift`.
 
 :mod:`SimulRPi.run\_examples`
