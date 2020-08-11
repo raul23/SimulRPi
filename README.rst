@@ -115,7 +115,7 @@ channel 22 toggles between on and off when a key is pressed.
    If there is enough interest in this library, I will eventually mock more
    functions from `RPi.GPIO`_. Thus,
    `let me know through SimulRPi's issues page`_ if you want me to add more
-   things to this mock library.
+   things to this library.
 
 Dependencies
 ============
