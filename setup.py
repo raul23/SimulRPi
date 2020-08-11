@@ -14,7 +14,7 @@ from SimulRPi import __version__
 dirpath = os.path.abspath(os.path.dirname(__file__))
 
 # The text of the README file
-with open(os.path.join(dirpath, "README.rst")) as f:
+with open(os.path.join(dirpath, "README_pypi.rst")) as f:
     README = f.read()
 
 # The text of the requirements.txt file
