@@ -178,7 +178,7 @@ module or the real one.
 
 Script ``run_examples.py``
 --------------------------
-The script `run_examples`_ which you have access to once you `install`_ the
+The script `run_examples`_ which you have access to once you install the
 ``SimulRPi`` package allows you to run different code examples on your RPi or
 computer. If it is run on your computer, it will make use of the module
 ``SimulRPi.GPIO`` which partly fakes `RPi.GPIO`_.
@@ -196,7 +196,7 @@ computer. If it is run on your computer, it will make use of the module
    `Examples <#examples>`_
 
 The different code examples are those presented in
-`Examples <#examples>`_ and show the capability of ``SimulRPi.GPIO``
+**Examples** and show the capability of ``SimulRPi.GPIO``
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 ..
@@ -238,8 +238,7 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you install the package ``SimulRPi`` (see
-`Installation Instructions <#installation-instructions>`_), you should have
+Once you install the package ``SimulRPi``, you should have
 access to the script ``run_examples`` which can be called from the terminal
 by providing some arguments.
 
