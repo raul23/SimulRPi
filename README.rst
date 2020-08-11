@@ -91,6 +91,7 @@ keyboard for any pressed key.
    IMPORTANT: GitHub and readthedocs
 
 .. raw:: html
+
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
    <p><b>Simulating LEDs on an RPi via a terminal</b></p>
@@ -177,7 +178,7 @@ module or the real one.
 
 Script ``run_examples.py``
 --------------------------
-The script `run_examples`_ which you have access to once you `install`_ the
+The script `run_examples`_ which you have access to once you install the
 ``SimulRPi`` package allows you to run different code examples on your RPi or
 computer. If it is run on your computer, it will make use of the module
 ``SimulRPi.GPIO`` which partly fakes `RPi.GPIO`_.
@@ -195,7 +196,7 @@ computer. If it is run on your computer, it will make use of the module
    `Examples <#examples>`_
 
 The different code examples are those presented in
-`Examples <#examples>`_ and show the capability of ``SimulRPi.GPIO``
+**Examples** and show the capability of ``SimulRPi.GPIO``
 for simulating I/O devices on an RPi such as push buttons and LEDS.
 
 ..
@@ -237,8 +238,7 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you install the package ``SimulRPi`` (see
-`Installation Instructions <#installation-instructions>`_), you should have
+Once you install the package ``SimulRPi``, you should have
 access to the script ``run_examples`` which can be called from the terminal
 by providing some arguments.
 
@@ -300,7 +300,7 @@ The code for the examples shown here can be also found as a script in
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
-   `run_examples.py`_ which runs the following code examples can be executed on
+   `run_examples`_ which runs the following code examples can be executed on
    a Raspberry Pi or your computer.
 
 Example 1: display 1 LED
