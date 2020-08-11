@@ -92,7 +92,7 @@ channel 22 toggles between on and off when a key is pressed.
     If there is enough interest in this library, I will eventually mock more
     functions from `RPi.GPIO`_. Thus,
     `let me know through SimulRPi's issues page`_ if you want me to add more
-    things to this mock library.
+    things to this library.
 
 ..
    TODO: also found in GPIO module description and README
@@ -122,7 +122,7 @@ Use the library in your own code
 Case 1: with a ``try`` and ``except`` blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can try importing :mod:`RPi.GPIO` first and if it is not found, then fallback
-on the mock module :mod:`SimulRPi.GPIO`.
+on the module :mod:`SimulRPi.GPIO`.
 
 .. code-block:: python
    :caption: **Case 1:** with a ``try`` and ``except`` blocks
