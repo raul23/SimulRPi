@@ -55,7 +55,7 @@ try:
     from pynput import keyboard
 except ImportError:
     print("`pynput` couldn't be found. Thus, no keyboard keys will be detected "
-          "if pressed or relased.\nIf you need this option, install pynput "
+          "if pressed or released.\nIf you need this option, install pynput "
           "with: pip install pynput.\n")
     keyboard = None
 
