@@ -142,7 +142,7 @@ Use the library in your own code
 Case 1: with a ``try`` and ``except`` blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can try importing ``RPi.GPIO`` first and if it is not found, then fallback
-on the mock module ``SimulRPi.GPIO``.
+on the module ``SimulRPi.GPIO``.
 
 ..
    IMPORTANT:
