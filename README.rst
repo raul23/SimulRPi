@@ -90,6 +90,7 @@ keyboard for any pressed key.
 ..
    IMPORTANT: GitHub and readthedocs
 
+
 .. raw:: html
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
