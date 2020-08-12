@@ -2,6 +2,7 @@
 README
 ======
 
+.. _code examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _install: #installation-instructions
 .. _let me know through SimulRPi's issues page:
@@ -166,9 +167,15 @@ module or the real one.
 
 Script ``run_examples.py``
 --------------------------
-The script `run_examples`_ which you have access to once you `install`_ the
-``SimulRPi`` package allows you to run different code examples on your RPi or
-computer. If it is run on your computer, it will make use of the module
+The script `run_examples`_ which you have access to once you
+<site="github">
+install
+</site>
+<site="pypi, readthedocs">
+`install`_
+</site>
+the ``SimulRPi`` package allows you to run different code examples on your RPi
+or computer. If it is run on your computer, it will make use of the module
 <site="readthedocs">
 `SimulRPi.GPIO`_
 </site>
@@ -181,10 +188,13 @@ The different code examples are those presented in
 <site="pypi">
 `Examples <#id4>`_
 </site>
-<site="github, readthedocs">
+<site="readthedocs">
 `Examples <#examples>`_
 </site>
- and show the capability of ``SimulRPi.GPIO`` for simulating I/O devices on an
+<site="github">
+**Examples**
+</site>
+and show the capability of ``SimulRPi.GPIO`` for simulating I/O devices on an
 RPi such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
@@ -232,10 +242,12 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you install the package ``SimulRPi`` (see
-`Installation Instructions <#installation-instructions>`_), you should have
-access to the script ``run_examples`` which can be called from the terminal
-by providing some arguments.
+Once you install the package ``SimulRPi``
+<site="pypi, readthedocs">
+(see `Installation Instructions <#installation-instructions>`_)
+</site>
+, you should have access to the script ``run_examples`` which can be called
+from the terminal by providing some arguments.
 
 For example: ``run_examples -e 1 -s``.
 
@@ -301,8 +313,14 @@ The code for the examples shown here can be also found as a script in
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
-   `run_examples.py`_ which runs the following code examples can be executed on
-   a Raspberry Pi or your computer.
+<site="github">
+   `run_examples`_
+</site>
+<site="pypi, readthedocs">
+   `run_examples.py`_
+</site>
+   which runs the following code examples can be executed on a Raspberry Pi or
+   your computer.
 
 Example 1: display 1 LED
 ------------------------
@@ -569,21 +587,23 @@ Change Log
 0.0.0a
 ------
 * First version
+<site="github">
+* Tested `code examples`_ on different platforms and here are the results:
+</site>
+<site="readthedocs, pypi">
 * Tested code `examples`_ on different platforms and here are the results:
-
+</site>
    * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
    * On a computer with ``SimulRPi.GPIO``:
-
       * macOS: all examples involving "LEDs" and keyboard keys worked
       * RPi OS [Debian-based]: all examples involving only "LEDs" worked
 
-        **NOTE:** I was running the script
 <site="readthedocs">
-       :mod:`run_examples`
+        **NOTE:** I was running the script :mod:`run_examples`
 </site>
 <site="github, pypi">
-        ``run_examples``
+        **NOTE:** I was running the script `run_examples`_
 </site>
         with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
         even though I set my environment variable ``Display``, added
@@ -598,33 +618,28 @@ TODOs
      creating the listener thread that monitors the keyboard and ignoring all
      parts of the ``SimulRPi.GPIO`` where the listener thread is being accessed
      (e.g. for starting it).
-* Run code
 <site="github">
-  examples
+* Run code examples involving pressing keyboard keys directly on an RPi (no
 </site>
 <site="pypi, readthedocs">
-  `examples`_
+* Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
 </site>
-  involving pressing keyboard keys directly on an RPi (no ``ssh``) and post
-  results. **High priority**
-* In
+  ``ssh``) and post results. **High priority**
 <site="readthedocs">
-  :mod:`run_examples`
+* In :mod:`run_examples`, improve timer accuracy when waiting for a LED to stop
 </site>
 <site="github, pypi">
-  ``run_examples``
+* In `run_examples`_, improve timer accuracy when waiting for a LED to stop
 </site>
-  , improve timer accuracy when waiting for a LED to stop
   blinking or for a function to stop displaying a LED. **Medium priority**
 * Investigate further why no keyboard keys could be detected when connecting to
-  an RPi through ``ssh`` and running the script
 <site="readthedocs">
-  :mod:`run_examples`
+  an RPi through ``ssh`` and running the script :mod:`run_examples` with ``sudo``.
 </site>
 <site="github, pypi">
-  ``run_examples``
+  an RPi through ``ssh`` and running the script `run_examples`_ with ``sudo``.
 </site>
-  with ``sudo``. **Low priority**
+  **Low priority**
 
 Resources
 =========
