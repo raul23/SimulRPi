@@ -474,19 +474,17 @@ Change Log
 ------
 * First version
 * Tested code `examples`_ on different platforms and here are the results:
-
    * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
    * On a computer with ``SimulRPi.GPIO``:
+      * **macOS:** all examples involving "LEDs" and keyboard keys worked
+      * **RPi OS [Debian-based]:** all examples involving only "LEDs" worked
 
-      * macOS: all examples involving "LEDs" and keyboard keys worked
-      * RPi OS [Debian-based]: all examples involving only "LEDs" worked
-
-        **NOTE:** I was running the script :mod:`run_examples` with ``ssh`` but
-        ``pynput`` doesn't detect any pressed keyboard keys even though I set
-        my environment variable ``Display``, added ``PYTHONPATH`` to
-        *etc/sudoers* and ran the script with ``sudo``. To be further
-        investigated.
+        **NOTE:** I was running the script :mod:`run_examples`
+        with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
+        even though I set my environment variable ``Display``, added
+        ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
+        further investigated.
 
 TODOs
 =====
@@ -497,7 +495,6 @@ TODOs
      creating the listener thread that monitors the keyboard and ignoring all
      parts of the ``SimulRPi.GPIO`` where the listener thread is being accessed
      (e.g. for starting it).
-
 * Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
   ``ssh``) and post results. **High priority**
 * In :mod:`run_examples`, improve timer accuracy when waiting for a LED to stop
