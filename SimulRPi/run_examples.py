@@ -1,4 +1,4 @@
-#!/usr/script/env python
+#!/usr/bin/env python
 """Script for executing code examples on a Raspberry Pi or computer (simulation).
 
 This script allows you to run different code examples on your Raspberry Pi (RPi)
