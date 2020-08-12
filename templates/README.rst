@@ -579,29 +579,53 @@ Change Log
       * macOS: all examples involving "LEDs" and keyboard keys worked
       * RPi OS [Debian-based]: all examples involving only "LEDs" worked
 
-        **NOTE:** I was running the script :mod:`run_examples` with ``ssh`` but
-        ``pynput`` doesn't detect any pressed keyboard keys even though I set
-        my environment variable ``Display``, added ``PYTHONPATH`` to
-        *etc/sudoers* and ran the script with ``sudo``. To be further
-        investigated.
+        **NOTE:** I was running the script
+<site="readthedocs">
+       :mod:`run_examples`
+</site>
+<site="github, pypi">
+        ``run_examples``
+</site>
+        with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
+        even though I set my environment variable ``Display``, added
+        ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
+        further investigated.
 
 TODOs
 =====
 * Write unit tests. **High priority**
-
    * Remove ``pynput`` from *requirements_travis.txt*: this entails adding the
      case to ``SimulRPi.GPIO`` when ``pynput`` is not found about not
      creating the listener thread that monitors the keyboard and ignoring all
      parts of the ``SimulRPi.GPIO`` where the listener thread is being accessed
      (e.g. for starting it).
-
-* Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
-  ``ssh``) and post results. **High priority**
-* In :mod:`run_examples`, improve timer accuracy when waiting for a LED to stop
+* Run code
+<site="github">
+  examples
+</site>
+<site="pypi, readthedocs">
+  `examples`_
+</site>
+  involving pressing keyboard keys directly on an RPi (no ``ssh``) and post
+  results. **High priority**
+* In
+<site="readthedocs">
+  :mod:`run_examples`
+</site>
+<site="github, pypi">
+  ``run_examples``
+</site>
+  , improve timer accuracy when waiting for a LED to stop
   blinking or for a function to stop displaying a LED. **Medium priority**
 * Investigate further why no keyboard keys could be detected when connecting to
-  an RPi through ``ssh`` and running the script :mod:`run_examples` with
-  ``sudo``. **Low priority**
+  an RPi through ``ssh`` and running the script
+<site="readthedocs">
+  :mod:`run_examples`
+</site>
+<site="github, pypi">
+  ``run_examples``
+</site>
+  with ``sudo``. **Low priority**
 
 Resources
 =========
