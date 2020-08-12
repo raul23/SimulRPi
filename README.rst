@@ -30,7 +30,7 @@ README
    :target: https://travis-ci.org/raul23/SimulRPi
    :alt: Build Status
 
-**SimulRPi** is a library that partly fakes
+**SimulRPi** is a Python library that partly fakes
 `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
@@ -436,10 +436,10 @@ Change Log
 0.0.0a
 ------
 * First version
-* Tested `code examples`_ on different platforms and here are the results:
+* Tested `code examples`_ on different platforms and here are the results
    * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
-   * On a computer with ``SimulRPi.GPIO``:
+   * On a computer with ``SimulRPi.GPIO``
       * macOS: all examples involving "LEDs" and keyboard keys worked
       * RPi OS [Debian-based]: all examples involving only "LEDs" worked
 
