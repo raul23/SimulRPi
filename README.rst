@@ -2,6 +2,7 @@
 README
 ======
 
+.. _code examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _install: #installation-instructions
 .. _let me know through SimulRPi's issues page:
@@ -12,34 +13,8 @@ README
 .. _run_examples.py: #script-run-examples-py
 .. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
-
-..
-   IMPORTANT:
-   GitHub and readthedocs _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
-   PyPI doesn't need URL to SimulRPi's PyPI
-
-.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
-
-..
-   NOTES:
-   PyPI doesn't accept `raw`
-   GitHub doesn't recognize image's :align: center, only PyPI
-
-..
-   IMPORTANT:
-   PyPI along with construction sign
-
-..
-   image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
-   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
-   :align: center
-   :alt: SimulRPi logo
-
-   🚧 **Work-In-Progress**
-
-..
-   IMPORTANT: GitHub and readthedocs
+.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 
 .. raw:: html
 
@@ -78,18 +53,6 @@ keyboard for any pressed key.
 
 **Example: terminal output**
 
-..
-   IMPORTANT: PyPI
-
-..
-   image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
-   :target: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
-   :align: center
-   :alt: Simulating LEDs on an RPi via a terminal
-
-..
-   IMPORTANT: GitHub and readthedocs
-
 .. raw:: html
 
    <div align="center">
@@ -101,16 +64,10 @@ Each circle represents a blinking LED connected to an RPi and the number
 between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
 
-..
-   IMPORTANT:
-   GitHub uses `:warning:`
-   PyPI uses **Important**
-   readthedocs uses `.. important::`
-
 `:warning:`
 
-   This library is not a Raspberry Pi emulator nor a complete mock-up of 
-   `RPi.GPIO`_, only the most important functions that I needed for my 
+   This library is not a Raspberry Pi emulator nor a complete mock-up of
+   `RPi.GPIO`_, only the most important functions that I needed for my
    `Darth-Vader-RPi`_ project were added.
 
    If there is enough interest in this library, I will eventually mock more
@@ -178,30 +135,17 @@ module or the real one.
 
 Script ``run_examples.py``
 --------------------------
-The script `run_examples`_ which you have access to once you install the
-``SimulRPi`` package allows you to run different code examples on your RPi or
-computer. If it is run on your computer, it will make use of the module
-``SimulRPi.GPIO`` which partly fakes `RPi.GPIO`_.
-
-..
-   IMPORTANT: readthedocs
-   Use `SimulRPi.GPIO`_ on paragraph above
-
-..
-   IMPORTANT:
-   PyPI wasn't able to generate a good URL for 'Examples' section name
-   `Examples <#id4>`_
-
-   GitHub and readthedocs
-   `Examples <#examples>`_
+The script `run_examples`_ which you have access to once you
+install
+the ``SimulRPi`` package allows you to run different code examples on your RPi
+or computer. If it is run on your computer, it will make use of the module
+``SimulRPi.GPIO``
+which partly fakes `RPi.GPIO`_.
 
 The different code examples are those presented in
-**Examples** and show the capability of ``SimulRPi.GPIO``
-for simulating I/O devices on an RPi such as push buttons and LEDS.
-
-..
-   IMPORTANT:
-   GitHub and PyPI don't recognize `:meth:`
+**Examples**
+and show the capability of ``SimulRPi.GPIO`` for simulating I/O devices on an
+RPi such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
    - Example 1: `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
@@ -238,9 +182,9 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you install the package ``SimulRPi``, you should have
-access to the script ``run_examples`` which can be called from the terminal
-by providing some arguments.
+Once you install the package ``SimulRPi``
+, you should have access to the script ``run_examples`` which can be called
+from the terminal by providing some arguments.
 
 For example: ``run_examples -e 1 -s``.
 
@@ -260,19 +204,7 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    :align: left
    :alt: Example 05: terminal output
 
-..
-   IMPORTANT:
-   1 line break on GitHub
-   4 on PyPI
-   4 on readthedocs
-
 |
-
-..
-   IMPORTANT:
-   GitHub uses `:star:`
-   PyPI uses **Important**
-   readthedocs uses `.. important::`
 
 `:star:`
 
@@ -290,18 +222,13 @@ simulate LEDs and push buttons.
 The code for the examples shown here can be also found as a script in
 `run_examples`_.
 
-..
-   IMPORTANT:
-   GitHub uses `:information_source:`
-   PyPI uses **Note**
-   readthedocs uses `.. note::`
-
 `:information_source:`
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
-   `run_examples`_ which runs the following code examples can be executed on
-   a Raspberry Pi or your computer.
+   `run_examples`_
+   which runs the following code examples can be executed on a Raspberry Pi or
+   your computer.
 
 Example 1: display 1 LED
 ------------------------
@@ -325,12 +252,6 @@ the code along with the output from the terminal:
    :align: left
    :alt: Example 01: terminal output
 
-..
-   IMPORTANT:
-   1 line break on GitHub
-   2 on PyPI
-   2 on readthedocs
-
 |
 
 The command line for reproducing the same results for example 1 with the script
@@ -338,15 +259,9 @@ The command line for reproducing the same results for example 1 with the script
 
    $ run_examples -s -e 1 -l 11
 
-..
-   IMPORTANT:
-   GitHub uses `:warning:`
-   PyPI uses **Warning**
-   readthedocs uses `.. warning::`
-
 `:warning:`
 
-   Always call `GPIO.cleanup() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup>`_ 
+   Always call `GPIO.cleanup() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup>`_
    at the end of your program to free up any resources such as stopping threads.
 
 Example 2: display 3 LEDs
@@ -371,12 +286,6 @@ respectively. Here is the code along with the output from the terminal:
    :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
    :align: left
    :alt: Example 02: terminal output
-
-..
-   IMPORTANT:
-   1 line break on GitHub
-   2 on PyPI
-   2 on readthedocs
 
 |
 
@@ -412,12 +321,6 @@ printing a message. Here is the code along with the output from the terminal:
    :align: left
    :alt: Example 03: terminal output
 
-..
-   IMPORTANT:
-   1 line break on GitHub
-   3 on PyPI
-   2 on readthedocs
-
 |
 
 The command line for reproducing the same results for example 3 with the script
@@ -425,20 +328,14 @@ The command line for reproducing the same results for example 3 with the script
 
    $ run_examples -s -e 3 -k cmd_r
 
-..
-   IMPORTANT:
-   GitHub uses `:information_source:`
-   PyPI uses **Note**
-   readthedocs uses `.. note::`
-
 `:information_source:`
 
-      By default, ``SimulRPi`` maps the key ``cmd_r`` to channel 17 as can be
-      seen from the `default key-to-channel map
-      <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19>`_.
+   By default, ``SimulRPi`` maps the key ``cmd_r`` to channel 17 as can be
+   seen from the `default key-to-channel map
+   <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19>`_.
 
-      See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_ 
-      where the default keymap is defined.
+   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_
+   where the default keymap is defined.
 
 Example 4: blink a LED
 ----------------------
@@ -472,11 +369,6 @@ the terminal:
    :align: left
    :alt: Example 04: terminal output
 
-..
-   IMPORTANT:
-   0 line break on GitHub
-   3 on PyPI
-   3 on readthedocs
 
 The command line for reproducing the same results for example 4 with the script
 ``run_examples`` is the following::
@@ -523,12 +415,6 @@ code along with the output from the terminal:
    :align: left
    :alt: Example 05: terminal output
 
-..
-   IMPORTANT:
-   1 line break on GitHub
-   3 on PyPI
-   3 on readthedocs
-
 |
 
 The command line for reproducing the same results for example 5 with the script
@@ -536,37 +422,51 @@ The command line for reproducing the same results for example 5 with the script
 
    $ run_examples -s -e 5 -t 3 -k ctrl_r
 
-..
-   IMPORTANT:
-   GitHub uses `:information_source:`
-   PyPI uses **Note**
-   readthedocs uses `.. note::`
-
 `:information_source:`
 
    By default, ``SimulRPi`` maps the key ``ctrl_r`` to channel 20 as can be
    from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L22>`__.
 
-   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_ 
+   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_
    where the default keymap is defined.
+
+Change Log
+==========
+0.0.0a
+------
+* First version
+* Tested `code examples`_ on different platforms and here are the results:
+   * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
+     buttons worked
+   * On a computer with ``SimulRPi.GPIO``:
+      * macOS: all examples involving "LEDs" and keyboard keys worked
+      * RPi OS [Debian-based]: all examples involving only "LEDs" worked
+
+        **NOTE:** I was running the script `run_examples`_
+        with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
+        even though I set my environment variable ``Display``, added
+        ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
+        further investigated.
+
+TODOs
+=====
+* Write unit tests. **High priority**
+   * Remove ``pynput`` from *requirements_travis.txt*: this entails adding the
+     case to ``SimulRPi.GPIO`` when ``pynput`` is not found about not
+     creating the listener thread that monitors the keyboard and ignoring all
+     parts of the ``SimulRPi.GPIO`` where the listener thread is being accessed
+     (e.g. for starting it).
+* Run code examples involving pressing keyboard keys directly on an RPi (no
+  ``ssh``) and post results. **High priority**
+* In `run_examples`_, improve timer accuracy when waiting for a LED to stop
+  blinking or for a function to stop displaying a LED. **Medium priority**
+* Investigate further why no keyboard keys could be detected when connecting to
+  an RPi through ``ssh`` and running the script `run_examples`_ with ``sudo``.
+  **Low priority**
 
 Resources
 =========
-
-..
-   IMPORTANT:
-   On GitHub:
-   * `SimulRPi documentation`_
-   * `SimulRPi PyPI`_
-   On PiPy:
-   * `SimulRPi documentation`_
-   * `SimulRPi GitHub`_
-   On readthedocs:
-   * `SimulRPi GitHub`_
-   * `SimulRPi PyPI`_
-
-
 * `SimulRPi documentation`_
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
