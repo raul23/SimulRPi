@@ -57,7 +57,8 @@ class TestUtils(TestBase):
         msg = "The displaying thread should not be alive"
         self.assertFalse(GPIO.manager.th_display_leds.is_alive(), msg)
         # TODO: listener thread is not created on travis (no pynput)
-        msg = "The listener thread should be created because testing on travis"
+        msg = "The listener thread should not be created because testing on " \
+              "travis"
         self.assertIsNone(GPIO.manager.th_listener, msg)
         logger.info(
             "<color>RESULT:</color> The LED blinked for {} seconds <color>as "
