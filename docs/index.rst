@@ -6,13 +6,15 @@
 SimulRPi's documentation
 ========================
 
+.. Following part repeats in REAMDE.rst
+
 .. raw:: html
 
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
    <br> 🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
    </p>
 
-**SimulRPi** is a library that partly fakes
+**SimulRPi** is a Python library that partly fakes
 `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
