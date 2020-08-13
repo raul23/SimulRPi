@@ -13,7 +13,7 @@ from SimulRPi import __version__
 # Directory of this file
 dirpath = os.path.abspath(os.path.dirname(__file__))
 
-# The text of the README file
+# The text of the README file (used on PyPI)
 with open(os.path.join(dirpath, "README_pypi.rst")) as f:
     README = f.read()
 
