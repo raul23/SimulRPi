@@ -137,4 +137,6 @@ dmypy.json
 # Test files/folders
 sandbox/
 test.py
+
+# README used on PyPI (avoid cluttering root of git repo)
 README_pypi.rst
