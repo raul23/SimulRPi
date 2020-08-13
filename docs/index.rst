@@ -18,13 +18,6 @@ SimulRPi's documentation
 `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents
-
-   README_docs
-   api_reference
-
 .. raw:: html
 
    <div align="center">
@@ -37,6 +30,13 @@ between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
 
 See the `README <README_docs.html>`_ for more info about the library.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents
+
+   README_docs
+   api_reference
 
 Indices and tables
 ==================
