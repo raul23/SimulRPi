@@ -2,34 +2,24 @@
 README
 ======
 
-..
-   Bug: can't generate #examples, only #id4
-
-.. _examples: #id4
+.. _code examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _install: #installation-instructions
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
+.. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
 .. _run_examples.py: #script-run-examples-py
-..
-   For README on GitHub and PyPI
-   _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
+.. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
-.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
+.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 
-.. 
-   image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
-   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
-   :align: center
-   :alt: SimulRPi logo
-   
 .. raw:: html
 
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
-   <br> 🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
+   <br>🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
    </p>
 
 .. image:: https://readthedocs.org/projects/simulrpi/badge/?version=latest
@@ -40,7 +30,7 @@ README
    :target: https://travis-ci.org/raul23/SimulRPi
    :alt: Build Status
 
-**SimulRPi** is a library that partly fakes
+**SimulRPi** is a Python library that partly fakes
 `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
@@ -54,23 +44,14 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 **SimulRPi** also simulates these I/O devices connected to an RPi:
 
 - push buttons by listening to pressed keyboard keys and
-- LEDs by displaying small circles blinking on the terminal along with their GPIO
+- LEDs by displaying small dots blinking on the terminal along with their GPIO \
   pin number.
 
 When a LED is turned on, it is shown as a small red circle on the terminal. The
 package `pynput`_ is used to monitor the
 keyboard for any pressed key.
 
-..
-   TODO: also found in GPIO module description and README
-
 **Example: terminal output**
-
-.. 
-   image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
-   :target: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif
-   :align: center
-   :alt: Simulating LEDs on an RPi via a terminal
 
 .. raw:: html
 
@@ -85,17 +66,14 @@ channel 22 toggles between on and off when a key is pressed.
 
 .. important::
 
-    This library is not a Raspberry Pi emulator nor a complete mock-up of
-    `RPi.GPIO`_, only the most important functions that I needed for my
-    `Darth-Vader-RPi`_ project were added.
+   This library is not a Raspberry Pi emulator nor a complete mock-up of
+   `RPi.GPIO`_, only the most important functions that I needed for my
+   `Darth-Vader-RPi`_ project were added.
 
-    If there is enough interest in this library, I will eventually mock more
-    functions from `RPi.GPIO`_. Thus,
-    `let me know through SimulRPi's issues page`_ if you want me to add more
-    things to this library.
-
-..
-   TODO: also found in GPIO module description and README
+   If there is enough interest in this library, I will eventually mock more
+   functions from `RPi.GPIO`_. Thus,
+   `let me know through SimulRPi's issues page`_ if you want me to add more
+   things to this library.
 
 Dependencies
 ============
@@ -105,7 +83,7 @@ Dependencies
 
 Installation instructions
 =========================
-1. Install the ``SimulRPi`` package with `pip`::
+1. Install the ``SimulRPi`` package with *pip*::
 
    $ pip install SimulRPi
 
@@ -121,8 +99,13 @@ Use the library in your own code
 --------------------------------
 Case 1: with a ``try`` and ``except`` blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-You can try importing :mod:`RPi.GPIO` first and if it is not found, then fallback
-on the module :mod:`SimulRPi.GPIO`.
+You can try importing ``RPi.GPIO`` first and if it is not found, then fallback
+on the module ``SimulRPi.GPIO``.
+
+..
+   IMPORTANT:
+   GitHub and PyPI don't recognize `:mod:`
+   Also they don't recognize :caption: (used in code-block)
 
 .. code-block:: python
    :caption: **Case 1:** with a ``try`` and ``except`` blocks
@@ -152,18 +135,19 @@ module or the real one.
 
    # Rest of your code
 
-Script :obj:`run_examples.py`
------------------------------
-Description
-~~~~~~~~~~~
-The script :mod:`run_examples` which you have access to once you `install`_ the
-``SimulRPi`` package allows you to run different code examples on your RPi or
-computer. If it is run on your computer, it will make use of the module
-`SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
+Script ``run_examples.py``
+--------------------------
+The script `run_examples`_ which you have access to once you
+`install`_
+the ``SimulRPi`` package allows you to run different code examples on your RPi
+or computer. If it is run on your computer, it will make use of the module
+`SimulRPi.GPIO`_
+which partly fakes `RPi.GPIO`_.
 
 The different code examples are those presented in
-`Examples`_ and show the capability of ``SimulRPi.GPIO``
-for simulating I/O devices on an RPi such as push buttons and LEDS.
+`Examples <#examples>`_
+and show the capability of ``SimulRPi.GPIO`` for simulating I/O devices on an
+RPi such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
 
@@ -199,29 +183,28 @@ To display the script's list of options and their descriptions:
    --on     Time in seconds the LED will stay turned ON at a time. (default: 1)
    --off    Time in seconds the LED will stay turned OFF at a time. (default: 1)
 
-..
-   TODO: find if we can put this list of options in a separate file
-
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you install the package ``SimulRPi`` (see
-`Installation Instructions <#installation-instructions>`_), you should have
-access to the script :mod:`run_examples` which can be called from the terminal
-by providing some arguments. For example: ``run_examples -s -e 1``.
+Once you install the package ``SimulRPi``
+(see `Installation Instructions <#installation-instructions>`_)
+, you should have access to the script ``run_examples`` which can be called
+from the terminal by providing some arguments.
+
+For example: ``run_examples -e 1 -s``.
 
 Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
 
 Here is the command line for blinking a LED (on channel 21) for a total of 5
-seconds if the key :obj:`cmd_r` is pressed when the simulation package
+seconds if the key ``cmd_r`` is pressed when the simulation package
 ``SimulRPi`` is used::
 
    $ run_examples -s -e 5 -l 21 -t 5 -k cmd_r
 
 **Output:**
 
-.. image:: ./_static/images/run_examples_05_terminal_output.gif
-   :target: ./_static/images/run_examples_05_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/run_examples_05_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/run_examples_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
@@ -233,8 +216,11 @@ seconds if the key :obj:`cmd_r` is pressed when the simulation package
 .. important::
 
    Don't forget the flag *-s* (for simulation) when running the script
-   :mod:`run_examples` if you want to run a code example on your computer, and
+   ``run_examples`` if you want to run a code example on your computer, and
    not on your RPi.
+
+..
+   _examples-label:
 
 Examples
 ========
@@ -242,14 +228,15 @@ The examples presented thereafter will show you how to use ``SimulRPi`` to
 simulate LEDs and push buttons.
 
 The code for the examples shown here can be also found as a script in
-:mod:`run_examples`.
+`run_examples`_.
 
 .. note::
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
-   `run_examples.py`_ which runs the following code examples can be executed on
-   a Raspberry Pi or your computer.
+   `run_examples.py`_
+   which runs the following code examples can be executed on a Raspberry Pi or
+   your computer.
 
 Example 1: display 1 LED
 ------------------------
@@ -257,7 +244,6 @@ Example 1: display 1 LED
 the code along with the output from the terminal:
 
 .. code-block:: python
-   :caption: **Example 1:** display one LED on channel 11
 
    import SimulRPi.GPIO as GPIO
 
@@ -269,8 +255,8 @@ the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_01_terminal_output.png
-   :target: ./_static/images/example_01_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_01_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_01_terminal_output.png
    :align: left
    :alt: Example 01: terminal output
 
@@ -278,14 +264,14 @@ the code along with the output from the terminal:
 |
 
 The command line for reproducing the same results for example 1 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 1 -l 11
 
 .. warning::
 
-   Always call :meth:`GPIO.cleanup()` at the end of your program to free up any
-   resources such as stopping threads.
+   Always call `GPIO.cleanup() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup>`_
+   at the end of your program to free up any resources such as stopping threads.
 
 Example 2: display 3 LEDs
 -------------------------
@@ -293,7 +279,6 @@ Example 2: display 3 LEDs
 respectively. Here is the code along with the output from the terminal:
 
 .. code-block:: python
-   :caption: **Example 2:** display three LEDs
 
    import SimulRPi.GPIO as GPIO
 
@@ -306,8 +291,8 @@ respectively. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_02_terminal_output.png
-   :target: ./_static/images/example_02_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
    :align: left
    :alt: Example 02: terminal output
 
@@ -315,17 +300,16 @@ respectively. Here is the code along with the output from the terminal:
 |
 
 The command line for reproducing the same results for example 2 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 2
 
 Example 3: detect a pressed key
 -------------------------------
-**Example 3** consists in detecting if the key :obj:`cmd_r` is pressed and then
+**Example 3** consists in detecting if the key ``cmd_r`` is pressed and then
 printing a message. Here is the code along with the output from the terminal:
 
 .. code-block:: python
-   :caption: **Example 3:** detect if :obj:`cmd_r` is pressed
 
    import SimulRPi.GPIO as GPIO
 
@@ -342,8 +326,8 @@ printing a message. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_03_terminal_output.png
-   :target: ./_static/images/example_03_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
    :align: left
    :alt: Example 03: terminal output
 
@@ -351,30 +335,26 @@ printing a message. Here is the code along with the output from the terminal:
 |
 
 The command line for reproducing the same results for example 3 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 3 -k cmd_r
 
 .. note::
 
-   By default, ``SimulRPi`` maps the key :obj:`cmd_r` to channel 17 as can be
+   By default, ``SimulRPi`` maps the key ``cmd_r`` to channel 17 as can be
    seen from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19>`_.
 
-   See also the documentation for :mod:`SimulRPi.mapping` where the default
-   keymap is defined.
-
-..
-   TODO: fnd if there is a way to get the line no automatically
+   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_
+   where the default keymap is defined.
 
 Example 4: blink a LED
 ----------------------
 **Example 4** consists in blinking a LED on channel 20 for 4 seconds (or until
-you press :obj:`ctrl` + :obj:`c`). Here is the code along with the output from
+you press ``ctrl`` + ``c``). Here is the code along with the output from
 the terminal:
 
 .. code-block:: python
-   :caption: **Example 4:** blink a LED for 4 seconds
 
    import time
    import SimulRPi.GPIO as GPIO
@@ -395,8 +375,8 @@ the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_04_terminal_output.gif
-   :target: ./_static/images/example_04_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_04_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_04_terminal_output.gif
    :align: left
    :alt: Example 04: terminal output
 
@@ -405,19 +385,18 @@ the terminal:
 |
 
 The command line for reproducing the same results for example 4 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 4 -t 4 -l 20
 
 Example 5: blink a LED if a key is pressed
 ------------------------------------------
 **Example 5** consists in blinking a LED on channel 10 for 3 seconds if the key
-:obj:`ctrl_r` is pressed. And then, exiting from the program. The program can
-also be terminated at any time by pressing :obj:`ctrl` + :obj:`c`. Here is the
+``ctrl_r`` is pressed. And then, exiting from the program. The program can
+also be terminated at any time by pressing ``ctrl`` + ``c``. Here is the
 code along with the output from the terminal:
 
 .. code-block:: python
-   :caption: **Example 5:** blink a LED for 3 seconds if :obj:`ctrl_r` is pressed
 
    import time
    import SimulRPi.GPIO as GPIO
@@ -445,8 +424,8 @@ code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ./_static/images/example_05_terminal_output.gif
-   :target: ./_static/images/example_05_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_05_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
@@ -455,30 +434,30 @@ code along with the output from the terminal:
 |
 
 The command line for reproducing the same results for example 5 with the script
-:mod:`run_examples` is the following::
+``run_examples`` is the following::
 
    $ run_examples -s -e 5 -t 3 -k ctrl_r
 
 .. note::
 
-   By default, ``SimulRPi`` maps the key :obj:`ctrl_r` to channel 20 as can be
+   By default, ``SimulRPi`` maps the key ``ctrl_r`` to channel 20 as can be
    from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L22>`__.
 
-   See also the documentation for :mod:`SimulRPi.mapping` where the default
-   keymap is defined.
+   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_
+   where the default keymap is defined.
 
 Change Log
 ==========
 0.0.0a
 ------
 * First version
-* Tested code `examples`_ on different platforms and here are the results:
+* Tested code `examples <#id4>`__ on different platforms and here are the results
    * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
-   * On a computer with ``SimulRPi.GPIO``:
-      * **macOS:** all examples involving "LEDs" and keyboard keys worked
-      * **RPi OS [Debian-based]:** all examples involving only "LEDs" worked
+   * On a computer with ``SimulRPi.GPIO``
+      * macOS: all examples involving "LEDs" and keyboard keys worked
+      * RPi OS [Debian-based]: all examples involving only "LEDs" worked
 
         **NOTE:** I was running the script :mod:`run_examples`
         with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
@@ -489,26 +468,21 @@ Change Log
 TODOs
 =====
 * Write unit tests. **High priority**
-
    * Remove ``pynput`` from *requirements_travis.txt*: this entails adding the
      case to ``SimulRPi.GPIO`` when ``pynput`` is not found about not
      creating the listener thread that monitors the keyboard and ignoring all
      parts of the ``SimulRPi.GPIO`` where the listener thread is being accessed
      (e.g. for starting it).
-* Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
+* Run code `examples <#id4>`__ involving pressing keyboard keys directly on an RPi (no
   ``ssh``) and post results. **High priority**
 * In :mod:`run_examples`, improve timer accuracy when waiting for a LED to stop
   blinking or for a function to stop displaying a LED. **Medium priority**
 * Investigate further why no keyboard keys could be detected when connecting to
-  an RPi through ``ssh`` and running the script :mod:`run_examples` with
-  ``sudo``. **Low priority**
+  an RPi through ``ssh`` and running the script :mod:`run_examples` with ``sudo``.
+  **Low priority**
 
 Resources
 =========
-..
-   For README on GitHub and pypi
-   * `SimulRPi documentation`_: from readthedocs
-
 * `SimulRPi GitHub`_
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
