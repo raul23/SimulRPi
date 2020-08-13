@@ -296,8 +296,7 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    ``run_examples`` if you want to run a code example on your computer, and
    not on your RPi.
 
-..
-   _examples-label:
+.. _examples-label:
 
 Examples
 ========
@@ -618,12 +617,6 @@ Change Log
 
 TODOs
 =====
-* Write unit tests. **High priority**
-   * Remove ``pynput`` from *requirements_travis.txt*: this entails adding the
-     case to ``SimulRPi.GPIO`` when ``pynput`` is not found about not
-     creating the listener thread that monitors the keyboard and ignoring all
-     parts of the ``SimulRPi.GPIO`` where the listener thread is being accessed
-     (e.g. for starting it).
 <site="github">
 * Run code examples involving pressing keyboard keys directly on an RPi (no
 </site>
