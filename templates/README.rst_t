@@ -296,7 +296,8 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    ``run_examples`` if you want to run a code example on your computer, and
    not on your RPi.
 
-.. _examples-label:
+..
+   _examples-label:
 
 Examples
 ========
@@ -596,7 +597,7 @@ Change Log
 * Tested `code examples`_ on different platforms and here are the results
 </site>
 <site="readthedocs, pypi">
-* Tested code `examples`_ on different platforms and here are the results
+* Tested code `examples <#id4>`__ on different platforms and here are the results
 </site>
    * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
@@ -627,7 +628,7 @@ TODOs
 * Run code examples involving pressing keyboard keys directly on an RPi (no
 </site>
 <site="pypi, readthedocs">
-* Run code `examples`_ involving pressing keyboard keys directly on an RPi (no
+* Run code `examples <#id4>`__ involving pressing keyboard keys directly on an RPi (no
 </site>
   ``ssh``) and post results. **High priority**
 <site="readthedocs">
