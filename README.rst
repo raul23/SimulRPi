@@ -470,7 +470,7 @@ TODOs
 * In `run_examples`_, improve timer accuracy when waiting for a LED to stop
   blinking or for a function to stop displaying a LED. **Medium priority**
 
-* Mock ``pynput`` when doing unit tests on travis.
+* Mock ``pynput`` when doing unit tests on travis. **Medium priority**
 
 * Investigate further why no keyboard keys could be detected when connecting to
   an RPi through ``ssh`` and running the script `run_examples`_ with ``sudo``.
