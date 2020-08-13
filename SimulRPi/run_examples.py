@@ -49,11 +49,11 @@ simulates `RPi.GPIO`_: and default values for the options `-l` (channel 10) and
 .. _script's usage: #usage
 
 ..
-    TODO: add URL for installed that points to installation section
     TODO: find if we can load the list of options from a separate file
     TODO: place default values in separate file
 
 """
+# TODO: add printing or better logging
 import argparse
 import time
 import traceback
