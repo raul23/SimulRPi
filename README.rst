@@ -136,16 +136,13 @@ module or the real one.
 Script ``run_examples.py``
 --------------------------
 The script `run_examples`_ which you have access to once you
-install
-the ``SimulRPi`` package allows you to run different code examples on your RPi
-or computer. If it is run on your computer, it will make use of the module
-``SimulRPi.GPIO``
-which partly fakes `RPi.GPIO`_.
+install the ``SimulRPi`` package allows you to run different code examples on
+your RPi or computer. If it is run on your computer, it will make use of the
+module ``SimulRPi.GPIO`` which partly fakes `RPi.GPIO`_.
 
-The different code examples are those presented in
-**Examples**
-and show the capability of ``SimulRPi.GPIO`` for simulating I/O devices on an
-RPi such as push buttons and LEDS.
+The different code examples are those presented in **Examples** and
+show the capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi
+such as push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
    - Example 1: `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
@@ -182,9 +179,9 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you install the package ``SimulRPi``
-, you should have access to the script ``run_examples`` which can be called
-from the terminal by providing some arguments.
+Once you install the package ``SimulRPi``, you should have access to the script
+``run_examples`` which can be called from the terminal by providing some
+arguments.
 
 For example: ``run_examples -e 1 -s``.
 
@@ -212,8 +209,6 @@ seconds if the key ``cmd_r`` is pressed when the simulation package
    ``run_examples`` if you want to run a code example on your computer, and
    not on your RPi.
 
-.. _examples-label:
-
 Examples
 ========
 The examples presented thereafter will show you how to use ``SimulRPi`` to
@@ -226,9 +221,8 @@ The code for the examples shown here can be also found as a script in
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
-   `run_examples`_
-   which runs the following code examples can be executed on a Raspberry Pi or
-   your computer.
+   `run_examples`_ which runs the following code examples can be executed on a
+   Raspberry Pi or your computer.
 
 Example 1: display 1 LED
 ------------------------
@@ -433,9 +427,28 @@ The command line for reproducing the same results for example 5 with the script
 
 Change Log
 ==========
-0.0.0a
-------
+0.1.0a0
+-------
+* In ``SimulRPi.GPIO``, the package ``pynput`` is not required anymore. If it
+  is not found, all keyboard-related functionalities from the ``SimulRPi``
+  library will be skipped. Thus, no keyboard keys will be detected if pressed
+  or released when ``pynput`` is not installed.
+
+  This was necessary because *travis* was raising an exception when I was
+  running a unit test: `Xlib.error.DisplayNameError
+  <https://travis-ci.org/github/raul23/SimulRPi/builds/716458786#L235>`_. It was
+  due to ``pynput`` not working well in a headless setup. Thus, ``pynput`` is
+  now removed from *requirements_travis.txt*.
+
+  Eventually, I will mock ``pynput`` when doing unit tests on parts of the
+  library that make use of ``pynput``.
+
+* Started writing unit tests
+
+0.0.0a0
+-------
 * First version
+
 * Tested `code examples`_ on different platforms and here are the results
    * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
@@ -451,16 +464,14 @@ Change Log
 
 TODOs
 =====
-* Write unit tests. **High priority**
-   * Remove ``pynput`` from *requirements_travis.txt*: this entails adding the
-     case to ``SimulRPi.GPIO`` when ``pynput`` is not found about not
-     creating the listener thread that monitors the keyboard and ignoring all
-     parts of the ``SimulRPi.GPIO`` where the listener thread is being accessed
-     (e.g. for starting it).
 * Run code examples involving pressing keyboard keys directly on an RPi (no
   ``ssh``) and post results. **High priority**
+
 * In `run_examples`_, improve timer accuracy when waiting for a LED to stop
   blinking or for a function to stop displaying a LED. **Medium priority**
+
+* Mock ``pynput`` when doing unit tests on travis.
+
 * Investigate further why no keyboard keys could be detected when connecting to
   an RPi through ``ssh`` and running the script `run_examples`_ with ``sudo``.
   **Low priority**
