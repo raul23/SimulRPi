@@ -456,7 +456,7 @@ Change Log
   library will be skipped. Thus, no keyboard keys will be detected if pressed
   or released when ``pynput`` is not installed.
 
-  This was necessary because *travis* was raising an exception when I was
+  This was necessary because *Travis* was raising an exception when I was
   running a unit test: `Xlib.error.DisplayNameError
   <https://travis-ci.org/github/raul23/SimulRPi/builds/716458786#L235>`_. It was
   due to ``pynput`` not working well in a headless setup. Thus, ``pynput`` is
@@ -492,7 +492,7 @@ TODOs
 * In :mod:`run_examples`, improve timer accuracy when waiting for a LED to stop
   blinking or for a function to stop displaying a LED. **Medium priority**
 
-* Mock ``pynput`` when doing unit tests on travis. **Medium priority**
+* Mock ``pynput`` when doing unit tests on Travis. **Medium priority**
 
 * Investigate further why no keyboard keys could be detected when connecting to
   an RPi through ``ssh`` and running the script :mod:`run_examples` with ``sudo``.
