@@ -5,8 +5,7 @@ This script allows you to run different code examples on your Raspberry Pi (RPi)
 or computer in which case it will make use of the mock library `SimulRPi`_
 which partly fakes `RPi.GPIO`_.
 
-..
-   TODO: change URLs for 'SimulRPi.GPIO' to point to the real one
+.. TODO: change URLs for 'SimulRPi.GPIO' to point to the real one
 
 The code examples test different parts of the mock library ``SimulRPi`` in
 order to show what it is capable of simulating from an RPi:
@@ -48,9 +47,8 @@ simulates `RPi.GPIO`_: and default values for the options `-l` (channel 10) and
 .. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
 .. _script's usage: #usage
 
-..
-    TODO: find if we can load the list of options from a separate file
-    TODO: place default values in separate file
+.. TODO: find if we can load the list of options from a separate file
+.. TODO: place default values (? global variables) in a separate file
 
 """
 # TODO: add printing or better logging
@@ -140,8 +138,7 @@ def ex2_turn_on_many_leds(channels, time_led_on=3):
             nb_leds=len(channels),
             plural1="s" if len(channels) > 1 else "",
             time=time_led_on,
-            plural2="s" if time_led_on >= 2 else ""
-    )
+            plural2="s" if time_led_on >= 2 else "")
     print(msg)
     for ch in channels:
         GPIO.setup(ch, GPIO.OUT)
@@ -263,8 +260,7 @@ def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=4,
         the command line options `-b` (button channel) or `-k` (the key name,
         e.g. 'ctrl'). See `script's usage`_.
 
-    ..
-        TODO: find if we can avoid duplicates of notes and other notices
+    .. TODO: find if we can avoid duplicates of notes and other notices
 
     """
     msg = "Ex 5: if the {key_or_button} [{button_channel}] is pressed, blink " \
