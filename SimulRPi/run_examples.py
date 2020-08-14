@@ -2,13 +2,13 @@
 """Script for executing code examples on a Raspberry Pi or computer (simulation).
 
 This script allows you to run different code examples on your Raspberry Pi (RPi)
-or computer in which case it will make use of the mock library `SimulRPi`_
-which partly fakes `RPi.GPIO`_.
+or computer in which case it will make use of the library `SimulRPi`_ which
+partly fakes `RPi.GPIO`_.
 
 .. TODO: change URLs for 'SimulRPi.GPIO' to point to the real one
 
-The code examples test different parts of the mock library ``SimulRPi`` in
-order to show what it is capable of simulating from an RPi:
+The code examples test different parts of the library ``SimulRPi`` in order to
+show what it is capable of simulating from an RPi:
 
     * Turn on/off LEDs
     * Detect pressed button and perform an action
@@ -310,8 +310,11 @@ def setup_argparser():
         # usage="%(prog)s [OPTIONS]",
         # prog=os.path.basename(__file__),
         description='''\
-Run a code example on your RPi or on your computer in which case it will make 
-use of the mock library SimulRPi.''',
+Run a code example on your Raspberry Pi (RPi) or computer. In the latter case, 
+the script will make use of the library SimulRPi which partly fakes RPi.GPIO 
+and also simulates I/O devices connected to an RPi such as LEDs and push buttons 
+by blinking small circles on the terminal and listening to pressed keyboard keys.
+''',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     # ===============
     # General options
