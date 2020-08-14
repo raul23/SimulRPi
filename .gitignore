@@ -139,4 +139,4 @@ sandbox/
 test.py
 
 # README used on PyPI (avoid cluttering root of git repo)
-README_pypi.rst
+# README_pypi.rst
