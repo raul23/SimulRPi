@@ -1,9 +1,8 @@
+"""Collection of utility functions used for the SimulRPi library.
 """
-"""
-# TODO: write module description
 import time
 
-# TODO: explain
+# Import RPi.GPIO if found. Otherwise, fallback to SimulRPi.GPIO
 try:
     import RPi.GPIO as GPIO
 except ImportError:
@@ -13,14 +12,17 @@ except ImportError:
 def blink_led(channel, time_led_on, time_led_off):
     """Blink one LED.
 
-    A LED on the given `channel` will be turned on and off for ``time_led_on``
-    seconds and `time_led_off` seconds, respectively.
+    A LED on the given ``channel`` will be turned ON and OFF for ``time_led_on``
+    seconds and ``time_led_off`` seconds, respectively.
 
     Parameters
     ----------
-    channel
-    time_led_on
-    time_led_off
+    channel : int
+        Channel number associated with a LED which will blink.
+    time_led_on : float
+        Time in seconds the LED will stay turned ON at a time.
+    time_led_off : float
+       Time in seconds the LED will stay turned OFF at a time.
 
     """
     turn_on_led(channel)
