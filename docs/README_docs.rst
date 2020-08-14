@@ -449,7 +449,7 @@ The command line for reproducing the same results for example 5 with the script
 
 Change Log
 ==========
-0.1.0a0
+0.0.1a0
 -------
 * In ``SimulRPi.GPIO``, the package ``pynput`` is not required anymore. If it
   is not found, all keyboard-related functionalities from the ``SimulRPi``
