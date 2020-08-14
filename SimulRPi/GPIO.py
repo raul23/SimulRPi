@@ -32,7 +32,7 @@ between brackets is the associated GPIO pin number.
     If there is enough interest in this library, I will eventually mock more
     functions from `RPi.GPIO`_. Thus,
     `let me know through SimulRPi's issues page`_ if you want me to add more
-    things to this mock library.
+    things to this library.
 
 ..
     TODO: also found in README_docs.rst
@@ -382,7 +382,7 @@ class Manager:
         listener thread :attr:`th_listener` will not be created and the parts
         of the ``SimulRPi`` library that monitors the keyboard for any pressed
         or released key will be ignored. Only the thread
-        :attr:`th_display_leds` that display "LEDs" on the terminal will be
+        :attr:`th_display_leds` that displays "LEDs" on the terminal will be
         created.
 
         This is necessary for example in the case we are running tests on
@@ -526,12 +526,13 @@ class Manager:
                 # you press tab or down, it will mess up the display to the right
                 print(' ' * last_msg_length, end='\r')
                 # print(self._leds, end='\r')
-                # TODO: use _add_spaces... and explain
-                print('  {}                                         '.format(self._leds), end="\r")
+                # TODO: explain
+                print('  {}{}'.format(self._leds, " " * 40), end="\r")
                 # sys.stdout.flush()
             self.nb_prints += 1
+        # TODO: explain
         if self.enable_printing and self._leds:
-            print('  {}                                             '.format(self._leds))
+            print('  {}{}'.format(self._leds, " " * 40))
         # logger.debug("Stopping thread: {}()".format(self.display_leds.__name__))
         logger.debug("Stopping thread: {}".format(th.name))
 
