@@ -1,6 +1,6 @@
-"""setup.py file for the package `SimulRPi.GPIO`.
+"""setup.py file for the package ``SimulRPi.GPIO``.
 
-The PyPi project name is `SimulRPi.GPIO` and package name is `SimulRPi`.
+The PyPi project name is ``SimulRPi.GPIO`` and package name is ``SimulRPi``.
 
 """
 
