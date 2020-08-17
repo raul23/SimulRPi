@@ -350,6 +350,8 @@ class Manager:
         Whether to enable printing on the terminal. Default value is `True`.
     pin_db : PinDB
         A :class:`Pin` database. See :class:`PinDB` on how to access it.
+    channel_number_to_name_map : dict
+        A dictionary that maps ... TODO
     key_to_channel_map : dict
         A dictionary that maps keyboard keys (:obj:`string`) to GPIO channel
         numbers (:obj:`int`). By default, it takes the keys and values defined
@@ -400,6 +402,7 @@ class Manager:
         self.warnings = True
         self.enable_printing = True
         self.pin_db = PinDB()
+        self.channel_number_to_name_map = {}
         self.key_to_channel_map = copy.copy(default_key_to_channel_map)
         self.channel_to_key_map = {v: k for k, v in
                                    self.key_to_channel_map.items()}
@@ -520,6 +523,10 @@ class Manager:
                     led = '\033[1;31;48m' + 'o' + '\033[1;37;0m'
                 else:
                     led = 'o'
+                # TODO: explain
+                name = self.channel_number_to_name_map.get(channel)
+                if name:
+                    channel = name
                 self._leds += led + ' [{}]   '.format(channel)
             if self.enable_printing:
                 # If no spaces after the red o's representing the LEDs, then if
@@ -527,12 +534,12 @@ class Manager:
                 print(' ' * last_msg_length, end='\r')
                 # print(self._leds, end='\r')
                 # TODO: explain
-                print('  {}{}'.format(self._leds, " " * 40), end="\r")
+                print('  {}{}'.format(self._leds, " " * 80), end="\r")
                 # sys.stdout.flush()
             self.nb_prints += 1
         # TODO: explain
         if self.enable_printing and self._leds:
-            print('  {}{}'.format(self._leds, " " * 40))
+            print('  {}{}'.format(self._leds, " " * 80))
         # logger.debug("Stopping thread: {}()".format(self.display_leds.__name__))
         logger.debug("Stopping thread: {}".format(th.name))
 
@@ -624,6 +631,20 @@ class Manager:
 
         """
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
+
+    def update_channel_names(self, new_names):
+        """TODO
+
+        Parameters
+        ----------
+        new_names
+
+        Returns
+        -------
+
+        """
+        # TODO: assert on new_names
+        self.channel_number_to_name_map.update(new_names)
 
     def update_keymap(self, new_keymap):
         """Update the default dictionary mapping keys and GPIO channels.
@@ -890,6 +911,20 @@ def output(channel, state):
     # Start the displaying thread only if it not already alive
     if not manager.th_display_leds.is_alive():
         manager.th_display_leds.start()
+
+
+def setchannelnames(channel_names):
+    """TODO
+
+    Parameters
+    ----------
+    channel_names
+
+    Returns
+    -------
+
+    """
+    manager.update_channel_names(channel_names)
 
 
 def setkeymap(key_to_channel_map):
