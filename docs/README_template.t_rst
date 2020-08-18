@@ -232,6 +232,8 @@ Here is a list of the functions associated with each code example:
    - Example 5: :meth:`run_examples.ex5_blink_led_if_button`
 </site>
 
+.. TODO: add $ in some of the shown terminal commands
+
 List of options
 ~~~~~~~~~~~~~~~
 
