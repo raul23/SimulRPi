@@ -62,7 +62,7 @@ setup(name='SimulRPi',
       },
       project_urls={  # Optional
           'Bug Reports': 'https://github.com/raul23/SimulRPi/issues',
-          'Documentation': 'https://simulrpi.readthedocs.io/en/latest/index.html',
+          'Documentation': 'https://simulrpi.readthedocs.io',
           'Source': 'https://github.com/raul23/SimulRPi',
         },
       zip_safe=False)
