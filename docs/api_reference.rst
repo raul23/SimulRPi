@@ -32,6 +32,8 @@ API Reference
    :language: Python
    :end-before: [end-section]
 
+.. _important-platform-limitations-label:
+
 .. important::
 
    There are some platform limitations on using some of the keyboard keys with
