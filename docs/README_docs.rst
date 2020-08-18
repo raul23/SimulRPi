@@ -472,6 +472,7 @@ Change Log
 * First version
 
 * Tested code `examples <#id4>`__ on different platforms and here are the results
+
    * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
    * On a computer with ``SimulRPi.GPIO``
