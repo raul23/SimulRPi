@@ -32,7 +32,7 @@ API Reference
    :language: Python
    :end-before: [end-section]
 
-.. _important-platform-limitations-label:
+.. _important-label:
 
 .. important::
 
