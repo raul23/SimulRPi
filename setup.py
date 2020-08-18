@@ -30,6 +30,7 @@ with open(os.path.join(dirpath, "README_pypi.rst")) as f:
 with open(os.path.join(dirpath, "requirements.txt")) as f:
     REQUIREMENTS = f.read().split()
 
+# TODO: Documentation should point to correct version of project at the moment?
 setup(name='SimulRPi',
       version=VERSION,
       description='A library that partly fakes RPi.GPIO and simulates some I/O '
