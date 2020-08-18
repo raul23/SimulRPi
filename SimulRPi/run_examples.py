@@ -48,10 +48,9 @@ simulates `RPi.GPIO`_: and default values for the options `-l` (channel 10) and
 .. _script's usage: #usage
 
 .. TODO: find if we can load the list of options from a separate file
-.. TODO: place default values (? global variables) in a separate file
 
 """
-# TODO: add printing or better logging
+# TODO: add printing or logging
 import argparse
 import time
 import traceback
@@ -63,6 +62,7 @@ from SimulRPi.utils import blink_led, turn_on_led
 
 GPIO = None
 SIMULATION = False
+# TODO: necessary? maybe in a separate file
 DEFAULT_BUTTON_CHANNEL = 13
 DEFAULT_KEY_NAME = default_channel_to_key_map[DEFAULT_BUTTON_CHANNEL]
 DEFAULT_LED_CHANNELS = [10, 11, 12]
