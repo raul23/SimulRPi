@@ -520,9 +520,11 @@ class Manager:
                 # TODO: pin could be None
                 if pin.state == HIGH:
                     # led = "\033[31mo\033[0m"
-                    led = '\033[1;31;48m' + 'o' + '\033[1;37;0m'
+                    # led = '\033[1;31;48m' + led_symbol + '\033[1;37;0m'
+                    led = "🔴"
                 else:
-                    led = 'o'
+                    # led = led_symbol
+                    led = "⚪"
                 # TODO: explain
                 name = self.channel_number_to_name_map.get(channel)
                 if name:
