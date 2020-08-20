@@ -91,13 +91,19 @@ class Pin:
     gpio_function : int
         Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
     key : str or None, optional
-        Key associated with the GPIO channel, e.g. "k".
+        Keyboard key associated with the GPIO channel, e.g. "k".
     pull_up_down : int or None, optional
         Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default value is
         :obj:`None`.
     initial : int or None, optional
         Initial value of an output channel, e.g. `GPIO.HIGH`. Default value is
         :obj:`None`.
+    channel_name : str, optional
+        TODO
+    display_name : str, optional
+        TODO
+    led_symbols : dict, optional
+        TODO
 
     Attributes
     ----------
@@ -106,12 +112,16 @@ class Pin:
 
     """
     def __init__(self, channel, gpio_function, key=None, pull_up_down=None,
-                 initial=None):
+                 initial=None, channel_name=None, display_name=None,
+                 led_symbols=None):
         self.channel = channel
         self.gpio_function = gpio_function
         self.key = key
         self.pull_up_down = pull_up_down
         self.initial = initial
+        self.channel_name = channel_name
+        self.display_name = display_name
+        self.led_symbols = led_symbols
         if gpio_function == IN:
             self.state = HIGH
         else:
@@ -132,13 +142,17 @@ class PinDB:
 
     """
     def __init__(self):
+        # Maps channel to Pin object
         self._pins = {}
-        # The other dict is only for INPUT channels with an associated key
         # TODO: explain more
+        # Maps keyboard key to Pin object
+        # NOTE: this dict is only for INPUT channels with an associated key
         self._key_to_pin_map = {}
+        self.output_pins = []
 
     def create_pin(self, channel, gpio_function, key=None, pull_up_down=None,
-                   initial=None):
+                   initial=None, channel_name=None, display_name=None,
+                   led_symbols=None):
         """Create an instance of :class:`GPIO.Pin` and save it in a dictionary.
 
         Based on the given arguments, an instance of :class:`GPIO.Pin` is
@@ -154,17 +168,31 @@ class PinDB:
         gpio_function : int
             Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
         key : str or None, optional
-            Key associated with the GPIO channel, e.g. "k".
+            Keyboard key associated with the GPIO channel, e.g. "k".
         pull_up_down : int or None, optional
             Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default
             value is :obj:`None`.
         initial : int or None, optional
             Initial value of an output channel, e.g. `GPIO.HIGH`. Default value
             is :obj:`None`.
+        channel_name : str, optional
+            TODO
+        display_name : str, optional
+            TODO
+        led_symbols : dict, optional
+            TODO
 
         """
-        self._pins[channel] = Pin(channel, gpio_function, key, pull_up_down,
-                                  initial)
+        self._pins[channel] = Pin(channel, gpio_function, key=key,
+                                  pull_up_down=pull_up_down, initial=initial,
+                                  channel_name=channel_name,
+                                  display_name=display_name,
+                                  led_symbols=led_symbols)
+        if gpio_function == OUT:
+            # OUTPUT pin (e.g. LED)
+            # Save the output pin so the thread that displays LEDs knows what
+            # pins are OUTPUT and therefore connected to LEDs.
+            self.output_pins.append(self._pins[channel])
         # Update the other internal dict if key is given
         if key:
             # Input
@@ -247,7 +275,7 @@ class PinDB:
             GPIO channel number associated with the :class:`Pin` whose key will
             be set.
         key : str
-            The new key that a :class:`Pin` will be updated with.
+            The new keyboard key that a :class:`Pin` will be updated with.
 
         Returns
         -------
@@ -265,6 +293,46 @@ class PinDB:
             # if key != old_key:
             del self._key_to_pin_map[old_key]
             self._key_to_pin_map[key] = pin
+            return True
+        else:
+            return False
+
+    def set_pin_name_from_channel(self, channel, name):
+        """TODO
+
+        Parameters
+        ----------
+        channel
+        name
+
+        Returns
+        -------
+
+        """
+        pin = self.get_pin_from_channel(channel)
+        if pin:
+            # TODO: only update name if the name is different from the actual
+            pin.name = name
+            return True
+        else:
+            return False
+
+    def set_pin_symbols_from_channel(self, channel, led_symbols):
+        """TODO
+
+        Parameters
+        ----------
+        channel
+        led_symbols
+
+        Returns
+        -------
+
+        """
+        pin = self.get_pin_from_channel(channel)
+        if pin:
+            # TODO: only update symbols if the symbols is different from the actual
+            pin.led_symbols = led_symbols
             return True
         else:
             return False
@@ -307,7 +375,8 @@ class PinDB:
         Parameters
         ----------
         key : str
-            The key associated with the :class:`Pin` whose state will be set.
+            The keyboard key associated with the :class:`Pin` whose state will
+            be set.
         state : int
             State the GPIO channel should take: 1 (`HIGH`) or 0 (`LOW`).
         Returns
@@ -350,7 +419,7 @@ class Manager:
         Whether to enable printing on the terminal. Default value is `True`.
     pin_db : PinDB
         A :class:`Pin` database. See :class:`PinDB` on how to access it.
-    channel_number_to_name_map : dict
+    default_led_symbols : dict
         A dictionary that maps ... TODO
     key_to_channel_map : dict
         A dictionary that maps keyboard keys (:obj:`string`) to GPIO channel
@@ -359,10 +428,6 @@ class Manager:
     channel_to_key_map : dict
         The reverse dictionary of :attr:`key_to_channel_map`. It maps channels
         to keys.
-    nb_prints : int
-        Number of times the displaying thread :attr:`th_display_leds` has
-        printed blinking circles on the terminal. It is used when debugging the
-        displaying thread.
     th_display_leds : threading.Thread
         Thread responsible for displaying small blinking circles on the
         terminal as to simulate LEDs connected to an RPi.
@@ -402,13 +467,15 @@ class Manager:
         self.warnings = True
         self.enable_printing = True
         self.pin_db = PinDB()
-        self.channel_number_to_name_map = {}
+        self.default_led_symbols = {
+            "ON": "\U0001F6D1",
+            "OFF": "\U000026AA",
+        }
+        self._channel_to_led_symbols = {}
+        self._channel_to_names = {}
         self.key_to_channel_map = copy.copy(default_key_to_channel_map)
         self.channel_to_key_map = {v: k for k, v in
                                    self.key_to_channel_map.items()}
-        self._output_channels = []
-        self.nb_prints = 0
-        self._leds = None
         self.th_display_leds = threading.Thread(name="thread_display_leds",
                                                 target=self.display_leds,
                                                 args=())
@@ -443,18 +510,33 @@ class Manager:
         """
         key = None
         if gpio_function == IN:
-            # Get key associated with the INPUT pin (button)
+            # Get keyboard key associated with the INPUT pin (button)
             # TODO: raise exception if key not found
             key = self.channel_to_key_map.get(channel)
-        elif gpio_function == OUT:
-            # No key since it is an OUTPUT pin (e.g. LED)
-            # Save the channel so the thread that displays LEDs knows what
-            # channels are OUTPUT and therefore connected to LEDs.
-            self._output_channels.append(channel)
+        names = self._channel_to_names.get(channel)
+        if names:
+            channel_name = names['channel_name']
+            display_name = names.get('display_name', channel_name)
+            del self._channel_to_names[channel]
+        else:
+            channel_name = str(channel)
+            display_name = str(channel)
+        led_symbols = self._channel_to_led_symbols.get(channel)
+        if led_symbols:
+            # TODO: explain
+            for k, v in led_symbols.items():
+                v = v.replace("\\033", "\033")
+                led_symbols[k] = v
+            del self._channel_to_led_symbols[channel]
+        else:
+            led_symbols = self.default_led_symbols
         self.pin_db.create_pin(channel, gpio_function,
                                key=key,
                                pull_up_down=pull_up_down,
-                               initial=initial)
+                               initial=initial,
+                               channel_name=channel_name,
+                               display_name=display_name,
+                               led_symbols=led_symbols)
 
     def display_leds(self):
         """Simulate LEDs on an RPi by blinking small circles on a terminal.
@@ -511,38 +593,33 @@ class Manager:
             os.system("tput civis")
             print()
         th = threading.currentThread()
+        # TODO: reduce number of prints, i.e. computations
         while getattr(th, "do_run", True):
-            self._leds = ""
-            last_msg_length = len(self._leds) if self._leds else 0
+            leds = ""
+            last_msg_length = len(leds) if leds else 0
             # for channel in sorted(self.channel_output_state_map):
-            for channel in self._output_channels:
-                pin = self.pin_db.get_pin_from_channel(channel)
+            for pin in self.pin_db.output_pins:
+                channel = pin.channel
                 # TODO: pin could be None
                 if pin.state == HIGH:
-                    # led = "\033[31mo\033[0m"
-                    # led = '\033[1;31;48m' + led_symbol + '\033[1;37;0m'
-                    led = "🔴"
+                    # Turn ON LED
+                    # TODO: safeguard?
+                    led_symbol = pin.led_symbols.get(
+                        'ON', self.default_led_symbols['ON'])
                 else:
-                    # led = led_symbol
-                    led = "⚪"
-                # TODO: explain
-                name = self.channel_number_to_name_map.get(channel)
-                if name:
-                    channel = name
-                self._leds += led + ' [{}]   '.format(channel)
+                    # Turn OFF LED
+                    # TODO: safeguard?
+                    led_symbol = pin.led_symbols.get(
+                        'OFF', self.default_led_symbols['OFF'])
+                channel = pin.display_name if pin.display_name else channel
+                leds += "{led_symbol}{spaces1}[{channel}]{spaces2}".format(
+                    spaces1="  ",
+                    led_symbol=led_symbol,
+                    channel=channel,
+                    spaces2=" " * 8)
             if self.enable_printing:
-                # If no spaces after the red o's representing the LEDs, then if
-                # you press tab or down, it will mess up the display to the right
                 print(' ' * last_msg_length, end='\r')
-                # print(self._leds, end='\r')
-                # TODO: explain
-                print('  {}{}'.format(self._leds, " " * 80), end="\r")
-                # sys.stdout.flush()
-            self.nb_prints += 1
-        # TODO: explain
-        if self.enable_printing and self._leds:
-            print('  {}{}'.format(self._leds, " " * 80))
-        # logger.debug("Stopping thread: {}()".format(self.display_leds.__name__))
+                print('  {}'.format(leds), end='\r')
         logger.debug("Stopping thread: {}".format(th.name))
 
     @staticmethod
@@ -634,20 +711,54 @@ class Manager:
         """
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
 
-    def update_channel_names(self, new_names):
+    def update_channel_names(self, new_channel_names):
         """TODO
 
         Parameters
         ----------
-        new_names
+        new_channel_names : dict
+            Dictionary that maps channel number to channel name.
 
         Returns
         -------
 
         """
-        # TODO: assert on new_names
-        self.channel_number_to_name_map.update(new_names)
+        # TODO: assert on new_channel_names
+        for channel, name in new_channel_names.items():
+            if not self.pin_db.set_pin_name_from_channel(channel, name):
+                self._channel_to_names.update({channel: name})
 
+    def update_default_led_symbols(self, new_default_led_symbols):
+        """TODO
+
+        Parameters
+        ----------
+        new_default_led_symbols
+
+        Returns
+        -------
+
+        """
+        # TODO: assert on new_led_symbols
+        self.default_led_symbols.update(new_default_led_symbols)
+
+    def update_led_symbols(self, new_led_symbols):
+        """TODO
+
+        Parameters
+        ----------
+        new_led_symbols
+
+        Returns
+        -------
+
+        """
+        # TODO: assert on new_led_symbols
+        for channel, symbols in new_led_symbols.items():
+            if not self.pin_db.set_pin_symbols_from_channel(channel, symbols):
+                self._channel_to_led_symbols.update({channel: symbols})
+
+    # TODO: unique keymap in both ways
     def update_keymap(self, new_keymap):
         """Update the default dictionary mapping keys and GPIO channels.
 
@@ -673,10 +784,10 @@ class Manager:
 
         .. note::
 
-            If a key is associated to a channel that is already taken by
-            another key, both keys' channels will be swapped. However, if a key
-            is being linked to a :obj:`None` channel, then it will take on the
-            maximum channel number available + 1.
+            If the key to be updated is associated to a channel that is already
+            taken by another key, both keys' channels will be swapped. However,
+            if any key is being linked to a :obj:`None` channel, then it will take
+            on the maximum channel number available + 1.
 
         """
         # TODO: assert keys (str) and channels (int)
@@ -798,9 +909,9 @@ class Manager:
             key *'g'* to the GPIO channel 23.
 
         """
-        for keych in key_channels:
-            key = keych[0]
-            channel = keych[1]
+        for key_ch in key_channels:
+            key = key_ch[0]
+            channel = key_ch[1]
             self.key_to_channel_map[key] = channel
             self.channel_to_key_map[channel] = key
             self.pin_db.set_pin_key_from_channel(channel, key)
@@ -854,7 +965,6 @@ def cleanup():
     if manager.th_listener and manager.th_listener.is_alive():
         logger.debug("Stopping thread: {}".format(manager.th_listener.name))
         manager.th_listener.stop()
-        manager.th_listener.join()
         logger.debug("Thread stopped: {}".format(manager.th_listener.name))
     # Reset Manager's attributes
     del manager
@@ -922,13 +1032,41 @@ def setchannelnames(channel_names):
     ----------
     channel_names
 
-    Returns
-    -------
-
     """
     manager.update_channel_names(channel_names)
 
 
+def setchannels(gpio_channels):
+    """TODO
+
+    Parameters
+    ----------
+    gpio_channels
+
+    """
+    name_maps = {}
+    symbol_maps = {}
+    key_maps = {}
+    for gpio_ch in gpio_channels:
+        channel_name = gpio_ch.get('channel_name')
+        display_name = gpio_ch.get('display_name')
+        channel_number = gpio_ch.get('channel_number')
+        led_symbols = gpio_ch.get('led_symbols')
+        name_maps.update({
+                channel_number: {
+                    'channel_name': channel_name,
+                    'display_name': display_name
+                }})
+        symbol_maps.update({channel_number: led_symbols})
+        if gpio_ch.get('key'):
+            key_maps.update({gpio_ch.get('key'): channel_number})
+    setchannelnames(name_maps)
+    setsymbols(symbol_maps)
+    setkeymap(key_maps)
+
+
+# TODO: explain that the mapping is unique in both ways, i.e. one keyboard key
+# can only be associated to a one GPIO channel, and vice versa.
 def setkeymap(key_to_channel_map):
     """Set the keymap dictionary with new keys and channels.
 
@@ -955,6 +1093,28 @@ def setkeymap(key_to_channel_map):
 
     """
     manager.update_keymap(key_to_channel_map)
+
+
+def setdefaultsymbols(default_led_symbols):
+    """TODO
+
+    Parameters
+    ----------
+    default_led_symbols
+
+    """
+    manager.update_default_led_symbols(default_led_symbols)
+
+
+def setsymbols(led_symbols):
+    """TODO
+
+    Parameters
+    ----------
+    led_symbols
+
+    """
+    manager.update_led_symbols(led_symbols)
 
 
 def setmode(mode):
