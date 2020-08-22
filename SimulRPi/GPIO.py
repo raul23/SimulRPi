@@ -80,6 +80,18 @@ PUD_DOWN = 0
 MODES = {'BOARD': BOARD, 'BCM': BCM}
 
 
+class ExceptionThread(threading.Thread):
+    def __init__(self, *args, **kwargs):
+        threading.Thread.__init__(self, *args, **kwargs)
+        self.exc = None
+
+    def run(self):
+        try:
+            self._target(*self._args, **self._kwargs)
+        except Exception as e:
+            self.exc = e
+
+
 class Pin:
     """Class that represents a GPIO pin.
 
@@ -476,9 +488,10 @@ class Manager:
         self.key_to_channel_map = copy.copy(default_key_to_channel_map)
         self.channel_to_key_map = {v: k for k, v in
                                    self.key_to_channel_map.items()}
-        self.th_display_leds = threading.Thread(name="thread_display_leds",
-                                                target=self.display_leds,
-                                                args=())
+        self.exception_found = False
+        self.th_display_leds = ExceptionThread(name="thread_display_leds",
+                                               target=self.display_leds,
+                                               args=())
         if keyboard:
             self.th_listener = keyboard.Listener(
                 on_press=self.on_press,
@@ -596,6 +609,7 @@ class Manager:
         # TODO: reduce number of prints, i.e. computations
         while getattr(th, "do_run", True):
             leds = ""
+            test = 1/0
             last_msg_length = len(leds) if leds else 0
             # for channel in sorted(self.channel_output_state_map):
             for pin in self.pin_db.output_pins:
@@ -1021,8 +1035,17 @@ def output(channel, state):
     """
     manager.pin_db.set_pin_state_from_channel(channel, state)
     # Start the displaying thread only if it not already alive
-    if not manager.th_display_leds.is_alive():
-        manager.th_display_leds.start()
+    try:
+        if not manager.exception_found and \
+                not manager.th_display_leds.is_alive():
+            manager.th_display_leds.start()
+    except RuntimeError:
+        # Happens when error in Manager.display_leds()
+        manager.exception_found = True
+        if manager.th_display_leds.exc:
+            raise manager.th_display_leds.exc
+        else:
+            pass
 
 
 def setchannelnames(channel_names):
