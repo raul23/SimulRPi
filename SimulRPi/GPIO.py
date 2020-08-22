@@ -608,7 +608,6 @@ class Manager:
         # TODO: reduce number of prints, i.e. computations
         while getattr(th, "do_run", True):
             leds = ""
-            test = 1/0
             last_msg_length = len(leds) if leds else 0
             # for channel in sorted(self.channel_output_state_map):
             for pin in self.pin_db.output_pins:
