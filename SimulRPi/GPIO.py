@@ -488,7 +488,6 @@ class Manager:
         self.key_to_channel_map = copy.copy(default_key_to_channel_map)
         self.channel_to_key_map = {v: k for k, v in
                                    self.key_to_channel_map.items()}
-        self.exception_found = False
         self.th_display_leds = ExceptionThread(name="thread_display_leds",
                                                target=self.display_leds,
                                                args=())
@@ -1035,17 +1034,14 @@ def output(channel, state):
     """
     manager.pin_db.set_pin_state_from_channel(channel, state)
     # Start the displaying thread only if it not already alive
-    try:
-        if not manager.exception_found and \
-                not manager.th_display_leds.is_alive():
-            manager.th_display_leds.start()
-    except RuntimeError:
+    if not manager.th_display_leds.exc and \
+            not manager.th_display_leds.is_alive():
+        manager.th_display_leds.start()
+    if manager.th_display_leds.exc and manager.th_display_leds.exc != "exception_found":
         # Happens when error in Manager.display_leds()
-        manager.exception_found = True
-        if manager.th_display_leds.exc:
-            raise manager.th_display_leds.exc
-        else:
-            pass
+        exc = manager.th_display_leds.exc
+        manager.th_display_leds.exc = "exception_found"
+        raise exc
 
 
 def setchannelnames(channel_names):
