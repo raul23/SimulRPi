@@ -314,26 +314,6 @@ class PinDB:
         else:
             return False
 
-    def set_pin_symbols_from_channel(self, channel_number, led_symbols):
-        """TODO
-
-        Parameters
-        ----------
-        channel_number
-        led_symbols
-
-        Returns
-        -------
-
-        """
-        pin = self.get_pin_from_channel(channel_number)
-        if pin:
-            # TODO: only update symbols if the symbols is different from the actual
-            pin.led_symbols = led_symbols
-            return True
-        else:
-            return False
-
     def set_pin_id_from_channel(self, channel_number, channel_id):
         """TODO
 
@@ -408,6 +388,26 @@ class PinDB:
         if pin:
             # TODO: only update state if the state is different from the actual
             pin.state = state
+            return True
+        else:
+            return False
+
+    def set_pin_symbols_from_channel(self, channel_number, led_symbols):
+        """TODO
+
+        Parameters
+        ----------
+        channel_number
+        led_symbols
+
+        Returns
+        -------
+
+        """
+        pin = self.get_pin_from_channel(channel_number)
+        if pin:
+            # TODO: only update symbols if the symbols is different from the actual
+            pin.led_symbols = led_symbols
             return True
         else:
             return False
@@ -544,35 +544,19 @@ class Manager:
             pull_up_down=pull_up_down,
             initial=initial)
 
-    def _get_tmp_info(self, channel_number):
+    def bulk_update_channel_tmp_info(self, new_channel_tmp_info):
         """TODO
 
         Parameters
         ----------
-        channel_number
-
-        Returns
-        -------
+        new_channel_tmp_info
 
         """
-        retval = {}
-        attribute_names = ['channel_id', 'channel_name', 'led_symbols']
-        ch_info = self._channel_tmp_info.get(channel_number)
-        if ch_info:
-            for attr_name in attribute_names:
-                attr_value = ch_info.get(attr_name)
-                if attr_name == 'led_symbols':
-                    if attr_value:
-                        # TODO: explain
-                        for k, v in attr_value.items():
-                            v = v.replace("\\033", "\033")
-                            attr_value[k] = v
-                    attr_value = attr_value if attr_value else self.default_led_symbols
-                else:
-                    # channel_id and channel_name
-                    attr_value = attr_value if attr_value else channel_number
-                retval.setdefault(attr_name, attr_value)
-        return retval
+        for ch_number, ch_attributes in new_channel_tmp_info.items():
+            for attribute_name, attribute_value in ch_attributes.items():
+                self._update_attribute_pins(
+                    attribute_name,
+                    {ch_number: {attribute_name: attribute_value}})
 
     def display_leds(self):
         """Simulate LEDs on an RPi by blinking small circles on a terminal.
@@ -747,13 +731,6 @@ class Manager:
         """
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
 
-    def bulk_update_channel_tmp_info(self, new_channel_tmp_info):
-        for ch_number, ch_attributes in new_channel_tmp_info.items():
-            for attribute_name, attribute_value in ch_attributes.items():
-                self._update_attribute_pins(
-                    attribute_name,
-                    {ch_number: {attribute_name: attribute_value}})
-
     def update_channel_ids(self, new_channel_ids):
         """TODO
 
@@ -811,21 +788,6 @@ class Manager:
         """
         # TODO: assert on new_led_symbols
         self._update_attribute_pins('led_symbols', new_led_symbols)
-
-    def _update_attribute_pins(self, attribute_name, new_attributes):
-        if attribute_name == 'led_symbols':
-            set_fnc = self.pin_db.set_pin_symbols_from_channel
-        elif attribute_name == 'channel_name':
-            set_fnc = self.pin_db.set_pin_name_from_channel
-        elif attribute_name == 'channel_id':
-            set_fnc = self.pin_db.set_pin_id_from_channel
-        else:
-            raise ValueError("Invalid attribute name: {}".format(attribute_name))
-        for ch_number, attribute_dict in new_attributes.items():
-            # TODO: explain
-            if not set_fnc(ch_number, attribute_dict):
-                self._channel_tmp_info.setdefault(ch_number, {})
-                self._channel_tmp_info[ch_number].update(attribute_dict)
 
     # TODO: unique keymap in both ways
     def update_keymap(self, new_keymap):
@@ -950,6 +912,59 @@ class Manager:
             return False
         else:
             return True
+
+    def _get_tmp_info(self, channel_number):
+        """TODO
+
+        Parameters
+        ----------
+        channel_number
+
+        Returns
+        -------
+
+        """
+        retval = {}
+        attribute_names = ['channel_id', 'channel_name', 'led_symbols']
+        ch_info = self._channel_tmp_info.get(channel_number)
+        if ch_info:
+            for attr_name in attribute_names:
+                attr_value = ch_info.get(attr_name)
+                if attr_name == 'led_symbols':
+                    if attr_value:
+                        # TODO: explain
+                        for k, v in attr_value.items():
+                            v = v.replace("\\033", "\033")
+                            attr_value[k] = v
+                    attr_value = attr_value if attr_value else self.default_led_symbols
+                else:
+                    # channel_id and channel_name
+                    attr_value = attr_value if attr_value else channel_number
+                retval.setdefault(attr_name, attr_value)
+        return retval
+
+    def _update_attribute_pins(self, attribute_name, new_attributes):
+        """TODO
+
+        Parameters
+        ----------
+        attribute_name
+        new_attributes
+
+        """
+        if attribute_name == 'led_symbols':
+            set_fnc = self.pin_db.set_pin_symbols_from_channel
+        elif attribute_name == 'channel_name':
+            set_fnc = self.pin_db.set_pin_name_from_channel
+        elif attribute_name == 'channel_id':
+            set_fnc = self.pin_db.set_pin_id_from_channel
+        else:
+            raise ValueError("Invalid attribute name: {}".format(attribute_name))
+        for ch_number, attribute_dict in new_attributes.items():
+            # TODO: explain
+            if not set_fnc(ch_number, attribute_dict):
+                self._channel_tmp_info.setdefault(ch_number, {})
+                self._channel_tmp_info[ch_number].update(attribute_dict)
 
     def _update_keymaps_and_pin_db(self, key_channels):
         """Update the two internal keymaps and the pin database.
