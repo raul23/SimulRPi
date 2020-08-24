@@ -75,7 +75,7 @@ exclude_patterns = []
 # Ref.: https://bit.ly/2mt4jsP
 autodoc_default_options = {
     # 'private-members': True,
-    'inherited-members': True
+    # 'inherited-members': True
 }
 
 
