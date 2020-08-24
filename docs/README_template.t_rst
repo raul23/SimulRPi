@@ -257,8 +257,8 @@ To display the script's list of options and their descriptions:
             must be one of those recognized by the module *pynput*. See the
             *SimulRPi* documentation for a list of valid key names:
             https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *alt_r*)
-   --on     Time in seconds the LED will stay turned ON at a time. (default: 1)
-   --off    Time in seconds the LED will stay turned OFF at a time. (default: 1)
+   --on     Time in seconds the LEDs will stay turned ON at a time. (default: 1)
+   --off    Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
