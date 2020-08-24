@@ -97,25 +97,25 @@ class Pin:
 
     Parameters
     ----------
-    channel : int
+    channel_number : int
         GPIO channel number based on the numbering system you have specified
         (`BOARD` or `BCM`).
+    channel_id : str
+        TODO
     gpio_function : int
         Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+    channel_name : str, optional
+        TODO
     key : str or None, optional
         Keyboard key associated with the GPIO channel, e.g. "k".
+    led_symbols : dict, optional
+        TODO
     pull_up_down : int or None, optional
         Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default value is
         :obj:`None`.
     initial : int or None, optional
         Initial value of an output channel, e.g. `GPIO.HIGH`. Default value is
         :obj:`None`.
-    channel_name : str, optional
-        TODO
-    display_name : str, optional
-        TODO
-    led_symbols : dict, optional
-        TODO
 
     Attributes
     ----------
@@ -123,16 +123,16 @@ class Pin:
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
     """
-    def __init__(self, channel, gpio_function, key=None, pull_up_down=None,
-                 initial=None, channel_name=None, display_name=None,
-                 led_symbols=None):
-        self.channel = channel
+    def __init__(self, channel_number, channel_id, gpio_function,
+                 channel_name=None, key=None, led_symbols=None,
+                 pull_up_down=None, initial=None):
+        self.channel_number = channel_number
+        self.channel_id = channel_id
         self.gpio_function = gpio_function
+        self.channel_name = channel_name
         self.key = key
         self.pull_up_down = pull_up_down
         self.initial = initial
-        self.channel_name = channel_name
-        self.display_name = display_name
         self.led_symbols = led_symbols
         if gpio_function == IN:
             self.state = HIGH
@@ -162,9 +162,7 @@ class PinDB:
         self._key_to_pin_map = {}
         self.output_pins = []
 
-    def create_pin(self, channel, gpio_function, key=None, pull_up_down=None,
-                   initial=None, channel_name=None, display_name=None,
-                   led_symbols=None):
+    def create_pin(self, channel_number, channel_id, gpio_function, **kwargs):
         """Create an instance of :class:`GPIO.Pin` and save it in a dictionary.
 
         Based on the given arguments, an instance of :class:`GPIO.Pin` is
@@ -174,49 +172,36 @@ class PinDB:
 
         Parameters
         ----------
-        channel : int
-            GPIO channel number based on the numbering system you have
-            specified (`BOARD` or `BCM`).
+        channel_number : int
+            GPIO channel number based on the numbering system you have specified
+            (`BOARD` or `BCM`).
+        channel_id : str
+            TODO
         gpio_function : int
             Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
-        key : str or None, optional
-            Keyboard key associated with the GPIO channel, e.g. "k".
-        pull_up_down : int or None, optional
-            Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default
-            value is :obj:`None`.
-        initial : int or None, optional
-            Initial value of an output channel, e.g. `GPIO.HIGH`. Default value
-            is :obj:`None`.
-        channel_name : str, optional
-            TODO
-        display_name : str, optional
-            TODO
-        led_symbols : dict, optional
+        kwargs :
             TODO
 
         """
-        self._pins[channel] = Pin(channel, gpio_function, key=key,
-                                  pull_up_down=pull_up_down, initial=initial,
-                                  channel_name=channel_name,
-                                  display_name=display_name,
-                                  led_symbols=led_symbols)
+        self._pins[channel_number] = Pin(channel_number, channel_id,
+                                         gpio_function, **kwargs)
         if gpio_function == OUT:
             # OUTPUT pin (e.g. LED)
             # Save the output pin so the thread that displays LEDs knows what
             # pins are OUTPUT and therefore connected to LEDs.
-            self.output_pins.append(self._pins[channel])
+            self.output_pins.append(self._pins[channel_number])
         # Update the other internal dict if key is given
-        if key:
+        if kwargs['key']:
             # Input
             # TODO: assert on gpop_function which should be INPUT?
-            self._key_to_pin_map[key] = self._pins[channel]
+            self._key_to_pin_map[kwargs['key']] = self._pins[channel_number]
 
-    def get_pin_from_channel(self, channel):
+    def get_pin_from_channel(self, channel_number):
         """Get a :class:`Pin` from a given channel.
 
         Parameters
         ----------
-        channel : int
+        channel_number : int
             GPIO channel number associated with the :class:`Pin` to be
             retrieved.
 
@@ -228,7 +213,7 @@ class PinDB:
             returned.
 
         """
-        return self._pins.get(channel)
+        return self._pins.get(channel_number)
 
     def get_pin_from_key(self, key):
         """Get a :class:`Pin` from a given pressed/released key.
@@ -249,7 +234,7 @@ class PinDB:
         """
         return self._key_to_pin_map.get(key)
 
-    def get_pin_state(self, channel):
+    def get_pin_state(self, channel_number):
         """Get a :class:`Pin`\'s state from a given channel.
 
         The state associated with a :class:`Pin` can either be 1 (`HIGH`) or 0
@@ -257,7 +242,7 @@ class PinDB:
 
         Parameters
         ----------
-        channel : int
+        channel_number : int
             GPIO channel number associated with the :class:`Pin` whose state is
             to be returned.
 
@@ -269,13 +254,13 @@ class PinDB:
             :class:`Pin`\'s state is returned: 1 (`HIGH`) or 0 (`LOW`).
 
         """
-        pin = self._pins.get(channel)
+        pin = self._pins.get(channel_number)
         if pin:
             return pin.state
         else:
             return None
 
-    def set_pin_key_from_channel(self, channel, key):
+    def set_pin_key_from_channel(self, channel_number, key):
         """Set a :class:`Pin`\'s key from a given channel.
 
         A :class:`Pin` is retrieved based on a given channel, then its
@@ -283,7 +268,7 @@ class PinDB:
 
         Parameters
         ----------
-        channel : int
+        channel_number : int
             GPIO channel number associated with the :class:`Pin` whose key will
             be set.
         key : str
@@ -296,7 +281,7 @@ class PinDB:
             Otherwise, it returns `False`.
 
         """
-        pin = self.get_pin_from_channel(channel)
+        pin = self.get_pin_from_channel(channel_number)
         if pin:
             old_key = pin.key
             pin.key = key
@@ -309,19 +294,19 @@ class PinDB:
         else:
             return False
 
-    def set_pin_name_from_channel(self, channel, name):
+    def set_pin_name_from_channel(self, channel_number, name):
         """TODO
 
         Parameters
         ----------
-        channel
+        channel_number
         name
 
         Returns
         -------
 
         """
-        pin = self.get_pin_from_channel(channel)
+        pin = self.get_pin_from_channel(channel_number)
         if pin:
             # TODO: only update name if the name is different from the actual
             pin.name = name
@@ -329,19 +314,19 @@ class PinDB:
         else:
             return False
 
-    def set_pin_symbols_from_channel(self, channel, led_symbols):
+    def set_pin_symbols_from_channel(self, channel_number, led_symbols):
         """TODO
 
         Parameters
         ----------
-        channel
+        channel_number
         led_symbols
 
         Returns
         -------
 
         """
-        pin = self.get_pin_from_channel(channel)
+        pin = self.get_pin_from_channel(channel_number)
         if pin:
             # TODO: only update symbols if the symbols is different from the actual
             pin.led_symbols = led_symbols
@@ -349,7 +334,27 @@ class PinDB:
         else:
             return False
 
-    def set_pin_state_from_channel(self, channel, state):
+    def set_pin_id_from_channel(self, channel_number, channel_id):
+        """TODO
+
+        Parameters
+        ----------
+        channel_number
+        channel_id
+
+        Returns
+        -------
+
+        """
+        pin = self.get_pin_from_channel(channel_number)
+        if pin:
+            # TODO: only update id if the id is different from the actual
+            pin.channel_id = channel_id
+            return True
+        else:
+            return False
+
+    def set_pin_state_from_channel(self, channel_number, state):
         """Set a :class:`Pin`\'s state from a given channel.
 
         A :class:`Pin` is retrieved based on a given channel, then its
@@ -357,7 +362,7 @@ class PinDB:
 
         Parameters
         ----------
-        channel : int
+        channel_number : int
             GPIO channel number associated with the :class:`Pin` whose state
             will be set.
         state : int
@@ -370,7 +375,7 @@ class PinDB:
             exist based on the given `channel`.
 
         """
-        pin = self.get_pin_from_channel(channel)
+        pin = self.get_pin_from_channel(channel_number)
         if pin:
             # TODO: only update state if the state is different from the actual
             pin.state = state
@@ -483,8 +488,7 @@ class Manager:
             "ON": "\U0001F6D1",
             "OFF": "\U000026AA",
         }
-        self._channel_to_led_symbols = {}
-        self._channel_to_names = {}
+        self._channel_tmp_info = {}
         self.key_to_channel_map = copy.copy(default_key_to_channel_map)
         self.channel_to_key_map = {v: k for k, v in
                                    self.key_to_channel_map.items()}
@@ -499,7 +503,7 @@ class Manager:
         else:
             self.th_listener = None
 
-    def add_pin(self, channel, gpio_function, pull_up_down=None, initial=None):
+    def add_pin(self, channel_number, gpio_function, pull_up_down=None, initial=None):
         """Add an input or output pin to the pin database.
 
         An instance of :class:`Pin` is created with the given arguments and
@@ -507,7 +511,7 @@ class Manager:
 
         Parameters
         ----------
-        channel : int
+        channel_number : int
             GPIO channel number associated with the :class:`Pin` to be added in
             the pin database.
         gpio_function : int
@@ -524,31 +528,53 @@ class Manager:
         if gpio_function == IN:
             # Get keyboard key associated with the INPUT pin (button)
             # TODO: raise exception if key not found
-            key = self.channel_to_key_map.get(channel)
-        names = self._channel_to_names.get(channel)
-        if names:
-            channel_name = names['channel_name']
-            display_name = names.get('display_name', channel_name)
-            del self._channel_to_names[channel]
-        else:
-            channel_name = str(channel)
-            display_name = str(channel)
-        led_symbols = self._channel_to_led_symbols.get(channel)
-        if led_symbols:
-            # TODO: explain
-            for k, v in led_symbols.items():
-                v = v.replace("\\033", "\033")
-                led_symbols[k] = v
-            del self._channel_to_led_symbols[channel]
-        else:
-            led_symbols = self.default_led_symbols
-        self.pin_db.create_pin(channel, gpio_function,
+            # TODO: add key also in _channel_tmp_info?
+            key = self.channel_to_key_map.get(channel_number)
+        retval = self._get_tmp_info(channel_number)
+        del self._channel_tmp_info[channel_number]
+        self.pin_db.create_pin(channel_number=channel_number,
+                               channel_id=retval['channel_id'],
+                               gpio_function=gpio_function,
+                               channel_name=retval['channel_name'],
                                key=key,
+                               led_symbols=retval['led_symbols'],
                                pull_up_down=pull_up_down,
-                               initial=initial,
-                               channel_name=channel_name,
-                               display_name=display_name,
-                               led_symbols=led_symbols)
+                               initial=initial)
+
+    def _get_tmp_info(self, channel_number):
+        """TODO
+
+        Parameters
+        ----------
+        channel_number
+
+        Returns
+        -------
+
+        """
+        property_names = ['channel_id', 'channel_name', 'led_symbols']
+        ch_info = self._channel_tmp_info.get(channel_number)
+        retval = {}
+        for p_name in property_names:
+            p_value = ch_info.get(p_name)
+            if p_name == 'led_symbols':
+                if p_value:
+                    # TODO: explain
+                    for k, v in p_value.items():
+                        try:
+                            v = v.replace("\\033", "\033")
+                        except AttributeError:
+                            import ipdb
+                            ipdb.set_trace()
+                        p_value[k] = v
+                value_when_if = p_value
+                value_when_else = self.default_led_symbols
+            else:
+                value_when_if = ch_info.get(p_name, channel_number)
+                value_when_else = str(channel_number)
+            p_value = value_when_if if p_value else value_when_else
+            retval.setdefault(p_name, p_value)
+        return retval
 
     def display_leds(self):
         """Simulate LEDs on an RPi by blinking small circles on a terminal.
@@ -611,7 +637,7 @@ class Manager:
             last_msg_length = len(leds) if leds else 0
             # for channel in sorted(self.channel_output_state_map):
             for pin in self.pin_db.output_pins:
-                channel = pin.channel
+                channel = pin.channel_number
                 # TODO: pin could be None
                 if pin.state == HIGH:
                     # Turn ON LED
@@ -623,7 +649,7 @@ class Manager:
                     # TODO: safeguard?
                     led_symbol = pin.led_symbols.get(
                         'OFF', self.default_led_symbols['OFF'])
-                channel = pin.display_name if pin.display_name else channel
+                channel = pin.channel_name if pin.channel_name else channel
                 leds += "{led_symbol}{spaces1}[{channel}]{spaces2}".format(
                     spaces1="  ",
                     led_symbol=led_symbol,
@@ -723,6 +749,28 @@ class Manager:
         """
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
 
+    def bulk_update_channel_tmp_info(self, new_channel_tmp_info):
+        for ch_number, ch_properties in new_channel_tmp_info.items():
+            for property_name, property_value in ch_properties.items():
+                self._update_pins(
+                    property_name,
+                    {ch_number: {property_name: property_value}})
+
+    def update_channel_ids(self, new_channel_ids):
+        """TODO
+
+        Parameters
+        ----------
+        new_channel_ids : dict
+            Dictionary that maps channel number to channel id.
+
+        Returns
+        -------
+
+        """
+        # TODO: assert on new_channel_names
+        self._update_pins('channel_id', new_channel_ids)
+
     def update_channel_names(self, new_channel_names):
         """TODO
 
@@ -736,9 +784,7 @@ class Manager:
 
         """
         # TODO: assert on new_channel_names
-        for channel, name in new_channel_names.items():
-            if not self.pin_db.set_pin_name_from_channel(channel, name):
-                self._channel_to_names.update({channel: name})
+        self._update_pins('channel_name', new_channel_names)
 
     def update_default_led_symbols(self, new_default_led_symbols):
         """TODO
@@ -766,9 +812,22 @@ class Manager:
 
         """
         # TODO: assert on new_led_symbols
-        for channel, symbols in new_led_symbols.items():
-            if not self.pin_db.set_pin_symbols_from_channel(channel, symbols):
-                self._channel_to_led_symbols.update({channel: symbols})
+        self._update_pins('led_symbols', new_led_symbols)
+
+    def _update_pins(self, property_name, new_properties):
+        if property_name == 'led_symbols':
+            set_fnc = self.pin_db.set_pin_symbols_from_channel
+        elif property_name == 'channel_name':
+            set_fnc = self.pin_db.set_pin_name_from_channel
+        elif property_name == 'channel_id':
+            set_fnc = self.pin_db.set_pin_id_from_channel
+        else:
+            raise ValueError("Invalid property name: {}".format(property_name))
+        for ch_number, property_dict in new_properties.items():
+            # TODO: explain
+            if not set_fnc(ch_number, property_dict):
+                self._channel_tmp_info.setdefault(ch_number, {})
+                self._channel_tmp_info[ch_number].update(property_dict)
 
     # TODO: unique keymap in both ways
     def update_keymap(self, new_keymap):
@@ -983,12 +1042,12 @@ def cleanup():
     manager = Manager()
 
 
-def input(channel):
+def input(channel_number):
     """Read the value of a GPIO pin.
 
     Parameters
     ----------
-    channel : int
+    channel_number : int
         Input GPIO channel number based on the numbering system you have
         specified (`BOARD` or `BCM`).
 
@@ -1009,16 +1068,16 @@ def input(channel):
     # Start the listener thread only if it not already alive
     if manager.th_listener and not manager.th_listener.is_alive():
         manager.th_listener.start()
-    return manager.pin_db.get_pin_state(channel)
+    return manager.pin_db.get_pin_state(channel_number)
 
 
 # TODO: output to several channels, see https://bit.ly/2Dgk2Uf
-def output(channel, state):
+def output(channel_number, state):
     """Set the output state of a GPIO pin.
 
     Parameters
     ----------
-    channel : int
+    channel_number : int
         Output GPIO channel number based on the numbering system you have
         specified (`BOARD` or `BCM`).
     state : int
@@ -1031,7 +1090,7 @@ def output(channel, state):
         if it is not alive, i.e. it is not already running.
 
     """
-    manager.pin_db.set_pin_state_from_channel(channel, state)
+    manager.pin_db.set_pin_state_from_channel(channel_number, state)
     # Start the displaying thread only if it not already alive
     if not manager.th_display_leds.exc and \
             not manager.th_display_leds.is_alive():
@@ -1062,24 +1121,22 @@ def setchannels(gpio_channels):
     gpio_channels
 
     """
-    name_maps = {}
-    symbol_maps = {}
+    pins_tmp_info = {}
     key_maps = {}
     for gpio_ch in gpio_channels:
+        channel_id = gpio_ch.get('channel_id')
         channel_name = gpio_ch.get('channel_name')
-        display_name = gpio_ch.get('display_name')
         channel_number = gpio_ch.get('channel_number')
         led_symbols = gpio_ch.get('led_symbols')
-        name_maps.update({
-                channel_number: {
-                    'channel_name': channel_name,
-                    'display_name': display_name
-                }})
-        symbol_maps.update({channel_number: led_symbols})
+        pins_tmp_info.setdefault(channel_number, {})
+        pins_tmp_info[channel_number] = {
+            'channel_id': channel_id,
+            'channel_name': channel_name,
+            'led_symbols': led_symbols
+        }
         if gpio_ch.get('key'):
             key_maps.update({gpio_ch.get('key'): channel_number})
-    setchannelnames(name_maps)
-    setsymbols(symbol_maps)
+    manager.bulk_update_channel_tmp_info(pins_tmp_info)
     setkeymap(key_maps)
 
 
