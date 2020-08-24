@@ -488,6 +488,7 @@ class Manager:
             "ON": "\U0001F6D1",
             "OFF": "\U000026AA",
         }
+        # TODO: call it _channel_cached_info?
         self._channel_tmp_info = {}
         self.key_to_channel_map = copy.copy(default_key_to_channel_map)
         self.channel_to_key_map = {v: k for k, v in
@@ -552,28 +553,24 @@ class Manager:
         -------
 
         """
-        property_names = ['channel_id', 'channel_name', 'led_symbols']
+        attribute_names = ['channel_id', 'channel_name', 'led_symbols']
         ch_info = self._channel_tmp_info.get(channel_number)
         retval = {}
-        for p_name in property_names:
-            p_value = ch_info.get(p_name)
-            if p_name == 'led_symbols':
-                if p_value:
+        for attr_name in attribute_names:
+            attr_value = ch_info.get(attr_name)
+            if attr_name == 'led_symbols':
+                if attr_value:
                     # TODO: explain
-                    for k, v in p_value.items():
-                        try:
-                            v = v.replace("\\033", "\033")
-                        except AttributeError:
-                            import ipdb
-                            ipdb.set_trace()
-                        p_value[k] = v
-                value_when_if = p_value
+                    for k, v in attr_value.items():
+                        v = v.replace("\\033", "\033")
+                        attr_value[k] = v
+                value_when_if = attr_value
                 value_when_else = self.default_led_symbols
             else:
-                value_when_if = ch_info.get(p_name, channel_number)
+                value_when_if = ch_info.get(attr_name, channel_number)
                 value_when_else = str(channel_number)
-            p_value = value_when_if if p_value else value_when_else
-            retval.setdefault(p_name, p_value)
+            attr_value = value_when_if if attr_value else value_when_else
+            retval.setdefault(attr_name, attr_value)
         return retval
 
     def display_leds(self):
@@ -750,11 +747,11 @@ class Manager:
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
 
     def bulk_update_channel_tmp_info(self, new_channel_tmp_info):
-        for ch_number, ch_properties in new_channel_tmp_info.items():
-            for property_name, property_value in ch_properties.items():
-                self._update_pins(
-                    property_name,
-                    {ch_number: {property_name: property_value}})
+        for ch_number, ch_attributes in new_channel_tmp_info.items():
+            for attribute_name, attribute_value in ch_attributes.items():
+                self._update_attribute_pins(
+                    attribute_name,
+                    {ch_number: {attribute_name: attribute_value}})
 
     def update_channel_ids(self, new_channel_ids):
         """TODO
@@ -769,7 +766,7 @@ class Manager:
 
         """
         # TODO: assert on new_channel_names
-        self._update_pins('channel_id', new_channel_ids)
+        self._update_attribute_pins('channel_id', new_channel_ids)
 
     def update_channel_names(self, new_channel_names):
         """TODO
@@ -784,7 +781,7 @@ class Manager:
 
         """
         # TODO: assert on new_channel_names
-        self._update_pins('channel_name', new_channel_names)
+        self._update_attribute_pins('channel_name', new_channel_names)
 
     def update_default_led_symbols(self, new_default_led_symbols):
         """TODO
@@ -812,22 +809,22 @@ class Manager:
 
         """
         # TODO: assert on new_led_symbols
-        self._update_pins('led_symbols', new_led_symbols)
+        self._update_attribute_pins('led_symbols', new_led_symbols)
 
-    def _update_pins(self, property_name, new_properties):
-        if property_name == 'led_symbols':
+    def _update_attribute_pins(self, attribute_name, new_attributes):
+        if attribute_name == 'led_symbols':
             set_fnc = self.pin_db.set_pin_symbols_from_channel
-        elif property_name == 'channel_name':
+        elif attribute_name == 'channel_name':
             set_fnc = self.pin_db.set_pin_name_from_channel
-        elif property_name == 'channel_id':
+        elif attribute_name == 'channel_id':
             set_fnc = self.pin_db.set_pin_id_from_channel
         else:
-            raise ValueError("Invalid property name: {}".format(property_name))
-        for ch_number, property_dict in new_properties.items():
+            raise ValueError("Invalid attribute name: {}".format(attribute_name))
+        for ch_number, attribute_dict in new_attributes.items():
             # TODO: explain
-            if not set_fnc(ch_number, property_dict):
+            if not set_fnc(ch_number, attribute_dict):
                 self._channel_tmp_info.setdefault(ch_number, {})
-                self._channel_tmp_info[ch_number].update(property_dict)
+                self._channel_tmp_info[ch_number].update(attribute_dict)
 
     # TODO: unique keymap in both ways
     def update_keymap(self, new_keymap):
