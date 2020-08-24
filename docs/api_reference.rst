@@ -37,7 +37,7 @@ API Reference
 .. important::
 
    There are some platform limitations on using some of the keyboard keys with
-   ``pynput``.
+   `pynput`_ which is used for monitoring the keyboard.
 
    For instance, on macOS some keyboard keys may require that you run your
    script with `sudo`. All alphanumeric keys and some special keys
