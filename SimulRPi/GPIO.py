@@ -531,16 +531,18 @@ class Manager:
             # TODO: raise exception if key not found
             # TODO: add key also in _channel_tmp_info?
             key = self.channel_to_key_map.get(channel_number)
-        retval = self._get_tmp_info(channel_number)
-        del self._channel_tmp_info[channel_number]
-        self.pin_db.create_pin(channel_number=channel_number,
-                               channel_id=retval['channel_id'],
-                               gpio_function=gpio_function,
-                               channel_name=retval['channel_name'],
-                               key=key,
-                               led_symbols=retval['led_symbols'],
-                               pull_up_down=pull_up_down,
-                               initial=initial)
+        tmp_info = self._get_tmp_info(channel_number)
+        if self._channel_tmp_info.get(channel_number):
+            del self._channel_tmp_info[channel_number]
+        self.pin_db.create_pin(
+            channel_number=channel_number,
+            channel_id=tmp_info.get('channel_id', channel_number),
+            gpio_function=gpio_function,
+            channel_name=tmp_info.get('channel_name', channel_number),
+            key=key,
+            led_symbols=tmp_info.get('led_symbols', self.default_led_symbols),
+            pull_up_down=pull_up_down,
+            initial=initial)
 
     def _get_tmp_info(self, channel_number):
         """TODO
@@ -553,24 +555,23 @@ class Manager:
         -------
 
         """
+        retval = {}
         attribute_names = ['channel_id', 'channel_name', 'led_symbols']
         ch_info = self._channel_tmp_info.get(channel_number)
-        retval = {}
-        for attr_name in attribute_names:
-            attr_value = ch_info.get(attr_name)
-            if attr_name == 'led_symbols':
-                if attr_value:
-                    # TODO: explain
-                    for k, v in attr_value.items():
-                        v = v.replace("\\033", "\033")
-                        attr_value[k] = v
-                value_when_if = attr_value
-                value_when_else = self.default_led_symbols
-            else:
-                value_when_if = ch_info.get(attr_name, channel_number)
-                value_when_else = str(channel_number)
-            attr_value = value_when_if if attr_value else value_when_else
-            retval.setdefault(attr_name, attr_value)
+        if ch_info:
+            for attr_name in attribute_names:
+                attr_value = ch_info.get(attr_name)
+                if attr_name == 'led_symbols':
+                    if attr_value:
+                        # TODO: explain
+                        for k, v in attr_value.items():
+                            v = v.replace("\\033", "\033")
+                            attr_value[k] = v
+                    attr_value = attr_value if attr_value else self.default_led_symbols
+                else:
+                    # channel_id and channel_name
+                    attr_value = attr_value if attr_value else channel_number
+                retval.setdefault(attr_name, attr_value)
         return retval
 
     def display_leds(self):
