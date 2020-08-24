@@ -67,8 +67,8 @@ DEFAULT_BUTTON_CHANNEL = 13
 DEFAULT_KEY_NAME = default_channel_to_key_map[DEFAULT_BUTTON_CHANNEL]
 DEFAULT_LED_CHANNELS = [10, 11, 12]
 DEFAULT_TOTAL_TIME_BLINKING = 4
-DEFAULT_TIME_LED_ON = 1
-DEFAULT_TIME_LED_OFF = 1
+DEFAULT_TIME_LEDS_ON = 1
+DEFAULT_TIME_LEDS_OFF = 1
 
 
 def _show_msg(msg, channel=None):
@@ -118,17 +118,17 @@ def ex1_turn_on_led(channel, time_led_on=3):
     time.sleep(time_led_on)
 
 
-def ex2_turn_on_many_leds(channels, time_led_on=3):
+def ex2_turn_on_many_leds(channels, time_leds_on=3):
     """**Example 2:** Turn ON multiple LEDs for some specified time.
 
-    All LEDs will be turned on for ``time_led_on`` seconds.
+    All LEDs will be turned on for ``time_leds_on`` seconds.
 
     Parameters
     ----------
     channels : list
         List of output GPIO channel numbers based on the numbering system you
         have specified (`BOARD` or `BCM`).
-    time_led_on : float, optional
+    time_leds_on : float, optional
         Time in seconds the LEDs will stay turned ON. The default value is 3
         seconds.
 
@@ -137,13 +137,13 @@ def ex2_turn_on_many_leds(channels, time_led_on=3):
           "second{plural2}\n".format(
             nb_leds=len(channels),
             plural1="s" if len(channels) > 1 else "",
-            time=time_led_on,
-            plural2="s" if time_led_on >= 2 else "")
+            time=time_leds_on,
+            plural2="s" if time_leds_on >= 2 else "")
     print(msg)
     for ch in channels:
         GPIO.setup(ch, GPIO.OUT)
         turn_on_led(ch)
-    time.sleep(time_led_on)
+    time.sleep(time_leds_on)
 
 
 def ex3_detect_button(channel):
@@ -355,11 +355,11 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
         dest="total_time_blinking",
         help='''Total time in seconds LEDs will be blinking.''')
     parser.add_argument(
-        "--on", type=float, default=DEFAULT_TIME_LED_ON, dest="time_led_on",
-        help='''Time in seconds the LED will stay turned ON at a time.''')
+        "--on", type=float, default=DEFAULT_TIME_LEDS_ON, dest="time_leds_on",
+        help='''Time in seconds the LEDs will stay turned ON at a time.''')
     parser.add_argument(
-        "--off", type=float, default=DEFAULT_TIME_LED_OFF, dest="time_led_off",
-        help='''Time in seconds the LED will stay turned OFF at a time.''')
+        "--off", type=float, default=DEFAULT_TIME_LEDS_OFF, dest="time_leds_off",
+        help='''Time in seconds the LEDs will stay turned OFF at a time.''')
     return parser.parse_args()
 
 
@@ -401,18 +401,18 @@ def main():
     GPIO.setmode(modes[args.mode.upper()])
     try:
         if args.example_number == 1:
-            ex1_turn_on_led(args.led_channel[0], args.time_led_on)
+            ex1_turn_on_led(args.led_channel[0], args.time_leds_on)
         elif args.example_number == 2:
-            ex2_turn_on_many_leds(args.led_channel, args.time_led_on)
+            ex2_turn_on_many_leds(args.led_channel, args.time_leds_on)
         elif args.example_number == 3:
             ex3_detect_button(args.button_channel)
         elif args.example_number == 4:
             ex4_blink_led(args.led_channel[0], args.total_time_blinking,
-                          args.time_led_on, args.time_led_off)
+                          args.time_leds_on, args.time_leds_off)
         elif args.example_number == 5:
             ex5_blink_led_if_button(args.led_channel[0], args.button_channel,
-                                    args.total_time_blinking, args.time_led_on,
-                                    args.time_led_off)
+                                    args.total_time_blinking, args.time_leds_on,
+                                    args.time_leds_off)
         else:
             print("Example # {} not found".format(args.example_number))
     except Exception:
