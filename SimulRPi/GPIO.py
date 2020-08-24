@@ -1153,6 +1153,17 @@ def setchannels(gpio_channels):
     setkeymap(key_maps)
 
 
+def setdefaultsymbols(default_led_symbols):
+    """TODO
+
+    Parameters
+    ----------
+    default_led_symbols
+
+    """
+    manager.update_default_led_symbols(default_led_symbols)
+
+
 # TODO: explain that the mapping is unique in both ways, i.e. one keyboard key
 # can only be associated to a one GPIO channel, and vice versa.
 def setkeymap(key_to_channel_map):
@@ -1181,28 +1192,6 @@ def setkeymap(key_to_channel_map):
 
     """
     manager.update_keymap(key_to_channel_map)
-
-
-def setdefaultsymbols(default_led_symbols):
-    """TODO
-
-    Parameters
-    ----------
-    default_led_symbols
-
-    """
-    manager.update_default_led_symbols(default_led_symbols)
-
-
-def setsymbols(led_symbols):
-    """TODO
-
-    Parameters
-    ----------
-    led_symbols
-
-    """
-    manager.update_led_symbols(led_symbols)
 
 
 def setmode(mode):
@@ -1248,6 +1237,17 @@ def setprinting(enable_printing):
     """
     # TODO: stop displaying thread too?
     manager.enable_printing = enable_printing
+
+
+def setsymbols(led_symbols):
+    """TODO
+
+    Parameters
+    ----------
+    led_symbols
+
+    """
+    manager.update_led_symbols(led_symbols)
 
 
 # TODO: setup more than one channel, see https://bit.ly/2Dgk2Uf
