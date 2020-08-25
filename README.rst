@@ -323,8 +323,6 @@ printing a message. Here is the code along with the output from the terminal:
    :align: left
    :alt: Example 03: terminal output
 
-|
-
 The command line for reproducing the same results for example 3 with the script
 ``run_examples`` is the following::
 
