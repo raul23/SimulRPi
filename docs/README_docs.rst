@@ -54,9 +54,8 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 - LEDs by displaying small dots blinking on the terminal along with their GPIO \
   pin number.
 
-When a LED is turned on, it is shown as a small red circle on the terminal. The
-package `pynput`_ is used to monitor the
-keyboard for any pressed key.
+When a LED is turned on, it is shown as a red dot in the terminal. The package
+`pynput`_ is used to monitor the keyboard for any pressed key.
 
 **Example: terminal output**
 
@@ -164,8 +163,6 @@ Here is a list of the functions associated with each code example:
    - Example 4: :meth:`run_examples.ex4_blink_led`
    - Example 5: :meth:`run_examples.ex5_blink_led_if_button`
 
-.. TODO: add $ in some of the shown terminal commands
-
 List of options
 ~~~~~~~~~~~~~~~
 
@@ -211,8 +208,8 @@ seconds if the key ``cmd_r`` is pressed and if running in simulation::
 
 **Output:**
 
-.. image:: ../docs/_static/images/run_examples_05_terminal_output.gif
-   :target: ../docs/_static/images/run_examples_05_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/run_examples_05_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/run_examples_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
@@ -259,8 +256,8 @@ the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_01_terminal_output.png
-   :target: ../docs/_static/images/example_01_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_01_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_01_terminal_output.png
    :align: left
    :alt: Example 01: terminal output
 
@@ -296,8 +293,8 @@ respectively. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_02_terminal_output.png
-   :target: ../docs/_static/images/example_02_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
    :align: left
    :alt: Example 02: terminal output
 
@@ -331,8 +328,8 @@ printing a message. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_03_terminal_output.png
-   :target: ../docs/_static/images/example_03_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
    :align: left
    :alt: Example 03: terminal output
 
@@ -383,8 +380,8 @@ the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_04_terminal_output.gif
-   :target: ../docs/_static/images/example_04_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_04_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_04_terminal_output.gif
    :align: left
    :alt: Example 04: terminal output
 
@@ -432,8 +429,8 @@ code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_05_terminal_output.gif
-   :target: ../docs/_static/images/example_05_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_05_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
@@ -502,6 +499,6 @@ Resources
 
 References
 ==========
-* `pynput`_: package used for monitoring the keyboard for any pressed keys as to
+* `pynput`_: package used for monitoring the keyboard for any pressed key as to
   simulate push buttons connected to an RPi
 * `RPi.GPIO`_: a module to control RPi GPIO channels

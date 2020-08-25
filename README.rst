@@ -54,9 +54,8 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 - LEDs by displaying small dots blinking on the terminal along with their GPIO \
   pin number.
 
-When a LED is turned on, it is shown as a small red circle on the terminal. The
-package `pynput`_ is used to monitor the
-keyboard for any pressed key.
+When a LED is turned on, it is shown as a red dot in the terminal. The package
+`pynput`_ is used to monitor the keyboard for any pressed key.
 
 **Example: terminal output**
 
@@ -160,8 +159,6 @@ Here is a list of the functions associated with each code example:
    - Example 3: `ex3_detect_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button>`_
    - Example 4: `ex4_blink_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex4_blink_led>`_
    - Example 5: `ex5_blink_led_if_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex5_blink_led_if_button>`_
-
-.. TODO: add $ in some of the shown terminal commands
 
 List of options
 ~~~~~~~~~~~~~~~
@@ -485,6 +482,6 @@ Resources
 
 References
 ==========
-* `pynput`_: package used for monitoring the keyboard for any pressed keys as to
+* `pynput`_: package used for monitoring the keyboard for any pressed key as to
   simulate push buttons connected to an RPi
 * `RPi.GPIO`_: a module to control RPi GPIO channels
