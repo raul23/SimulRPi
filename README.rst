@@ -37,7 +37,7 @@ on a Raspberry Pi (RPi).
 .. raw:: html
 
    <div align="center">
-   <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
+   <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif"/>
    <p><b>Simulating LEDs on an RPi via a terminal</b></p>
    </div>
 
@@ -63,13 +63,16 @@ keyboard for any pressed key.
 .. raw:: html
 
    <div align="center">
-   <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
+   <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif"/>
    <p><b>Simulating LEDs on an RPi via a terminal</b></p>
    </div>
 
-Each circle represents a blinking LED connected to an RPi and the number
+Each dot represents a blinking LED connected to an RPi and the number
 between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
+
+Also, the color of the LEDs can be customized as you can see here where the LED
+on Channel 22 is colored differently from the others.
 
 `:warning:`
 
@@ -158,6 +161,8 @@ Here is a list of the functions associated with each code example:
    - Example 4: `ex4_blink_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex4_blink_led>`_
    - Example 5: `ex5_blink_led_if_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex5_blink_led_if_button>`_
 
+.. TODO: add $ in some of the shown terminal commands
+
 List of options
 ~~~~~~~~~~~~~~~
 
@@ -181,8 +186,8 @@ To display the script's list of options and their descriptions:
             must be one of those recognized by the module *pynput*. See the
             *SimulRPi* documentation for a list of valid key names:
             https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *alt_r*)
-   --on     Time in seconds the LED will stay turned ON at a time. (default: 1)
-   --off    Time in seconds the LED will stay turned OFF at a time. (default: 1)
+   --on     Time in seconds the LEDs will stay turned ON at a time. (default: 1)
+   --off    Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
@@ -196,15 +201,14 @@ Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
 
 Here is the command line for blinking a LED (on channel 21) for a total of 5
-seconds if the key ``cmd_r`` is pressed when the simulation package
-``SimulRPi`` is used::
+seconds if the key ``cmd_r`` is pressed and if running in simulation::
 
    $ run_examples -s -e 5 -l 21 -t 5 -k cmd_r
 
 **Output:**
 
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/run_examples_05_terminal_output.gif
-   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/run_examples_05_terminal_output.gif
+.. image:: ../docs/_static/images/run_examples_05_terminal_output.gif
+   :target: ../docs/_static/images/run_examples_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
@@ -248,8 +252,8 @@ the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_01_terminal_output.png
-   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_01_terminal_output.png
+.. image:: ../docs/_static/images/example_01_terminal_output.png
+   :target: ../docs/_static/images/example_01_terminal_output.png
    :align: left
    :alt: Example 01: terminal output
 
@@ -283,8 +287,8 @@ respectively. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
-   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
+.. image:: ../docs/_static/images/example_02_terminal_output.png
+   :target: ../docs/_static/images/example_02_terminal_output.png
    :align: left
    :alt: Example 02: terminal output
 
@@ -317,8 +321,8 @@ printing a message. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
-   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
+.. image:: ../docs/_static/images/example_03_terminal_output.png
+   :target: ../docs/_static/images/example_03_terminal_output.png
    :align: left
    :alt: Example 03: terminal output
 
@@ -353,6 +357,7 @@ the terminal:
    GPIO.setmode(GPIO.BCM)
    GPIO.setup(channel, GPIO.OUT)
    start = time.time()
+   print("Start")
    while (time.time() - start) < 4:
        try:
            GPIO.output(channel, GPIO.HIGH)
@@ -362,11 +367,12 @@ the terminal:
        except KeyboardInterrupt:
            break
    GPIO.cleanup()
+   print("\nEnd")
 
 **Output:**
 
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_04_terminal_output.gif
-   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_04_terminal_output.gif
+.. image:: ../docs/_static/images/example_04_terminal_output.gif
+   :target: ../docs/_static/images/example_04_terminal_output.gif
    :align: left
    :alt: Example 04: terminal output
 
@@ -411,8 +417,8 @@ code along with the output from the terminal:
 
 **Output:**
 
-.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_05_terminal_output.gif
-   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_05_terminal_output.gif
+.. image:: ../docs/_static/images/example_05_terminal_output.gif
+   :target: ../docs/_static/images/example_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
@@ -468,20 +474,6 @@ Change Log
         even though I set my environment variable ``Display``, added
         ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
         further investigated.
-
-TODOs
-=====
-* Run code examples involving pressing keyboard keys directly on an RPi (no
-  ``ssh``) and post results. **High priority**
-
-* In `run_examples`_, improve timer accuracy when waiting for a LED to stop
-  blinking or for a function to stop displaying a LED. **Medium priority**
-
-* Mock ``pynput`` when doing unit tests on Travis. **Medium priority**
-
-* Investigate further why no keyboard keys could be detected when connecting to
-  an RPi through ``ssh`` and running the script `run_examples`_ with ``sudo``.
-  **Low priority**
 
 Resources
 =========
