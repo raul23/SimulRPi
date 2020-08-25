@@ -315,7 +315,6 @@ printing a message. Here is the code along with the output from the terminal:
            break
    GPIO.cleanup()
 
-
 **Output:**
 
 .. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
