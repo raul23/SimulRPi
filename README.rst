@@ -254,8 +254,6 @@ the code along with the output from the terminal:
    :align: left
    :alt: Example 01: terminal output
 
-|
-
 The command line for reproducing the same results for example 1 with the script
 ``run_examples`` is the following::
 
@@ -288,8 +286,6 @@ respectively. Here is the code along with the output from the terminal:
    :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
    :align: left
    :alt: Example 02: terminal output
-
-|
 
 The command line for reproducing the same results for example 2 with the script
 ``run_examples`` is the following::
