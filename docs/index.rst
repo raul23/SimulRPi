@@ -21,11 +21,11 @@ on a Raspberry Pi (RPi).
 .. raw:: html
 
    <div align="center">
-   <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/terminal_leds_active.gif"/>
+   <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif"/>
    <p><b>Simulating LEDs on an RPi via a terminal</b></p>
    </div>
 
-Each circle represents a blinking LED connected to an RPi and the number
+Each dot represents a blinking LED connected to an RPi and the number
 between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
 
