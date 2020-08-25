@@ -640,6 +640,8 @@ class Manager:
             if self.enable_printing:
                 print(' ' * last_msg_length, end='\r')
                 print('  {}'.format(leds), end='\r')
+        if self.enable_printing:
+            print('  {}'.format(leds))
         logger.debug("Stopping thread: {}".format(th.name))
 
     @staticmethod
