@@ -207,8 +207,8 @@ seconds if the key ``cmd_r`` is pressed and if running in simulation::
 
 **Output:**
 
-.. image:: ../docs/_static/images/run_examples_05_terminal_output.gif
-   :target: ../docs/_static/images/run_examples_05_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/run_examples_05_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/run_examples_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
@@ -252,8 +252,8 @@ the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_01_terminal_output.png
-   :target: ../docs/_static/images/example_01_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_01_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_01_terminal_output.png
    :align: left
    :alt: Example 01: terminal output
 
@@ -287,8 +287,8 @@ respectively. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_02_terminal_output.png
-   :target: ../docs/_static/images/example_02_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_02_terminal_output.png
    :align: left
    :alt: Example 02: terminal output
 
@@ -321,8 +321,8 @@ printing a message. Here is the code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_03_terminal_output.png
-   :target: ../docs/_static/images/example_03_terminal_output.png
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_03_terminal_output.png
    :align: left
    :alt: Example 03: terminal output
 
@@ -371,8 +371,8 @@ the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_04_terminal_output.gif
-   :target: ../docs/_static/images/example_04_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_04_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_04_terminal_output.gif
    :align: left
    :alt: Example 04: terminal output
 
@@ -417,8 +417,8 @@ code along with the output from the terminal:
 
 **Output:**
 
-.. image:: ../docs/_static/images/example_05_terminal_output.gif
-   :target: ../docs/_static/images/example_05_terminal_output.gif
+.. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_05_terminal_output.gif
+   :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/example_05_terminal_output.gif
    :align: left
    :alt: Example 05: terminal output
 
