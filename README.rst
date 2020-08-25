@@ -419,8 +419,6 @@ code along with the output from the terminal:
    :align: left
    :alt: Example 05: terminal output
 
-|
-
 The command line for reproducing the same results for example 5 with the script
 ``run_examples`` is the following::
 
