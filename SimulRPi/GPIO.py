@@ -6,7 +6,7 @@ It simulates these I/O devices connected to a Raspberry Pi:
     - LEDs by displaying small circles blinking on the terminal along with \
     their GPIO pin number.
 
-When a LED is turned on, it is shown as a small red circle on the terminal. The
+When a LED is turned on, it is shown as a red dot in the terminal. The
 package `pynput`_ is used to monitor the keyboard for any pressed key.
 
 ..
@@ -16,12 +16,12 @@ package `pynput`_ is used to monitor the keyboard for any pressed key.
 
 **Example: terminal output** ::
 
-    o [11]   o [9]   o [10]
+    ⬤ [9]   ⬤ [10]   🔴 [11]
 
 .. highlight:: python
 
-where each circle represents a LED (here they are all turned off) and the number
-between brackets is the associated GPIO pin number.
+where each dot represents a LED and the number between brackets is the
+associated GPIO pin number.
 
 .. important::
 
@@ -870,11 +870,11 @@ class Manager:
                     key_channels=[(key1, new_ch), (key2, old_ch)])
         if orig_keych:
             # There were updates and/or there are invalid keys
-            msg = "Update of Key-to-Channel Map:\n"
-            for key, old_ch in orig_keych.items():
+            msg = "Update of Key-to-Channel Map:\n\n"
+            for i, (key, old_ch) in enumerate(orig_keych.items()):
                 new_ch = self.key_to_channel_map.get(key)
-                msg += 'Key "{}": Channel {} ------> Channel {}\n'.format(
-                    key, old_ch, new_ch)
+                msg += '\t Key "{}"{}: Channel {} ------> Channel {}\n'.format(
+                    key, " " * (20 - len(key)), old_ch, new_ch)
             logger.info(msg)
 
     @staticmethod
