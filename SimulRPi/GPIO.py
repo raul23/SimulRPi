@@ -875,7 +875,7 @@ class Manager:
                 new_ch = self.key_to_channel_map.get(key)
                 msg += '\t Key "{}"{}: Channel {} ------> Channel {}\n'.format(
                     key, " " * (20 - len(key)), old_ch, new_ch)
-            logger.info(msg)
+            logger.debug(msg)
 
     @staticmethod
     def validate_key(key):
