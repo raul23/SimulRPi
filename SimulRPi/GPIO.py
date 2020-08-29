@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Module that partly fakes `RPi.GPIO`_ and simulates some I/O devices.
 
 It simulates these I/O devices connected to a Raspberry Pi:
