@@ -527,13 +527,14 @@ class Manager:
 
         """
         key = None
+        tmp_info = self._channel_tmp_info.get(channel_number)
         if gpio_function == IN:
             # Get keyboard key associated with the INPUT pin (button)
             # TODO: raise exception if key not found
             # TODO: add key also in _channel_tmp_info?
             key = self.channel_to_key_map.get(channel_number)
-        tmp_info = self._get_tmp_info(channel_number)
-        if self._channel_tmp_info.get(channel_number):
+            tmp_info['led_symbols'] = None
+        if tmp_info:
             del self._channel_tmp_info[channel_number]
         self.pin_db.create_pin(
             channel_number=channel_number,
@@ -541,23 +542,23 @@ class Manager:
             gpio_function=gpio_function,
             channel_name=tmp_info.get('channel_name', channel_number),
             key=key,
-            led_symbols=tmp_info.get('led_symbols', self.default_led_symbols),
+            led_symbols=tmp_info['led_symbols'],
             pull_up_down=pull_up_down,
             initial=initial)
 
-    def bulk_update_channel_tmp_info(self, new_channel_tmp_info):
+    def bulk_channel_update(self, new_channel_info):
         """TODO
 
         Parameters
         ----------
-        new_channel_tmp_info
+        new_channel_info
 
         """
-        for ch_number, ch_attributes in new_channel_tmp_info.items():
+        for ch_number, ch_attributes in new_channel_info.items():
             for attribute_name, attribute_value in ch_attributes.items():
                 self._update_attribute_pins(
                     attribute_name,
-                    {ch_number: {attribute_name: attribute_value}})
+                    {ch_number: attribute_value})
 
     def display_leds(self):
         """Simulate LEDs on an RPi by blinking small circles on a terminal.
@@ -734,21 +735,6 @@ class Manager:
         """
         self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
 
-    def update_channel_ids(self, new_channel_ids):
-        """TODO
-
-        Parameters
-        ----------
-        new_channel_ids : dict
-            Dictionary that maps channel number to channel id.
-
-        Returns
-        -------
-
-        """
-        # TODO: assert on new_channel_names
-        self._update_attribute_pins('channel_id', new_channel_ids)
-
     def update_channel_names(self, new_channel_names):
         """TODO
 
@@ -776,6 +762,7 @@ class Manager:
 
         """
         # TODO: assert on new_led_symbols
+        self._clean_led_symbols(new_default_led_symbols)
         self.default_led_symbols.update(new_default_led_symbols)
 
     def update_led_symbols(self, new_led_symbols):
@@ -916,35 +903,39 @@ class Manager:
         else:
             return True
 
-    def _get_tmp_info(self, channel_number):
+    @staticmethod
+    def _clean_channel_name(channel_number, channel_name):
         """TODO
 
         Parameters
         ----------
         channel_number
+        channel_name
 
         Returns
         -------
 
         """
-        retval = {}
-        attribute_names = ['channel_id', 'channel_name', 'led_symbols']
-        ch_info = self._channel_tmp_info.get(channel_number)
-        if ch_info:
-            for attr_name in attribute_names:
-                attr_value = ch_info.get(attr_name)
-                if attr_name == 'led_symbols':
-                    if attr_value:
-                        # TODO: explain
-                        for k, v in attr_value.items():
-                            v = v.replace("\\033", "\033")
-                            attr_value[k] = v
-                    attr_value = attr_value if attr_value else self.default_led_symbols
+        return channel_name if channel_name else channel_number
+
+    def _clean_led_symbols(self, led_symbols):
+        """TODO
+
+        Parameters
+        ----------
+        led_symbols
+
+        """
+        if led_symbols:
+            for symbol_name, symbol_value in led_symbols.items():
+                if symbol_value:
+                    symbol_value = symbol_value.replace("\\033", "\033")
                 else:
-                    # channel_id and channel_name
-                    attr_value = attr_value if attr_value else channel_number
-                retval.setdefault(attr_name, attr_value)
-        return retval
+                    symbol_value = self.default_led_symbols[symbol_name]
+                led_symbols[symbol_name] = symbol_value
+        else:
+            led_symbols = self.default_led_symbols
+        return led_symbols
 
     def _update_attribute_pins(self, attribute_name, new_attributes):
         """TODO
@@ -963,11 +954,17 @@ class Manager:
             set_fnc = self.pin_db.set_pin_id_from_channel
         else:
             raise ValueError("Invalid attribute name: {}".format(attribute_name))
-        for ch_number, attribute_dict in new_attributes.items():
+        for ch_number, attr_value in new_attributes.items():
             # TODO: explain
-            if not set_fnc(ch_number, attribute_dict):
+            ch_number = int(ch_number)
+            if attribute_name == 'led_symbols':
+                attr_value = self._clean_led_symbols(attr_value)
+            elif attribute_name == 'channel_name':
+                attr_value = self._clean_channel_name(ch_number, attr_value)
+            if not set_fnc(ch_number, attr_value):
                 self._channel_tmp_info.setdefault(ch_number, {})
-                self._channel_tmp_info[ch_number].update(attribute_dict)
+                self._channel_tmp_info[ch_number].update(
+                    {attribute_name: attr_value})
 
     def _update_keymaps_and_pin_db(self, key_channels):
         """Update the two internal keymaps and the pin database.
@@ -1137,22 +1134,22 @@ def setchannels(gpio_channels):
     gpio_channels
 
     """
-    pins_tmp_info = {}
+    pins_info = {}
     key_maps = {}
     for gpio_ch in gpio_channels:
-        channel_id = gpio_ch.get('channel_id')
+        channel_id = gpio_ch['channel_id']
         channel_name = gpio_ch.get('channel_name')
         channel_number = gpio_ch.get('channel_number')
         led_symbols = gpio_ch.get('led_symbols')
-        pins_tmp_info.setdefault(channel_number, {})
-        pins_tmp_info[channel_number] = {
+        pins_info.setdefault(channel_number, {})
+        pins_info[channel_number] = {
             'channel_id': channel_id,
             'channel_name': channel_name,
             'led_symbols': led_symbols
         }
         if gpio_ch.get('key'):
             key_maps.update({gpio_ch.get('key'): channel_number})
-    manager.bulk_update_channel_tmp_info(pins_tmp_info)
+    manager.bulk_channel_update(pins_info)
     setkeymap(key_maps)
 
 
