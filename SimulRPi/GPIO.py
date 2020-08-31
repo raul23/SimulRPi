@@ -612,6 +612,7 @@ class Manager:
         # TODO: explain order outputs are setup is how the channels are shown
         if self.enable_printing:
             # Hide the cursor
+            # TODO: works on UNIX shell only, not Windows
             os.system("tput civis")
             print()
         th = threading.currentThread()
@@ -1037,6 +1038,8 @@ def cleanup():
     """
     global manager
     # Show cursor again
+    # TODO: works on UNIX shell only, not Windows
+    # TODO: space at the end?
     os.system("tput cnorm ")
     # Check if displaying thread is alive. If the user didn't setup any output
     # channels for LEDs, then the displaying thread was never started
