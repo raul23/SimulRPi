@@ -135,6 +135,8 @@ Dependencies
 
 Installation instructions
 =========================
+.. TODO: specify stable and unstable versions
+
 1. Install the ``SimulRPi`` package with *pip*::
 
    $ pip install SimulRPi
