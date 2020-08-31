@@ -527,14 +527,14 @@ class Manager:
 
         """
         key = None
-        tmp_info = self._channel_tmp_info.get(channel_number)
+        tmp_info = self._channel_tmp_info.get(channel_number, {})
         if gpio_function == IN:
             # Get keyboard key associated with the INPUT pin (button)
             # TODO: raise exception if key not found
             # TODO: add key also in _channel_tmp_info?
             key = self.channel_to_key_map.get(channel_number)
             tmp_info['led_symbols'] = None
-        if tmp_info:
+        if self._channel_tmp_info.get(channel_number):
             del self._channel_tmp_info[channel_number]
         self.pin_db.create_pin(
             channel_number=channel_number,
@@ -542,7 +542,7 @@ class Manager:
             gpio_function=gpio_function,
             channel_name=tmp_info.get('channel_name', channel_number),
             key=key,
-            led_symbols=tmp_info['led_symbols'],
+            led_symbols=tmp_info.get('led_symbols', self.default_led_symbols),
             pull_up_down=pull_up_down,
             initial=initial)
 
