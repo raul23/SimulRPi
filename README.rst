@@ -2,20 +2,6 @@
 README
 ======
 
-.. _code examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
-.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
-.. _install: #installation-instructions
-.. _let me know through SimulRPi's issues page:
-    https://github.com/raul23/SimulRPi/issues
-.. _pynput: https://pynput.readthedocs.io/
-.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
-.. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
-.. _run_examples.py: #script-run-examples-py
-.. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
-.. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
-.. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
-.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-
 .. raw:: html
 
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
@@ -90,17 +76,54 @@ Dependencies
 * **Python**: 3.5, 3.6, 3.7, 3.8
 * ``pynput`` >=1.6.8: for monitoring the keyboard for any pressed key
 
+.. _installation-instructions-label:
+
 Installation instructions
 =========================
-1. Install the ``SimulRPi`` package with *pip*::
 
-   $ pip install git+https://github.com/raul23/SimulRPi#egg=SimulRPi
+1. Make sure to update *pip*::
 
-   It will install the dependency ``pynput`` if it is not already found in your system.
+   $ pip install --upgrade pip
 
-2. Test your installation by importing ``SimulRPi`` and printing its version::
+2. Install the ``SimulRPi`` package with *pip*::
+
+   $ pip install SimulRPi
+
+   It will install the dependency ``pynput`` if it is not already found in
+   your system.
+
+3. If you get the warning message from *pip* that the script ``run_examples``
+   is not defined in your *PATH*::
+
+      WARNING: The script run_examples is installed in '/home/pi/.local/bin' which is not on PATH.
+
+   add this directory to your *PATH* by editing your configuration file (e.g.
+   *.bashrc*). See this `article`_ on how to set *PATH* on Linux.
+
+4. Test your installation by importing ``SimulRPi`` and printing its version::
 
    $ python -c "import SimulRPi; print(SimulRPi.__version__)"
+
+`:warning:`
+
+   When using *pip*, make sure that it is using the correct Python version.
+   It might be the case that *pip* is using Python 2.7. You can find what Python
+   version *pip* uses with the following::
+
+      $ pip -V
+
+   If *pip* is using the wrong Python version, then try to use *pip3* which uses
+   a Python 3 version.
+
+`:information_source:`
+
+   To install the **bleeding-edge version** of the package ``SimulRPi``,
+   install it from its github repository::
+
+      $ pip install git+https://github.com/raul23/SimulRPi#egg=SimulRPi
+
+   However, the latest version is not as stable as the one from
+   `PyPI`_ but you get the latest features being implemented.
 
 Usage
 =====
@@ -144,14 +167,14 @@ module or the real one.
 
 Script ``run_examples.py``
 --------------------------
-The script `run_examples`_ which you have access to once you
-install the ``SimulRPi`` package allows you to run different code examples on
-your RPi or computer. If it is run on your computer, it will make use of the
-module `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
+The script `run_examples`_ which you have access to once you `install`_ the
+``SimulRPi`` package allows you to run different code examples on your RPi or
+computer. If it is run on your computer, it will make use of the module
+`SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
 
-The different code examples are those presented in **Examples** and
-show the capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi
-such as push buttons and LEDS.
+The different code examples are those presented in `Examples`_ and show the
+capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
+push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
    - Example 1: `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
@@ -188,11 +211,13 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you install the package ``SimulRPi``, you should have access to the script
-``run_examples`` which can be called from the terminal by providing some
+Once you `install`_ the package ``SimulRPi``, you should have access to the
+script ``run_examples`` which can be called from the terminal by providing some
 arguments.
 
-For example: ``run_examples -e 1 -s``.
+For example::
+
+   $ run_examples -e 1 -s
 
 Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
@@ -216,6 +241,8 @@ seconds if the key ``cmd_r`` is pressed and if running in simulation::
    Don't forget the flag *-s* (for simulation) when running the script
    ``run_examples`` if you want to run a code example on your computer, and
    not on your RPi.
+
+.. _examples-label:
 
 Examples
 ========
@@ -263,8 +290,8 @@ The command line for reproducing the same results for example 1 with the script
 
 `:warning:`
 
-   Always call `GPIO.cleanup() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup>`_
-   at the end of your program to free up any resources such as stopping threads.
+   Always call `GPIO.cleanup()`_ at the end of your program to free up any
+   resources such as stopping threads.
 
 Example 2: display 3 LEDs
 -------------------------
@@ -336,8 +363,8 @@ The command line for reproducing the same results for example 3 with the script
    seen from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19>`_.
 
-   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_
-   where the default keymap is defined.
+   See also the documentation for `SimulRPi.mapping`_ where the default keymap
+   is defined.
 
 Example 4: blink a LED
 ----------------------
@@ -433,45 +460,18 @@ The command line for reproducing the same results for example 5 with the script
    from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L22>`__.
 
-   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_
-   where the default keymap is defined.
+   See also the documentation for `SimulRPi.mapping`_ where the default keymap
+   is defined.
 
-Change Log
-==========
-0.0.1a0
--------
-* In ``SimulRPi.GPIO``, the package ``pynput`` is not required anymore. If it
-  is not found, all keyboard-related functionalities from the ``SimulRPi``
-  library will be skipped. Thus, no keyboard keys will be detected if pressed
-  or released when ``pynput`` is not installed.
+How to uninstall
+================
+To uninstall **only** the package ``SimulRPi``::
 
-  This was necessary because *Travis* was raising an exception when I was
-  running a unit test: `Xlib.error.DisplayNameError
-  <https://travis-ci.org/github/raul23/SimulRPi/builds/716458786#L235>`_. It was
-  due to ``pynput`` not working well in a headless setup. Thus, ``pynput`` is
-  now removed from *requirements_travis.txt*.
+   $ pip uninstall simulrpi
 
-  Eventually, I will mock ``pynput`` when doing unit tests on parts of the
-  library that make use of ``pynput``.
+To uninstall the package ``SimulRPi`` and its dependency::
 
-* Started writing unit tests
-
-0.0.0a0
--------
-* First version
-
-* Tested `code examples`_ on different platforms and here are the results
-   * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
-     buttons worked
-   * On a computer with ``SimulRPi.GPIO``
-      * macOS: all examples involving "LEDs" and keyboard keys worked
-      * RPi OS [Debian-based]: all examples involving only "LEDs" worked
-
-        **NOTE:** I was running the script `run_examples`_
-        with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
-        even though I set my environment variable ``Display``, added
-        ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
-        further investigated.
+   $ pip uninstall simulrpi pynput
 
 Resources
 =========
@@ -486,3 +486,27 @@ References
 * `pynput`_: package used for monitoring the keyboard for any pressed key as to
   simulate push buttons connected to an RPi
 * `RPi.GPIO`_: a module to control RPi GPIO channels
+
+.. URLs
+
+.. 1. External links
+.. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
+.. _let me know through SimulRPi's issues page:
+    https://github.com/raul23/SimulRPi/issues
+.. _pynput: https://pynput.readthedocs.io/
+.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
+.. _PyPI: https://pypi.org/project/SimulRPi/
+.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
+.. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
+.. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
+.. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
+.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
+
+.. 2. Internal links
+.. _code examples: #examples-label
+.. _install: #installation-instructions-label
+.. _run_examples: api_reference.html#module-run_examples
+.. _run_examples.py: #script-run-examples-py
+.. _Examples: #examples-label
+.. _GPIO.cleanup(): api_reference.html#GPIO.cleanup
+.. _SimulRPi.mapping: api_reference.html#module-SimulRPi.mapping
