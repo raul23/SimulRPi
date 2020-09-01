@@ -17,7 +17,7 @@ README
    :alt: Build Status
 
 **SimulRPi** is a Python library that partly fakes
-`RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
+`RPi.GPIO`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
 .. raw:: html
@@ -168,11 +168,11 @@ module or the real one.
 
    # Rest of your code
 
-Script ``run_examples.py``
+Script ``run_examples``
 --------------------------
-The script `run_examples`_ which you have access to once you `install`_ the
-``SimulRPi`` package allows you to run different code examples on your RPi or
-computer. If it is run on your computer, it will make use of the module
+The script `run_examples`_ which you have access to once you `install`_
+the ``SimulRPi`` package allows you to run different code examples on your RPi
+or computer. If it is run on your computer, it will make use of the module
 `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
 
 The different code examples are those presented in `Examples`_ and show the
@@ -263,7 +263,7 @@ The code for the examples shown here can be also found as a script in
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
-   `run_examples.py`_ which runs the following code examples can be executed on a
+   `run_examples`_ which runs the following code examples can be executed on a
    Raspberry Pi or your computer.
 
 Example 1: display 1 LED
@@ -504,7 +504,6 @@ References
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
 .. URLs
-
 .. 1. External links
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _let me know through SimulRPi's issues page:
@@ -517,12 +516,10 @@ References
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-
 .. 2. Internal links
 .. _code examples: #examples-label
 .. _install: #installation-instructions-label
 .. _run_examples: api_reference.html#module-run_examples
-.. _run_examples.py: #script-run-examples-py
 .. _Examples: #examples-label
 .. _GPIO.cleanup(): api_reference.html#GPIO.cleanup
 .. _SimulRPi.mapping: api_reference.html#module-SimulRPi.mapping
