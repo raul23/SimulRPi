@@ -2,20 +2,6 @@
 README
 ======
 
-.. _code examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
-.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
-.. _install: #installation-instructions
-.. _let me know through SimulRPi's issues page:
-    https://github.com/raul23/SimulRPi/issues
-.. _pynput: https://pynput.readthedocs.io/
-.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
-.. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
-.. _run_examples.py: #script-run-examples-py
-.. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
-.. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
-.. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
-.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-
 <site="pypi">
 .. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
@@ -133,19 +119,43 @@ Dependencies
 * **Python**: 3.5, 3.6, 3.7, 3.8
 * ``pynput`` >=1.6.8: for monitoring the keyboard for any pressed key
 
+.. _installation-instructions-label:
+
 Installation instructions
 =========================
 .. TODO: specify stable and unstable versions
 
-1. Install the ``SimulRPi`` package with *pip*::
+1. Make sure to update *pip*::
+
+   $ pip install --upgrade pip
+
+2. Install the ``SimulRPi`` package with *pip*::
 
    $ pip install SimulRPi
 
    It will install the dependency ``pynput`` if it is not already found in your system.
 
-2. Test your installation by importing ``SimulRPi`` and printing its version::
+3. Test your installation by importing ``SimulRPi`` and printing its version::
 
    $ python -c "import SimulRPi; print(SimulRPi.__version__)"
+
+<site="github">
+`:information_source:`
+</site>
+<site="pypi">
+**Note**
+</site>
+<site="readthedocs">
+.. note::
+</site>
+
+   To install the **bleeding-edge version** of the package ``SimulRPi``,
+   install it from its github repository::
+
+      $ pip install git+https://github.com/raul23/SimulRPi#egg=SimulRPi
+
+   However, the latest version is not as stable as the one from
+   <site="github, readthedocs">`PyPI`_</site><site="pypi">PyPI</site> but you get the latest features being implemented.
 
 Usage
 =====
@@ -195,29 +205,14 @@ module or the real one.
 
 Script ``run_examples.py``
 --------------------------
-The script `run_examples`_ which you have access to once you
-<site="github">
-install the ``SimulRPi`` package allows you to run different code examples on
-</site>
-<site="pypi, readthedocs">
-`install`_ the ``SimulRPi`` package allows you to run different code examples on
-</site>
-your RPi or computer. If it is run on your computer, it will make use of the
-<site="github, readthedocs">
-module `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
-</site>
-<site="pypi">
-module ``SimulRPi.GPIO`` which partly fakes `RPi.GPIO`_.
-</site>
+The script `run_examples`_ which you have access to once you `install`_ the
+``SimulRPi`` package allows you to run different code examples on your RPi or
+computer. If it is run on your computer, it will make use of the module
+<site="github, readthedocs">`SimulRPi.GPIO`_</site><site="pypi">``SimulRPi.GPIO``</site> which partly fakes `RPi.GPIO`_.
 
-<site="pypi, readthedocs">
-The different code examples are those presented in `Examples <#id4>`_ and
-</site>
-<site="github">
-The different code examples are those presented in **Examples** and
-</site>
-show the capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi
-such as push buttons and LEDS.
+The different code examples are those presented in `Examples`_ and show the
+capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
+push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
 <site="github, pypi">
@@ -264,17 +259,13 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-<site="github">
-Once you install the package ``SimulRPi``, you should have access to the script
-</site>
-<site="pypi, readthedocs">
-Once you install the package ``SimulRPi`` (see `Installation Instructions
-<#installation-instructions>`_), you should have access to the script
-</site>
-``run_examples`` which can be called from the terminal by providing some
+Once you `install`_ the package ``SimulRPi``, you should have access to the
+script ``run_examples`` which can be called from the terminal by providing some
 arguments.
 
-For example: ``run_examples -e 1 -s``.
+For example::
+
+   $ run_examples -e 1 -s
 
 Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
@@ -314,6 +305,8 @@ seconds if the key ``cmd_r`` is pressed and if running in simulation::
    Don't forget the flag *-s* (for simulation) when running the script
    ``run_examples`` if you want to run a code example on your computer, and
    not on your RPi.
+
+.. _examples-label:
 
 Examples
 ========
@@ -389,8 +382,8 @@ The command line for reproducing the same results for example 1 with the script
 .. warning::
 </site>
 
-   Always call `GPIO.cleanup() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup>`_
-   at the end of your program to free up any resources such as stopping threads.
+   Always call `GPIO.cleanup()`_ at the end of your program to free up any
+   resources such as stopping threads.
 
 Example 2: display 3 LEDs
 -------------------------
@@ -488,8 +481,8 @@ The command line for reproducing the same results for example 3 with the script
    seen from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19>`_.
 
-   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_
-   where the default keymap is defined.
+   See also the documentation for `SimulRPi.mapping`_ where the default keymap
+   is defined.
 
 Example 4: blink a LED
 ----------------------
@@ -607,8 +600,8 @@ The command line for reproducing the same results for example 5 with the script
    from the `default key-to-channel map
    <https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L22>`__.
 
-   See also the documentation for `SimulRPi.mapping <https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping>`_
-   where the default keymap is defined.
+   See also the documentation for `SimulRPi.mapping`_ where the default keymap
+   is defined.
 
 Change Log
 ==========
@@ -634,12 +627,7 @@ Change Log
 -------
 * First version
 
-<site="github">
 * Tested `code examples`_ on different platforms and here are the results
-</site>
-<site="readthedocs, pypi">
-* Tested code `examples <#id4>`__ on different platforms and here are the results
-</site>
    * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
      buttons worked
    * On a computer with ``SimulRPi.GPIO``
@@ -680,3 +668,26 @@ References
 * `pynput`_: package used for monitoring the keyboard for any pressed key as to
   simulate push buttons connected to an RPi
 * `RPi.GPIO`_: a module to control RPi GPIO channels
+
+.. URLs
+
+.. 1. external links
+.. _let me know through SimulRPi's issues page:
+    https://github.com/raul23/SimulRPi/issues
+.. _pynput: https://pynput.readthedocs.io/
+.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
+.. _PyPI: https://pypi.org/project/SimulRPi/
+.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
+.. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
+.. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
+.. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
+.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
+
+.. 2. internal links
+.. _code examples: #examples-label
+.. _install: #installation-instructions-label
+.. _run_examples: api_reference.html#module-run_examples
+.. _run_examples.py: #script-run-examples-py
+.. _Examples: #examples-label
+.. _GPIO.cleanup(): api_reference.html#GPIO.cleanup
+.. _SimulRPi.mapping: api_reference.html#module-SimulRPi.mapping
