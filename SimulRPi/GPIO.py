@@ -487,7 +487,7 @@ class Manager:
         self.pin_db = PinDB()
         self.default_led_symbols = {
             "ON": "\U0001F6D1",
-            "OFF": "\U000026AA",
+            "OFF": "\U000026AA"
         }
         # TODO: call it _channel_cached_info?
         self._channel_tmp_info = {}
@@ -763,7 +763,7 @@ class Manager:
 
         """
         # TODO: assert on new_led_symbols
-        self._clean_led_symbols(new_default_led_symbols)
+        new_default_led_symbols = self._clean_led_symbols(new_default_led_symbols)
         self.default_led_symbols.update(new_default_led_symbols)
 
     def update_led_symbols(self, new_led_symbols):
@@ -928,12 +928,21 @@ class Manager:
 
         """
         if led_symbols:
-            for symbol_name, symbol_value in led_symbols.items():
-                if symbol_value:
-                    symbol_value = symbol_value.replace("\\033", "\033")
-                else:
-                    symbol_value = self.default_led_symbols[symbol_name]
-                led_symbols[symbol_name] = symbol_value
+            if led_symbols == "default_ascii":
+                led_symbols = {
+                    "ON": "\033[1;31;48m(0)\033[1;37;0m",
+                    "OFF": "(0)",
+                }
+            else:
+                assert isinstance(led_symbols, dict), \
+                    "Wrong type for `led_symbols`: {}. \nIt should be a " \
+                    "dictionary".format(led_symbols)
+                for symbol_name, symbol_value in led_symbols.items():
+                    if symbol_value:
+                        symbol_value = symbol_value.replace("\\033", "\033")
+                    else:
+                        symbol_value = self.default_led_symbols[symbol_name]
+                    led_symbols[symbol_name] = symbol_value
         else:
             led_symbols = self.default_led_symbols
         return led_symbols
