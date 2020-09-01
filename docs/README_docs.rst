@@ -80,7 +80,7 @@ Dependencies
 
 Installation instructions
 =========================
-.. TODO: specify stable and unstable versions
+.. highlight:: none
 
 1. Make sure to update *pip*::
 
@@ -90,11 +90,31 @@ Installation instructions
 
    $ pip install SimulRPi
 
-   It will install the dependency ``pynput`` if it is not already found in your system.
+   It will install the dependency ``pynput`` if it is not already found in
+   your system.
 
-3. Test your installation by importing ``SimulRPi`` and printing its version::
+3. If you get the warning message from *pip* that the script ``run_examples``
+   is not defined in your *PATH*::
+
+      WARNING: The script run_examples is installed in '/home/pi/.local/bin' which is not on PATH.
+
+   add this directory to your *PATH* by editing your configuration file (e.g.
+   *.bashrc*). See this `article`_ on how to set *PATH* on Linux.
+
+4. Test your installation by importing ``SimulRPi`` and printing its version::
 
    $ python -c "import SimulRPi; print(SimulRPi.__version__)"
+
+.. important::
+
+   When using *pip*, make sure that it is using the correct Python version.
+   It might be the case that *pip* is using Python 2.7. You can find what Python
+   version *pip* uses with the following::
+
+      $ pip -V
+
+   If *pip* is using the wrong Python version, then try to use *pip3* which uses
+   a Python 3 version.
 
 .. note::
 
@@ -459,6 +479,16 @@ The command line for reproducing the same results for example 5 with the script
    See also the documentation for `SimulRPi.mapping`_ where the default keymap
    is defined.
 
+How to uninstall
+================
+To uninstall **only** the package ``SimulRPi``::
+
+   $ pip uninstall simulrpi
+
+To uninstall the package ``SimulRPi`` and its dependency::
+
+   $ pip uninstall simulrpi pynput
+
 Resources
 =========
 * `SimulRPi GitHub`_: source code
@@ -476,6 +506,7 @@ References
 .. URLs
 
 .. 1. External links
+.. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
