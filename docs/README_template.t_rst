@@ -123,7 +123,7 @@ Dependencies
 
 Installation instructions
 =========================
-.. TODO: specify stable and unstable versions
+.. highlight:: none
 
 1. Make sure to update *pip*::
 
@@ -133,11 +133,39 @@ Installation instructions
 
    $ pip install SimulRPi
 
-   It will install the dependency ``pynput`` if it is not already found in your system.
+   It will install the dependency ``pynput`` if it is not already found in
+   your system.
 
-3. Test your installation by importing ``SimulRPi`` and printing its version::
+3. If you get the warning message from *pip* that the script ``run_examples``
+   is not defined in your *PATH*::
+
+      WARNING: The script run_examples is installed in '/home/pi/.local/bin' which is not on PATH.
+
+   add this directory to your *PATH* by editing your configuration file (e.g.
+   *.bashrc*). See this `article`_ on how to set *PATH* on Linux.
+
+4. Test your installation by importing ``SimulRPi`` and printing its version::
 
    $ python -c "import SimulRPi; print(SimulRPi.__version__)"
+
+<site="github">
+`:warning:`
+</site>
+<site="pypi">
+**Important**
+</site>
+<site="readthedocs">
+.. important::
+</site>
+
+   When using *pip*, make sure that it is using the correct Python version.
+   It might be the case that *pip* is using Python 2.7. You can find what Python
+   version *pip* uses with the following::
+
+      $ pip -V
+
+   If *pip* is using the wrong Python version, then try to use *pip3* which uses
+   a Python 3 version.
 
 <site="github">
 `:information_source:`
@@ -603,47 +631,15 @@ The command line for reproducing the same results for example 5 with the script
    See also the documentation for `SimulRPi.mapping`_ where the default keymap
    is defined.
 
-Change Log
-==========
-0.0.1a0
--------
-* In ``SimulRPi.GPIO``, the package ``pynput`` is not required anymore. If it
-  is not found, all keyboard-related functionalities from the ``SimulRPi``
-  library will be skipped. Thus, no keyboard keys will be detected if pressed
-  or released when ``pynput`` is not installed.
+How to uninstall
+================
+To uninstall **only** the package ``SimulRPi``::
 
-  This was necessary because *Travis* was raising an exception when I was
-  running a unit test: `Xlib.error.DisplayNameError
-  <https://travis-ci.org/github/raul23/SimulRPi/builds/716458786#L235>`_. It was
-  due to ``pynput`` not working well in a headless setup. Thus, ``pynput`` is
-  now removed from *requirements_travis.txt*.
+   $ pip uninstall simulrpi
 
-  Eventually, I will mock ``pynput`` when doing unit tests on parts of the
-  library that make use of ``pynput``.
+To uninstall the package ``SimulRPi`` and its dependency::
 
-* Started writing unit tests
-
-0.0.0a0
--------
-* First version
-
-* Tested `code examples`_ on different platforms and here are the results
-   * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
-     buttons worked
-   * On a computer with ``SimulRPi.GPIO``
-      * macOS: all examples involving "LEDs" and keyboard keys worked
-      * RPi OS [Debian-based]: all examples involving only "LEDs" worked
-
-<site="readthedocs">
-        **NOTE:** I was running the script :mod:`run_examples`
-</site>
-<site="github, pypi">
-        **NOTE:** I was running the script `run_examples`_
-</site>
-        with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
-        even though I set my environment variable ``Display``, added
-        ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
-        further investigated.
+   $ pip uninstall simulrpi pynput
 
 Resources
 =========
@@ -671,7 +667,8 @@ References
 
 .. URLs
 
-.. 1. external links
+.. 1. External links
+.. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
@@ -683,7 +680,7 @@ References
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 
-.. 2. internal links
+.. 2. Internal links
 .. _code examples: #examples-label
 .. _install: #installation-instructions-label
 .. _run_examples: api_reference.html#module-run_examples
