@@ -37,6 +37,8 @@ See the `README <README_docs.html>`_ for more info about the library.
 
    README_docs
    api_reference
+   changelog
+   license
 
 Indices and tables
 ==================
