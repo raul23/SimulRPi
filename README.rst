@@ -106,14 +106,14 @@ Installation instructions
 
 `:warning:`
 
-   When using *pip*, make sure that it is using the correct Python version.
-   It might be the case that *pip* is using Python 2.7. You can find what Python
-   version *pip* uses with the following::
+   Make sure that *pip* is working with the correct Python version. It might be
+   the case that *pip* is using Python 2.7. You can find what Python version
+   *pip* uses with the following::
 
       $ pip -V
 
-   If *pip* is using the wrong Python version, then try to use *pip3* which uses
-   a Python 3 version.
+   If *pip* is working with the wrong Python version, then try to use *pip3*
+   which works with Python 3.
 
 `:information_source:`
 
@@ -122,7 +122,7 @@ Installation instructions
 
       $ pip install git+https://github.com/raul23/SimulRPi#egg=SimulRPi
 
-   However, the latest version is not as stable as the one from
+   However, this latest version is not as stable as the one from
    `PyPI`_ but you get the latest features being implemented.
 
 Usage
