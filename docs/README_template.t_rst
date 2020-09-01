@@ -2,21 +2,21 @@
 README
 ======
 
-<site="pypi">
+<host name="pypi">
 .. image:: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :target: https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png
    :align: center
    :alt: SimulRPi logo
 
 🚧 **Work-In-Progress**
-</site>
-<site="github, readthedocs">
+</host>
+<host name="github, readthedocs">
 .. raw:: html
 
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
    <br>🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b>
    </p>
-</site>
+</host>
 
 .. image:: https://readthedocs.org/projects/simulrpi/badge/?version=latest
    :target: https://simulrpi.readthedocs.io/en/latest/?badge=latest
@@ -26,16 +26,16 @@ README
    :target: https://travis-ci.org/raul23/SimulRPi
    :alt: Build Status
 
-<site="github, readthedocs">
+<host name="github, readthedocs">
 **SimulRPi** is a Python library that partly fakes
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **SimulRPi** is a library that partly fakes
-</site>
+</host>
 `RPi.GPIO`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
-<site="pypi">
+<host name="pypi">
 **Example: terminal output**
 
 .. image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif
@@ -44,15 +44,15 @@ on a Raspberry Pi (RPi).
    :alt: Simulating LEDs on an RPi via a terminal
 
 Simulating LEDs connected to an RPi via a terminal
-</site>
-<site="github, readthedocs">
+</host>
+<host name="github, readthedocs">
 .. raw:: html
 
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif"/>
    <p><b>Simulating LEDs on an RPi via a terminal</b></p>
    </div>
-</site>
+</host>
 
 .. contents::
    :depth: 3
@@ -72,20 +72,20 @@ When a LED is turned on, it is shown as a red dot in the terminal. The package
 
 **Example: terminal output**
 
-<site="pypi">
+<host name="pypi">
 .. image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif
    :target: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif
    :align: center
    :alt: Simulating LEDs on an RPi via a terminal
-</site>
-<site="github, readthedocs">
+</host>
+<host name="github, readthedocs">
 .. raw:: html
 
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif"/>
    <p><b>Simulating LEDs on an RPi via a terminal</b></p>
    </div>
-</site>
+</host>
 
 Each dot represents a blinking LED connected to an RPi and the number
 between brackets is the associated GPIO channel number. Here the "LED" on
@@ -94,15 +94,15 @@ channel 22 toggles between on and off when a key is pressed.
 Also, the color of the LEDs can be customized as you can see here where the LED
 on Channel 22 is colored differently from the others.
 
-<site="github">
+<host name="github">
 `:warning:`
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **Important**
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. important::
-</site>
+</host>
 
    This library is not a Raspberry Pi emulator nor a complete mock-up of
    `RPi.GPIO`_, only the most important functions that I needed for my
@@ -123,9 +123,9 @@ Dependencies
 
 Installation instructions
 =========================
-<site="readthedocs">
+<host name="readthedocs">
 .. highlight:: none
-</site>
+</host>
 
 1. Make sure to update *pip*::
 
@@ -150,42 +150,42 @@ Installation instructions
 
    $ python -c "import SimulRPi; print(SimulRPi.__version__)"
 
-<site="github">
+<host name="github">
 `:warning:`
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **Important**
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. important::
-</site>
+</host>
 
-   When using *pip*, make sure that it is using the correct Python version.
-   It might be the case that *pip* is using Python 2.7. You can find what Python
-   version *pip* uses with the following::
+   Make sure that *pip* is working with the correct Python version. It might be
+   the case that *pip* is using Python 2.7. You can find what Python version
+   *pip* uses with the following::
 
       $ pip -V
 
-   If *pip* is using the wrong Python version, then try to use *pip3* which uses
-   a Python 3 version.
+   If *pip* is working with the wrong Python version, then try to use *pip3*
+   which works with Python 3.
 
-<site="github">
+<host name="github">
 `:information_source:`
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **Note**
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. note::
-</site>
+</host>
 
    To install the **bleeding-edge version** of the package ``SimulRPi``,
    install it from its github repository::
 
       $ pip install git+https://github.com/raul23/SimulRPi#egg=SimulRPi
 
-   However, the latest version is not as stable as the one from
-   <site="github, readthedocs">`PyPI`_</site><site="pypi">PyPI</site> but you get the latest features being implemented.
+   However, this latest version is not as stable as the one from
+   <host name="github, readthedocs">`PyPI`_</host><host name="pypi">PyPI</host> but you get the latest features being implemented.
 
 Usage
 =====
@@ -202,9 +202,9 @@ on the module ``SimulRPi.GPIO``.
    Also they don't recognize :caption: (used in code-block)
 
 .. code-block:: python
-<site="readthedocs">
+<host name="readthedocs">
    :caption: **Case 1:** with a ``try`` and ``except`` blocks
-</site>
+</host>
 
    try:
        import RPi.GPIO as GPIO
@@ -222,9 +222,9 @@ Or maybe you have a flag to tell whether you want to work with the simulation
 module or the real one.
 
 .. code-block:: python
-<site="readthedocs">
+<host name="readthedocs">
    :caption: **Case 2:** with a simulation flag
-</site>
+</host>
 
    if simulation:
        import SimulRPi.GPIO as GPIO
@@ -235,31 +235,31 @@ module or the real one.
 
 Script ``run_examples``
 --------------------------
-The script `run_examples`_ which you have access to once you <site="github, pypi">install</site><site="readthedocs">`install`_</site>
+The script `run_examples`_ which you have access to once you <host name="github, pypi">install</host><host name="readthedocs">`install`_</host>
 the ``SimulRPi`` package allows you to run different code examples on your RPi
 or computer. If it is run on your computer, it will make use of the module
-<site="github, readthedocs">`SimulRPi.GPIO`_</site><site="pypi">``SimulRPi.GPIO``</site> which partly fakes `RPi.GPIO`_.
+<host name="github, readthedocs">`SimulRPi.GPIO`_</host><host name="pypi">``SimulRPi.GPIO``</host> which partly fakes `RPi.GPIO`_.
 
-The different code examples are those presented in <site="github, pypi">**Examples**</site><site="readthedocs">`Examples`_</site> and show the
+The different code examples are those presented in <host name="github, pypi">**Examples**</host><host name="readthedocs">`Examples`_</host> and show the
 capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
 push buttons and LEDS.
 
 Here is a list of the functions associated with each code example:
-<site="github, pypi">
+<host name="github, pypi">
    - Example 1: `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
    - Example 2: `ex2_turn_on_many_leds() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds>`_
    - Example 3: `ex3_detect_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button>`_
    - Example 4: `ex4_blink_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex4_blink_led>`_
    - Example 5: `ex5_blink_led_if_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex5_blink_led_if_button>`_
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 
    - Example 1: :meth:`run_examples.ex1_turn_on_led`
    - Example 2: :meth:`run_examples.ex2_turn_on_many_leds`
    - Example 3: :meth:`run_examples.ex3_detect_button`
    - Example 4: :meth:`run_examples.ex4_blink_led`
    - Example 5: :meth:`run_examples.ex5_blink_led_if_button`
-</site>
+</host>
 
 List of options
 ~~~~~~~~~~~~~~~
@@ -289,7 +289,7 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you <site="github, pypi">install</site><site="readthedocs">`install`_</site> the package ``SimulRPi``, you should have access to the
+Once you <host name="github, pypi">install</host><host name="readthedocs">`install`_</host> the package ``SimulRPi``, you should have access to the
 script ``run_examples`` which can be called from the terminal by providing some
 arguments.
 
@@ -312,25 +312,25 @@ seconds if the key ``cmd_r`` is pressed and if running in simulation::
    :align: left
    :alt: Example 05: terminal output
 
-<site="github">
+<host name="github">
 |
-</site>
-<site="pypi, readthedocs">
-|
-|
+</host>
+<host name="pypi, readthedocs">
 |
 |
-</site>
+|
+|
+</host>
 
-<site="github">
+<host name="github">
 `:star:`
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **Important**
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. important::
-</site>
+</host>
 
    Don't forget the flag *-s* (for simulation) when running the script
    ``run_examples`` if you want to run a code example on your computer, and
@@ -346,15 +346,15 @@ simulate LEDs and push buttons.
 The code for the examples shown here can be also found as a script in
 `run_examples`_.
 
-<site="github">
+<host name="github">
 `:information_source:`
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **Note**
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. note::
-</site>
+</host>
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
@@ -383,29 +383,29 @@ the code along with the output from the terminal:
    :align: left
    :alt: Example 01: terminal output
 
-<site="github">
+<host name="github">
 |
-</site>
-<site="pypi, readthedocs">
+</host>
+<host name="pypi, readthedocs">
 |
 |
 |
-</site>
+</host>
 
 The command line for reproducing the same results for example 1 with the script
 ``run_examples`` is the following::
 
    $ run_examples -s -e 1 -l 11
 
-<site="github">
+<host name="github">
 `:warning:`
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **Warning**
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. warning::
-</site>
+</host>
 
    Always call `GPIO.cleanup()`_ at the end of your program to free up any
    resources such as stopping threads.
@@ -433,13 +433,13 @@ respectively. Here is the code along with the output from the terminal:
    :align: left
    :alt: Example 02: terminal output
 
-<site="github">
+<host name="github">
 |
-</site>
-<site="pypi, readthedocs">
+</host>
+<host name="pypi, readthedocs">
 |
 |
-</site>
+</host>
 
 The command line for reproducing the same results for example 2 with the script
 ``run_examples`` is the following::
@@ -473,34 +473,34 @@ printing a message. Here is the code along with the output from the terminal:
    :align: left
    :alt: Example 03: terminal output
 
-<site="github">
+<host name="github">
 |
-</site>
-<site="pypi">
-|
-|
-|
-</site>
-<site="readthedocs">
+</host>
+<host name="pypi">
 |
 |
 |
-</site>
+</host>
+<host name="readthedocs">
+|
+|
+|
+</host>
 
 The command line for reproducing the same results for example 3 with the script
 ``run_examples`` is the following::
 
    $ run_examples -s -e 3 -k cmd_r
 
-<site="github">
+<host name="github">
 `:information_source:`
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **Note**
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. note::
-</site>
+</host>
 
    By default, ``SimulRPi`` maps the key ``cmd_r`` to channel 17 as can be
    seen from the `default key-to-channel map
@@ -543,14 +543,14 @@ the terminal:
    :align: left
    :alt: Example 04: terminal output
 
-<site="github">
+<host name="github">
 |
-</site>
-<site="pypi, readthedocs">
+</host>
+<host name="pypi, readthedocs">
 |
 |
 |
-</site>
+</host>
 
 The command line for reproducing the same results for example 4 with the script
 ``run_examples`` is the following::
@@ -597,29 +597,29 @@ code along with the output from the terminal:
    :align: left
    :alt: Example 05: terminal output
 
-<site="github">
+<host name="github">
 |
-</site>
-<site="pypi, readthedocs">
+</host>
+<host name="pypi, readthedocs">
 |
 |
 |
-</site>
+</host>
 
 The command line for reproducing the same results for example 5 with the script
 ``run_examples`` is the following::
 
    $ run_examples -s -e 5 -t 3 -k ctrl_r
 
-<site="github">
+<host name="github">
 `:information_source:`
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 **Note**
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. note::
-</site>
+</host>
 
    By default, ``SimulRPi`` maps the key ``ctrl_r`` to channel 20 as can be
    from the `default key-to-channel map
@@ -640,18 +640,18 @@ To uninstall the package ``SimulRPi`` and its dependency::
 
 Resources
 =========
-<site="github">
+<host name="github">
 * `SimulRPi documentation`_
 * `SimulRPi PyPI`_
-</site>
-<site="pypi">
+</host>
+<host name="pypi">
 * `SimulRPi documentation`_
 * `SimulRPi GitHub`_: source code
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 * `SimulRPi GitHub`_: source code
 * `SimulRPi PyPI`_
-</site>
+</host>
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
   testing on a computer when no RPi available
@@ -663,30 +663,30 @@ References
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
 .. URLs
-<site="readthedocs">
+<host name="readthedocs">
 .. 1. External links
-</site>
+</host>
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
-<site="github, pypi">
+<host name="github, pypi">
 .. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
-</site>
+</host>
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
-<site="github, pypi">
+<host name="github, pypi">
 .. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup
-</site>
+</host>
 .. _PyPI: https://pypi.org/project/SimulRPi/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-<site="github, pypi">
+<host name="github, pypi">
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
-</site>
-<site="readthedocs">
+</host>
+<host name="readthedocs">
 .. 2. Internal links
 .. _code examples: #examples-label
 .. _install: #installation-instructions-label
@@ -694,4 +694,4 @@ References
 .. _Examples: #examples-label
 .. _GPIO.cleanup(): api_reference.html#GPIO.cleanup
 .. _SimulRPi.mapping: api_reference.html#module-SimulRPi.mapping
-</site>
+</host>
