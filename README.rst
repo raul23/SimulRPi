@@ -17,7 +17,7 @@ README
    :alt: Build Status
 
 **SimulRPi** is a Python library that partly fakes
-`RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
+`RPi.GPIO`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
 .. raw:: html
@@ -165,14 +165,14 @@ module or the real one.
 
    # Rest of your code
 
-Script ``run_examples.py``
+Script ``run_examples``
 --------------------------
-The script `run_examples`_ which you have access to once you `install`_ the
-``SimulRPi`` package allows you to run different code examples on your RPi or
-computer. If it is run on your computer, it will make use of the module
+The script `run_examples`_ which you have access to once you install
+the ``SimulRPi`` package allows you to run different code examples on your RPi
+or computer. If it is run on your computer, it will make use of the module
 `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
 
-The different code examples are those presented in `Examples`_ and show the
+The different code examples are those presented in **Examples** and show the
 capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
 push buttons and LEDS.
 
@@ -488,25 +488,17 @@ References
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
 .. URLs
-
-.. 1. External links
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
+.. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
+.. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup
 .. _PyPI: https://pypi.org/project/SimulRPi/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-
-.. 2. Internal links
-.. _code examples: #examples-label
-.. _install: #installation-instructions-label
-.. _run_examples: api_reference.html#module-run_examples
-.. _run_examples.py: #script-run-examples-py
-.. _Examples: #examples-label
-.. _GPIO.cleanup(): api_reference.html#GPIO.cleanup
-.. _SimulRPi.mapping: api_reference.html#module-SimulRPi.mapping
+.. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
