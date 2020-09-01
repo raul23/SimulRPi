@@ -211,7 +211,7 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you `install`_ the package ``SimulRPi``, you should have access to the
+Once you install the package ``SimulRPi``, you should have access to the
 script ``run_examples`` which can be called from the terminal by providing some
 arguments.
 
