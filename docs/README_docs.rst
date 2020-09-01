@@ -459,43 +459,6 @@ The command line for reproducing the same results for example 5 with the script
    See also the documentation for `SimulRPi.mapping`_ where the default keymap
    is defined.
 
-Change Log
-==========
-0.0.1a0
--------
-* In ``SimulRPi.GPIO``, the package ``pynput`` is not required anymore. If it
-  is not found, all keyboard-related functionalities from the ``SimulRPi``
-  library will be skipped. Thus, no keyboard keys will be detected if pressed
-  or released when ``pynput`` is not installed.
-
-  This was necessary because *Travis* was raising an exception when I was
-  running a unit test: `Xlib.error.DisplayNameError
-  <https://travis-ci.org/github/raul23/SimulRPi/builds/716458786#L235>`_. It was
-  due to ``pynput`` not working well in a headless setup. Thus, ``pynput`` is
-  now removed from *requirements_travis.txt*.
-
-  Eventually, I will mock ``pynput`` when doing unit tests on parts of the
-  library that make use of ``pynput``.
-
-* Started writing unit tests
-
-0.0.0a0
--------
-* First version
-
-* Tested `code examples`_ on different platforms and here are the results
-   * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
-     buttons worked
-   * On a computer with ``SimulRPi.GPIO``
-      * macOS: all examples involving "LEDs" and keyboard keys worked
-      * RPi OS [Debian-based]: all examples involving only "LEDs" worked
-
-        **NOTE:** I was running the script :mod:`run_examples`
-        with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
-        even though I set my environment variable ``Display``, added
-        ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
-        further investigated.
-
 Resources
 =========
 * `SimulRPi GitHub`_: source code
@@ -512,7 +475,7 @@ References
 
 .. URLs
 
-.. 1. external links
+.. 1. External links
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
@@ -524,7 +487,7 @@ References
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 
-.. 2. internal links
+.. 2. Internal links
 .. _code examples: #examples-label
 .. _install: #installation-instructions-label
 .. _run_examples: api_reference.html#module-run_examples
