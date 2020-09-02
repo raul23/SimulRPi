@@ -516,6 +516,7 @@ References
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
+
 .. 2. Internal links
 .. _code examples: #examples-label
 .. _install: #installation-instructions-label
