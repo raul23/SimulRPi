@@ -68,17 +68,20 @@ Changelog
 * First version
 
 * Tested `code examples`_ on different platforms and here are the results
-   * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
-     buttons worked
-   * On a computer with ``SimulRPi.GPIO``
-      * macOS: all examples involving "LEDs" and keyboard keys worked
-      * RPi OS [Debian-based]: all examples involving "LEDs" only worked
 
-        **NOTE:** I was running the script :mod:`run_examples`
-        with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
-        even though I set my environment variable ``Display``, added
-        ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
-        further investigated.
+  * On an RPi with ``RPi.GPIO``: all examples involving LEDs and pressing
+    buttons worked
+
+  * On a computer with ``SimulRPi.GPIO``
+
+    * macOS: all examples involving "LEDs" and keyboard keys worked
+    * RPi OS [Debian-based]: all examples involving "LEDs" only worked
+
+      **NOTE:** I was running the script :mod:`run_examples`
+      with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
+      even though I set my environment variable ``Display``, added
+      ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
+      further investigated.
 
 .. URLs
 
