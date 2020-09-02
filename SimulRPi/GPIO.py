@@ -1108,6 +1108,10 @@ def output(channel_number, state):
     state : int
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
+    Raises
+    ------
+        TODO
+
 
     .. note::
 
