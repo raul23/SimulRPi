@@ -10,7 +10,7 @@ It simulates these I/O devices connected to a Raspberry Pi:
 When a LED is turned on, it is shown as a red dot in the terminal. The
 package `pynput`_ is used to monitor the keyboard for any pressed key.
 
-.. TODO: also found in README_docs
+.. TODO: also found in README_docs.rst
 
 **Example: terminal output** ::
 
@@ -52,7 +52,7 @@ try:
     from pynput import keyboard
 except ImportError:
     print("`pynput` couldn't be found. Thus, no keyboard keys will be detected "
-          "if pressed or released.\nIf you need this option, install pynput "
+          "if pressed or released.\nIf you need this option, install `pynput` "
           "with: pip install pynput.\n")
     keyboard = None
 
@@ -89,6 +89,7 @@ class ExceptionThread(threading.Thread):
             self.exc = e
 
 
+# TODO: change to Channel?
 class Pin:
     """Class that represents a GPIO pin.
 
@@ -98,15 +99,28 @@ class Pin:
         GPIO channel number based on the numbering system you have specified
         (`BOARD` or `BCM`).
     channel_id : str
-        TODO
+        Unique identifier.
     gpio_function : int
         Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
     channel_name : str, optional
-        TODO
+        It will be displayed in the terminal along with the LED symbol if it is
+        available. Otherwise, the ``channel_number`` is shown. By default, its
+        value is :obj:`None`.
     key : str or None, optional
         Keyboard key associated with the GPIO channel, e.g. "k".
     led_symbols : dict, optional
-        TODO
+        It should only be defined for output channels. It is a dictionary
+        defining the symbols to be used when the LED is turned ON and OFF. If
+        not found for an ouput channel, then the default LED symbols will be
+        used as specified in :class:`Manager`.
+
+        **Example**::
+
+            {
+                "ON": "🛑",
+                "OFF": "⚪"
+            }
+
     pull_up_down : int or None, optional
         Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default value is
         :obj:`None`.
@@ -131,12 +145,13 @@ class Pin:
         self.pull_up_down = pull_up_down
         self.initial = initial
         self.led_symbols = led_symbols
-        if gpio_function == IN:
+        if self.gpio_function == IN:
             self.state = HIGH
         else:
             self.state = LOW
 
 
+# TODO: change to ChannelDB?
 class PinDB:
     """Class for storing and modifying :class:`Pin`\s.
 
@@ -164,8 +179,8 @@ class PinDB:
 
         Based on the given arguments, an instance of :class:`GPIO.Pin` is
         created and added to a dictionary that acts like a database of pins
-        with key being the pin's channel and the value is an instance of
-        :class:`Pin`.
+        with the key being the pin's channel number and the value is an
+        instance of :class:`Pin`.
 
         Parameters
         ----------
@@ -173,24 +188,24 @@ class PinDB:
             GPIO channel number based on the numbering system you have specified
             (`BOARD` or `BCM`).
         channel_id : str
-            TODO
+            Unique identifier.
         gpio_function : int
             Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
-        kwargs :
-            TODO
+        kwargs : dict, optional
+            These are the (optional) keyword arguments for ``Pin.__init__()``.
 
         """
         self._pins[channel_number] = Pin(channel_number, channel_id,
                                          gpio_function, **kwargs)
         if gpio_function == OUT:
-            # OUTPUT pin (e.g. LED)
+            # Output channel (e.g. LED)
             # Save the output pin so the thread that displays LEDs knows what
             # pins are OUTPUT and therefore connected to LEDs.
             self.output_pins.append(self._pins[channel_number])
         # Update the other internal dict if key is given
         if kwargs['key']:
-            # Input
-            # TODO: assert on gpop_function which should be INPUT?
+            # Input channel (e.g. push button)
+            # TODO: assert on gpio_function which should be INPUT?
             self._key_to_pin_map[kwargs['key']] = self._pins[channel_number]
 
     def get_pin_from_channel(self, channel_number):
@@ -526,7 +541,6 @@ class Manager:
         tmp_info = self._channel_tmp_info.get(channel_number, {})
         if gpio_function == IN:
             # Get keyboard key associated with the INPUT pin (button)
-            # TODO: raise exception if key not found
             # TODO: add key also in _channel_tmp_info?
             key = self.channel_to_key_map.get(channel_number)
             tmp_info['led_symbols'] = None
