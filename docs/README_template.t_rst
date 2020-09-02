@@ -642,10 +642,12 @@ Resources
 =========
 <host name="github">
 * `SimulRPi documentation`_
+* `SimulRPi changelog`_
 * `SimulRPi PyPI`_
 </host>
 <host name="pypi">
 * `SimulRPi documentation`_
+* `SimulRPi changelog`_
 * `SimulRPi GitHub`_: source code
 </host>
 <host name="readthedocs">
@@ -672,20 +674,18 @@ References
 .. _pynput: https://pynput.readthedocs.io/
 <host name="github, pypi">
 .. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
+.. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup
+.. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
+.. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
 </host>
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
-<host name="github, pypi">
-.. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup
-</host>
 .. _PyPI: https://pypi.org/project/SimulRPi/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-<host name="github, pypi">
-.. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
-</host>
+
 <host name="readthedocs">
 .. 2. Internal links
 .. _code examples: #examples-label
