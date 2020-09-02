@@ -4,16 +4,13 @@
 It simulates these I/O devices connected to a Raspberry Pi:
 
     - push buttons by listening to pressed keyboard keys and
-    - LEDs by displaying small circles blinking on the terminal along with \
-    their GPIO pin number.
+    - LEDs by displaying red dots blinking in the terminal along with
+      their GPIO pin number.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The
 package `pynput`_ is used to monitor the keyboard for any pressed key.
 
-..
-    TODO: also found in README_docs
-
-.. highlight:: none
+.. TODO: also found in README_docs
 
 **Example: terminal output** ::
 
@@ -35,13 +32,12 @@ associated GPIO pin number.
     `let me know through SimulRPi's issues page`_ if you want me to add more
     things to this library.
 
-..
-    TODO: also found in README_docs.rst
+.. TODO: also found in README_docs.rst
 
-.. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
+.. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _RPi.GPIO wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 
@@ -447,8 +443,8 @@ class Manager:
         The reverse dictionary of :attr:`key_to_channel_map`. It maps channels
         to keys.
     th_display_leds : threading.Thread
-        Thread responsible for displaying small blinking circles on the
-        terminal as to simulate LEDs connected to an RPi.
+        Thread responsible for displaying blinking red dots in the terminal as
+        to simulate LEDs connected to an RPi.
     th_listener : keyboard.Listener
         Thread responsible for listening on any pressed or released key as to
         simulate push buttons connected to an RPi.
@@ -561,24 +557,23 @@ class Manager:
                     {ch_number: attribute_value})
 
     def display_leds(self):
-        """Simulate LEDs on an RPi by blinking small circles on a terminal.
+        """Simulate LEDs connected to an RPi by blinking red dots in a terminal.
 
-        In order to simulate LEDs turning on/off on an RPi, small circles are
-        blinked on the terminal along with their GPIO pin number.
+        In order to simulate LEDs turning on/off on an RPi, red dots are blinked
+        in the terminal along with their GPIO pin number.
 
-        When a LED is turned on, it is shown as a small red circle on the
-        terminal.
+        When a LED is turned on, it is shown as a red dot in the terminal.
 
         .. highlight:: none
 
         **Example: terminal output** ::
 
-            o [11]   o [9]   o [10]
+            ⬤ [9]   ⬤ [10]   🔴 [11]
 
         .. highlight:: python
 
-        where each circle represents a LED (here they are all turned off) and
-        the number between brackets is the associated GPIO pin number.
+        where each dot represents a LED and the number between brackets is the
+        associated GPIO pin number.
 
         .. note::
 
@@ -1241,9 +1236,9 @@ def setmode(mode):
 def setprinting(enable_printing):
     """Enable printing on the terminal.
 
-    If printing is enabled, small blinking red circles will be shown on the
-    terminal, simulating LEDs connected to a Raspberry Pi. Otherwise, nothing
-    will be printed on the terminal.
+    If printing is enabled, blinking red dots will be shown in the terminal,
+    simulating LEDs connected to a Raspberry Pi. Otherwise, nothing will be
+    printed in the terminal.
 
     Parameters
     ----------
