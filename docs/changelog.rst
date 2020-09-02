@@ -1,9 +1,53 @@
 =========
 Changelog
 =========
-
-0.0.1a0
+0.1.0a0
 =======
+.. _default-led-symbols-label:
+
+* The default LED symbols are now big non-ASCII signs::
+
+   🛑 : LED turned ON
+   ⚪ : LED turned OFF
+
+  **NOTE:** They can be modified with :meth:`GPIO.setdefaultsymbols`
+
+* LED symbols for each channel can be modified with :meth:`GPIO.setsymbols`
+* Channel names can now be displayed instead of channel numbers in the terminal::
+
+   🛑  [LED 1]        🛑  [LED 2]        🛑  [LED 3]        ⬤  [lightsaber]
+* New attributes:
+
+  * :attr:`Pin.channel_id`: unique identifier
+  * :attr:`Pin.channel_name`: displayed in the terminal along each LED symbol
+  * :attr:`Pin.channel_number`: used to be called ``channel``
+  * :attr:`Pin.led_symbols`: each pin (aka channel) is represented by a LED
+    symbol if it is an output channel
+  * :attr:`Manager.default_led_symbols`: by default these are the
+    `LED symbols`_ used to represent each GPIO channel in the terminal
+
+* New functions:
+
+  * :meth:`GPIO.setchannelnames`: set multiple channels' names
+  * :meth:`GPIO.setchannels`: set multiple channels' attributes (e.g.
+    ``channel_name`` and ``led_symbols``)
+  * :meth:`GPIO.setdefaultsymbols`: change the default LED symbols
+  * :meth:`GPIO.setsymbols`: set multiple channels' LED symbols
+
+* :class:`GPIO.ExceptionThread`: if there is an exception raised in
+  :meth:`GPIO.Manager.display_leds()`, it is now possible to catch it in a main
+  thread
+
+* :mod:`run_examples`: all simulation-based examples involving "LEDs" and
+  pressing keyboard keys worked on the RPi OS (Debian-based)
+
+.. note::
+
+  These lists are not exhaustive, only the most important attributes and
+  functions are mentionned. See the `API reference`_ for more info.
+
+0.0.1a0 (Aug 14, 2020)
+======================
 * In ``SimulRPi.GPIO``, the package ``pynput`` is not required anymore. If it
   is not found, all keyboard-related functionalities from the ``SimulRPi``
   library will be skipped. Thus, no keyboard keys will be detected if pressed
@@ -19,8 +63,8 @@ Changelog
 
 * Started writing unit tests
 
-0.0.0a0
-=======
+0.0.0a0 (Aug 9, 2020)
+=====================
 * First version
 
 * Tested `code examples`_ on different platforms and here are the results
@@ -43,3 +87,5 @@ Changelog
 
 .. 2. Internal links
 .. _code examples: README_docs.html#examples-label
+.. _LED symbols: #default-led-symbols-label
+.. _API reference: api_reference.html
