@@ -476,6 +476,7 @@ To uninstall the package ``SimulRPi`` and its dependency::
 Resources
 =========
 * `SimulRPi documentation`_
+* `SimulRPi changelog`_
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
@@ -493,12 +494,14 @@ References
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
 .. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
-.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup
+.. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
+.. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
+.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _PyPI: https://pypi.org/project/SimulRPi/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-.. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
+
