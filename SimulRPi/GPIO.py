@@ -46,6 +46,8 @@ import copy
 import logging
 import os
 import threading
+import time
+from contextlib import contextmanager
 from logging import NullHandler
 
 try:
@@ -78,15 +80,54 @@ MODES = {'BOARD': BOARD, 'BCM': BCM}
 
 
 class ExceptionThread(threading.Thread):
+    """A subclass from :class:`threading.Thread` that defines threads that can
+    catch errors if their target functions raise an exception.
+
+    Attributes
+    ----------
+    exception_raised : bool
+        TODO
+    exc: :class:`Exception`
+        Represent the exception raised by the target function.
+
+    References
+    ----------
+    * `stackoverflow <https://stackoverflow.com/a/51270466>`__
+
+    """
+
     def __init__(self, *args, **kwargs):
         threading.Thread.__init__(self, *args, **kwargs)
+        self.exception_raised = False
         self.exc = None
 
     def run(self):
+        """Method representing the thread’s activity.
+
+        Overridden from the base class :class:`threading.Thread`. This method
+        invokes the callable object passed to the object’s constructor as the
+        target argument, if any, with sequential and keyword arguments taken
+        from the args and kwargs arguments, respectively.
+
+        It also saves and logs any error that the target function might raise.
+
+        """
         try:
             self._target(*self._args, **self._kwargs)
         except Exception as e:
             self.exc = e
+
+
+if keyboard:
+    class KeyboardExceptionThread(keyboard.Listener):
+        """TODO
+
+        """
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.exception_raised = False
+            self.exc = None
 
 
 # TODO: change to Channel?
@@ -306,36 +347,54 @@ class PinDB:
         else:
             return False
 
-    def set_pin_name_from_channel(self, channel_number, name):
-        """TODO
+    def set_pin_name_from_channel(self, channel_number, channel_name):
+        """Set a :class:`Pin`\'s channel name from a given channel number.
+
+        A :class:`Pin` is retrieved based on a given channel, then its
+        :attr:`channel_name` is set with `channel_name`.
 
         Parameters
         ----------
-        channel_number
-        name
+        channel_number : int
+            GPIO channel number associated with the :class:`Pin` whose channel
+            name will be set.
+        channel_name : str
+            The new channel name that a :class:`Pin` will be updated with.
 
         Returns
         -------
+        retval : bool
+            Returns `True` if the :class:`Pin` was successfully set with
+            `channel_name`. Otherwise, it returns `False`.
 
         """
         pin = self.get_pin_from_channel(channel_number)
         if pin:
             # TODO: only update name if the name is different from the actual
-            pin.name = name
+            pin.channel_name = channel_name
             return True
         else:
             return False
 
     def set_pin_id_from_channel(self, channel_number, channel_id):
-        """TODO
+        """Set a :class:`Pin`\'s channel id from a given channel number.
+
+        A :class:`Pin` is retrieved based on a given channel, then its
+        :attr:`channel_id` is set with `channel_id`.
 
         Parameters
         ----------
-        channel_number
-        channel_id
+        channel_number : int
+            GPIO channel number associated with the :class:`Pin` whose channel
+            id will be set.
+        channel_id : str
+            The new channel id that a :class:`Pin` will be updated with.
 
         Returns
         -------
+        retval : bool
+            Returns `True` if the :class:`Pin` was successfully set with
+            `channel_id`. Otherwise, it returns `False`.
 
         """
         pin = self.get_pin_from_channel(channel_number)
@@ -363,8 +422,7 @@ class PinDB:
         -------
         retval : bool
             Returns `True` if the :class:`Pin` was successfully set with
-            `state`. Otherwise, it returns `False` because the pin doesn't
-            exist based on the given `channel`.
+            `state`. Otherwise, it returns `False`.
 
         """
         pin = self.get_pin_from_channel(channel_number)
@@ -392,8 +450,7 @@ class PinDB:
         -------
         retval : bool
             Returns `True` if the :class:`Pin` was successfully set with
-            `state`. Otherwise, it returns `False` because the pin doesn't
-            exist based on the given `key`.
+            `state`. Otherwise, it returns `False`.
 
         """
         pin = self.get_pin_from_key(key)
@@ -405,15 +462,25 @@ class PinDB:
             return False
 
     def set_pin_symbols_from_channel(self, channel_number, led_symbols):
-        """TODO
+        """Set a :class:`Pin`\'s led symbols from a given channel.
+
+        A :class:`Pin` is retrieved based on a given key, then its
+        :attr:`state` is set with `state`.
 
         Parameters
         ----------
-        channel_number
-        led_symbols
-
+        channel_number : int
+            GPIO channel number associated with the :class:`Pin` whose state
+            will be set.
+        led_symbols : dict
+            It is a dictionary defining the symbols to be used when the LED is
+            turned ON and OFF. See :class:`Pin` for more info about this
+            attribute.
         Returns
         -------
+        retval : bool
+            Returns `True` if the :class:`Pin` was successfully set with
+            `led_symbols`. Otherwise, it returns `False`.
 
         """
         pin = self.get_pin_from_channel(channel_number)
@@ -449,7 +516,15 @@ class Manager:
     pin_db : PinDB
         A :class:`Pin` database. See :class:`PinDB` on how to access it.
     default_led_symbols : dict
-        A dictionary that maps ... TODO
+        A dictionary that maps each output channel's state ('ON' and 'OFF') to
+        a LED symbol.
+
+        **Example**::
+
+            {
+                "ON": "🛑",
+                "OFF": "⚪"
+            }
     key_to_channel_map : dict
         A dictionary that maps keyboard keys (:obj:`string`) to GPIO channel
         numbers (:obj:`int`). By default, it takes the keys and values defined
@@ -509,7 +584,7 @@ class Manager:
                                                target=self.display_leds,
                                                args=())
         if keyboard:
-            self.th_listener = keyboard.Listener(
+            self.th_listener = KeyboardExceptionThread(
                 on_press=self.on_press,
                 on_release=self.on_release)
             self.th_listener.name = "thread_listener"
@@ -556,15 +631,41 @@ class Manager:
             pull_up_down=pull_up_down,
             initial=initial)
 
-    def bulk_channel_update(self, new_channel_info):
-        """TODO
+    def bulk_channel_update(self, new_channels_attributes):
+        """Update multiple GPIO channels' attributes (e.g. `channel_name` and
+        `led_symbols`).
+
+        If a `channel_number` is associated with a not yet created :class:`Pin`,
+        the corresponding attributes will be temporary saved for later when the
+        pin object will be created with :meth:`add_pin`.
 
         Parameters
         ----------
-        new_channel_info
+        new_channels_attributes : dict
+            A dictionary mapping channel numbers (:obj:`int`) with channels'
+            attributes (:obj:`dict`). The accepted attributes are those
+            specified in :meth:`setchannels`.
+
+            **Example**::
+
+                {
+                    1: {
+                        'channel_id': 'channel1',
+                        'channel_name': 'The Channel 1',
+                        'led_symbols': {
+                            'ON': '🛑',
+                            'OFF': '⚪'
+                        }
+                    }.
+                    2: {
+                        'channel_id': 'channel2',
+                        'channel_name': 'The Channel 2',
+                        'key': 'cmd_r'
+                    }
+                }
 
         """
-        for ch_number, ch_attributes in new_channel_info.items():
+        for ch_number, ch_attributes in new_channels_attributes.items():
             for attribute_name, attribute_value in ch_attributes.items():
                 self._update_attribute_pins(
                     attribute_name,
@@ -589,6 +690,9 @@ class Manager:
         where each dot represents a LED and the number between brackets is the
         associated GPIO pin number.
 
+        This is the target function for the displaying thread
+        :attr:`th_display_leds`.
+
         .. note::
 
             If :attr:`enable_printing` is set to `True`, the terminal's cursor
@@ -597,6 +701,12 @@ class Manager:
 
             The reason is to avoid messing with the display of LEDs by the
             displaying thread :attr:`th_display_leds`.
+
+        .. note::
+
+            Since the displaying thread :attr:`th_display_leds` is an
+            :class:`ExceptionThread` object, it has the attribute ``exc`` which
+            stores the exception raised by this target function.
 
         .. important::
 
@@ -608,7 +718,7 @@ class Manager:
 
             .. code-block:: python
 
-                th = threading.Thread(target=self.display_leds, args=())
+                th = ExceptionThread(target=self.display_leds, args=())
                 th.start()
 
                 # Your other code ...
@@ -629,6 +739,7 @@ class Manager:
         while getattr(th, "do_run", True):
             leds = ""
             last_msg_length = len(leds) if leds else 0
+            # test = 1/0
             # for channel in sorted(self.channel_output_state_map):
             for pin in self.pin_db.output_pins:
                 channel = pin.channel_number
@@ -717,7 +828,11 @@ class Manager:
             **Ref.:** https://bit.ly/3k4whEs
 
         """
-        self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=LOW)
+        try:
+            # test = 1/0
+            self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=LOW)
+        except Exception as e:
+            self.th_listener.exc = e
 
     def on_release(self, key):
         """When a valid keyboard key is released, set its state to `GPIO.HIGH`.
@@ -743,7 +858,11 @@ class Manager:
             **Ref.:** https://bit.ly/3k4whEs
 
         """
-        self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
+        try:
+            # test = 1/0
+            self.pin_db.set_pin_state_from_key(self.get_key_name(key), state=HIGH)
+        except Exception as e:
+            self.th_listener.exc = e
 
     def update_channel_names(self, new_channel_names):
         """TODO
@@ -803,7 +922,7 @@ class Manager:
             Dictionary that maps keys (:obj:`str`) to their new GPIO channels
             (:obj:`int`).
 
-            **For example**::
+            **Example**::
 
                 "key_to_channel_map":
                 {
@@ -1054,6 +1173,7 @@ def cleanup():
             :class:`Manager`)
 
     """
+    # NOTE: global since we are deleting it at the end
     global manager
     # Show cursor again
     # TODO: works on UNIX shell only, not Windows
@@ -1099,9 +1219,11 @@ def input(channel_number):
         not alive, i.e. it is not already running.
 
     """
-    # Start the listener thread only if it not already alive
-    if manager.th_listener and not manager.th_listener.is_alive():
-        manager.th_listener.start()
+    # Start the listener thread only if it is not already alive
+    if manager.th_listener:
+        if not manager.th_listener.exc and not manager.th_listener.is_alive():
+            manager.th_listener.start()
+        _raise_if_thread_exception(manager.th_listener.name)
     return manager.pin_db.get_pin_state(channel_number)
 
 
@@ -1133,11 +1255,7 @@ def output(channel_number, state):
     if not manager.th_display_leds.exc and \
             not manager.th_display_leds.is_alive():
         manager.th_display_leds.start()
-    if manager.th_display_leds.exc and manager.th_display_leds.exc != "exception_found":
-        # Happens when error in Manager.display_leds()
-        exc = manager.th_display_leds.exc
-        manager.th_display_leds.exc = "exception_found"
-        raise exc
+    _raise_if_thread_exception(manager.th_display_leds.name)
 
 
 def setchannelnames(channel_names):
@@ -1159,22 +1277,22 @@ def setchannels(gpio_channels):
     gpio_channels
 
     """
-    pins_info = {}
+    channels_attributes = {}
     key_maps = {}
     for gpio_ch in gpio_channels:
         channel_id = gpio_ch['channel_id']
         channel_name = gpio_ch.get('channel_name')
-        channel_number = gpio_ch.get('channel_number')
+        channel_number = int(gpio_ch.get('channel_number'))
         led_symbols = gpio_ch.get('led_symbols')
-        pins_info.setdefault(channel_number, {})
-        pins_info[channel_number] = {
+        channels_attributes.setdefault(channel_number, {})
+        channels_attributes[channel_number] = {
             'channel_id': channel_id,
             'channel_name': channel_name,
             'led_symbols': led_symbols
         }
         if gpio_ch.get('key'):
             key_maps.update({gpio_ch.get('key'): channel_number})
-    manager.bulk_channel_update(pins_info)
+    manager.bulk_channel_update(channels_attributes)
     setkeymap(key_maps)
 
 
@@ -1331,3 +1449,30 @@ def setwarnings(show_warnings):
 
     """
     manager.warnings = show_warnings
+
+
+@contextmanager
+def wait(timeout=2):
+    start = time.time()
+    while True:
+        if not manager.th_display_leds.is_alive() or \
+                (manager.th_listener and not manager.th_listener.is_alive()) or \
+                (time.time() - start > timeout):
+            _raise_if_thread_exception('all')
+            break
+    yield
+    logger.debug("Finished waiting for completion")
+
+
+def _raise_if_thread_exception(which_threads):
+    if which_threads in [manager.th_display_leds.name, 'all']:
+        if manager.th_display_leds.exc and \
+                not manager.th_display_leds.exception_raised:
+            # Happens when error in Manager.display_leds()
+            manager.th_display_leds.exception_raised = True
+            raise manager.th_display_leds.exc
+    if manager.th_listener and which_threads in [manager.th_listener.name, 'all']:
+        if manager.th_listener.exc and not manager.th_listener.exception_raised:
+            # Happens when error in Manager.on_press() and/or Manager.on_release()
+            manager.th_listener.exception_raised = True
+            raise manager.th_listener.exc
