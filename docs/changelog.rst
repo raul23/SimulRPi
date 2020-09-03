@@ -10,7 +10,8 @@ Changelog
    🛑 : LED turned ON
    ⚪ : LED turned OFF
 
-  **NOTE:** They can be modified with :meth:`GPIO.setdefaultsymbols`
+  **NOTE:** the default symbols used by all GPIO channels can be modified with
+  :meth:`GPIO.setdefaultsymbols`
 
 * LED symbols for each channel can be modified with :meth:`GPIO.setsymbols`
 * Channel names can now be displayed instead of channel numbers in the terminal::
@@ -33,10 +34,19 @@ Changelog
     ``channel_name`` and ``led_symbols``)
   * :meth:`GPIO.setdefaultsymbols`: change the default LED symbols
   * :meth:`GPIO.setsymbols`: set multiple channels' LED symbols
+  * :meth:`GPIO.wait`: wait for the threads to do their tasks and raises an
+    exception if there is an error in a thread's target function. It can be
+    used as a context manager.
 
-* :class:`GPIO.ExceptionThread`: if there is an exception raised in
-  :meth:`GPIO.Manager.display_leds()`, it is now possible to catch it in a main
-  thread
+* The displaying thread is now an instance of :class:`GPIO.ExceptionThread`.
+  Thus, if there is an exception raised in :meth:`GPIO.Manager.display_leds()`,
+  it is now possible to catch it in a main thread
+
+* The keyboard listener thread is now an instance of
+  ``GPIO.KeyboardExceptionThread`` (a subclass of
+  :class:`pynput.keyboard.Listener`). Thus, if there an exception raised in
+  :meth:`GPIO.Manager.on_press` or :meth:`GPIO.Manager.on_release`, it is now
+  possible to catch it in a main thread
 
 * :mod:`run_examples`: all simulation-based examples involving "LEDs" and
   pressing keyboard keys worked on the RPi OS (Debian-based)

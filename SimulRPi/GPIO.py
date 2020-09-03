@@ -1567,8 +1567,8 @@ def setwarnings(show_warnings):
 def wait(timeout=2):
     """Wait for certain events to complete.
 
-    Wait for one of the threads to stop if there was an exception caught by the
-    thread. If an exception did occurred, then it is raised here.
+    Wait for the threads to do their tasks. If there was an exception caught by
+    one thread, then it is raised here.
 
     If more than ``timeout`` seconds elapsed without any of the events
     described previously happening, the function yields.
