@@ -26,8 +26,11 @@ README
    :target: https://travis-ci.org/raul23/SimulRPi
    :alt: Build Status
 
-<host name="github, readthedocs">
+<host name="github">
 **SimulRPi** is a Python library that partly fakes
+</host>
+<host name="readthedocs">
+**SimulRPi** (|version|) is a Python library that partly fakes
 </host>
 <host name="pypi">
 **SimulRPi** is a library that partly fakes

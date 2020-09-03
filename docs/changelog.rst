@@ -1,6 +1,11 @@
 =========
 Changelog
 =========
+
+.. contents::
+   :depth: 2
+   :local:
+
 0.1.0a0
 =======
 .. _default-led-symbols-label:

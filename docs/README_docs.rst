@@ -16,7 +16,7 @@ README
    :target: https://travis-ci.org/raul23/SimulRPi
    :alt: Build Status
 
-**SimulRPi** is a Python library that partly fakes
+**SimulRPi** (|version|) is a Python library that partly fakes
 `RPi.GPIO`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
