@@ -463,8 +463,8 @@ The command line for reproducing the same results for example 5 with the script
    See also the documentation for `SimulRPi.mapping`_ where the default keymap
    is defined.
 
-How to uninstall
-================
+How to uninstall 😞
+===================
 To uninstall **only** the package ``SimulRPi``::
 
    $ pip uninstall simulrpi
