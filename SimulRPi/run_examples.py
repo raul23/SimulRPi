@@ -415,6 +415,8 @@ def main():
                                     args.time_leds_off)
         else:
             print("Example # {} not found".format(args.example_number))
+        if hasattr(GPIO, 'wait'):
+            GPIO.wait()
     except Exception:
         retcode = 1
         traceback.print_exc()
@@ -427,7 +429,7 @@ def main():
         # time.sleep(0.1)
         # print("\nExiting...")
         # print("Cleanup...                               ")
-        # Cleanup will be performed after each code example's function exists
+        # Cleanup will be performed after each code example's function exits
         # or when there is an exception (including ctrl+c = KeyboardInterrupt)
         GPIO.cleanup()
         return retcode
