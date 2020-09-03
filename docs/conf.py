@@ -15,6 +15,8 @@ import sys
 sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('../SimulRPi'))
 
+from SimulRPi import __version__
+
 
 # -- Project information -----------------------------------------------------
 
@@ -23,7 +25,8 @@ copyright = '2020, Raul C.'
 author = 'Raul C.'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = __version__
+version = __version__
 
 
 # -- General configuration ---------------------------------------------------
