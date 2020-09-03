@@ -18,10 +18,6 @@ SimulRPi's documentation
 `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
-.. rst-class:: center
-
-This paragraph will be centered.
-
 .. raw:: html
 
    <div align="center">
