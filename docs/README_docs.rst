@@ -78,8 +78,8 @@ Dependencies
 
 .. _installation-instructions-label:
 
-Installation instructions
-=========================
+Installation instructions 😎
+============================
 .. highlight:: none
 
 1. Make sure to update *pip*::
