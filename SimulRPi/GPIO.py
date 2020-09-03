@@ -33,7 +33,9 @@ associated GPIO pin number.
     things to this library.
 
 .. TODO: also found in README_docs.rst
+.. TODO: IMPORTANT check URL to config file
 
+.. _here: https://github.com/raul23/Darth-Vader-RPi/blob/master/darth_vader_rpi/configs/default_main_cfg.json#L11
 .. _let me know through SimulRPi's issues page:
     https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
@@ -86,7 +88,8 @@ class ExceptionThread(threading.Thread):
     Attributes
     ----------
     exception_raised : bool
-        TODO
+        When the exception is raised, it should be set to `True`. By default, it
+        is `False`.
     exc: :class:`Exception`
         Represent the exception raised by the target function.
 
@@ -112,6 +115,10 @@ class ExceptionThread(threading.Thread):
         It also saves and logs any error that the target function might raise.
 
         """
+        # NOTE: if the exception is raised here, instead of output or wait(),
+        # other threads that call output will try to start this thread again
+        # (which is not alive anymore) and a RuntimeError exception will be
+        # raised
         try:
             self._target(*self._args, **self._kwargs)
         except Exception as e:
@@ -120,7 +127,8 @@ class ExceptionThread(threading.Thread):
 
 if keyboard:
     class KeyboardExceptionThread(keyboard.Listener):
-        """TODO
+        """A subclass from :class:`pynput.keyboard.Listener` that defines
+        threads that store the exception raised in their target function.
 
         """
 
@@ -148,7 +156,7 @@ class Pin:
         available. Otherwise, the ``channel_number`` is shown. By default, its
         value is :obj:`None`.
     key : str or None, optional
-        Keyboard key associated with the GPIO channel, e.g. "k".
+        Keyboard key associated with the GPIO channel, e.g. "cmd_r".
     led_symbols : dict, optional
         It should only be defined for output channels. It is a dictionary
         defining the symbols to be used when the LED is turned ON and OFF. If
@@ -158,8 +166,8 @@ class Pin:
         **Example**::
 
             {
-                "ON": "🛑",
-                "OFF": "⚪"
+                "ON": "🔵",
+                "OFF": "⚪ "
             }
 
     pull_up_down : int or None, optional
@@ -653,8 +661,8 @@ class Manager:
                         'channel_id': 'channel1',
                         'channel_name': 'The Channel 1',
                         'led_symbols': {
-                            'ON': '🛑',
-                            'OFF': '⚪'
+                            'ON': '🔵',
+                            'OFF': '⚪ '
                         }
                     }.
                     2: {
@@ -865,29 +873,44 @@ class Manager:
             self.th_listener.exc = e
 
     def update_channel_names(self, new_channel_names):
-        """TODO
+        """Update multiple channels' names.
+
+        If a `channel_number` is associated with a not yet created :class:`Pin`,
+        the corresponding `channel_name` will be temporary saved for later when
+        the pin object will be created with :meth:`add_pin`.
 
         Parameters
         ----------
         new_channel_names : dict
-            Dictionary that maps channel number to channel name.
+            Dictionary that maps channel numbers (:obj:`int`) to channel names
+            (:obj:`str`).
 
-        Returns
-        -------
+            **Example**::
+
+                {
+                    1: "The Channel 1",
+                    2: "The Channel 2"
+                }
 
         """
         # TODO: assert on new_channel_names
         self._update_attribute_pins('channel_name', new_channel_names)
 
     def update_default_led_symbols(self, new_default_led_symbols):
-        """TODO
+        """Update the default LED symbols used by all GPIO channels.
 
         Parameters
         ----------
-        new_default_led_symbols
+        new_default_led_symbols : dict
+            Dictionary that maps each output state (:obj:`str`, {'`ON`',
+            '`OFF`'}) to the LED symbol (:obj:`str`).
 
-        Returns
-        -------
+            **Example**::
+
+                {
+                    'ON': '🔵',
+                    'OFF': '⚪ '
+                }
 
         """
         # TODO: assert on new_led_symbols
@@ -895,14 +918,30 @@ class Manager:
         self.default_led_symbols.update(new_default_led_symbols)
 
     def update_led_symbols(self, new_led_symbols):
-        """TODO
+        """Update multiple channels' LED symbols.
+
+        If a `channel_number` is associated with a not yet created :class:`Pin`,
+        the corresponding LED symbols will be temporary saved for later when
+        the pin object will be created with :meth:`add_pin`.
 
         Parameters
         ----------
-        new_led_symbols
+        new_led_symbols : dict
+            Dictionary that maps channel numbers (:obj:`int`) to LED symbols
+            (:obj:`dict`).
 
-        Returns
-        -------
+            **Example**::
+
+                {
+                    1: {
+                        'ON': '🔵',
+                        'OFF': '⚪ '
+                    },
+                    2: {
+                        'ON': '🔵',
+                        'OFF': '⚪ '
+                    }
+                }
 
         """
         # TODO: assert on new_led_symbols
@@ -1241,17 +1280,20 @@ def output(channel_number, state):
 
     Raises
     ------
-        TODO
+    Exception
+        If the displaying thread caught an exception that occurred in its
+        target function, the said exception will be raised here.
 
 
     .. note::
 
         The displaying thread (for showing "LEDs" on the terminal) is started
-        if it is not alive, i.e. it is not already running.
+        if there is no exception caught by the thread and if it is not alive,
+        i.e. it is not already running.
 
     """
     manager.pin_db.set_pin_state_from_channel(channel_number, state)
-    # Start the displaying thread only if it not already alive
+    # Start the displaying thread only if it is not already alive
     if not manager.th_display_leds.exc and \
             not manager.th_display_leds.is_alive():
         manager.th_display_leds.start()
@@ -1259,22 +1301,68 @@ def output(channel_number, state):
 
 
 def setchannelnames(channel_names):
-    """TODO
+    """Set multiple channels' names.
+
+    The channel names will be displayed in the terminal along each LED symbol.
+    If no channel name given, then the channel number will be shown.
 
     Parameters
     ----------
-    channel_names
+    channel_names : dict
+        Dictionary that maps channel numbers (:obj:`int`) to channel names
+        (:obj:`str`).
+
+        **Example**::
+
+            {
+                1: "The Channel 1",
+                2: "The Channel 2"
+            }
 
     """
     manager.update_channel_names(channel_names)
 
 
 def setchannels(gpio_channels):
-    """TODO
+    """Set multiple channels' attributes (e.g. `channel_name` and `led_symbols`).
+
+    The attributes that can be updated for a given GPIO channel are:
+
+        * ``channel_id``: unique identifier
+        * ``channel_name``: will be shown along the LED symbol in the terminal
+        * ``channel_number``: GPIO channel number based on the numbering system
+          you have specified (`BOARD` or `BCM`).
+        * ``led_symbols``: should only be defined for output channels. It is a
+          dictionary defining the symbols to be used when the LED is turned ON
+          and OFF.
+        * ``key``: keyboard key associated with a channel, e.g. "cmd_r".
 
     Parameters
     ----------
-    gpio_channels
+    gpio_channels : list
+        A list where each item is a dictionary defining the attributes for a
+        given GPIO channel. This list corresponds to the main configuration's
+        setting `gpio_channels` (See `here`_).
+
+        **Example**::
+
+            [
+                {
+                    "channel_id": "lightsaber_button",
+                    "channel_name": "lightsaber_button",
+                    "channel_number": 23,
+                    "key": "cmd"
+                },
+                {
+                    "channel_id": "lightsaber_led",
+                    "channel_name": "lightsaber",
+                    "channel_number": 22,
+                    "led_symbols": {
+                        "ON": "\\033[1;31;48m⬤\\033[1;37;0m",
+                        "OFF": "⬤"
+                    }
+                }
+            ]
 
     """
     channels_attributes = {}
@@ -1297,11 +1385,20 @@ def setchannels(gpio_channels):
 
 
 def setdefaultsymbols(default_led_symbols):
-    """TODO
+    """Set the default LED symbols used by all GPIO channels.
 
     Parameters
     ----------
-    default_led_symbols
+    default_led_symbols : dict
+        Dictionary that maps each output state (:obj:`str`, {'`ON`',
+        '`OFF`'}) to the LED symbol (:obj:`str`).
+
+        **Example**::
+
+            {
+                'ON': '🔵',
+                'OFF': '⚪ '
+            }
 
     """
     manager.update_default_led_symbols(default_led_symbols)
@@ -1383,11 +1480,26 @@ def setprinting(enable_printing):
 
 
 def setsymbols(led_symbols):
-    """TODO
+    """Set multiple channels' LED symbols.
 
     Parameters
     ----------
-    led_symbols
+    led_symbols : dict
+        Dictionary that maps channel numbers (:obj:`int`) to LED symbols
+        (:obj:`dict`).
+
+        **Example**::
+
+            {
+                1: {
+                    'ON': '🔵',
+                    'OFF': '⚪ '
+                },
+                2: {
+                    'ON': '🔵',
+                    'OFF': '⚪ '
+                }
+            }
 
     """
     manager.update_led_symbols(led_symbols)
@@ -1453,6 +1565,40 @@ def setwarnings(show_warnings):
 
 @contextmanager
 def wait(timeout=2):
+    """Wait for certain events to complete.
+
+    Wait for one of the threads to stop if there was an exception caught by the
+    thread. If an exception did occurred, then it is raised here.
+
+    If more than ``timeout`` seconds elapsed without any of the events
+    described previously happening, the function yields.
+
+    Parameters
+    ----------
+    timeout : float
+        How long to wait (in seconds) before exiting from this function. By
+        default, we wait for 2 seconds.
+
+
+    .. note::
+
+        This function can be used as a context manager::
+
+            try:
+                with GPIO.wait():
+                    do_something_with_gpio_api()
+            except Exception as e:
+                # Do something with error
+
+        Or without the ``with`` statement::
+
+            try:
+                do_something_with_gpio_api()
+                GPIO.wait()
+            except Exception as e:
+                # Do something with error
+
+    """
     start = time.time()
     while True:
         if not manager.th_display_leds.is_alive() or \
@@ -1461,7 +1607,7 @@ def wait(timeout=2):
             _raise_if_thread_exception('all')
             break
     yield
-    logger.debug("Finished waiting for completion")
+    print("Finished waiting for threads events")
 
 
 def _raise_if_thread_exception(which_threads):
