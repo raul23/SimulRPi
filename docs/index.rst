@@ -36,6 +36,7 @@ See the `README <README_docs.html>`_ for more info about the library.
    :caption: Contents
 
    README_docs
+   useful_functions
    api_reference
    changelog
    license

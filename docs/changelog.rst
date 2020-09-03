@@ -34,7 +34,7 @@ Changelog
     ``channel_name`` and ``led_symbols``)
   * :meth:`GPIO.setdefaultsymbols`: change the default LED symbols
   * :meth:`GPIO.setsymbols`: set multiple channels' LED symbols
-  * :meth:`GPIO.wait`: wait for the threads to do their tasks and raises an
+  * :meth:`GPIO.wait`: waits for the threads to do their tasks and raises an
     exception if there is an error in a thread's target function. It can be
     used as a context manager.
 
