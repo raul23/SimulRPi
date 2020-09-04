@@ -195,11 +195,11 @@ To display the script's list of options and their descriptions:
             (default: BCM)
    -s       Enable simulation mode, i.e. ``SimulRPi.GPIO`` wil be use for
             simulating ``RPi.GPIO``. (default: False)
-   -l       The GPIO channels to be used for LEDs. If an example only requires
-            1 channel, the first channel from the provided list will be used.
-            (default: [10, 11, 12])
-   -b       The GPIO channel to be used for a push button. The default value is
-            channel 20 which is associated with the keyboard key *alt_r*.
+   -l       The channel numbers to be used for LEDs. If an example only
+            requires 1 channel, the first channel from the provided list will
+            be used. (default: [10, 11, 12])
+   -b       The channel numbers to be used for a push button. The default value
+            is channel 20 which is associated with the keyboard key *alt_r*.
             (default: 13)
    -t       Total time in seconds LEDs will be blinking. (default: 4)
    -k       The name of the key associated with the button channel. The name
