@@ -8,7 +8,7 @@ partly fakes `RPi.GPIO`_.
 .. TODO: change URLs for 'SimulRPi.GPIO' to point to the real one
 
 The code examples test different parts of the library ``SimulRPi`` in order to
-show what it is capable of simulating from an RPi:
+show what it is capable of simulating from I/O devices connected to an RPi:
 
     * Turn on/off LEDs
     * Detect pressed button and perform an action
@@ -19,7 +19,7 @@ Usage
 .. highlight:: console
 
 Once the **SimulRPi** package is `installed`_, you should have access to
-the :mod:`run_examples` script::
+the script :mod:`run_examples`::
 
     $ run_examples -h
 
@@ -29,23 +29,24 @@ the :mod:`run_examples` script::
                  [-t TOTAL_TIME_BLINKING] [--on TIME_LED_ON]
                  [--off TIME_LED_OFF]
 
-Run the script on the RPi::
+Run the code for example 1 on the **RPi** with default values for the options
+``-l`` (channel 10) and ``--on`` (1 second)::
 
-    $ run_examples
+    $ run_examples -e 1
 
-Run the code for example **#1** on your computer using `SimulRPi.GPIO`_ which
-simulates `RPi.GPIO`_: and default values for the options `-l` (channel 10) and
--`-on` (1 second)::
+Run the code for example 1 on your **computer** using `SimulRPi.GPIO`_::
 
     $ run_examples -s -e 1
 
-.. _installed:
-    https://simulrpi.readthedocs.io/en/latest/README_docs.html#installation-instructions
-.. _RPi.GPIO:
-    https://pypi.org/project/RPi.GPIO/
-.. _SimulRPi: https://test.pypi.org/project/SimulRPi/
-.. _SimulRPi.GPIO: https://test.pypi.org/project/SimulRPi/
+.. URLs
+.. external links
+.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
+.. _SimulRPi: https://pypi.org/project/SimulRPi
+.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi
 .. _script's usage: #usage
+
+.. internal links
+.. _installed: README_docs.html#installation-instructions
 
 .. TODO: find if we can load the list of options from a separate file
 
