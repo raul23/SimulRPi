@@ -102,7 +102,7 @@ def ex1_turn_on_led(channel, time_led_on=3):
     Parameters
     ----------
     channel : int
-        Output GPIO channel number based on the numbering system you have
+        Output channel number based on the numbering system you have
         specified (`BOARD` or `BCM`).
     time_led_on : float, optional
         Time in seconds the LED will stay turned ON. The default value is 3
@@ -127,8 +127,8 @@ def ex2_turn_on_many_leds(channels, time_leds_on=3):
     Parameters
     ----------
     channels : list
-        List of output GPIO channel numbers based on the numbering system you
-        have specified (`BOARD` or `BCM`).
+        List of output channel numbers based on the numbering system you have
+        specified (`BOARD` or `BCM`).
     time_leds_on : float, optional
         Time in seconds the LEDs will stay turned ON. The default value is 3
         seconds.
@@ -157,8 +157,8 @@ def ex3_detect_button(channel):
     Parameters
     ----------
     channel : int
-        Input GPIO channel number based on the numbering system you have
-        specified (`BOARD` or `BCM`).
+        Input channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
 
 
     .. note::
@@ -194,8 +194,8 @@ def ex4_blink_led(channel, total_time_blinking=4, time_led_on=0.5, time_led_off=
     Parameters
     ----------
     channel : int
-        Output GPIO channel number based on the numbering system you have
-        specified (`BOARD` or `BCM`).
+        Output channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
     total_time_blinking : float, optional
         Total time in seconds the LED will be blinking. The default value is 4
         seconds.
@@ -238,11 +238,11 @@ def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=4,
     Parameters
     ----------
     led_channel : int
-        Output GPIO channel number based on the numbering system you have
-        specified (`BOARD` or `BCM`).
+        Output channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
     button_channel : int
-        Input GPIO channel number based on the numbering system you have
-        specified (`BOARD` or `BCM`).
+        Input channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
     total_time_blinking : float, optional
         Total time in seconds the LED will be blinking. The default value is 4
         seconds.
@@ -336,14 +336,14 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
     parser.add_argument(
         "-l", type=int, dest="led_channel", default=DEFAULT_LED_CHANNELS,
         nargs="*",
-        help='''The GPIO channels to be used for LEDs. If an example only 
+        help='''The channel numbers to be used for LEDs. If an example only 
         requires 1 channel, the first channel from the provided list will be 
         used.''')
     parser.add_argument(
         "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channel",
-        help='''The GPIO channel to be used for a push button. The default 
-        value is channel 20 which is associated with the key `{}`.'''.format(
-            DEFAULT_KEY_NAME))
+        help='''The channel number to be used for a push button. The default 
+        value is channel 20 which is associated with the key 
+        `{}`.'''.format(DEFAULT_KEY_NAME))
     parser.add_argument(
         "-k", default=DEFAULT_KEY_NAME, dest="key_name",
         help='''The name of the keyboard key associated with the button 
@@ -416,8 +416,10 @@ def main():
                                     args.time_leds_off)
         else:
             print("Example # {} not found".format(args.example_number))
+        """
         if hasattr(GPIO, 'wait'):
-            GPIO.wait()
+            GPIO.wait(0.5)
+        """
     except Exception:
         retcode = 1
         traceback.print_exc()
