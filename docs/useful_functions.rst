@@ -71,7 +71,7 @@ shown instead in the terminal.
 
 .. code-block:: python
    :emphasize-lines: 3-6
-   :caption: **Example:** updating channel names for two GPIO channels
+   :caption: **Example:** updating channel names for two output channels
 
    import SimulRPi.GPIO as GPIO
 
@@ -194,39 +194,195 @@ channels. It accepts as argument a dictionary that maps each output state
    }
 
 .. code-block:: python
-   :emphasize-lines: 1
-   :caption: **Example:** updating the default LED symbols
+   :emphasize-lines: 4-9
+   :caption: **Example:** updating the default LED symbols and toggling a LED
 
+      import time
       import SimulRPi.GPIO as GPIO
 
+      GPIO.setdefaultsymbols(
+         {
+             'ON': '🔵',
+             'OFF': '⚪ '
+         }
+      )
       led_channel = 11
       GPIO.setmode(GPIO.BCM)
       GPIO.setup(led_channel, GPIO.OUT)
       GPIO.output(led_channel, GPIO.HIGH)
+      time.sleep(0.5)
+      GPIO.output(led_channel, GPIO.LOW)
+      time.sleep(0.5)
       GPIO.cleanup()
+
+**Output**::
+
+  🔵   [11]
 
 ``GPIO.setkeymap``
 ==================
-:meth:`GPIO.setkeymap`
+:meth:`GPIO.setkeymap` sets the `default keymap dictionary`_ with a new mapping
+between keyboard keys and channel numbers.
+
+It takes as argument a dictionary mapping keyboard keys (:obj:`str`) to GPIO
+channel numbers (:obj:`int`)::
+
+   key_to_channel_map = {
+       "cmd": 23,
+       "alt_r": 24,
+       "ctrl_r": 25
+   }
+
+.. code-block:: python
+   :emphasize-lines: 4-6
+   :caption: **Example:** `by default`_, ``cmd_r`` is mapped to channel 17.
+             We change this mapping by associating ``ctrl r`` to channel 17.
+
+   import SimulRPi.GPIO as GPIO
+
+   channel = 17
+   GPIO.setkeymap({
+      'ctrl_r': channel
+   })
+   GPIO.setmode(GPIO.BCM)
+   GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+   print("Press key 'ctrl_r' to exit")
+   while True:
+      if not GPIO.input(channel):
+          print("Key 'ctrl_r' pressed!")
+          break
+   GPIO.cleanup()
+
+**Output**::
+
+   Press key 'ctrl_r' to exit
+   Key 'ctrl_r' pressed!
+
 
 ``GPIO.setprinting``
 ====================
-:meth:`GPIO.setprinting`
+:meth:`GPIO.setprinting` enable or disable printing the LED symbols and their
+channel names/numbers to the terminal.
+
+.. code-block:: python
+   :emphasize-lines: 3
+   :caption: **Example:** disable printing to the terminal
+
+   import SimulRPi.GPIO as GPIO
+
+   GPIO.setprinting(False)
+   led_channel = 11
+   GPIO.setmode(GPIO.BCM)
+   GPIO.setup(led_channel, GPIO.OUT)
+   GPIO.output(led_channel, GPIO.HIGH)
+   GPIO.cleanup()
 
 ``GPIO.setsymbols``
 ===================
-:meth:`GPIO.setsymbols`
+:meth:`GPIO.setsymbols` sets the LED symbols for multiple **output** channels.
+It takes as argument a dictionary mapping channel numbers (:obj:`int`) to LED symbols
+(:obj:`dict`)::
+
+   led_symbols = {
+       1: {
+           'ON': '🔵',
+           'OFF': '⚪ '
+       },
+       2: {
+           'ON': '🔵',
+           'OFF': '⚪ '
+       }
+   }
+
+There is a LED symbol for each output state (`ON` and `OFF`).
+
+.. code-block:: python
+   :emphasize-lines: 4-9
+   :caption: **Example:** set the LED symbols for a GPIO channel
+
+      import time
+      import SimulRPi.GPIO as GPIO
+
+      GPIO.setsymbols({
+         11: {
+             'ON': '🔵',
+             'OFF': '⚪ '
+         }
+      })
+      led_channel = 11
+      GPIO.setmode(GPIO.BCM)
+      GPIO.setup(led_channel, GPIO.OUT)
+      GPIO.output(led_channel, GPIO.HIGH)
+      time.sleep(0.5)
+      GPIO.output(led_channel, GPIO.LOW)
+      time.sleep(0.5)
+      GPIO.cleanup()
+
+**Output**::
+
+  🔵   [11]
 
 ``GPIO.wait``
 =============
-:meth:`GPIO.wait`
+:meth:`GPIO.wait` waits for the threads to do their tasks. If there was an
+exception caught by one of the threads, then it is raised by :meth:`GPIO.wait`.
+
+Thus it is ideal for :meth:`GPIO.wait` to be called within a ``try`` block::
+
+   try:
+       do_something_with_gpio_api()
+       GPIO.wait()
+   except Exception as e:
+       # Do something with error
+   finally:
+      GPIO.cleanup()
+
+:meth:`GPIO.wait` takes as argument the number of seconds you want to wait at
+most for the threads to accomplish their tasks.
+
+**Example:** wait for the threads to do their jobs and if there is an exception
+in one of the threads' target function, it will be caught here
+
+.. code-block:: python
+   :emphasize-lines: 12
+
+   import time
+   import SimulRPi.GPIO as GPIO
+
+   try:
+      led_channel = 11
+      GPIO.setmode(GPIO.BCM)
+      GPIO.setup(led_channel, GPIO.OUT)
+      GPIO.output(led_channel, GPIO.HIGH)
+      GPIO.wait(1)
+   except Exception as e:
+      # Could be an exception raised in a thread's target function from
+      # ``SimulRPi.GPIO``
+      print(e)
+   finally:
+      GPIO.cleanup()
+
+.. important::
+
+   If we don't use :meth:`GPIO.wait` in the previous example, we won't be able
+   to catch any exception occurring in a thread's target function since the
+   threads `simply save the exceptions`_ but don't raise them.
+
+   Also, the reason for not raising the exception within the thread's target
+   function is to avoid having another thread re-starting the failed thread by
+   calling :meth:`GPIO.output` while the main program is busy processing the
+   exception. Hence, we avoid raising a :exc:`RuntimeError` on top of the
+   thread's caught exception.
 
 .. URLs
 .. external links
-.. TODO: IMPORTANT check link to SimulRPI github
+.. TODO: IMPORTANT check links to SimulRPI github
+.. _by default: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19
 .. _gpio_channels: https://github.com/raul23/Darth-Vader-RPi/blob/master/darth_vader_rpi/configs/default_main_cfg.json#L11
 .. _GPIO channel 20: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L22
 
 .. internal links
+.. _default keymap dictionary: api_reference.html#content-default-keymap-label
+.. _simply save the exceptions: api_reference.html#GPIO.ExceptionThread.run
 .. _Combine SimulRPi with RPi.GPIO: combine_simulrpi_with_rpi_gpio.html
 .. _SimulRPi's API: api_reference.html

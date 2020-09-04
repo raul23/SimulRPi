@@ -40,8 +40,8 @@ Changelog
   * :meth:`GPIO.setdefaultsymbols`: change the default LED symbols
   * :meth:`GPIO.setsymbols`: set the LED symbols for multiple channels
   * :meth:`GPIO.wait`: waits for the threads to do their tasks and raises an
-    exception if there is an error in a thread's target function. It can be
-    used as a context manager.
+    exception if there was an error in a thread's target function. Hence, the
+    main program can catch these thread exceptions.
 
 * The displaying thread is now an instance of :class:`GPIO.ExceptionThread`.
   Thus, if there is an exception raised in :meth:`GPIO.Manager.display_leds()`,
@@ -49,7 +49,7 @@ Changelog
 
 * The keyboard listener thread is now an instance of
   ``GPIO.KeyboardExceptionThread`` (a subclass of
-  :class:`pynput.keyboard.Listener`). Thus, if there an exception raised in
+  :class:`pynput.keyboard.Listener`). Thus, if there is an exception raised in
   :meth:`GPIO.Manager.on_press` or :meth:`GPIO.Manager.on_release`, it is now
   possible to catch it in a main thread
 
