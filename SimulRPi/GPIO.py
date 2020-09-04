@@ -49,7 +49,6 @@ import logging
 import os
 import threading
 import time
-from contextlib import contextmanager
 from logging import NullHandler
 
 try:
@@ -112,13 +111,18 @@ class ExceptionThread(threading.Thread):
         target argument, if any, with sequential and keyword arguments taken
         from the args and kwargs arguments, respectively.
 
-        It also saves and logs any error that the target function might raise.
+        It also saves any error that the target function might raise.
+
+        .. important::
+
+            The exception is only caught here, not raised. The exception is
+            further raised in :meth:`GPIO.output`. The reason for not raising
+            it here is to avoid having another thread re-starting the failed
+            thread by calling :meth:`GPIO.output` while the main program is
+            busy catching the exception. Hence, we avoid raising a
+            :exc:`RuntimeError` on top of the thread's caught exception.
 
         """
-        # NOTE: if the exception is raised here, instead of output or wait(),
-        # other threads that call output will try to start this thread again
-        # (which is not alive anymore) and a RuntimeError exception will be
-        # raised
         try:
             self._target(*self._args, **self._kwargs)
         except Exception as e:
@@ -897,7 +901,7 @@ class Manager:
         self._update_attribute_pins('channel_name', new_channel_names)
 
     def update_default_led_symbols(self, new_default_led_symbols):
-        """Update the default LED symbols used by all GPIO channels.
+        """Update the default LED symbols used by all output channels.
 
         Parameters
         ----------
@@ -1240,8 +1244,8 @@ def input(channel_number):
     Parameters
     ----------
     channel_number : int
-        Input GPIO channel number based on the numbering system you have
-        specified (`BOARD` or `BCM`).
+        Input channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
 
     Returns
     -------
@@ -1273,8 +1277,8 @@ def output(channel_number, state):
     Parameters
     ----------
     channel_number : int
-        Output GPIO channel number based on the numbering system you have
-        specified (`BOARD` or `BCM`).
+        Output channel number based on the numbering system you have specified
+        (`BOARD` or `BCM`).
     state : int
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
@@ -1387,7 +1391,7 @@ def setchannels(gpio_channels):
 
 
 def setdefaultsymbols(default_led_symbols):
-    """Set the default LED symbols used by all GPIO channels.
+    """Set the default LED symbols used by all output channels.
 
     Parameters
     ----------
@@ -1419,8 +1423,8 @@ def setkeymap(key_to_channel_map):
     Parameters
     ----------
     key_to_channel_map : dict
-        A dictionary mapping keys (:obj:`str`) to GPIO channels (:obj:`int`)
-        that will be used to update the default keymap found in
+        A dictionary mapping keys (:obj:`str`) to GPIO channel numbers
+        (:obj:`int`) that will be used to update the default keymap found in
         :mod:`SimulRPi.mapping`.
 
         **For example**::
@@ -1464,7 +1468,7 @@ def setmode(mode):
 
 
 def setprinting(enable_printing):
-    """Enable printing on the terminal.
+    """Enable or disable printing to the terminal.
 
     If printing is enabled, blinking red dots will be shown in the terminal,
     simulating LEDs connected to a Raspberry Pi. Otherwise, nothing will be
@@ -1473,7 +1477,8 @@ def setprinting(enable_printing):
     Parameters
     ----------
     enable_printing : bool
-        Whether to enable printing on the terminal.
+        If `True`. printing to the terminal is enabled. Otherwise, printing
+        will be disabled.
 
     """
     # TODO: stop displaying thread too?
@@ -1481,7 +1486,7 @@ def setprinting(enable_printing):
 
 
 def setsymbols(led_symbols):
-    """Set the LED symbols for multiple channels.
+    """Set the LED symbols for multiple output channels.
 
     Parameters
     ----------
@@ -1564,7 +1569,6 @@ def setwarnings(show_warnings):
     manager.warnings = show_warnings
 
 
-@contextmanager
 def wait(timeout=2):
     """Wait for certain events to complete.
 
@@ -1572,7 +1576,7 @@ def wait(timeout=2):
     one thread, then it is raised here.
 
     If more than ``timeout`` seconds elapsed without any of the events
-    described previously happening, the function yields.
+    described previously happening, the function exits.
 
     Parameters
     ----------
@@ -1581,34 +1585,33 @@ def wait(timeout=2):
         default, we wait for 2 seconds.
 
 
-    .. note::
+    .. important::
 
-        This function can be used as a context manager::
+        This function is not called in :meth:`GPIO.cleanup` because if a thread
+        exception is raised, it will not be caught in the main program because
+        :meth:`GPIO.cleanup` is found in a ``finally`` block:
 
-            try:
-                with GPIO.wait():
-                    do_something_with_gpio_api()
-            except Exception as e:
-                # Do something with error
+        .. code-block:: python
+           :emphasize-lines: 7
 
-        Or without the ``with`` statement::
-
-            try:
-                do_something_with_gpio_api()
-                GPIO.wait()
-            except Exception as e:
-                # Do something with error
+           try:
+               do_something_with_gpio_api()
+               GPIO.wait()
+           except Exception as e:
+               # Do something with error
+           finally:
+               GPIO.cleanup()
 
     """
+    # logger.debug("Waiting after threads...")
     start = time.time()
     while True:
         if not manager.th_display_leds.is_alive() or \
-                (manager.th_listener and not manager.th_listener.is_alive()) or \
-                (time.time() - start > timeout):
+                (manager.th_listener and not manager.th_listener.is_alive()):
             _raise_if_thread_exception('all')
+        if (time.time() - start) > timeout:
             break
-    yield
-    print("Finished waiting for threads events")
+    # logger.debug("Good, no thread exception raised!")
 
 
 def _raise_if_thread_exception(which_threads):
@@ -1633,3 +1636,37 @@ def _raise_if_thread_exception(which_threads):
             # Happens when error in Manager.on_press() and/or Manager.on_release()
             manager.th_listener.exception_raised = True
             raise manager.th_listener.exc
+
+
+"""
+from contextlib import ContextDecorator
+
+
+class Wait(ContextDecorator):
+    timeout = 2
+
+    def __init__(self, timeout=2):
+        self.timeout = timeout
+
+    def __enter__(self):
+        # logger.debug("Ready")
+        return self
+
+    def __exit__(self, *exc):
+        self.timeout = Wait.timeout
+        logger.debug("Waiting after threads ({}s)...".format(self.timeout))
+        start = time.time()
+        while True:
+            if not manager.th_display_leds.is_alive() or \
+                    (manager.th_listener and not manager.th_listener.is_alive()):
+                _raise_if_thread_exception('all')
+            if (time.time() - start) > self.timeout:
+                break
+        logger.debug("No thread exceptions raised")
+        return 0
+
+@Wait()
+def wait_loop(timeout=2):
+    print(Wait.timeout)
+    Wait.timeout = timeout
+"""
