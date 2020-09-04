@@ -34,11 +34,11 @@ Changelog
 
 * New functions:
 
-  * :meth:`GPIO.setchannelnames`: set multiple channels' names
-  * :meth:`GPIO.setchannels`: set multiple channels' attributes (e.g.
-    ``channel_name`` and ``led_symbols``)
+  * :meth:`GPIO.setchannelnames`: set channels names for multiple channels
+  * :meth:`GPIO.setchannels`: set the attributes (e.g. ``channel_name`` and
+    ``led_symbols``) for multiple channels
   * :meth:`GPIO.setdefaultsymbols`: change the default LED symbols
-  * :meth:`GPIO.setsymbols`: set multiple channels' LED symbols
+  * :meth:`GPIO.setsymbols`: set the LED symbols for multiple channels
   * :meth:`GPIO.wait`: waits for the threads to do their tasks and raises an
     exception if there is an error in a thread's target function. It can be
     used as a context manager.
