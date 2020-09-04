@@ -529,7 +529,7 @@ class Manager:
 
         **Example**::
 
-            {
+            default_led_symbols = {
                 "ON": "🛑",
                 "OFF": "⚪"
             }
@@ -640,8 +640,8 @@ class Manager:
             initial=initial)
 
     def bulk_channel_update(self, new_channels_attributes):
-        """Update multiple GPIO channels' attributes (e.g. `channel_name` and
-        `led_symbols`).
+        """Update the attributes (e.g. `channel_name` and `led_symbols`) for
+        multiple channels.
 
         If a `channel_number` is associated with a not yet created :class:`Pin`,
         the corresponding attributes will be temporary saved for later when the
@@ -656,7 +656,7 @@ class Manager:
 
             **Example**::
 
-                {
+                new_channels_attributes = {
                     1: {
                         'channel_id': 'channel1',
                         'channel_name': 'The Channel 1',
@@ -873,7 +873,7 @@ class Manager:
             self.th_listener.exc = e
 
     def update_channel_names(self, new_channel_names):
-        """Update multiple channels' names.
+        """Update the channels names for multiple channels.
 
         If a `channel_number` is associated with a not yet created :class:`Pin`,
         the corresponding `channel_name` will be temporary saved for later when
@@ -887,7 +887,7 @@ class Manager:
 
             **Example**::
 
-                {
+                new_channel_names = {
                     1: "The Channel 1",
                     2: "The Channel 2"
                 }
@@ -907,7 +907,7 @@ class Manager:
 
             **Example**::
 
-                {
+                new_default_led_symbols = {
                     'ON': '🔵',
                     'OFF': '⚪ '
                 }
@@ -918,7 +918,7 @@ class Manager:
         self.default_led_symbols.update(new_default_led_symbols)
 
     def update_led_symbols(self, new_led_symbols):
-        """Update multiple channels' LED symbols.
+        """Update the LED symbols for multiple channels.
 
         If a `channel_number` is associated with a not yet created :class:`Pin`,
         the corresponding LED symbols will be temporary saved for later when
@@ -932,7 +932,7 @@ class Manager:
 
             **Example**::
 
-                {
+                new_led_symbols = {
                     1: {
                         'ON': '🔵',
                         'OFF': '⚪ '
@@ -963,8 +963,7 @@ class Manager:
 
             **Example**::
 
-                "key_to_channel_map":
-                {
+                new_keymap = {
                     "f": 24,
                     "g": 25,
                     "h": 23
@@ -1190,7 +1189,7 @@ def cleanup():
     avoid accidental damage to your RPi by shorting out the pins.
     [**Ref:** `RPi.GPIO wiki`_]
 
-    Also, the two threads responsible for displaying "LEDs" on the terminal and
+    Also, the two threads responsible for displaying "LEDs" in the terminal and
     listening for pressed/released keys are stopped.
 
     .. note::
@@ -1258,7 +1257,8 @@ def input(channel_number):
         not alive, i.e. it is not already running.
 
     """
-    # Start the listener thread only if it is not already alive
+    # Start the listener thread only if it is not already alive and there is no
+    # exception in the thread's target function
     if manager.th_listener:
         if not manager.th_listener.exc and not manager.th_listener.is_alive():
             manager.th_listener.start()
@@ -1293,7 +1293,8 @@ def output(channel_number, state):
 
     """
     manager.pin_db.set_pin_state_from_channel(channel_number, state)
-    # Start the displaying thread only if it is not already alive
+    # Start the displaying thread only if it is not already alive and there is
+    # no exception in the thread's target function
     if not manager.th_display_leds.exc and \
             not manager.th_display_leds.is_alive():
         manager.th_display_leds.start()
@@ -1301,7 +1302,7 @@ def output(channel_number, state):
 
 
 def setchannelnames(channel_names):
-    """Set multiple channels' names.
+    """Set the channel names for multiple channels
 
     The channel names will be displayed in the terminal along each LED symbol.
     If no channel name given, then the channel number will be shown.
@@ -1314,7 +1315,7 @@ def setchannelnames(channel_names):
 
         **Example**::
 
-            {
+            channel_names = {
                 1: "The Channel 1",
                 2: "The Channel 2"
             }
@@ -1324,7 +1325,8 @@ def setchannelnames(channel_names):
 
 
 def setchannels(gpio_channels):
-    """Set multiple channels' attributes (e.g. `channel_name` and `led_symbols`).
+    """Set the attributes (e.g. `channel_name` and `led_symbols`) for multiple
+    channels.
 
     The attributes that can be updated for a given GPIO channel are:
 
@@ -1346,7 +1348,7 @@ def setchannels(gpio_channels):
 
         **Example**::
 
-            [
+            gpio_channels = [
                 {
                     "channel_id": "lightsaber_button",
                     "channel_name": "lightsaber_button",
@@ -1395,7 +1397,7 @@ def setdefaultsymbols(default_led_symbols):
 
         **Example**::
 
-            {
+            default_led_symbols = {
                 'ON': '🔵',
                 'OFF': '⚪ '
             }
@@ -1417,14 +1419,13 @@ def setkeymap(key_to_channel_map):
     Parameters
     ----------
     key_to_channel_map : dict
-        A dictionary mapping keys (:obj:`str`) and GPIO channels (:obj:`int`)
+        A dictionary mapping keys (:obj:`str`) to GPIO channels (:obj:`int`)
         that will be used to update the default keymap found in
         :mod:`SimulRPi.mapping`.
 
         **For example**::
 
-            key_to_channel_map:
-            {
+            key_to_channel_map = {
                 "q": 23,
                 "w": 24,
                 "e": 25
@@ -1480,7 +1481,7 @@ def setprinting(enable_printing):
 
 
 def setsymbols(led_symbols):
-    """Set multiple channels' LED symbols.
+    """Set the LED symbols for multiple channels.
 
     Parameters
     ----------
@@ -1490,7 +1491,7 @@ def setsymbols(led_symbols):
 
         **Example**::
 
-            {
+            led_symbols = {
                 1: {
                     'ON': '🔵',
                     'OFF': '⚪ '
@@ -1611,6 +1612,16 @@ def wait(timeout=2):
 
 
 def _raise_if_thread_exception(which_threads):
+    """TODO
+
+    Parameters
+    ----------
+    which_threads
+
+    Raises
+    -------
+
+    """
     if which_threads in [manager.th_display_leds.name, 'all']:
         if manager.th_display_leds.exc and \
                 not manager.th_display_leds.exception_raised:
