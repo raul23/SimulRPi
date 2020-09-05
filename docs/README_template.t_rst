@@ -366,14 +366,14 @@ The code for the examples shown here can be also found as a script in
 
 Example 1: display 1 LED
 ------------------------
-**Example 1** consists in displaying one LED on the GPIO channel 11. Here is
+**Example 1** consists in displaying one LED on the GPIO channel 10. Here is
 the code along with the output from the terminal:
 
 .. code-block:: python
 
    import SimulRPi.GPIO as GPIO
 
-   led_channel = 11
+   led_channel = 10
    GPIO.setmode(GPIO.BCM)
    GPIO.setup(led_channel, GPIO.OUT)
    GPIO.output(led_channel, GPIO.HIGH)
@@ -398,7 +398,7 @@ the code along with the output from the terminal:
 The command line for reproducing the same results for example 1 with the script
 ``run_examples`` is the following::
 
-   $ run_examples -s -e 1 -l 11
+   $ run_examples -s -e 1 -l 10
 
 <host name="github">
 `:warning:`
