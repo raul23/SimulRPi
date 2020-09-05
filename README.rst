@@ -193,19 +193,19 @@ To display the script's list of options and their descriptions:
             (default: None)
    -m       Set the numbering system used to identify the I/O pins on an RPi.
             (default: BCM)
-   -s       Enable simulation mode, i.e. ``SimulRPi.GPIO`` wil be use for
+   -s       Enable simulation mode, i.e. ``SimulRPi.GPIO`` will be used for
             simulating ``RPi.GPIO``. (default: False)
    -l       The channel numbers to be used for LEDs. If an example only
             requires 1 channel, the first channel from the provided list will
             be used. (default: [9, 10, 11])
    -b       The channel numbers to be used for a push button. The default value
-            is channel 17 which is associated with the keyboard key *cmd_r*.
-            (default: 17)
+            is channel 17 which is associated by default with the keyboard key
+            *cmd_r*. (default: 17)
    -t       Total time in seconds LEDs will be blinking. (default: 4)
    -k       The name of the key associated with the button channel. The name
             must be one of those recognized by the module *pynput*. See the
             *SimulRPi* documentation for a list of valid key names:
-            https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *alt_r*)
+            https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *cmd_r*)
    --on     Time in seconds the LEDs will stay turned ON at a time. (default: 1)
    --off    Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
 
@@ -223,9 +223,9 @@ Let's run the code example **# 5** which blinks a LED if a specified key is
 pressed.
 
 Here is the command line for blinking a LED (on channel 22) for a total of 5
-seconds if the key ``cmd_r`` is pressed and if running in simulation::
+seconds if the key ``ctrl_r`` is pressed and if running in simulation::
 
-   $ run_examples -s -e 5 -l 22 -t 5 -k cmd_r
+   $ run_examples -s -e 5 -l 22 -t 5 -k ctrl_r
 
 **Output:**
 
@@ -452,7 +452,7 @@ along with the output from the terminal:
 The command line for reproducing the same results for example 5 with the script
 ``run_examples`` is the following::
 
-   $ run_examples -s -e 5 -t 3 -b 27
+   $ run_examples -s -e 5 -t 3 -l 10 -b 27
 
 `:information_source:`
 
