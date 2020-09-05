@@ -5,7 +5,7 @@ It simulates these I/O devices connected to a Raspberry Pi:
 
     - push buttons by listening to pressed keyboard keys and
     - LEDs by displaying red dots blinking in the terminal along with
-      their GPIO pin number.
+      their GPIO channel number.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The
 package `pynput`_ is used to monitor the keyboard for any pressed key.
@@ -19,7 +19,7 @@ package `pynput`_ is used to monitor the keyboard for any pressed key.
 .. highlight:: python
 
 where each dot represents a LED and the number between brackets is the
-associated GPIO pin number.
+associated GPIO channel number.
 
 .. important::
 
@@ -313,7 +313,7 @@ class PinDB:
 
         Returns
         -------
-        state : int or :obj:`None`
+        state : :obj:`int` or :obj:`None`
             If no :class:`Pin` could be retrieved based on the given channel
             number, then :obj:`None` is returned. Otherwise, the
             :class:`Pin`\'s state is returned: 1 (`HIGH`) or 0 (`LOW`).
@@ -329,7 +329,7 @@ class PinDB:
         """Set a :class:`Pin`\'s key from a given channel.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        :attr:`key` is set with `key`.
+        ``key`` is set with `key`.
 
         Parameters
         ----------
@@ -363,7 +363,7 @@ class PinDB:
         """Set a :class:`Pin`\'s channel name from a given channel number.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        :attr:`channel_name` is set with `channel_name`.
+        ``channel_name`` is set with `channel_name`.
 
         Parameters
         ----------
@@ -392,7 +392,7 @@ class PinDB:
         """Set a :class:`Pin`\'s channel id from a given channel number.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        :attr:`channel_id` is set with `channel_id`.
+        ``channel_id`` is set with `channel_id`.
 
         Parameters
         ----------
@@ -421,7 +421,7 @@ class PinDB:
         """Set a :class:`Pin`\'s state from a given channel.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        :attr:`state` is set with `state`.
+        ``state`` is set with `state`.
 
         Parameters
         ----------
@@ -449,7 +449,7 @@ class PinDB:
         """Set a :class:`Pin`\'s state from a given key.
 
         A :class:`Pin` is retrieved based on a given key, then its
-        :attr:`state` is set with `state`.
+        ``state`` is set with `state`.
 
         Parameters
         ----------
@@ -477,7 +477,7 @@ class PinDB:
         """Set a :class:`Pin`\'s led symbols from a given channel.
 
         A :class:`Pin` is retrieved based on a given key, then its
-        :attr:`state` is set with `state`.
+        ``state`` is set with `state`.
 
         Parameters
         ----------
@@ -509,9 +509,9 @@ class Manager:
     responsible for displaying "LEDs" on the terminal and listening for keys
     pressed/released.
 
-    The threads are not started right away in :meth:`__init__` but in
-    :meth:`input` for the listener thread and :meth:`output` for the
-    displaying thread.
+    The threads are not started right away in ``__init__()`` but in
+    :meth:`input` for the listener thread and :meth:`output` for the displaying
+    thread.
 
     They are eventually stopped in :meth:`cleanup`.
 
@@ -526,12 +526,10 @@ class Manager:
     enable_printing : bool
         Whether to enable printing on the terminal. Default value is `True`.
     pin_db : PinDB
-        A :class:`Pin` database. See :class:`PinDB` on how to access it.
+        A database of :class:`Pin`\s. See :class:`PinDB` on how to access it.
     default_led_symbols : dict
         A dictionary that maps each output channel's state ('ON' and 'OFF') to
-        a LED symbol.
-
-        **Example**::
+        a LED symbol. By default, it is set to these LED symbols::
 
             default_led_symbols = {
                 "ON": "🛑",
@@ -542,31 +540,33 @@ class Manager:
         numbers (:obj:`int`). By default, it takes the keys and values defined
         in :mod:`SimulRPi.mapping`'s keymap ``default_key_to_channel_map``.
     channel_to_key_map : dict
-        The reverse dictionary of :attr:`key_to_channel_map`. It maps channels
-        to keys.
-    th_display_leds : threading.Thread
+        The reverse dictionary of ``key_to_channel_map``. It maps channels to
+        keys.
+    th_display_leds : GPIO.ExceptionThread
         Thread responsible for displaying blinking red dots in the terminal as
         to simulate LEDs connected to an RPi.
-    th_listener : keyboard.Listener
+    th_listener : GPIO.KeyboardExceptionThread
         Thread responsible for listening on any pressed or released key as to
         simulate push buttons connected to an RPi.
 
+        If ``pynput`` couldn't be imported, ``th_listener`` is :obj:`None`.
+        Otherwise, it is instantiated from ``GPIO.KeyboardExceptionThread``.
+
         .. note::
 
-            A keyboard listener is a :class:`threading.Thread`, and all
-            callbacks will be invoked from the thread.
+            A keyboard listener is a subclass of :class:`threading.Thread`, and
+            all callbacks will be invoked from the thread.
 
             **Ref.:** https://pynput.readthedocs.io/en/latest/keyboard.html#monitoring-the-keyboard
 
 
     .. important::
 
-        If the module :mod:`pynput.keyboard` couldn't be imported, the
-        listener thread :attr:`th_listener` will not be created and the parts
-        of the ``SimulRPi`` library that monitors the keyboard for any pressed
-        or released key will be ignored. Only the thread
-        :attr:`th_display_leds` that displays "LEDs" on the terminal will be
-        created.
+        If the module ``pynput.keyboard`` couldn't be imported, the listener
+        thread ``th_listener`` will not be created and the parts of the
+        ``SimulRPi`` library that monitors the keyboard for any pressed or
+        released key will be ignored. Only the thread ``th_display_leds`` that
+        displays "LEDs" on the terminal will be created.
 
         This is necessary for example in the case we are running tests on
         travis and we don't want travis to install ``pynput`` in a headless
@@ -647,7 +647,7 @@ class Manager:
         """Update the attributes (e.g. `channel_name` and `led_symbols`) for
         multiple channels.
 
-        If a `channel_number` is associated with a not yet created :class:`Pin`,
+        If a channel number is associated with a not yet created :class:`Pin`,
         the corresponding attributes will be temporary saved for later when the
         pin object will be created with :meth:`add_pin`.
 
@@ -687,7 +687,7 @@ class Manager:
         """Simulate LEDs connected to an RPi by blinking red dots in a terminal.
 
         In order to simulate LEDs turning on/off on an RPi, red dots are blinked
-        in the terminal along with their GPIO pin number.
+        in the terminal along with their GPIO channel number.
 
         When a LED is turned on, it is shown as a red dot in the terminal.
 
@@ -700,24 +700,23 @@ class Manager:
         .. highlight:: python
 
         where each dot represents a LED and the number between brackets is the
-        associated GPIO pin number.
+        associated GPIO channel number.
 
-        This is the target function for the displaying thread
-        :attr:`th_display_leds`.
+        This is the target function for the displaying thread ``th_display_leds``.
 
         .. note::
 
-            If :attr:`enable_printing` is set to `True`, the terminal's cursor
-            will be hidden. It will be eventually shown again in :meth:`cleanup`
+            If ``enable_printing`` is set to `True`, the terminal's cursor will
+            be hidden. It will be eventually shown again in :meth:`cleanup`
             which is called by the main program when it is exiting.
 
-            The reason is to avoid messing with the display of LEDs by the
-            displaying thread :attr:`th_display_leds`.
+            The reason is to avoid messing with the display of LEDs done by the
+            displaying thread ``th_display_leds``.
 
         .. note::
 
-            Since the displaying thread :attr:`th_display_leds` is an
-            :class:`ExceptionThread` object, it has the attribute ``exc`` which
+            Since the displaying thread ``th_display_leds`` is an
+            :class:`ExceptionThread` object, it has an attribute ``exc`` which
             stores the exception raised by this target function.
 
         .. important::
@@ -789,7 +788,7 @@ class Manager:
         Parameters
         ----------
         key : pynput.keyboard.Key or pynput.keyboard.KeyCode
-            The keyboard key (from :mod:`pynput.keyboard`) whose name will be
+            The keyboard key (from ``pynput.keyboard``) whose name will be
             returned.
 
         Returns
@@ -819,7 +818,7 @@ class Manager:
     def on_press(self, key):
         """When a valid keyboard key is pressed, set its state to `GPIO.LOW`.
 
-        Callback invoked from the thread :attr:`GPIO.Manager.th_listener`.
+        Callback invoked from the thread ``th_listener``.
 
         This thread is used to monitor the keyboard for any valid pressed key.
         Only keys defined in the pin database are treated, i.e. keys that were
@@ -849,7 +848,7 @@ class Manager:
     def on_release(self, key):
         """When a valid keyboard key is released, set its state to `GPIO.HIGH`.
 
-        Callback invoked from the thread :attr:`GPIO.Manager.th_listener`.
+        Callback invoked from the thread ``th_listener``.
 
         This thread is used to monitor the keyboard for any valid released key.
         Only keys defined in the pin database are treated, i.e. keys that were
@@ -879,7 +878,7 @@ class Manager:
     def update_channel_names(self, new_channel_names):
         """Update the channels names for multiple channels.
 
-        If a `channel_number` is associated with a not yet created :class:`Pin`,
+        If a channel number is associated with a not yet created :class:`Pin`,
         the corresponding `channel_name` will be temporary saved for later when
         the pin object will be created with :meth:`add_pin`.
 
@@ -924,7 +923,7 @@ class Manager:
     def update_led_symbols(self, new_led_symbols):
         """Update the LED symbols for multiple channels.
 
-        If a `channel_number` is associated with a not yet created :class:`Pin`,
+        If a channel number is associated with a not yet created :class:`Pin`,
         the corresponding LED symbols will be temporary saved for later when
         the pin object will be created with :meth:`add_pin`.
 
@@ -1207,12 +1206,12 @@ def cleanup():
 
         When using the package ``SimulRPi``, :meth:`cleanup` will:
 
-            * stop the displaying thread :attr:`Manager.th_display_leds`
-            * stop the listener thread :attr:`Manager.th_listener`
-            * show the cursor again which was hidden in \
-            :meth:`Manager.display_leds`
-            * reset the :obj:`GPIO.manager`'s attributes (an instance of \
-            :class:`Manager`)
+            * stop the displaying thread ``Manager.th_display_leds``
+            * stop the listener thread ``Manager.th_listener``
+            * show the cursor again which was hidden in
+              :meth:`Manager.display_leds`
+            * reset the ``GPIO.manager``'s attributes (an instance of
+              :class:`Manager`)
 
     """
     # NOTE: global since we are deleting it at the end
@@ -1249,7 +1248,7 @@ def input(channel_number):
 
     Returns
     -------
-    state : int or :obj:`None`
+    state : :obj:`int` or :obj:`None`
         If no :class:`Pin` could be retrieved based on the given channel
         number, then :obj:`None` is returned. Otherwise, the :class:`Pin`\'s
         state is returned: 1 (`HIGH`) or 0 (`LOW`).
@@ -1415,7 +1414,7 @@ def setdefaultsymbols(default_led_symbols):
 def setkeymap(key_to_channel_map):
     """Set the keymap dictionary with new keys and channels.
 
-    The default dictionary :obj:`default_key_to_channel_map` (defined in
+    The default dictionary ``default_key_to_channel_map`` (defined in
     :mod:`SimulRPi.mapping`) that maps keyboard keys to GPIO channels can be
     modified by providing your own mapping ``key_to_channel_map`` containing
     only the keys and channels that you want to be modified.
@@ -1636,37 +1635,3 @@ def _raise_if_thread_exception(which_threads):
             # Happens when error in Manager.on_press() and/or Manager.on_release()
             manager.th_listener.exception_raised = True
             raise manager.th_listener.exc
-
-
-"""
-from contextlib import ContextDecorator
-
-
-class Wait(ContextDecorator):
-    timeout = 2
-
-    def __init__(self, timeout=2):
-        self.timeout = timeout
-
-    def __enter__(self):
-        # logger.debug("Ready")
-        return self
-
-    def __exit__(self, *exc):
-        self.timeout = Wait.timeout
-        logger.debug("Waiting after threads ({}s)...".format(self.timeout))
-        start = time.time()
-        while True:
-            if not manager.th_display_leds.is_alive() or \
-                    (manager.th_listener and not manager.th_listener.is_alive()):
-                _raise_if_thread_exception('all')
-            if (time.time() - start) > self.timeout:
-                break
-        logger.debug("No thread exceptions raised")
-        return 0
-
-@Wait()
-def wait_loop(timeout=2):
-    print(Wait.timeout)
-    Wait.timeout = timeout
-"""
