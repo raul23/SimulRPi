@@ -331,7 +331,7 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
         help="Set the numbering system used to identify the I/O pins on an "
              "RPi. ")
     parser.add_argument("-s", "--simulation", action="store_true",
-                        help="Enable simulation mode, i.e. SimulRPi.GPIO wil "
+                        help="Enable simulation mode, i.e. SimulRPi.GPIO will "
                              "be used for simulating RPi.GPIO.")
     parser.add_argument(
         "-l", type=int, dest="led_channel", default=DEFAULT_LED_CHANNELS,
@@ -342,7 +342,7 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
     parser.add_argument(
         "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channel",
         help='''The channel number to be used for a push button. The default 
-        value is channel {} which is associated with the key 
+        value is channel {} which is associated by default with the key 
         `{}`.'''.format(DEFAULT_BUTTON_CHANNEL, DEFAULT_KEY_NAME))
     parser.add_argument(
         "-k", default=DEFAULT_KEY_NAME, dest="key_name",
