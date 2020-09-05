@@ -18,8 +18,8 @@ examples.
 
 .. seealso::
 
-   `Combine SimulRPi with RPi.GPIO`_: to know how to integrate the simulation
-   module ``SimulRPi.GPIO`` with ``RPi.GPIO``
+   `Combine SimulRPi with RPi.GPIO`_
+      It shows you how to integrate the simulation module ``SimulRPi.GPIO`` with ``RPi.GPIO``
 
 .. contents:: Contents
    :depth: 3
@@ -109,7 +109,7 @@ dictionary defining the attributes for a given GPIO channel.
 This list corresponds to the main configuration's setting `gpio_channels`_.
 
 **Example:** updating attributes for an input and output channels. Then
-when the user presses ``cmd_r`` , we blink a LED for 3 seconds
+when the user presses ``cmd_r``, we blink a LED for 3 seconds
 
 .. code-block:: python
    :emphasize-lines: 6-23
@@ -117,7 +117,7 @@ when the user presses ``cmd_r`` , we blink a LED for 3 seconds
       import time
       import SimulRPi.GPIO as GPIO
 
-      key_channel = 20
+      key_channel = 23
       led_channel = 10
       gpio_channels = [
          {
@@ -384,5 +384,5 @@ in one of the threads' target function, it will be caught here
 .. internal links
 .. _default keymap dictionary: api_reference.html#content-default-keymap-label
 .. _simply save the exceptions: api_reference.html#GPIO.ExceptionThread.run
-.. _Combine SimulRPi with RPi.GPIO: combine_simulrpi_with_rpi_gpio.html
+.. _Combine SimulRPi with RPi.GPIO: combine_simulrpi.html
 .. _SimulRPi's API: api_reference.html

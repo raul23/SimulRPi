@@ -1,13 +1,8 @@
-.. SimulRPi documentation master file, created by
-   sphinx-quickstart on Wed Jul 29 00:28:09 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 ========================
 SimulRPi's documentation
 ========================
 
-.. Following part repeats in REAMDE.rst
+.. Following part repeats in README.rst
 
 .. raw:: html
 
@@ -36,7 +31,7 @@ See the `README <README_docs.html>`_ for more info about the library.
    :caption: Contents
 
    README_docs
-   combine_simulrpi_with_rpi_gpio
+   combine_simulrpi
    useful_functions
    api_reference
    changelog
