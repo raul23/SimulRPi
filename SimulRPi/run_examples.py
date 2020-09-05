@@ -64,9 +64,9 @@ from SimulRPi.utils import blink_led, turn_on_led
 GPIO = None
 SIMULATION = False
 # TODO: necessary? maybe in a separate file
-DEFAULT_BUTTON_CHANNEL = 13
+DEFAULT_BUTTON_CHANNEL = 17
 DEFAULT_KEY_NAME = default_channel_to_key_map[DEFAULT_BUTTON_CHANNEL]
-DEFAULT_LED_CHANNELS = [10, 11, 12]
+DEFAULT_LED_CHANNELS = [9, 10, 11]
 DEFAULT_TOTAL_TIME_BLINKING = 4
 DEFAULT_TIME_LEDS_ON = 1
 DEFAULT_TIME_LEDS_OFF = 1
@@ -170,7 +170,7 @@ def ex3_detect_button(channel):
 
     """
     msg = "Ex 3: detect if the {key_or_button} [{channel}] is pressed\n".format(
-        key_or_button={}, channel=channel)
+        key_or_button="{}", channel=channel)
     _show_msg(msg, channel)
     GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     _show_msg_to_press_key(channel)
@@ -342,8 +342,8 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
     parser.add_argument(
         "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channel",
         help='''The channel number to be used for a push button. The default 
-        value is channel 20 which is associated with the key 
-        `{}`.'''.format(DEFAULT_KEY_NAME))
+        value is channel {} which is associated with the key 
+        `{}`.'''.format(DEFAULT_BUTTON_CHANNEL, DEFAULT_KEY_NAME))
     parser.add_argument(
         "-k", default=DEFAULT_KEY_NAME, dest="key_name",
         help='''The name of the keyboard key associated with the button 
