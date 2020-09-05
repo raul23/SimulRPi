@@ -78,6 +78,7 @@ PUD_UP = 1
 PUD_DOWN = 0
 
 MODES = {'BOARD': BOARD, 'BCM': BCM}
+CHANNEL_TYPES = {IN: 'INPUT', OUT: 'OUTPUT'}
 
 
 class ExceptionThread(threading.Thread):
@@ -153,8 +154,8 @@ class Pin:
         (`BOARD` or `BCM`).
     channel_id : str
         Unique identifier.
-    gpio_function : int
-        Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+    gpio_type : int
+        Type of a GPIO channel: e.g. 1 (`GPIO.IN`) or 0 (`GPIO.OUT`).
     channel_name : str, optional
         It will be displayed in the terminal along with the LED symbol if it is
         available. Otherwise, the ``channel_number`` is shown. By default, its
@@ -187,24 +188,25 @@ class Pin:
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
 
     """
-    def __init__(self, channel_number, channel_id, gpio_function,
+    def __init__(self, channel_number, channel_id, channel_type,
                  channel_name=None, key=None, led_symbols=None,
                  pull_up_down=None, initial=None):
         self.channel_number = channel_number
         self.channel_id = channel_id
-        self.gpio_function = gpio_function
+        self.channel_type = channel_type
         self.channel_name = channel_name
         self.key = key
         self.pull_up_down = pull_up_down
         self.initial = initial
         self.led_symbols = led_symbols
-        if self.gpio_function == IN:
+        if self.channel_type == IN:
             self.state = HIGH
         else:
             self.state = LOW
 
 
 # TODO: change to ChannelDB?
+# TODO: add
 class PinDB:
     """Class for storing and modifying :class:`Pin`\s.
 
@@ -225,9 +227,10 @@ class PinDB:
         # Maps keyboard key to Pin object
         # NOTE: this dict is only for INPUT channels with an associated key
         self._key_to_pin_map = {}
+        # List only for OUTPUT channels
         self.output_pins = []
 
-    def create_pin(self, channel_number, channel_id, gpio_function, **kwargs):
+    def create_pin(self, channel_number, channel_id, channel_type, **kwargs):
         """Create an instance of :class:`GPIO.Pin` and save it in a dictionary.
 
         Based on the given arguments, an instance of :class:`GPIO.Pin` is
@@ -242,15 +245,19 @@ class PinDB:
             (`BOARD` or `BCM`).
         channel_id : str
             Unique identifier.
-        gpio_function : int
-            Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+        channel_type : int
+            Type of a GPIO channel: e.g. 1 (`GPIO.IN`) or 0 (`GPIO.OUT`).
         kwargs : dict, optional
             These are the (optional) keyword arguments for ``Pin.__init__()``.
+            See :class:`Pin` for the
 
         """
+        if self._pins.get(channel_number):
+            # TODO: error or warning? Overwrite?
+            raise KeyError("Duplicate channel numbers: {}".format(channel_number))
         self._pins[channel_number] = Pin(channel_number, channel_id,
-                                         gpio_function, **kwargs)
-        if gpio_function == OUT:
+                                         channel_type, **kwargs)
+        if channel_type == OUT:
             # Output channel (e.g. LED)
             # Save the output pin so the thread that displays LEDs knows what
             # pins are OUTPUT and therefore connected to LEDs.
@@ -258,7 +265,7 @@ class PinDB:
         # Update the other internal dict if key is given
         if kwargs['key']:
             # Input channel (e.g. push button)
-            # TODO: assert on gpio_function which should be INPUT?
+            # TODO: assert on channel_type which should be IN?
             self._key_to_pin_map[kwargs['key']] = self._pins[channel_number]
 
     def get_pin_from_channel(self, channel_number):
@@ -603,7 +610,7 @@ class Manager:
         else:
             self.th_listener = None
 
-    def add_pin(self, channel_number, gpio_function, pull_up_down=None, initial=None):
+    def add_pin(self, channel_number, channel_type, pull_up_down=None, initial=None):
         """Add an input or output pin to the pin database.
 
         An instance of :class:`Pin` is created with the given arguments and
@@ -614,8 +621,8 @@ class Manager:
         channel_number : int
             GPIO channel number associated with the :class:`Pin` to be added in
             the pin database.
-        gpio_function : int
-            Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+        channel_type : int
+            Type of a GPIO channel: e.g. 1 (`GPIO.IN`) or 0 (`GPIO.OUT`).
         pull_up_down : int or None, optional
             Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default
             value is :obj:`None`.
@@ -626,7 +633,7 @@ class Manager:
         """
         key = None
         tmp_info = self._channel_tmp_info.get(channel_number, {})
-        if gpio_function == IN:
+        if channel_type == IN:
             # Get keyboard key associated with the INPUT pin (button)
             # TODO: add key also in _channel_tmp_info?
             key = self.channel_to_key_map.get(channel_number)
@@ -636,7 +643,7 @@ class Manager:
         self.pin_db.create_pin(
             channel_number=channel_number,
             channel_id=tmp_info.get('channel_id', channel_number),
-            gpio_function=gpio_function,
+            channel_type=channel_type,
             channel_name=tmp_info.get('channel_name', channel_number),
             key=key,
             led_symbols=tmp_info.get('led_symbols', self.default_led_symbols),
@@ -1377,12 +1384,20 @@ def setchannels(gpio_channels):
         channel_name = gpio_ch.get('channel_name')
         channel_number = int(gpio_ch.get('channel_number'))
         led_symbols = gpio_ch.get('led_symbols')
-        channels_attributes.setdefault(channel_number, {})
-        channels_attributes[channel_number] = {
-            'channel_id': channel_id,
-            'channel_name': channel_name,
-            'led_symbols': led_symbols
-        }
+        if channel_number in channels_attributes:
+            # TODO: error or warning? Overwrite?
+            raise KeyError("The channel '{}' is using a channel number {} "
+                           "that is already taken by the channel '{}'".format(
+                            channel_id,
+                            channel_number,
+                            channels_attributes[channel_number]['channel_id']))
+        else:
+            channels_attributes.setdefault(channel_number, {})
+            channels_attributes[channel_number] = {
+                'channel_id': channel_id,
+                'channel_name': channel_name,
+                'led_symbols': led_symbols
+            }
         if gpio_ch.get('key'):
             key_maps.update({gpio_ch.get('key'): channel_number})
     manager.bulk_channel_update(channels_attributes)
@@ -1511,7 +1526,7 @@ def setsymbols(led_symbols):
 
 
 # TODO: setup more than one channel, see https://bit.ly/2Dgk2Uf
-def setup(channel, gpio_function, pull_up_down=None, initial=None):
+def setup(channel, channel_type, pull_up_down=None, initial=None):
     """Setup a GPIO channel as an input or output.
 
     To configure a channel as an input::
@@ -1531,8 +1546,8 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
     channel : int
         GPIO channel number based on the numbering system you have specified
         (`BOARD` or `BCM`).
-    gpio_function : int
-        Function of a GPIO channel: 1 (`GPIO.INPUT`) or 0 (`GPIO.OUTPUT`).
+    channel_type : int
+        Type of a GPIO channel: e.g. 1 (`GPIO.IN`) or 0 (`GPIO.OUT`).
     pull_up_down : int or None, optional
         Initial value of an input channel, e.g. `GPIO.PUP_UP`. Default value is
         :obj:`None`.
@@ -1545,8 +1560,7 @@ def setup(channel, gpio_function, pull_up_down=None, initial=None):
     `RPi.GPIO wiki`_
 
     """
-    # TODO: assert on mode
-    manager.add_pin(channel, gpio_function, pull_up_down, initial)
+    manager.add_pin(channel, channel_type, pull_up_down, initial)
 
 
 def setwarnings(show_warnings):
