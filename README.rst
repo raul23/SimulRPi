@@ -176,7 +176,7 @@ The different code examples are those presented in **Examples** and show the
 capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
 push buttons and LEDs.
 
-Here is a list of the functions associated with each code example:
+Here is a list of the functions that implement each code example:
    - Example 1: `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
    - Example 2: `ex2_turn_on_many_leds() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds>`_
    - Example 3: `ex3_detect_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button>`_

@@ -179,7 +179,7 @@ The different code examples are those presented in `Examples`_ and show the
 capability of :mod:`SimulRPi.GPIO` for simulating I/O devices on an RPi such as
 push buttons and LEDs.
 
-Here is a list of the functions associated with each code example:
+Here is a list of the functions that implement each code example:
 
    - Example 1: :meth:`run_examples.ex1_turn_on_led`
    - Example 2: :meth:`run_examples.ex2_turn_on_many_leds`
