@@ -1,3 +1,7 @@
+"""Package that TODO
+
+"""
+
 # For debugging purposes
 __test_version__ = "0.3.0.post4"
 # Version of package
