@@ -7,19 +7,20 @@ examples.
 .. important::
 
    These are functions that are available when working with the simulation
-   module ``SimulRPi.GPIO``. Thus, you will always see the following import at
+   module :mod:`SimulRPi.GPIO`. Thus, you will always see the following import at
    the beginning of each code example presented::
 
       import SimulRPi.GPIO as GPIO
 
    Thus, the code examples are to be executed on your computer, not an RPi
    since the main reasons of these examples is to show how to use the
-   ``SimulRPi`` API.
+   `SimulRPi's API`_.
 
 .. seealso::
 
    `Combine SimulRPi with RPi.GPIO`_
-      It shows you how to integrate the simulation module ``SimulRPi.GPIO`` with ``RPi.GPIO``
+      It shows you how to integrate the simulation module :mod:`SimulRPi.GPIO`
+      with ``RPi.GPIO``
 
 .. contents:: Contents
    :depth: 3
@@ -27,13 +28,13 @@ examples.
 
 ``GPIO.cleanup``
 ================
-:meth:`GPIO.cleanup` cleans up any resources at the end of your program. Very
-importantly, when running in simulation, the threads responsible for displaying
-"LEDs" in the terminal and listening the keyboard are stopped. Hence, we avoid
-the program hanging at the end of its execution.
+:meth:`~SimulRPi.GPIO.cleanup` cleans up any resources at the end of your
+program. Very importantly, when running in simulation, the threads responsible
+for displaying "LEDs" in the terminal and listening the keyboard are stopped.
+Hence, we avoid the program hanging at the end of its execution.
 
-Here is a simple example on how to use :meth:`GPIO.cleanup` which should be
-called at the end of your program:
+Here is a simple example on how to use :meth:`~SimulRPi.GPIO.cleanup` which
+should be called at the end of your program:
 
 .. code-block:: python
    :emphasize-lines: 7
@@ -52,17 +53,17 @@ called at the end of your program:
 
 ``GPIO.setchannelnames``
 ========================
-:meth:`GPIO.setchannelnames` sets the channel names for multiple GPIO channels.
-The channel name will be shown in the terminal along with the LED symbol for
-each output channel::
+:meth:`~SimulRPi.GPIO.setchannelnames` sets the channel names for multiple GPIO
+channels. The channel name will be shown in the terminal along with the LED
+symbol for each output channel::
 
    🛑  [LED 1]        🛑  [LED 2]        🛑  [LED 3]        ⬤  [lightsaber]
 
 If no channel name is provided for a GPIO channel, its channel number will be
 shown instead in the terminal.
 
-:meth:`GPIO.setchannelnames` takes as argument a dictionary that maps channel numbers
-(:obj:`int`) to channel names (:obj:`str`)::
+:meth:`~SimulRPi.GPIO.setchannelnames` takes as argument a dictionary that maps
+channel numbers (:obj:`int`) to channel names (:obj:`str`)::
 
    channel_names = {
        1: "The Channel 1",
@@ -91,8 +92,8 @@ shown instead in the terminal.
 
 ``GPIO.setchannels``
 ====================
-:meth:`GPIO.setchannels` sets the attributes for multiple GPIO channels. These
-attributes are:
+:meth:`~SimulRPi.GPIO.setchannels` sets the attributes for multiple GPIO
+channels. These attributes are:
 
    * ``channel_id``: unique identifier
    * ``channel_name``: will be shown along the LED symbol in the terminal
@@ -103,8 +104,8 @@ attributes are:
      and OFF.
    * ``key``: keyboard key associated with a channel, e.g. "cmd_r".
 
-:meth:`GPIO.setchannels` accepts as argument a list where each item is a
-dictionary defining the attributes for a given GPIO channel.
+:meth:`~SimulRPi.GPIO.setchannels` accepts as argument a list where each item
+is a dictionary defining the attributes for a given GPIO channel.
 
 This list corresponds to the main configuration's setting `gpio_channels`_.
 
@@ -184,9 +185,9 @@ when the user presses ``cmd_r``, we blink a LED for 3 seconds
 
 ``GPIO.setdefaultsymbols``
 ==========================
-:meth:`GPIO.setdefaultsymbols` sets the default LED symbols used by all output
-channels. It accepts as argument a dictionary that maps each output state
-('`ON`', '`OFF`') to the LED symbol (:obj:`str`)::
+:meth:`~SimulRPi.GPIO.setdefaultsymbols` sets the default LED symbols used by
+all output channels. It accepts as argument a dictionary that maps each output
+state ('`ON`', '`OFF`') to the LED symbol (:obj:`str`)::
 
    default_led_symbols = {
        'ON': '🔵',
@@ -221,8 +222,8 @@ channels. It accepts as argument a dictionary that maps each output state
 
 ``GPIO.setkeymap``
 ==================
-:meth:`GPIO.setkeymap` sets the `default keymap dictionary`_ with a new mapping
-between keyboard keys and channel numbers.
+:meth:`~SimulRPi.GPIO.setkeymap` sets the `default keymap dictionary`_ with a
+new mapping between keyboard keys and channel numbers.
 
 It takes as argument a dictionary mapping keyboard keys (:obj:`str`) to GPIO
 channel numbers (:obj:`int`)::
@@ -261,8 +262,8 @@ channel numbers (:obj:`int`)::
 
 ``GPIO.setprinting``
 ====================
-:meth:`GPIO.setprinting` enable or disable printing the LED symbols and their
-channel names/numbers to the terminal.
+:meth:`~SimulRPi.GPIO.setprinting` enable or disable printing the LED symbols
+and their channel names/numbers to the terminal.
 
 .. code-block:: python
    :emphasize-lines: 3
@@ -279,9 +280,9 @@ channel names/numbers to the terminal.
 
 ``GPIO.setsymbols``
 ===================
-:meth:`GPIO.setsymbols` sets the LED symbols for multiple **output** channels.
-It takes as argument a dictionary mapping channel numbers (:obj:`int`) to LED symbols
-(:obj:`dict`)::
+:meth:`~SimulRPi.GPIO.setsymbols` sets the LED symbols for multiple **output**
+channels. It takes as argument a dictionary mapping channel numbers
+(:obj:`int`) to LED symbols (:obj:`dict`)::
 
    led_symbols = {
        1: {
@@ -324,10 +325,12 @@ There is a LED symbol for each output state (`ON` and `OFF`).
 
 ``GPIO.wait``
 =============
-:meth:`GPIO.wait` waits for the threads to do their tasks. If there was an
-exception caught by one of the threads, then it is raised by :meth:`GPIO.wait`.
+:meth:`~SimulRPi.GPIO.wait` waits for the threads to do their tasks. If there
+was an exception caught by one of the threads, then it is raised by
+:meth:`~SimulRPi.GPIO.wait`.
 
-Thus it is ideal for :meth:`GPIO.wait` to be called within a ``try`` block::
+Thus it is ideal for :meth:`~SimulRPi.GPIO.wait` to be called within a ``try``
+block::
 
    try:
        do_something_with_gpio_api()
@@ -337,8 +340,8 @@ Thus it is ideal for :meth:`GPIO.wait` to be called within a ``try`` block::
    finally:
       GPIO.cleanup()
 
-:meth:`GPIO.wait` takes as argument the number of seconds you want to wait at
-most for the threads to accomplish their tasks.
+:meth:`~SimulRPi.GPIO.wait` takes as argument the number of seconds you want to
+wait at most for the threads to accomplish their tasks.
 
 **Example:** wait for the threads to do their jobs and if there is an exception
 in one of the threads' target function, it will be caught here
@@ -364,15 +367,15 @@ in one of the threads' target function, it will be caught here
 
 .. important::
 
-   If we don't use :meth:`GPIO.wait` in the previous example, we won't be able
-   to catch any exception occurring in a thread's target function since the
-   threads `simply save the exceptions`_ but don't raise them.
+   If we don't use :meth:`~SimulRPi.GPIO.wait` in the previous example, we
+   won't be able to catch any exception occurring in a thread's target function
+   since the threads `simply save the exceptions`_ but don't raise them.
 
    Also, the reason for not raising the exception within the thread's target
    function is to avoid having another thread re-starting the failed thread by
-   calling :meth:`GPIO.output` while the main program is busy processing the
-   exception. Hence, we avoid raising a :exc:`RuntimeError` on top of the
-   thread's caught exception.
+   calling :meth:`~SimulRPi.GPIO.output` while the main program is busy
+   processing the exception. Hence, we avoid raising a :exc:`RuntimeError` on
+   top of the thread's caught exception.
 
 .. URLs
 .. external links
