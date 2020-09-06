@@ -201,10 +201,10 @@ def ex4_blink_led(channel, total_time_blinking=4, time_led_on=0.5, time_led_off=
         seconds.
     time_led_on : float, optional
         Time in seconds the LED will stay turned ON at a time. The default
-        value is 0.5 seconds.
+        value is 0.5 second.
     time_led_off : float, optional
         Time in seconds the LED will stay turned OFF at a time. The default
-        value is 0.5 seconds.
+        value is 0.5 second.
 
     """
     msg = "Ex 4: blink a LED for {time} second{plural}\n".format(
@@ -248,10 +248,10 @@ def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=4,
         seconds.
     time_led_on : float, optional
         Time in seconds the LED will stay turned ON at a time. The default
-        value is 0.5 seconds.
+        value is 0.5 second.
     time_led_off : float, optional
         Time in seconds the LED will stay turned OFF at a time. The default
-        value is 0.5 seconds.
+        value is 0.5 second.
 
 
     .. note::
