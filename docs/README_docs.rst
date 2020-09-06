@@ -67,7 +67,7 @@ on Channel 22 is colored differently from the others.
 
    If there is enough interest in this library, I will eventually mock more
    functions from `RPi.GPIO`_. Thus,
-   `let me know through SimulRPi's issues page`_ if you want me to add more
+   let me know through `SimulRPi's issues page`_ if you want me to add more
    things to this library.
 
 Dependencies
@@ -512,8 +512,7 @@ References
 .. URLs
 .. 1. External links
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
-.. _let me know through SimulRPi's issues page:
-    https://github.com/raul23/SimulRPi/issues
+.. _SimulRPi's issues page: https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _PyPI: https://pypi.org/project/SimulRPi/
