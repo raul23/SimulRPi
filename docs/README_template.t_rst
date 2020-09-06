@@ -270,25 +270,25 @@ List of options
 To display the script's list of options and their descriptions:
 ``run_examples -h``
 
-   -e       The number of the code example you want to run. It is required.
-            (default: None)
-   -m       Set the numbering system used to identify the I/O pins on an RPi.
-            (default: BCM)
-   -s       Enable simulation mode, i.e. ``SimulRPi.GPIO`` will be used for
-            simulating ``RPi.GPIO``. (default: False)
-   -l       The channel numbers to be used for LEDs. If an example only
-            requires 1 channel, the first channel from the provided list will
-            be used. (default: [9, 10, 11])
-   -b       The channel numbers to be used for a push button. The default value
-            is channel 17 which is associated by default with the keyboard key
-            *cmd_r*. (default: 17)
-   -t       Total time in seconds LEDs will be blinking. (default: 4)
-   -k       The name of the key associated with the button channel. The name
-            must be one of those recognized by the module *pynput*. See the
-            *SimulRPi* documentation for a list of valid key names:
-            https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *cmd_r*)
-   --on     Time in seconds the LEDs will stay turned ON at a time. (default: 1)
-   --off    Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
+-e       The number of the code example you want to run. It is required.
+         (default: None)
+-m       Set the numbering system used to identify the I/O pins on an RPi.
+         (default: BCM)
+-s       Enable simulation mode, i.e. ``SimulRPi.GPIO`` will be used for
+         simulating ``RPi.GPIO``. (default: False)
+-l       The channel numbers to be used for LEDs. If an example only
+         requires 1 channel, the first channel from the provided list will
+         be used. (default: [9, 10, 11])
+-b       The channel numbers to be used for a push button. The default value
+         is channel 17 which is associated by default with the keyboard key
+         *cmd_r*. (default: 17)
+-t       Total time in seconds LEDs will be blinking. (default: 4)
+-k       The name of the key associated with the button channel. The name
+         must be one of those recognized by the module *pynput*. See the
+         *SimulRPi* documentation for a list of valid key names:
+         https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *cmd_r*)
+--on     Time in seconds the LEDs will stay turned ON at a time. (default: 1)
+--off    Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
