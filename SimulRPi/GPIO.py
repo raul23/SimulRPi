@@ -29,19 +29,23 @@ associated GPIO channel number.
 
     If there is enough interest in this library, I will eventually mock more
     functions from `RPi.GPIO`_. Thus,
-    `let me know through SimulRPi's issues page`_ if you want me to add more
+    let me know through `SimulRPi's issues page`_ if you want me to add more
     things to this library.
 
 .. TODO: also found in README_docs.rst
 .. TODO: IMPORTANT check URL to config file
 
+.. URLs
+.. external links
 .. _here: https://github.com/raul23/Darth-Vader-RPi/blob/master/darth_vader_rpi/configs/default_main_cfg.json#L11
-.. _let me know through SimulRPi's issues page:
-    https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _RPi.GPIO wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
+.. _SimulRPi's issues page: https://github.com/raul23/SimulRPi/issues
+
+.. internal links
+.. _default_key_to_channel_map: api_reference.html#content-default-keymap-label
 
 """
 import copy
@@ -117,10 +121,10 @@ class ExceptionThread(threading.Thread):
         .. important::
 
             The exception is only caught here, not raised. The exception is
-            further raised in :meth:`GPIO.output`. The reason for not raising
-            it here is to avoid having another thread re-starting the failed
-            thread by calling :meth:`GPIO.output` while the main program is
-            busy catching the exception. Hence, we avoid raising a
+            further raised in :meth:`output`. The reason for not raising it
+            here is to avoid having another thread re-starting the failed
+            thread by calling :meth:`output` while the main program is busy
+            catching the exception. Hence, we avoid raising a
             :exc:`RuntimeError` on top of the thread's caught exception.
 
         """
@@ -161,7 +165,7 @@ class Pin:
         available. Otherwise, the ``channel_number`` is shown. By default, its
         value is :obj:`None`.
     key : str or None, optional
-        Keyboard key associated with the GPIO channel, e.g. "cmd_r".
+        Keyboard key associated with the GPIO channel, e.g. `cmd_r`.
     led_symbols : dict, optional
         It should only be defined for output channels. It is a dictionary
         defining the symbols to be used when the LED is turned ON and OFF. If
@@ -210,7 +214,7 @@ class Pin:
 class PinDB:
     """Class for storing and modifying :class:`Pin`\s.
 
-    Each instance of :class:`GPIO.Pin` is saved in a dictionary that maps it
+    Each instance of :class:`Pin` is saved in a dictionary that maps it
     to its channel number.
 
     .. note::
@@ -231,9 +235,9 @@ class PinDB:
         self.output_pins = []
 
     def create_pin(self, channel_number, channel_id, channel_type, **kwargs):
-        """Create an instance of :class:`GPIO.Pin` and save it in a dictionary.
+        """Create an instance of :class:`Pin` and save it in a dictionary.
 
-        Based on the given arguments, an instance of :class:`GPIO.Pin` is
+        Based on the given arguments, an instance of :class:`Pin` is
         created and added to a dictionary that acts like a database of pins
         with the key being the pin's channel number and the value is an
         instance of :class:`Pin`.
@@ -249,7 +253,8 @@ class PinDB:
             Type of a GPIO channel: e.g. 1 (`GPIO.IN`) or 0 (`GPIO.OUT`).
         kwargs : dict, optional
             These are the (optional) keyword arguments for ``Pin.__init__()``.
-            See :class:`Pin` for the
+            See :class:`Pin` for a list of its parameters which can be included
+            in ``kwargs``.
 
         """
         if self._pins.get(channel_number):
@@ -279,7 +284,7 @@ class PinDB:
 
         Returns
         -------
-        Pin : :class:`GPIO.Pin` or :obj:`None`
+        Pin : :class:`Pin` or :obj:`None`
             If no :class:`Pin` could be retrieved based on the given channel,
             :obj:`None` is returned. Otherwise, a :class:`Pin` object is
             returned.
@@ -298,7 +303,7 @@ class PinDB:
 
         Returns
         -------
-        Pin : :class:`GPIO.Pin` or :obj:`None`
+        Pin : :class:`Pin` or :obj:`None`
             If no :class:`Pin` could be retrieved based on the given key,
             :obj:`None` is returned. Otherwise, a :class:`Pin` object is
             returned.
@@ -545,7 +550,7 @@ class Manager:
     key_to_channel_map : dict
         A dictionary that maps keyboard keys (:obj:`string`) to GPIO channel
         numbers (:obj:`int`). By default, it takes the keys and values defined
-        in :mod:`SimulRPi.mapping`'s keymap ``default_key_to_channel_map``.
+        in the keymap `default_key_to_channel_map`_.
     channel_to_key_map : dict
         The reverse dictionary of ``key_to_channel_map``. It maps channels to
         keys.
@@ -553,8 +558,8 @@ class Manager:
         Thread responsible for displaying blinking red dots in the terminal as
         to simulate LEDs connected to an RPi.
     th_listener : GPIO.KeyboardExceptionThread
-        Thread responsible for listening on any pressed or released key as to
-        simulate push buttons connected to an RPi.
+        Thread responsible for listening on any pressed or released keyboard
+        keys as to simulate push buttons connected to an RPi.
 
         If ``pynput`` couldn't be imported, ``th_listener`` is :obj:`None`.
         Otherwise, it is instantiated from ``GPIO.KeyboardExceptionThread``.
@@ -572,12 +577,12 @@ class Manager:
         If the module ``pynput.keyboard`` couldn't be imported, the listener
         thread ``th_listener`` will not be created and the parts of the
         ``SimulRPi`` library that monitors the keyboard for any pressed or
-        released key will be ignored. Only the thread ``th_display_leds`` that
+        released keys will be ignored. Only the thread ``th_display_leds`` that
         displays "LEDs" on the terminal will be created.
 
         This is necessary for example in the case we are running tests on
         travis and we don't want travis to install ``pynput`` in a headless
-        setup because an exception will get raised::
+        setup because the following exception will get raised::
 
             Xlib.error.DisplayNameError: Bad display name ""
 
@@ -829,7 +834,7 @@ class Manager:
 
         This thread is used to monitor the keyboard for any valid pressed key.
         Only keys defined in the pin database are treated, i.e. keys that were
-        configured with :meth:`GPIO.setup` are further processed.
+        configured with :meth:`setup` are further processed.
 
         Once a valid key is detected as pressed, its state is changed to
         `GPIO.LOW`.
@@ -859,7 +864,7 @@ class Manager:
 
         This thread is used to monitor the keyboard for any valid released key.
         Only keys defined in the pin database are treated, i.e. keys that were
-        configured with :meth:`GPIO.setup` are further processed.
+        configured with :meth:`setup` are further processed.
 
         Once a valid key is detected as released, its state is changed to
         `GPIO.HIGH`.
@@ -1064,7 +1069,7 @@ class Manager:
 
         References
         ----------
-        :mod:`pynput` reference: https://pynput.readthedocs.io/en/latest/keyboard.html#reference
+        `pynput <https://pynput.readthedocs.io/en/latest/keyboard.html#reference>`__
 
         See Also
         --------
@@ -1429,7 +1434,7 @@ def setdefaultsymbols(default_led_symbols):
 def setkeymap(key_to_channel_map):
     """Set the keymap dictionary with new keys and channels.
 
-    The default dictionary ``default_key_to_channel_map`` (defined in
+    The default dictionary `default_key_to_channel_map`_ (defined in
     :mod:`SimulRPi.mapping`) that maps keyboard keys to GPIO channels can be
     modified by providing your own mapping ``key_to_channel_map`` containing
     only the keys and channels that you want to be modified.
@@ -1600,9 +1605,9 @@ def wait(timeout=2):
 
     .. important::
 
-        This function is not called in :meth:`GPIO.cleanup` because if a thread
+        This function is not called in :meth:`cleanup` because if a thread
         exception is raised, it will not be caught in the main program because
-        :meth:`GPIO.cleanup` is found in a ``finally`` block:
+        :meth:`cleanup` is found in a ``finally`` block:
 
         .. code-block:: python
            :emphasize-lines: 7
