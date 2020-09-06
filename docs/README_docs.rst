@@ -181,11 +181,11 @@ push buttons and LEDs.
 
 Here is a list of the functions that implement each code example:
 
-   - Example 1: :meth:`run_examples.ex1_turn_on_led`
-   - Example 2: :meth:`run_examples.ex2_turn_on_many_leds`
-   - Example 3: :meth:`run_examples.ex3_detect_button`
-   - Example 4: :meth:`run_examples.ex4_blink_led`
-   - Example 5: :meth:`run_examples.ex5_blink_led_if_button`
+   - Example 1: :meth:`~SimulRPi.run_examples.ex1_turn_on_led`
+   - Example 2: :meth:`~SimulRPi.run_examples.ex2_turn_on_many_leds`
+   - Example 3: :meth:`~SimulRPi.run_examples.ex3_detect_button`
+   - Example 4: :meth:`~SimulRPi.run_examples.ex4_blink_led`
+   - Example 5: :meth:`~SimulRPi.run_examples.ex5_blink_led_if_button`
 
 List of options
 ~~~~~~~~~~~~~~~
@@ -250,9 +250,8 @@ Explanation of the previous command-line:
 
 .. important::
 
-   Don't forget the flag *-s* (for simulation) when running the script
-   :mod:`~SimulRPi.run_examples` if you want to run a code example on your computer, and
-   not on your RPi.
+   Don't forget the flag *-s* when running the script :mod:`~SimulRPi.run_examples` as simulation,
+   if you want to run a code example on your computer, and not on your RPi.
 
 .. _examples-label:
 

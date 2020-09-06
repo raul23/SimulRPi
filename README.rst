@@ -244,9 +244,8 @@ Explanation of the previous command-line:
 
 `:star:`
 
-   Don't forget the flag *-s* (for simulation) when running the script
-   ``run_examples`` if you want to run a code example on your computer, and
-   not on your RPi.
+   Don't forget the flag *-s* when running the script ``run_examples`` as simulation,
+   if you want to run a code example on your computer, and not on your RPi.
 
 .. _examples-label:
 
