@@ -2,9 +2,9 @@
 that  maps keys and GPIO channels.
 
 This module defines the default mapping between keyboard keys and GPIO
-channels. It is used by :mod:`GPIO` when monitoring the keyboard with the
-package `pynput`_ for any pressed/released key as to simulate a push button
-connected to a Raspberry Pi.
+channels. It is used by :mod:`SimulRPi.GPIO` when monitoring the keyboard with
+the package `pynput`_ for any pressed/released keys as to simulate a push
+button connected to a Raspberry Pi.
 
 Notes
 -----
@@ -72,10 +72,10 @@ References
 
 .. important::
 
-    * :meth:`GPIO.setkeymap` allows you to modify the default keymap.
+    * :meth:`SimulRPi.GPIO.setkeymap` allows you to modify the default keymap.
 
-    * The keys for the default keymap :attr:`default_key_to_channel_map` must \
-    be strings and their values (the channels) should be integers.
+    * The keys for the default keymap ``default_key_to_channel_map`` must
+      be strings and their values (the channels) should be integers.
 
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _pynput reference: https://pynput.readthedocs.io/en/latest/keyboard.html#pynput.keyboard.Key
