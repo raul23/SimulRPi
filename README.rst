@@ -224,14 +224,14 @@ pressed::
 
    $ run_examples -s -e 5 -l 22 -t 5 -k ctrl_r
 
-Explanation of the command-line:
+Explanation of the previous command-line:
 
-   - ``-s``: we run the code example as a **simulation**, i.e. on our computer
-     instead of an RPi
-   - ``-e 5``: we run code example **5** which blinks a LED if a key is pressed
-   - ``-l 22``: we blink a LED on channel **22**
-   - ``-t 5``: we blink a LED for **5** seconds
-   - ``-k ctrl_r``: a LED is blinked if the key ``ctrl_r`` is pressed
+- ``-s``: we run the code example as a **simulation**, i.e. on our computer
+  instead of an RPi
+- ``-e 5``: we run code example **5** which blinks a LED if a key is pressed
+- ``-l 22``: we blink a LED on channel **22**
+- ``-t 5``: we blink a LED for **5** seconds
+- ``-k ctrl_r``: a LED is blinked if the key ``ctrl_r`` is pressed
 
 **Output:**
 
