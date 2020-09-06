@@ -13,7 +13,7 @@ examples.
       import SimulRPi.GPIO as GPIO
 
    Thus, the code examples are to be executed on your computer, not an RPi
-   since the main reasons of these examples is to show how to use the
+   since the main reasons for these examples is to show how to use the
    `SimulRPi's API`_.
 
 .. seealso::
@@ -30,8 +30,8 @@ examples.
 ================
 :meth:`~SimulRPi.GPIO.cleanup` cleans up any resources at the end of your
 program. Very importantly, when running in simulation, the threads responsible
-for displaying "LEDs" in the terminal and listening the keyboard are stopped.
-Hence, we avoid the program hanging at the end of its execution.
+for displaying "LEDs" in the terminal and listening to the keyboard are
+stopped. Hence, we avoid the program hanging at the end of its execution.
 
 Here is a simple example on how to use :meth:`~SimulRPi.GPIO.cleanup` which
 should be called at the end of your program:
@@ -102,12 +102,14 @@ channels. These attributes are:
    * ``led_symbols``: should only be defined for output channels. It is a
      dictionary defining the symbols to be used when the LED is turned ON
      and OFF.
-   * ``key``: keyboard key associated with a channel, e.g. "cmd_r".
+   * ``key``: should only defined for input channels. The names of keyboard
+     keys that you can use are those specified in the
+     `SimulRPi's documentation`_, e.g. `media_play_pause`, `shift`, and
+     `shift_r`.
 
 :meth:`~SimulRPi.GPIO.setchannels` accepts as argument a list where each item
-is a dictionary defining the attributes for a given GPIO channel.
-
-This list corresponds to the main configuration's setting `gpio_channels`_.
+is a dictionary defining the attributes for a given GPIO channel. This list
+corresponds to the main configuration's setting `gpio_channels`_.
 
 **Example:** updating attributes for an input and output channels. Then
 when the user presses ``cmd_r``, we blink a LED for 3 seconds
@@ -157,7 +159,7 @@ when the user presses ``cmd_r``, we blink a LED for 3 seconds
              break
       GPIO.cleanup()
 
-**Output**::
+**Output:** blinking not shown ::
 
    Press key 'cmd_r' to blink a LED
    Key 'cmd_r' pressed
@@ -167,12 +169,12 @@ when the user presses ``cmd_r``, we blink a LED for 3 seconds
 .. note::
 
    In the previous example, we changed the default keyboard key associated with
-   the `GPIO channel 20`_ from ``ctrl_r`` to ``cmd_r``.
+   the `GPIO channel 23`_ from ``media_volume_mute`` to ``cmd_r``.
 
    .. code-block:: python
       :emphasize-lines: 1, 8
 
-         key_channel = 20
+         key_channel = 23
          led_channel = 10
          gpio_channels = [
             {
@@ -186,8 +188,8 @@ when the user presses ``cmd_r``, we blink a LED for 3 seconds
 ``GPIO.setdefaultsymbols``
 ==========================
 :meth:`~SimulRPi.GPIO.setdefaultsymbols` sets the default LED symbols used by
-all output channels. It accepts as argument a dictionary that maps each output
-state ('`ON`', '`OFF`') to the LED symbol (:obj:`str`)::
+**all output** channels. It accepts as argument a dictionary that maps an
+output state ('`ON`', '`OFF`') to a LED symbol (:obj:`str`)::
 
    default_led_symbols = {
        'ON': '🔵',
@@ -216,7 +218,7 @@ state ('`ON`', '`OFF`') to the LED symbol (:obj:`str`)::
       time.sleep(0.5)
       GPIO.cleanup()
 
-**Output**::
+**Output:** blinking not shown ::
 
   🔵   [11]
 
@@ -295,7 +297,8 @@ channels. It takes as argument a dictionary mapping channel numbers
        }
    }
 
-There is a LED symbol for each output state (`ON` and `OFF`).
+There is a LED symbol for each output state (`ON` and `OFF`) for a given output
+channel.
 
 .. code-block:: python
    :emphasize-lines: 4-9
@@ -319,7 +322,7 @@ There is a LED symbol for each output state (`ON` and `OFF`).
       time.sleep(0.5)
       GPIO.cleanup()
 
-**Output**::
+**Output:** blinking not shown ::
 
   🔵   [11]
 
@@ -344,7 +347,8 @@ block::
 wait at most for the threads to accomplish their tasks.
 
 **Example:** wait for the threads to do their jobs and if there is an exception
-in one of the threads' target function, it will be caught here
+in one of the threads' target function, it will be caught in our ``except``
+block.
 
 .. code-block:: python
    :emphasize-lines: 12
@@ -382,10 +386,11 @@ in one of the threads' target function, it will be caught here
 .. TODO: IMPORTANT check links to SimulRPI github
 .. _by default: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19
 .. _gpio_channels: https://github.com/raul23/Darth-Vader-RPi/blob/master/darth_vader_rpi/configs/default_main_cfg.json#L11
-.. _GPIO channel 20: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L22
+.. _GPIO channel 23: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L25
 
 .. internal links
 .. _default keymap dictionary: api_reference.html#content-default-keymap-label
-.. _simply save the exceptions: api_reference.html#GPIO.ExceptionThread.run
+.. _simply save the exceptions: api_reference.html#SimulRPi.GPIO.ExceptionThread.run
 .. _Combine SimulRPi with RPi.GPIO: combine_simulrpi.html
 .. _SimulRPi's API: api_reference.html
+.. _SimulRPi's documentation: api_reference.html#content-default-keymap-label

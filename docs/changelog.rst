@@ -6,9 +6,13 @@ Changelog
    :depth: 2
    :local:
 
-0.1.0a0
-=======
+Version 0.1.0a0
+===============
 .. _default-led-symbols-label:
+
+.. TODO: IMPORTANT add date
+
+**September 7, 2020**
 
 * The default LED symbols are now big non-ASCII signs::
 
@@ -16,53 +20,61 @@ Changelog
    ⚪ : LED turned OFF
 
   **NOTE:** the default symbols used by all GPIO channels can be modified with
-  :meth:`GPIO.setdefaultsymbols`
+  :meth:`SimulRPi.GPIO.setdefaultsymbols`
 
-* LED symbols for each channel can be modified with :meth:`GPIO.setsymbols`
+* LED symbols for each channel can be modified with
+  :meth:`SimulRPi.GPIO.setsymbols`
 * Channel names can now be displayed instead of channel numbers in the terminal::
 
    🛑  [LED 1]        🛑  [LED 2]        🛑  [LED 3]        ⬤  [lightsaber]
 * New attributes:
 
-  * :attr:`Pin.channel_id`: unique identifier
-  * :attr:`Pin.channel_name`: displayed in the terminal along each LED symbol
-  * :attr:`Pin.channel_number`: used to be called ``channel``
-  * :attr:`Pin.led_symbols`: each pin (aka channel) is represented by a LED
-    symbol if it is an output channel
-  * :attr:`Manager.default_led_symbols`: by default these are the
+  * :attr:`SimulRPi.Pin.channel_id`: unique identifier
+  * :attr:`SimulRPi.Pin.channel_name`: displayed in the terminal along each LED
+    symbol
+  * :attr:`SimulRPi.Pin.channel_number`: used to be called ``channel``
+  * :attr:`SimulRPi.Pin.led_symbols`: each pin (aka channel) is represented by
+    a LED symbol if it is an output channel
+  * :attr:`SimulRPi.Manager.default_led_symbols`: by default these are the
     `LED symbols`_ used to represent each GPIO channel in the terminal
 
 * New functions:
 
-  * :meth:`GPIO.setchannelnames`: set channels names for multiple channels
-  * :meth:`GPIO.setchannels`: set the attributes (e.g. ``channel_name`` and
-    ``led_symbols``) for multiple channels
-  * :meth:`GPIO.setdefaultsymbols`: change the default LED symbols
-  * :meth:`GPIO.setsymbols`: set the LED symbols for multiple channels
-  * :meth:`GPIO.wait`: waits for the threads to do their tasks and raises an
-    exception if there was an error in a thread's target function. Hence, the
-    main program can catch these thread exceptions.
+  * :meth:`SimulRPi.GPIO.setchannelnames`: set channels names for multiple
+    channels
+  * :meth:`SimulRPi.GPIO.setchannels`: set the attributes (e.g.
+    ``channel_name`` and ``led_symbols``) for multiple channels
+  * :meth:`SimulRPi.GPIO.setdefaultsymbols`: change the default LED symbols
+  * :meth:`SimulRPi.GPIO.setsymbols`: set the LED symbols for multiple channels
+  * :meth:`SimulRPi.GPIO.wait`: waits for the threads to do their tasks and
+    raises an exception if there was an error in a thread's target function.
+    Hence, the main program can catch these thread exceptions.
 
-* The displaying thread is now an instance of :class:`GPIO.ExceptionThread`.
-  Thus, if there is an exception raised in :meth:`GPIO.Manager.display_leds()`,
-  it is now possible to catch it in a main thread
+* The displaying thread is now an instance of
+  :class:`SimulRPi.GPIO.ExceptionThread`. Thus, if there is an exception raised
+  in :meth:`SimulRPi.GPIO.Manager.display_leds()`, it is now possible to catch
+  it in a main thread
 
 * The keyboard listener thread is now an instance of
-  ``GPIO.KeyboardExceptionThread`` (a subclass of
+  ``SimulRPi.GPIO.KeyboardExceptionThread`` (a subclass of
   :class:`pynput.keyboard.Listener`). Thus, if there is an exception raised in
-  :meth:`GPIO.Manager.on_press` or :meth:`GPIO.Manager.on_release`, it is now
-  possible to catch it in a main thread
+  :meth:`SimulRPi.GPIO.Manager.on_press` or
+  :meth:`SimulRPi.GPIO.Manager.on_release`, it is now possible to catch it in a
+  main thread
 
-* :mod:`run_examples`: all simulation-based examples involving "LEDs" and
-  pressing keyboard keys worked on the RPi OS (Debian-based)
+* :mod:`SimulRPi.run_examples`: all simulation-based examples involving "LEDs"
+  and pressing keyboard keys worked on the RPi OS (Debian-based)
 
 .. note::
 
   These lists are not exhaustive, only the most important attributes and
   functions are mentionned. See the `API reference`_ for more info.
 
-0.0.1a0 (Aug 14, 2020)
-======================
+Version 0.0.1a0
+===============
+
+**August 14, 2020**
+
 * In ``SimulRPi.GPIO``, the package ``pynput`` is not required anymore. If it
   is not found, all keyboard-related functionalities from the ``SimulRPi``
   library will be skipped. Thus, no keyboard keys will be detected if pressed
@@ -78,8 +90,11 @@ Changelog
 
 * Started writing unit tests
 
-0.0.0a0 (Aug 9, 2020)
-=====================
+Version 0.0.0a0
+===============
+
+**August 9, 2020**
+
 * First version
 
 * Tested `code examples`_ on different platforms and here are the results
