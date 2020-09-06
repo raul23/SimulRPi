@@ -6,17 +6,16 @@ API Reference
    :depth: 2
    :local:
 
-
 :mod:`SimulRPi.GPIO`
-==================================
+====================
 
-.. automodule:: GPIO
+.. automodule:: SimulRPi.GPIO
    :members:
    :undoc-members:
    :show-inheritance:
 
 :mod:`SimulRPi.mapping`
-==================================
+=======================
 
 .. automodule:: SimulRPi.mapping
    :members:
@@ -68,17 +67,17 @@ API Reference
    :obj:`alt`, :obj:`ctrl`, :obj:`cmd`, and :obj:`shift`.
 
 :mod:`SimulRPi.run\_examples`
-==================================
+=============================
 
-.. automodule:: run_examples
+.. automodule:: SimulRPi.run_examples
    :members:
    :undoc-members:
    :show-inheritance:
 
 :mod:`SimulRPi.utils`
-==================================
+=====================
 
-.. automodule:: utils
+.. automodule:: SimulRPi.utils
    :members:
    :undoc-members:
    :show-inheritance:
