@@ -1,7 +1,9 @@
-"""Package that TODO
+"""SimulRPi is a Python library that partly fakes `RPi.GPIO`_ and simulates
+some I/O devices on a Raspberry Pi (RPi).
+
+.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 
 """
-
 # For debugging purposes
 __test_version__ = "0.3.0.post4"
 # Version of package
