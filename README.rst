@@ -415,7 +415,7 @@ The command line for reproducing the same results for example 4 with the script
 Example 5: blink a LED if a key is pressed
 ------------------------------------------
 **Example 5** consists in blinking a LED on channel 10 for 3 seconds if the key
-``shift_r`` is pressed. And then, exiting from the program. The program can
+``shift_r`` is pressed. And then exiting from the program. The program can
 also be terminated at anytime by pressing ``ctrl`` + ``c``. Here is the code
 along with the output from the terminal:
 
@@ -494,13 +494,12 @@ References
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
 .. URLs
-.. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
-.. _SimulRPi's issues page: https://github.com/raul23/SimulRPi/issues
-.. _pynput: https://pynput.readthedocs.io/
 .. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
 .. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup
 .. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
+.. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
+.. _pynput: https://pynput.readthedocs.io/
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _PyPI: https://pypi.org/project/SimulRPi/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
@@ -508,4 +507,5 @@ References
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
+.. _SimulRPi's issues page: https://github.com/raul23/SimulRPi/issues
 

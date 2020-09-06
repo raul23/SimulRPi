@@ -429,7 +429,7 @@ The command line for reproducing the same results for example 4 with the script
 Example 5: blink a LED if a key is pressed
 ------------------------------------------
 **Example 5** consists in blinking a LED on channel 10 for 3 seconds if the key
-``shift_r`` is pressed. And then, exiting from the program. The program can
+``shift_r`` is pressed. And then exiting from the program. The program can
 also be terminated at anytime by pressing ``ctrl`` + ``c``. Here is the code
 along with the output from the terminal:
 
@@ -511,7 +511,6 @@ References
 .. URLs
 .. 1. External links
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
-.. _SimulRPi's issues page: https://github.com/raul23/SimulRPi/issues
 .. _pynput: https://pynput.readthedocs.io/
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _PyPI: https://pypi.org/project/SimulRPi/
@@ -520,11 +519,12 @@ References
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
+.. _SimulRPi's issues page: https://github.com/raul23/SimulRPi/issues
 
 .. 2. Internal links
 .. _code examples: #examples-label
 .. _install: #installation-instructions-label
-.. _run_examples: api_reference.html#module-run_examples
+.. _run_examples: api_reference.html#module-SimulRPi.run_examples
 .. _Examples: #examples-label
 .. _GPIO.cleanup(): api_reference.html#GPIO.cleanup
 .. _SimulRPi.mapping: api_reference.html#module-SimulRPi.mapping
