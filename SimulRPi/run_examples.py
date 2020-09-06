@@ -19,7 +19,7 @@ Usage
 .. highlight:: console
 
 Once the **SimulRPi** package is `installed`_, you should have access to
-the script :mod:`run_examples`::
+the script :mod:`~SimulRPi.run_examples`::
 
     $ run_examples -h
 
@@ -34,7 +34,7 @@ Run the code for example 1 on the **RPi** with default values for the options
 
     $ run_examples -e 1
 
-Run the code for example 1 on your **computer** using `SimulRPi.GPIO`_::
+Run the code for example 1 on your **computer** using :mod:`SimulRPi.GPIO`::
 
     $ run_examples -s -e 1
 
