@@ -170,11 +170,11 @@ Script ``run_examples``
 The script `run_examples`_ which you have access to once you install
 the ``SimulRPi`` package allows you to run different code examples on your RPi
 or computer. If it is run on your computer, it will make use of the module
-`SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
+``SimulRPi.GPIO`` which partly fakes ``RPi.GPIO``.
 
 The different code examples are those presented in **Examples** and show the
 capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
-push buttons and LEDS.
+push buttons and LEDs.
 
 Here is a list of the functions associated with each code example:
    - Example 1: `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
@@ -219,13 +219,19 @@ For example::
 
    $ run_examples -e 1 -s
 
-Let's run the code example **# 5** which blinks a LED if a specified key is
-pressed.
-
-Here is the command line for blinking a LED (on channel 22) for a total of 5
-seconds if the key ``ctrl_r`` is pressed and if running in simulation::
+Let's run the code example 5 which blinks a LED if a specified key is
+pressed::
 
    $ run_examples -s -e 5 -l 22 -t 5 -k ctrl_r
+
+Explanation of the command-line:
+
+   - ``-s``: we run the code example as a **simulation**, i.e. on our computer
+     instead of an RPi
+   - ``-e 5``: we run code example **5** which blinks a LED if a key is pressed
+   - ``-l 22``: we blink a LED on channel **22**
+   - ``-t 5``: we blink a LED for **5** seconds
+   - ``-k ctrl_r``: a LED is blinked if the key ``ctrl_r`` is pressed
 
 **Output:**
 
@@ -256,7 +262,7 @@ The code for the examples shown here can be also found as a script in
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
-   `run_examples`_ which runs the following code examples can be executed on a
+   ``run_examples`` which runs the following code examples can be executed on a
    Raspberry Pi or your computer.
 
 Example 1: display 1 LED

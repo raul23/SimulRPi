@@ -93,7 +93,7 @@ Installation instructions 😎
    It will install the dependency ``pynput`` if it is not already found in
    your system.
 
-3. If you get the warning message from *pip* that the script ``run_examples``
+3. If you get the warning message from *pip* that the script :mod:`~SimulRPi.run_examples`
    is not defined in your *PATH*::
 
       WARNING: The script run_examples is installed in '/home/pi/.local/bin' which is not on PATH.
@@ -133,7 +133,7 @@ Use the library in your own code
 Case 1: with a ``try`` and ``except`` blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can try importing ``RPi.GPIO`` first and if it is not found, then fallback
-on the module ``SimulRPi.GPIO``.
+on the module :mod:`SimulRPi.GPIO`.
 
 ..
    IMPORTANT:
@@ -170,14 +170,14 @@ module or the real one.
 
 Script ``run_examples``
 --------------------------
-The script `run_examples`_ which you have access to once you `install`_
+The script :mod:`~SimulRPi.run_examples` which you have access to once you `install`_
 the ``SimulRPi`` package allows you to run different code examples on your RPi
 or computer. If it is run on your computer, it will make use of the module
-`SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
+:mod:`SimulRPi.GPIO` which partly fakes ``RPi.GPIO``.
 
 The different code examples are those presented in `Examples`_ and show the
-capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
-push buttons and LEDS.
+capability of :mod:`SimulRPi.GPIO` for simulating I/O devices on an RPi such as
+push buttons and LEDs.
 
 Here is a list of the functions associated with each code example:
 
@@ -216,20 +216,26 @@ To display the script's list of options and their descriptions:
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
 Once you `install`_ the package ``SimulRPi``, you should have access to the
-script ``run_examples`` which can be called from the terminal by providing some
+script :mod:`~SimulRPi.run_examples` which can be called from the terminal by providing some
 arguments.
 
 For example::
 
    $ run_examples -e 1 -s
 
-Let's run the code example **# 5** which blinks a LED if a specified key is
-pressed.
-
-Here is the command line for blinking a LED (on channel 22) for a total of 5
-seconds if the key ``ctrl_r`` is pressed and if running in simulation::
+Let's run the code example 5 which blinks a LED if a specified key is
+pressed::
 
    $ run_examples -s -e 5 -l 22 -t 5 -k ctrl_r
+
+Explanation of the command-line:
+
+   - ``-s``: we run the code example as a **simulation**, i.e. on our computer
+     instead of an RPi
+   - ``-e 5``: we run code example **5** which blinks a LED if a key is pressed
+   - ``-l 22``: we blink a LED on channel **22**
+   - ``-t 5``: we blink a LED for **5** seconds
+   - ``-k ctrl_r``: a LED is blinked if the key ``ctrl_r`` is pressed
 
 **Output:**
 
@@ -241,12 +247,11 @@ seconds if the key ``ctrl_r`` is pressed and if running in simulation::
 |
 |
 |
-|
 
 .. important::
 
    Don't forget the flag *-s* (for simulation) when running the script
-   ``run_examples`` if you want to run a code example on your computer, and
+   :mod:`~SimulRPi.run_examples` if you want to run a code example on your computer, and
    not on your RPi.
 
 .. _examples-label:
@@ -263,7 +268,7 @@ The code for the examples shown here can be also found as a script in
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
-   `run_examples`_ which runs the following code examples can be executed on a
+   :mod:`~SimulRPi.run_examples` which runs the following code examples can be executed on a
    Raspberry Pi or your computer.
 
 Example 1: display 1 LED
@@ -293,13 +298,13 @@ the code along with the output from the terminal:
 |
 
 The command line for reproducing the same results for example 1 with the script
-``run_examples`` is the following::
+:mod:`~SimulRPi.run_examples` is the following::
 
    $ run_examples -s -e 1 -l 10
 
 .. warning::
 
-   Always call `GPIO.cleanup()`_ at the end of your program to free up any
+   Always call :meth:`~SimulRPi.GPIO.cleanup` at the end of your program to free up any
    resources such as stopping threads.
 
 Example 2: display 3 LEDs
@@ -329,7 +334,7 @@ respectively. Here is the code along with the output from the terminal:
 |
 
 The command line for reproducing the same results for example 2 with the script
-``run_examples`` is the following::
+:mod:`~SimulRPi.run_examples` is the following::
 
    $ run_examples -s -e 2
 
@@ -365,7 +370,7 @@ printing a message. Here is the code along with the output from the terminal:
 |
 
 The command line for reproducing the same results for example 3 with the script
-``run_examples`` is the following::
+:mod:`~SimulRPi.run_examples` is the following::
 
    $ run_examples -s -e 3 -k cmd_r
 
@@ -415,9 +420,10 @@ the terminal:
 |
 |
 |
+|
 
 The command line for reproducing the same results for example 4 with the script
-``run_examples`` is the following::
+:mod:`~SimulRPi.run_examples` is the following::
 
    $ run_examples -s -e 4 -t 4 -l 22
 
@@ -466,7 +472,7 @@ along with the output from the terminal:
 |
 
 The command line for reproducing the same results for example 5 with the script
-``run_examples`` is the following::
+:mod:`~SimulRPi.run_examples` is the following::
 
    $ run_examples -s -e 5 -t 3 -l 10 -b 27
 
@@ -494,7 +500,7 @@ Resources
 * `SimulRPi GitHub`_: source code
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
-  Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
+  Vader action figure with light and sounds and :mod:`SimulRPi.GPIO` as fallback if
   testing on a computer when no RPi available
 
 References
