@@ -44,7 +44,7 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
   pin number.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The package
-`pynput`_ is used to monitor the keyboard for any pressed keys.
+`pynput`_ is used to monitor the keyboard for any pressed key.
 
 **Example: terminal output**
 
@@ -75,7 +75,7 @@ Dependencies
 ============
 * **Platforms:** macOS, Linux
 * **Python**: 3.5, 3.6, 3.7, 3.8
-* ``pynput`` >=1.6.8: for monitoring the keyboard for any pressed keys
+* ``pynput`` >=1.6.8: for monitoring the keyboard for any pressed key
 
 .. _installation-instructions-label:
 
@@ -502,7 +502,7 @@ Resources
 
 References
 ==========
-* `pynput`_: package used for monitoring the keyboard for any pressed keys as to
+* `pynput`_: package used for monitoring the keyboard for any pressed key as to
   simulate push buttons connected to an RPi
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
