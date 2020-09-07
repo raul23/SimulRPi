@@ -416,10 +416,8 @@ def main():
                                     args.time_leds_off)
         else:
             print("Example # {} not found".format(args.example_number))
-        """
         if hasattr(GPIO, 'wait'):
             GPIO.wait(0.5)
-        """
     except Exception:
         retcode = 1
         traceback.print_exc()
