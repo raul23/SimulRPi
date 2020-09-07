@@ -108,7 +108,7 @@ Version 0.0.0a0
     * RPi OS [Debian-based]: all examples involving "LEDs" only worked
 
       **NOTE:** I was running the script :mod:`run_examples`
-      with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard keys
+      with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard key
       even though I set my environment variable ``Display``, added
       ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
       further investigated.
