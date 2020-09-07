@@ -2,8 +2,6 @@
 Display problems
 ================
 
-
-
 .. contents::
    :depth: 2
    :local:
@@ -28,20 +26,20 @@ The
 **Solution #2:** change the default LED symbols
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 If you are using the module :mod:`SimulRPi.GPIO` in your code, you can change
-the default LEDs used by all output channels with the function
+the default LED symbols used by all output channels with the function
 :meth:`SimulRPi.GPIO.setdefaultsymbols`. Hence, you can provide your own
-non-ASCII LED symbols
+ASCII-based LED symbols using ANSI codes to color them:
 
 .. code-block:: python
    :emphasize-lines: 4-9
-   :caption: **Example:** updating the default LED symbols
+   :caption: **Example:** updating the default LED symbols with ASCII characters
 
       import time
       import SimulRPi.GPIO as GPIO
 
       GPIO.setdefaultsymbols(
          {
-             'ON': '\033[1;31;48m(0)\033[1;37;0m',
+             'ON': '\033[91m(0)\033[0m',
              'OFF': '(0)'
          }
       )
@@ -49,10 +47,26 @@ non-ASCII LED symbols
       GPIO.setmode(GPIO.BCM)
       GPIO.setup(led_channel, GPIO.OUT)
       GPIO.output(led_channel, GPIO.HIGH)
-      time.sleep(0.5)
-      GPIO.output(led_channel, GPIO.LOW)
-      time.sleep(0.5)
       GPIO.cleanup()
+
+**Output:**
+
+.. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters.png
+   :target: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters.png
+   :align: left
+   :alt: Terminal output: ASCII characters used for LED symbols
+
+|
+|
+
+.. seealso::
+
+   * `Build your own Command Line with ANSI escape codes`_ : more info about
+     using ANSI escape codes (e.g. color text, move the cursor up)
+   * `How to print colored text in Python?`_ : from stackoverflow, lots of
+     Python examples using built-in modules or third-party libraries to color
+     text in the terminal.
+
 
 **Solution #3:** ``export PYTHONIOENCODING=utf8`` (temporary solution)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -101,5 +115,9 @@ too late, it is now at another line. So you get this display of multiple lines
 of LEDs.
 
 .. URLs
+.. external links
+.. _Build your own Command Line with ANSI escape codes: https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html
+.. _How to print colored text in Python?: https://stackoverflow.com/questions/287871/how-to-print-colored-text-in-python
+
 .. internal links
 .. _default LED symbols: useful_functions.html#gpio-setdefaultsymbols
