@@ -13,7 +13,7 @@ ASCII characters can't be displayed
 
 When running the script :mod:`SimulRPi.run_examples` or using the module
 :mod:`SimulRPi.GPIO` in your own code, your terminal might have difficulties
-printing the `default LED symbols`_::
+printing the `default LED symbols`_ based on special characters::
 
    UnicodeEncodeError: 'ascii' codec can't encode character '\U0001f6d1' in position 2: ordinal not in range(128)
 
@@ -21,7 +21,40 @@ This is mainly a problem with your ``locale`` settings used by your terminal.
 
 **Solution #1:** change your ``locale`` settings
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The
+The best solution consists in modifying your ``locale`` settings since it is
+permanent and you don't have to change any Python code.
+
+1. Append ``~/.bashrc`` or ``~/.bash_profile`` with::
+
+      export LANG="en_US.UTF-8"
+      export LANGUAGE="en_US:en"
+
+   You should provide your own locale setting. The example uses the English
+   (US) locale. ``locale -a`` gives you all the available locales on your Linux
+   or Unix-like system.
+
+2. Reload the ``.bashrc``::
+
+      $ source .bashrc
+
+3. Run the following command to make sure that your locale was set correctly::
+
+      $ locale
+
+      LANG="en_US.UTF-8"
+      LC_COLLATE="en_US.UTF-8"
+      LC_CTYPE="en_US.UTF-8"
+      LC_MESSAGES="en_US.UTF-8"
+      LC_MONETARY="en_US.UTF-8"
+      LC_NUMERIC="en_US.UTF-8"
+      LC_TIME="en_US.UTF-8"
+      LC_ALL=
+
+.. seealso::
+
+   * `How to Set Locales (i18n) On a Linux or Unix`_: detailed article
+   * `How can I change the locale?`_: from raspberrypi.stackexchange.com,
+     provides answers to set the locale user and system-wide
 
 **Solution #2:** change the default LED symbols
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -117,7 +150,9 @@ of LEDs.
 .. URLs
 .. external links
 .. _Build your own Command Line with ANSI escape codes: https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html
+.. _How can I change the locale?: https://raspberrypi.stackexchange.com/a/19866
 .. _How to print colored text in Python?: https://stackoverflow.com/questions/287871/how-to-print-colored-text-in-python
+.. _How to Set Locales (i18n) On a Linux or Unix: https://www.cyberciti.biz/faq/how-to-set-locales-i18n-on-a-linux-unix/
 
 .. internal links
 .. _default LED symbols: useful_functions.html#gpio-setdefaultsymbols
