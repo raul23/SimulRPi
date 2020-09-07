@@ -93,18 +93,6 @@ Installation instructions 😎
    It will install the dependency ``pynput`` if it is not already found in
    your system.
 
-3. If you get the warning message from *pip* that the script :mod:`~SimulRPi.run_examples`
-   is not defined in your *PATH*::
-
-      WARNING: The script run_examples is installed in '/home/pi/.local/bin' which is not on PATH.
-
-   add this directory to your *PATH* by editing your configuration file (e.g.
-   *.bashrc*). See this `article`_ on how to set *PATH* on Linux.
-
-4. Test your installation by importing ``SimulRPi`` and printing its version::
-
-   $ python -c "import SimulRPi; print(SimulRPi.__version__)"
-
 .. important::
 
    Make sure that *pip* is working with the correct Python version. It might be
@@ -125,6 +113,23 @@ Installation instructions 😎
 
    However, this latest version is not as stable as the one from
    `PyPI`_ but you get the latest features being implemented.
+
+**Test installation**
+
+Test your installation by importing ``SimulRPi`` and printing its version::
+
+   $ python -c "import SimulRPi; print(SimulRPi.__version__)"
+
+**Warning message**
+
+If you get the warning message from *pip* that the script :mod:`~SimulRPi.run_examples`
+is not defined in your *PATH*::
+
+   WARNING: The script run_examples is installed in '/home/pi/.local/bin' which is not on PATH.
+
+Add the directory mentioned in the warning to your *PATH* by editing your
+configuration file (e.g. *.bashrc*). See this `article`_ on how to set *PATH*
+on Linux.
 
 Usage
 =====
