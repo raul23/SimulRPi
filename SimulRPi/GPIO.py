@@ -131,6 +131,7 @@ class ExceptionThread(threading.Thread):
         try:
             self._target(*self._args, **self._kwargs)
         except Exception as e:
+            # TODO: important add a method to raise the exception
             self.exc = e
 
 
@@ -559,7 +560,7 @@ class Manager:
         to simulate LEDs connected to an RPi.
     th_listener : GPIO.KeyboardExceptionThread
         Thread responsible for listening on any pressed or released keyboard
-        keys as to simulate push buttons connected to an RPi.
+        key as to simulate push buttons connected to an RPi.
 
         If ``pynput`` couldn't be imported, ``th_listener`` is :obj:`None`.
         Otherwise, it is instantiated from ``GPIO.KeyboardExceptionThread``.
@@ -577,7 +578,7 @@ class Manager:
         If the module ``pynput.keyboard`` couldn't be imported, the listener
         thread ``th_listener`` will not be created and the parts of the
         ``SimulRPi`` library that monitors the keyboard for any pressed or
-        released keys will be ignored. Only the thread ``th_display_leds`` that
+        released key will be ignored. Only the thread ``th_display_leds`` that
         displays "LEDs" on the terminal will be created.
 
         This is necessary for example in the case we are running tests on
