@@ -33,6 +33,7 @@ See the `README <README_docs.html>`_ for more info about the library.
    README_docs
    combine_simulrpi
    useful_functions
+   display_problems
    api_reference
    changelog
    license
