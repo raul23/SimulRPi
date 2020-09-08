@@ -47,6 +47,7 @@ Version 0.1.0a0
   * :meth:`SimulRPi.GPIO.setchannels`: set the attributes (e.g.
     ``channel_name`` and ``led_symbols``) for multiple channels
   * :meth:`SimulRPi.GPIO.setdefaultsymbols`: change the default LED symbols
+    used by all output channels
   * :meth:`SimulRPi.GPIO.setsymbols`: set the LED symbols for multiple channels
   * :meth:`SimulRPi.GPIO.wait`: waits for the threads to do their tasks and
     raises an exception if there was an error in a thread's target function.
