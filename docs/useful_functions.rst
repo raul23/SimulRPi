@@ -18,9 +18,8 @@ examples.
 
 .. seealso::
 
-   `Combine SimulRPi with RPi.GPIO`_
-      It shows you how to integrate the simulation module :mod:`SimulRPi.GPIO`
-      with ``RPi.GPIO``
+   `Combine SimulRPi with RPi.GPIO`_: It shows you how to integrate the
+   simulation module :mod:`SimulRPi.GPIO` with ``RPi.GPIO``
 
 .. contents:: Contents
    :depth: 3
