@@ -12,7 +12,7 @@ Version 0.1.0a0
 
 .. TODO: IMPORTANT add date
 
-**September 7, 2020**
+**September 8, 2020**
 
 * The default LED symbols are now big non-ASCII signs::
 
@@ -29,13 +29,15 @@ Version 0.1.0a0
    🛑  [LED 1]        🛑  [LED 2]        🛑  [LED 3]        ⬤  [lightsaber]
 * New attributes:
 
-  * :attr:`SimulRPi.Pin.channel_id`: unique identifier
-  * :attr:`SimulRPi.Pin.channel_name`: displayed in the terminal along each LED
+  * ``SimulRPi.Pin.channel_id``: unique identifier
+  * ``SimulRPi.Pin.channel_name``: displayed in the terminal along each LED
     symbol
-  * :attr:`SimulRPi.Pin.channel_number`: used to be called ``channel``
-  * :attr:`SimulRPi.Pin.led_symbols`: each pin (aka channel) is represented by
-    a LED symbol if it is an output channel
-  * :attr:`SimulRPi.Manager.default_led_symbols`: by default these are the
+  * ``SimulRPi.Pin.channel_number``: used to be called ``channel``
+  * ``SimulRPi.Pin.channel_type``: used to be called ``gpio_function`` and
+    refers to the type of GPIO channel, e.g. 1 (`GPIO.IN`) or 0 (`GPIO.OUT`).
+  * ``SimulRPi.Pin.led_symbols``: each pin (aka channel) is represented by a
+    LED symbol if it is an output channel
+  * ``SimulRPi.Manager.default_led_symbols``: by default these are the
     `LED symbols`_ used to represent each GPIO channel in the terminal
 
 * New functions:
@@ -107,11 +109,13 @@ Version 0.0.0a0
     * macOS: all examples involving "LEDs" and keyboard keys worked
     * RPi OS [Debian-based]: all examples involving "LEDs" only worked
 
-      **NOTE:** I was running the script :mod:`run_examples`
+      **NOTE:** I was running the script :mod:`~SimulRPi.run_examples`
       with ``ssh`` but ``pynput`` doesn't detect any pressed keyboard key
       even though I set my environment variable ``Display``, added
       ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
       further investigated.
+
+[*EDIT:* tested the code examples with :mod:`~SimulRPi.run_examples`]
 
 .. URLs
 

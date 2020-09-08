@@ -121,7 +121,7 @@ When running the script :mod:`SimulRPi.run_examples`, if you get the following:
 
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/small_window_multiple_lines_bad.png"/>
-   <p><b>Bad display when running the script in small terminal window</b></p>
+   <p><b>Bad display when running the script in a small terminal window</b></p>
    </div>
 
 It means that you are running the script within a too small terminal window,
