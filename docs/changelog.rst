@@ -67,6 +67,8 @@ Version 0.1.0a0
 * :meth:`SimulRPi.GPIO.input` and :meth:`SimulRPi.GPIO.output` now raise an
   exception caught by the listening and displaying threads, respectively.
 
+* If two channels use the same channel numbers, an exception is now raised.
+
 * :mod:`SimulRPi.run_examples`: all simulation-based examples involving "LEDs"
   and pressing keyboard keys worked on the RPi OS (Debian-based)
 
