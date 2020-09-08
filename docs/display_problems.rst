@@ -29,9 +29,9 @@ permanent and you don't have to change any Python code.
       export LANG="en_US.UTF-8"
       export LANGUAGE="en_US:en"
 
-   You should provide your own locale settings. The example uses the English
-   (US) locale. ``locale -a`` gives you all the available locales on your Linux
-   or Unix-like system.
+   You should provide your own **UTF-8** based locale settings. The example
+   uses the English (US) locale using the **UTF-8** encoding. ``locale -a``
+   gives you all the available locales on your Linux or Unix-like system.
 
 2. Reload the ``.bashrc``::
 
