@@ -257,6 +257,11 @@ class PinDB:
             See :class:`Pin` for a list of its parameters which can be included
             in ``kwargs``.
 
+        Raises
+        ------
+        KeyError
+            Raised if two channels are using the same channel number.
+
         """
         if self._pins.get(channel_number):
             # TODO: error or warning? Overwrite?
@@ -851,6 +856,12 @@ class Manager:
 
             **Ref.:** https://bit.ly/3k4whEs
 
+
+        .. note::
+
+            If an exception is raised, it is caught to be further raised in
+            :meth:`input` or :meth:`wait`.
+
         """
         try:
             # test = 1/0
@@ -880,6 +891,12 @@ class Manager:
             * :obj:`None` for unknown keys.
 
             **Ref.:** https://bit.ly/3k4whEs
+
+
+        .. note::
+
+            If an exception is raised, it is caught to be further raised in
+            :meth:`input` or :meth:`wait`.
 
         """
         try:
@@ -984,6 +1001,15 @@ class Manager:
                     "g": 25,
                     "h": 23
                 }
+
+        Raises
+        ------
+        TypeError
+            Raised if a given key is invalid: only special and alphanumeric
+            keys recognized by `pynput`_ are accepted.
+
+            See the documentation for :mod:`SimulRPi.mapping` for a list of
+            accepted keys.
 
 
         .. note::
@@ -1137,6 +1163,11 @@ class Manager:
         attribute_name
         new_attributes
 
+        Raises
+        ------
+        ValueError
+            Raised if
+
         """
         if attribute_name == 'led_symbols':
             set_fnc = self.pin_db.set_pin_symbols_from_channel
@@ -1266,6 +1297,14 @@ def input(channel_number):
         number, then :obj:`None` is returned. Otherwise, the :class:`Pin`\'s
         state is returned: 1 (`HIGH`) or 0 (`LOW`).
 
+    Raises
+    ------
+    Exception
+        If the listening thread caught an exception that occurred in
+        :meth:`Manager.on_press` and
+        :meth:`Manager.on_release`, the said exception will be raised
+        here.
+
 
     .. note::
 
@@ -1381,6 +1420,11 @@ def setchannels(gpio_channels):
                     }
                 }
             ]
+
+    Raises
+    ------
+    KeyError
+        Raised if two channels are using the same channel number.
 
     """
     channels_attributes = {}
@@ -1591,8 +1635,8 @@ def setwarnings(show_warnings):
 def wait(timeout=2):
     """Wait for certain events to complete.
 
-    Wait for the threads to do their tasks. If there was an exception caught by
-    one thread, then it is raised here.
+    Wait for the displaying and listening threads to do their tasks. If there
+    was an exception caught by one thread, then it is raised here.
 
     If more than ``timeout`` seconds elapsed without any of the events
     described previously happening, the function exits.
@@ -1602,6 +1646,12 @@ def wait(timeout=2):
     timeout : float
         How long to wait (in seconds) before exiting from this function. By
         default, we wait for 2 seconds.
+
+    Raises
+    ------
+    Exception
+        If the displaying or listening thread caught an exception, it will be
+        raised here.
 
 
     .. important::
