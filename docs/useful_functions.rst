@@ -189,12 +189,17 @@ when the user presses ``cmd_r``, we blink a LED for 3 seconds
 ==========================
 :meth:`~SimulRPi.GPIO.setdefaultsymbols` sets the default LED symbols used by
 **all output** channels. It accepts as argument a dictionary that maps an
-output state ('`ON`', '`OFF`') to a LED symbol (:obj:`str`)::
+output state ('`ON`', '`OFF`') to a LED symbol (:obj:`str`).
+
+By default, these are the LED symbols used by all output channels::
 
    default_led_symbols = {
-       'ON': '🔵',
-       'OFF': '⚪ '
+       'ON': '🛑',
+       'OFF': '⚪'
    }
+
+The next example shows you how to change these default LED symbols with the
+function :meth:`~SimulRPi.GPIO.setdefaultsymbols`
 
 .. code-block:: python
    :emphasize-lines: 4-9

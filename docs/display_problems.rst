@@ -17,11 +17,11 @@ printing the `default LED symbols`_ based on special characters::
 
    UnicodeEncodeError: 'ascii' codec can't encode character '\U0001f6d1' in position 2: ordinal not in range(128)
 
-This is mainly a problem with your ``locale`` settings used by your terminal.
+This is mainly a problem with your **locale** settings used by your terminal.
 
 **Solution #1:** change your ``locale`` settings
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The best solution consists in modifying your ``locale`` settings since it is
+The best solution consists in modifying your **locale** settings since it is
 permanent and you don't have to change any Python code.
 
 1. Append ``~/.bashrc`` or ``~/.bash_profile`` with::
@@ -29,7 +29,7 @@ permanent and you don't have to change any Python code.
       export LANG="en_US.UTF-8"
       export LANGUAGE="en_US:en"
 
-   You should provide your own locale setting. The example uses the English
+   You should provide your own locale settings. The example uses the English
    (US) locale. ``locale -a`` gives you all the available locales on your Linux
    or Unix-like system.
 
