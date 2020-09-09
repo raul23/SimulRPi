@@ -831,10 +831,7 @@ class Manager:
                 key_name = key.char
         elif hasattr(key, 'name'):
             # Special key (keyboard.Key)
-            if key.name == 'enter':
-                key_name = None
-            else:
-                key_name = key.name
+            key_name = key.name
         else:
             # Unknown key
             key_name = None
