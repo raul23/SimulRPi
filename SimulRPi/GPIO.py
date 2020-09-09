@@ -1367,9 +1367,8 @@ def output(channel, state):
             state = state * len(channel)
         else:
             assert len(state) == len(channel), \
-                "There should be as many output states as channels: number " \
-                "of state = {} and number of channels = {}".format(
-                    len(state), len(channel))
+                "There should be as many output states as channels: " \
+                "states = {} and channels = {}".format(state, channel)
     for idx, ch in enumerate(channel):
         manager.pin_db.set_pin_state_from_channel(ch, state[idx])
     # Start the displaying thread only if it is not already alive and there is
