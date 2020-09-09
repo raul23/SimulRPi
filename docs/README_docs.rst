@@ -354,10 +354,10 @@ printing a message. Here is the code along with the output from the terminal:
    channel = 17
    GPIO.setmode(GPIO.BCM)
    GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-   print("Press key 'cmd_r' to exit")
+   print("Press key 'cmd_r' to exit\n")
    while True:
        if not GPIO.input(channel):
-           print("Key 'cmd_r' pressed")
+           print("Key pressed!")
            break
    GPIO.cleanup()
 
@@ -448,11 +448,11 @@ along with the output from the terminal:
    GPIO.setmode(GPIO.BCM)
    GPIO.setup(led_channel, GPIO.OUT)
    GPIO.setup(key_channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-   print("Press key 'shift_r' to blink a LED")
+   print("Press the key 'shift_r' to turn on light ...\n")
    while True:
        try:
            if not GPIO.input(key_channel):
-               print("Key 'shift_r' pressed")
+               print("The key 'shift_r' was pressed!")
                start = time.time()
                while (time.time() - start) < 3:
                    GPIO.output(led_channel, GPIO.HIGH)
