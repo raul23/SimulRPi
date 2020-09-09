@@ -204,10 +204,13 @@ class Pin:
         self.pull_up_down = pull_up_down
         self.initial = initial
         self.led_symbols = led_symbols
+        # TODO: check if setting of state is good
         if self.channel_type == IN:
-            self.state = HIGH
+            # Input channel (e.g. push button)
+            self.state = self.initial if self.initial else HIGH
         else:
-            self.state = LOW
+            # Output channel (e.g. LED)
+            self.state = self.initial if self.initial else LOW
 
 
 # TODO: change to ChannelDB?
@@ -816,6 +819,7 @@ class Manager:
             `pynput`_. Otherwise, it returns :obj:`None`.
 
         """
+        # TODO: how to detect enter key
         # print(key)
         if hasattr(key, 'char'):
             # Alphanumeric key (keyboard.KeyCode)
@@ -827,7 +831,10 @@ class Manager:
                 key_name = key.char
         elif hasattr(key, 'name'):
             # Special key (keyboard.Key)
-            key_name = key.name
+            if key.name == 'enter':
+                key_name = None
+            else:
+                key_name = key.name
         else:
             # Unknown key
             key_name = None
@@ -1281,12 +1288,12 @@ def cleanup():
     manager = Manager()
 
 
-def input(channel_number):
+def input(channel):
     """Read the value of a GPIO pin.
 
     Parameters
     ----------
-    channel_number : int
+    channel : int
         Input channel number based on the numbering system you have specified
         (`BOARD` or `BCM`).
 
@@ -1318,20 +1325,29 @@ def input(channel_number):
         if not manager.th_listener.exc and not manager.th_listener.is_alive():
             manager.th_listener.start()
         _raise_if_thread_exception(manager.th_listener.name)
-    return manager.pin_db.get_pin_state(channel_number)
+    return manager.pin_db.get_pin_state(channel)
 
 
 # TODO: output to several channels, see https://bit.ly/2Dgk2Uf
-def output(channel_number, state):
+def output(channel, state):
     """Set the output state of a GPIO pin.
 
     Parameters
     ----------
-    channel_number : int
+    channel : int or list or tuple
         Output channel number based on the numbering system you have specified
         (`BOARD` or `BCM`).
-    state : int
+
+        You can also provide a list or tuple of channel numbers::
+
+            chan_list = [11,12]
+    state : int or list or tuple
         State of the GPIO channel: 1 (`HIGH`) or 0 (`LOW`).
+
+        You can also provide a list of states::
+
+            GPIO.output(chan_list, GPIO.LOW)               # sets all to LOW
+            GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))  # sets 1st HIGH and 2nd LOW.
 
     Raises
     ------
@@ -1347,7 +1363,18 @@ def output(channel_number, state):
         i.e. it is not already running.
 
     """
-    manager.pin_db.set_pin_state_from_channel(channel_number, state)
+    channel = [channel] if isinstance(channel, int) else channel
+    state = [state] if isinstance(state, int) else state
+    if len(channel) > 1:
+        if len(state) == 1:
+            state = state * len(channel)
+        else:
+            assert len(state) == len(channel), \
+                "There should be as many output states as channels: number " \
+                "of state = {} and number of channels = {}".format(
+                    len(state), len(channel))
+    for idx, ch in enumerate(channel):
+        manager.pin_db.set_pin_state_from_channel(ch, state[idx])
     # Start the displaying thread only if it is not already alive and there is
     # no exception in the thread's target function
     if not manager.th_display_leds.exc and \
@@ -1593,9 +1620,12 @@ def setup(channel, channel_type, pull_up_down=None, initial=None):
 
     Parameters
     ----------
-    channel : int
+    channel : int or list or tuple
         GPIO channel number based on the numbering system you have specified
         (`BOARD` or `BCM`).
+
+        You can also provide a list or tuple of channel numbers. All channels
+        will take the same values for the other parameters.
     channel_type : int
         Type of a GPIO channel: e.g. 1 (`GPIO.IN`) or 0 (`GPIO.OUT`).
     pull_up_down : int or None, optional
@@ -1610,7 +1640,9 @@ def setup(channel, channel_type, pull_up_down=None, initial=None):
     `RPi.GPIO wiki`_
 
     """
-    manager.add_pin(channel, channel_type, pull_up_down, initial)
+    channel = [channel] if isinstance(channel, int) else channel
+    for ch in channel:
+        manager.add_pin(ch, channel_type, pull_up_down, initial)
 
 
 def setwarnings(show_warnings):
