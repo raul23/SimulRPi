@@ -725,6 +725,25 @@ class Manager:
 
         This is the target function for the displaying thread ``th_display_leds``.
 
+        .. important::
+
+            :meth:`display_leds` should be run by a thread and eventually
+            stopped from the main program by setting its ``do_run`` attribute
+            to `False` to let the thread exit from its target function.
+
+            **For example**:
+
+            .. code-block:: python
+
+                th = ExceptionThread(target=self.display_leds, args=())
+                th.start()
+
+                # Your other code ...
+
+                # Time to stop thread
+                th.do_run = False
+                th.join()
+
         .. note::
 
             If ``enable_printing`` is set to `True`, the terminal's cursor will
@@ -739,25 +758,6 @@ class Manager:
             Since the displaying thread ``th_display_leds`` is an
             :class:`ExceptionThread` object, it has an attribute ``exc`` which
             stores the exception raised by this target function.
-
-        .. important::
-
-            :meth:`display_leds` should be run by a thread and eventually
-            stopped from the main thread by setting its ``do_run`` attribute to
-            `False` to let the thread exit from its target function.
-
-            **For example**:
-
-            .. code-block:: python
-
-                th = ExceptionThread(target=self.display_leds, args=())
-                th.start()
-
-                # Your other code ...
-
-                # Time to stop thread
-                th.do_run = False
-                th.join()
 
         """
         # TODO: explain order outputs are setup is how the channels are shown
