@@ -18,7 +18,7 @@ examples.
 
 .. seealso::
 
-   `Combine SimulRPi with RPi.GPIO`_: It shows you how to integrate the
+   `Example: How to use SimulRPi`_: It shows you how to integrate the
    simulation module :mod:`SimulRPi.GPIO` with ``RPi.GPIO``
 
 .. contents:: Contents
@@ -395,6 +395,6 @@ block.
 .. internal links
 .. _default keymap dictionary: api_reference.html#content-default-keymap-label
 .. _simply save the exceptions: api_reference.html#SimulRPi.GPIO.ExceptionThread.run
-.. _Combine SimulRPi with RPi.GPIO: combine_simulrpi.html
+.. _Example\: How to use SimulRPi: example.html
 .. _SimulRPi's API: api_reference.html
 .. _SimulRPi's documentation: api_reference.html#content-default-keymap-label

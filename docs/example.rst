@@ -1,6 +1,6 @@
-=======
-Example
-=======
+================================
+Example: How to use ``SimulRPi``
+================================
 
 We will show a code example that makes use of both `SimulRPi.GPIO`_ and
 `RPi.GPIO`_ so you can run the script on a Raspberry Pi (RPi) or computer.

@@ -31,7 +31,7 @@ See the `README <README_docs.html>`_ for more info about the library.
    :caption: Contents
 
    README_docs
-   combine_simulrpi
+   example
    useful_functions
    display_problems
    api_reference
