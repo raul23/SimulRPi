@@ -30,7 +30,7 @@ permanent and you don't have to change any Python code.
       export LANGUAGE="en_US:en"
 
    You should provide your own **UTF-8** based locale settings. The example
-   uses the English (US) locale using the **UTF-8** encoding. ``locale -a``
+   uses the English (US) locale with the **UTF-8** encoding. ``locale -a``
    gives you all the available locales on your Linux or Unix-like system.
 
 2. Reload the ``.bashrc``::
