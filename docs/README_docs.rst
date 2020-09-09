@@ -322,9 +322,8 @@ respectively. Here is the code along with the output from the terminal:
 
    led_channels = [9, 10, 11]
    GPIO.setmode(GPIO.BCM)
-   for ch in led_channels:
-       GPIO.setup(ch, GPIO.OUT)
-       GPIO.output(ch, GPIO.HIGH)
+   GPIO.setup(led_channels, GPIO.OUT)
+   GPIO.output(led_channels, GPIO.HIGH)
    GPIO.cleanup()
 
 **Output:**
@@ -341,6 +340,27 @@ The command line for reproducing the same results for example 2 with the script
 :mod:`~SimulRPi.run_examples` is the following::
 
    $ run_examples -s -e 2
+
+.. note::
+
+   In example 2, we could have also used a ``for`` loop to setup the output
+   channels and set their states (but more cumbersome):
+
+   .. code-block:: python
+
+      import SimulRPi.GPIO as GPIO
+
+      led_channels = [9, 10, 11]
+      GPIO.setmode(GPIO.BCM)
+      for ch in led_channels:
+          GPIO.setup(ch, GPIO.OUT)
+          GPIO.output(ch, GPIO.HIGH)
+      GPIO.cleanup()
+
+   The function :meth:`~SimulRPi.GPIO.setup()` accepts channel numbers as
+   :obj:`int`, :obj:`list`, and  :obj:`tuple`. Same with the function
+   :meth:`~SimulRPi.GPIO.output()` which also accepts channel numbers and
+   output states as :obj:`int`, :obj:`list`, and :obj:`tuple`.
 
 Example 3: detect a pressed key
 -------------------------------

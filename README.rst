@@ -314,9 +314,8 @@ respectively. Here is the code along with the output from the terminal:
 
    led_channels = [9, 10, 11]
    GPIO.setmode(GPIO.BCM)
-   for ch in led_channels:
-       GPIO.setup(ch, GPIO.OUT)
-       GPIO.output(ch, GPIO.HIGH)
+   GPIO.setup(led_channels, GPIO.OUT)
+   GPIO.output(led_channels, GPIO.HIGH)
    GPIO.cleanup()
 
 **Output:**
@@ -332,6 +331,26 @@ The command line for reproducing the same results for example 2 with the script
 ``run_examples`` is the following::
 
    $ run_examples -s -e 2
+
+`:information_source:`
+
+   In example 2, we could have also used a ``for`` loop to setup the output
+   channels and set their states (but more cumbersome):
+
+   .. code-block:: python
+
+      import SimulRPi.GPIO as GPIO
+
+      led_channels = [9, 10, 11]
+      GPIO.setmode(GPIO.BCM)
+      for ch in led_channels:
+          GPIO.setup(ch, GPIO.OUT)
+          GPIO.output(ch, GPIO.HIGH)
+      GPIO.cleanup()
+
+   The function `GPIO.setup()`_ accepts channel numbers as ``int``, ``list``,
+   and ``tuple``. Same with the function `GPIO.output()`_ which also accepts
+   channel numbers and output states as ``int``, ``list``, and ``tuple``.
 
 Example 3: detect a pressed key
 -------------------------------
@@ -499,8 +518,10 @@ References
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
 .. URLs
-.. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-run_examples
-.. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#GPIO.cleanup
+.. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.run_examples
+.. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.cleanup
+.. _GPIO.outut(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.output
+.. _GPIO.setup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.setup
 .. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
