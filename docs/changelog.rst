@@ -12,7 +12,7 @@ Version 0.1.0a0
 
 .. TODO: IMPORTANT add date
 
-**September 8, 2020**
+**September 9, 2020**
 
 * The default LED symbols are now big non-ASCII signs::
 
