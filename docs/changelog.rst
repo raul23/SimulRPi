@@ -8,11 +8,12 @@ Changelog
 
 Version 0.1.0a0
 ===============
-.. _default-led-symbols-label:
 
 .. TODO: IMPORTANT add date
 
 **September 11, 2020**
+
+.. _default-led-symbols-label:
 
 * The default LED symbols are now big non-ASCII signs::
 
@@ -49,8 +50,8 @@ Version 0.1.0a0
     (`GPIO.OUT`).
   * ``Pin.led_symbols``: each pin (aka channel) is represented by LED symbols
     if it is an output channel
-  * ``Manager.default_led_symbols``: by default these are the `LED symbols`_
-    used to represent each GPIO channel in the terminal
+  * ``Manager.default_led_symbols``: defines the default `LED symbols`_ used to
+    represent each GPIO channel in the terminal
 
 * New functions in :mod:`SimulRPi.GPIO`:
 
