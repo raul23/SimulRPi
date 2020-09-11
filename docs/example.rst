@@ -57,12 +57,12 @@ and monitoring the keyboard.
     GPIO.cleanup()
 
 Add the previous code in a script named for example `script.py`. To run it on
-your **computer**, use the ``-s`` option like this::
+your **computer**, use the optin ``-s`` like this::
 
    $ python script.py -s
 
 If you run it on your **RPi**, connect a LED to the GPIO channel 10 and a push
-button to the GPIO channel 17. You don't have to add the ``-s`` option when
+button to the GPIO channel 17. You don't have to add the option ``-s``  when
 running the script on the RPi::
 
    $ python script.py
