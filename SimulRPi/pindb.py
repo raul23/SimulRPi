@@ -217,7 +217,7 @@ class PinDB:
         """Set a :class:`Pin`\'s key from a given channel.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        ``key`` is set with `key`.
+        ``key`` is set.
 
         Parameters
         ----------
@@ -251,7 +251,7 @@ class PinDB:
         """Set a :class:`Pin`\'s channel name from a given channel number.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        ``channel_name`` is set with `channel_name`.
+        ``channel_name`` is set.
 
         Parameters
         ----------
@@ -280,7 +280,7 @@ class PinDB:
         """Set a :class:`Pin`\'s channel id from a given channel number.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        ``channel_id`` is set with `channel_id`.
+        ``channel_id`` is set.
 
         Parameters
         ----------
@@ -309,7 +309,7 @@ class PinDB:
         """Set a :class:`Pin`\'s state from a given channel.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        ``state`` is set with `state`.
+        ``state``.
 
         Parameters
         ----------
@@ -337,7 +337,7 @@ class PinDB:
         """Set a :class:`Pin`\'s state from a given key.
 
         A :class:`Pin` is retrieved based on a given key, then its
-        ``state`` is set with `state`.
+        ``state`` is set.
 
         Parameters
         ----------
@@ -365,7 +365,7 @@ class PinDB:
         """Set a :class:`Pin`\'s led symbols from a given channel.
 
         A :class:`Pin` is retrieved based on a given key, then its
-        ``state`` is set with `state`.
+        ``led_symbols`` is set.
 
         Parameters
         ----------
