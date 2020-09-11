@@ -10,8 +10,9 @@ partly fakes `RPi.GPIO`_.
 The code examples test different parts of the library ``SimulRPi`` in order to
 show what it is capable of simulating from I/O devices connected to an RPi:
 
-    * Turn on/off LEDs
-    * Detect pressed button and perform an action
+    * Turn on/off LEDs: blink LED symbols in the terminal
+    * Detect pressed button and perform an action: monitor keyboard with
+      `pynput`_
 
 Usage
 -----
@@ -40,6 +41,7 @@ Run the code for example 1 on your **computer** using :mod:`SimulRPi.GPIO`::
 
 .. URLs
 .. external links
+.. _pynput: https://pynput.readthedocs.io/en/latest/index.html
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _SimulRPi: https://pypi.org/project/SimulRPi
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi
@@ -166,7 +168,7 @@ def ex3_detect_button(channel):
         If the simulation mode is enabled (`-s`), the specified keyboard key
         will be detected if pressed. The keyboard key can be specified through
         the command line options `-b` (button channel) or `-k` (the key name,
-        e.g. 'ctrl'). See `script's usage`_.
+        e.g. '*ctrl*'). See `script's usage`_.
 
     """
     msg = "Ex 3: detect if the {key_or_button} [{channel}] is pressed\n".format(
