@@ -12,7 +12,7 @@ Version 0.1.0a0
 
 .. TODO: IMPORTANT add date
 
-**September 9, 2020**
+**September 11, 2020**
 
 * The default LED symbols are now big non-ASCII signs::
 
@@ -27,43 +27,56 @@ Version 0.1.0a0
 * Channel names can now be displayed instead of channel numbers in the terminal::
 
    🛑  [LED 1]        🛑  [LED 2]        🛑  [LED 3]        ⬤  [lightsaber]
-* New attributes:
 
-  * ``SimulRPi.Pin.channel_id``: unique identifier
-  * ``SimulRPi.Pin.channel_name``: displayed in the terminal along each LED
-    symbol
-  * ``SimulRPi.Pin.channel_number``: used to be called ``channel``
-  * ``SimulRPi.Pin.channel_type``: used to be called ``gpio_function`` and
-    refers to the type of GPIO channel, e.g. 1 (`GPIO.IN`) or 0 (`GPIO.OUT`).
-  * ``SimulRPi.Pin.led_symbols``: each pin (aka channel) is represented by a
-    LED symbol if it is an output channel
-  * ``SimulRPi.Manager.default_led_symbols``: by default these are the
-    `LED symbols`_ used to represent each GPIO channel in the terminal
 
-* New functions:
+* New modules:
 
-  * :meth:`SimulRPi.GPIO.setchannelnames`: set channels names for multiple
+  * :class:`~SimulRPi.pindb.Pin` and :class:`~SimulRPi.pindb.PinDB` are now in
+    their own module :mod:`SimulRPi.pindb`
+  * :class:`~SimulRPi.manager.Manager` is now in its own module
+    :mod:`SimulRPi.manager`
+
+  **NOTE:** these classes used to be in :mod:`SimulRPi.GPIO`
+
+* New attributes in :class:`SimulRPi.pindb.Pin` and
+  :class:`SimulRPi.manager.Manager`:
+
+  * ``Pin.channel_id``: unique identifier
+  * ``Pin.channel_name``: displayed in the terminal along each LED symbol
+  * ``Pin.channel_number``: used to be called ``channel``
+  * ``Pin.channel_type``: used to be called ``gpio_function``
+    and refers to the type of GPIO channel, e.g. 1 (`GPIO.IN`) or 0
+    (`GPIO.OUT`).
+  * ``Pin.led_symbols``: each pin (aka channel) is represented by LED symbols
+    if it is an output channel
+  * ``Manager.default_led_symbols``: by default these are the `LED symbols`_
+    used to represent each GPIO channel in the terminal
+
+* New functions in :mod:`SimulRPi.GPIO`:
+
+  * :meth:`~SimulRPi.GPIO.setchannelnames`: sets channels names for multiple
     channels
-  * :meth:`SimulRPi.GPIO.setchannels`: set the attributes (e.g.
+  * :meth:`~SimulRPi.GPIO.setchannels`: sets the attributes (e.g.
     ``channel_name`` and ``led_symbols``) for multiple channels
-  * :meth:`SimulRPi.GPIO.setdefaultsymbols`: change the default LED symbols
+  * :meth:`~SimulRPi.GPIO.setdefaultsymbols`: changes the default LED symbols
     used by all output channels
-  * :meth:`SimulRPi.GPIO.setsymbols`: set the LED symbols for multiple channels
-  * :meth:`SimulRPi.GPIO.wait`: waits for the threads to do their tasks and
+  * :meth:`~SimulRPi.GPIO.setsymbols`: sets the LED symbols for multiple
+    channels
+  * :meth:`~SimulRPi.GPIO.wait`: waits for the threads to do their tasks and
     raises an exception if there was an error in a thread's target function.
     Hence, the main program can catch these thread exceptions.
 
-* The displaying thread is now an instance of
-  :class:`SimulRPi.GPIO.ExceptionThread`. Thus, if there is an exception raised
-  in :meth:`SimulRPi.GPIO.Manager.display_leds()`, it is now possible to catch
-  it in a main thread
+* The displaying thread in :mod:`SimulRPi.manager` is now an instance of
+  :~class:`SimulRPi.manager.ExceptionThread`. Thus, if there is an exception
+  raised in :meth:`~SimulRPi.manager.Manager.display_leds()`, it is now
+  possible to catch it in the main program
 
-* The keyboard listener thread is now an instance of
-  ``SimulRPi.GPIO.KeyboardExceptionThread`` (a subclass of
+* The keyboard listener thread in :mod:`SimulRPi.manager`  is now an instance
+  of ``~SimulRPi.manager.KeyboardExceptionThread`` (a subclass of
   :class:`pynput.keyboard.Listener`). Thus, if there is an exception raised in
-  :meth:`SimulRPi.GPIO.Manager.on_press` or
-  :meth:`SimulRPi.GPIO.Manager.on_release`, it is now possible to catch it in a
-  main thread
+  :meth:`~SimulRPi.manager.Manager.on_press` or
+  :meth:`~SimulRPi.manager.Manager.on_release`, it is now possible to catch it
+  in the main program
 
 * :meth:`SimulRPi.GPIO.input` and :meth:`SimulRPi.GPIO.output` now raise an
   exception caught by the listening and displaying threads, respectively.

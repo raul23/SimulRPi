@@ -2,16 +2,13 @@
 SimulRPi's documentation
 ========================
 
-.. Following part repeats in README.rst
-
 .. raw:: html
 
    <p align="center"><img src="https://raw.githubusercontent.com/raul23/SimulRPi/master/docs/_static/images/SimulRPi_logo.png">
    <br> 🚧 &nbsp;&nbsp;&nbsp;<b>Work-In-Progress</b></p>
 
-**SimulRPi** (|version|) is a Python library that partly fakes
-`RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_ and simulates some I/O devices
-on a Raspberry Pi (RPi).
+**SimulRPi** (|version|) is a Python library that partly fakes `RPi.GPIO`_ and
+simulates some I/O devices on a Raspberry Pi (RPi).
 
 .. raw:: html
 
@@ -24,10 +21,10 @@ Each dot represents a blinking LED connected to an RPi and the number
 between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
 
-See the `README <README_docs.html>`_ for more info about the library.
+See the `README`_ for more info about the library.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents
 
    README_docs
@@ -47,3 +44,11 @@ Indices and tables
 ..
    TODO: search page doesn't do anything
    * :ref:`search`
+
+
+.. URLs
+.. external links
+.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO
+
+.. internal links
+.. _README: README_docs.html

@@ -107,8 +107,7 @@ channels. These attributes are:
      `shift_r`.
 
 :meth:`~SimulRPi.GPIO.setchannels` accepts as argument a list where each item
-is a dictionary defining the attributes for a given GPIO channel. This list
-corresponds to the main configuration's setting `gpio_channels`_.
+is a dictionary defining the attributes for a given GPIO channel.
 
 **Example:** updating attributes for an input and output channels. Then
 when the user presses ``cmd_r``, we blink a LED for 3 seconds
@@ -389,12 +388,11 @@ block.
 .. external links
 .. TODO: IMPORTANT check links to SimulRPI github
 .. _by default: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19
-.. _gpio_channels: https://github.com/raul23/Darth-Vader-RPi/blob/master/darth_vader_rpi/configs/default_main_cfg.json#L11
 .. _GPIO channel 23: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L25
 
 .. internal links
 .. _default keymap dictionary: api_reference.html#content-default-keymap-label
-.. _simply save the exceptions: api_reference.html#SimulRPi.GPIO.ExceptionThread.run
+.. _simply save the exceptions: api_reference.html#SimulRPi.manager.ExceptionThread.run
 .. _Example\: How to use SimulRPi: example.html
 .. _SimulRPi's API: api_reference.html
 .. _SimulRPi's documentation: api_reference.html#content-default-keymap-label

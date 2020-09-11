@@ -14,6 +14,14 @@ API Reference
    :undoc-members:
    :show-inheritance:
 
+:mod:`SimulRPi.manager`
+=======================
+
+.. automodule:: SimulRPi.manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 :mod:`SimulRPi.mapping`
 =======================
 
@@ -65,6 +73,14 @@ API Reference
    On macOS, if the left keys :obj:`alt_l`, :obj:`ctrl_l`, :obj:`cmd_l`, and
    :obj:`shift_l` are not recognized, use their generic counterparts instead:
    :obj:`alt`, :obj:`ctrl`, :obj:`cmd`, and :obj:`shift`.
+
+:mod:`SimulRPi.pinbdb`
+======================
+
+.. automodule:: SimulRPi.pindb
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 :mod:`SimulRPi.run\_examples`
 =============================
