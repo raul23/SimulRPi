@@ -26,8 +26,9 @@ except ImportError:
           "with: pip install pynput.\n")
     keyboard = None
 
-
-import SimulRPi.GPIO as GPIO
+# NOTE: on Python 3.5 and 3.6, can't use ``import SimulRPi.GPIO as GPIO``
+# AttributeError: module 'SimulRPi' has no attribute 'GPIO
+import SimulRPi.GPIO
 from SimulRPi.mapping import default_key_to_channel_map
 from SimulRPi.pindb import PinDB
 
@@ -226,7 +227,7 @@ class Manager:
         """
         key = None
         tmp_info = self._channel_tmp_info.get(channel_number, {})
-        if channel_type == GPIO.IN:
+        if channel_type == SimulRPi.GPIO.IN:
             # Get keyboard key associated with the INPUT pin (button)
             # TODO: add key also in _channel_tmp_info?
             key = self.channel_to_key_map.get(channel_number)
@@ -357,7 +358,7 @@ class Manager:
             for pin in self.pin_db.output_pins:
                 channel = pin.channel_number
                 # TODO: pin could be None
-                if pin.state == GPIO.HIGH:
+                if pin.state == SimulRPi.GPIO.HIGH:
                     # Turn ON LED
                     # TODO: safeguard?
                     led_symbol = pin.led_symbols.get(
@@ -451,7 +452,7 @@ class Manager:
         try:
             # test = 1/0
             self.pin_db.set_pin_state_from_key(self.get_key_name(key),
-                                               state=GPIO.LOW)
+                                               state=SimulRPi.GPIO.LOW)
         except Exception as e:
             self.th_listener.exc = e
 
@@ -488,7 +489,7 @@ class Manager:
         try:
             # test = 1/0
             self.pin_db.set_pin_state_from_key(self.get_key_name(key),
-                                               state=GPIO.HIGH)
+                                               state=SimulRPi.GPIO.HIGH)
         except Exception as e:
             self.th_listener.exc = e
 

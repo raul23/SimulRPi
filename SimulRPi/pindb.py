@@ -7,7 +7,9 @@ The class :class:`PinDB` provides an API for accessing this database with
 such functions as retrieving or setting pins' attributes.
 
 """
-import SimulRPi.GPIO as GPIO
+# NOTE: on Python 3.5 and 3.6, can't use ``import SimulRPi.GPIO as GPIO``
+# AttributeError: module 'SimulRPi' has no attribute 'GPIO
+import SimulRPi.GPIO
 
 
 # TODO: change to Channel?
@@ -67,12 +69,12 @@ class Pin:
         self.initial = initial
         self.led_symbols = led_symbols
         # TODO: check if setting of state is good
-        if self.channel_type == GPIO.IN:
+        if self.channel_type == SimulRPi.GPIO.IN:
             # Input channel (e.g. push button)
-            self.state = self.initial if self.initial else GPIO.HIGH
+            self.state = self.initial if self.initial else SimulRPi.GPIO.HIGH
         else:
             # Output channel (e.g. LED)
-            self.state = self.initial if self.initial else GPIO.LOW
+            self.state = self.initial if self.initial else SimulRPi.GPIO.LOW
 
 
 # TODO: change to ChannelDB?
@@ -138,7 +140,7 @@ class PinDB:
             raise KeyError("Duplicate channel numbers: {}".format(channel_number))
         self._pins[channel_number] = Pin(channel_number, channel_id,
                                          channel_type, **kwargs)
-        if channel_type == GPIO.OUT:
+        if channel_type == SimulRPi.GPIO.OUT:
             # Output channel (e.g. LED)
             # Save the output pin so the thread that displays LEDs knows what
             # pins are OUTPUT and therefore connected to LEDs.
