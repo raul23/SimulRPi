@@ -135,7 +135,7 @@ The solution is to simply enlarge your terminal window a little bit.
 
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/small_window_multiple_lines_good.png"/>
-   <p><b>Good display when running the script in larger terminal window</b></p>
+   <p><b>Good display when running the script in a larger terminal window</b></p>
    </div>
 
 **Technical explanation:** the script is supposed to display the LEDs turning
