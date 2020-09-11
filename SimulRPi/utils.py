@@ -2,7 +2,6 @@
 """
 import time
 
-# Import RPi.GPIO if found. Otherwise, fallback to SimulRPi.GPIO
 try:
     import RPi.GPIO as GPIO
 except ImportError:
