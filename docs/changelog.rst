@@ -72,7 +72,7 @@ Version 0.1.0a0
   possible to catch it in the main program
 
 * The keyboard listener thread in :mod:`SimulRPi.manager`  is now an instance
-  of ``~SimulRPi.manager.KeyboardExceptionThread`` (a subclass of
+  of ``SimulRPi.manager.KeyboardExceptionThread`` (a subclass of
   :class:`pynput.keyboard.Listener`). Thus, if there is an exception raised in
   :meth:`~SimulRPi.manager.Manager.on_press` or
   :meth:`~SimulRPi.manager.Manager.on_release`, it is now possible to catch it
