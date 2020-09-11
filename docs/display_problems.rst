@@ -117,26 +117,38 @@ Multiple lines of LED symbols
 =============================
 When running the script :mod:`SimulRPi.run_examples`, if you get the following:
 
-.. raw:: html
+..
+   raw:: html
 
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/small_window_multiple_lines_bad.png"/>
    <p><b>Bad display when running the script in a small terminal window</b></p>
    </div>
 
+.. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/small_window_multiple_lines_bad.png
+   :target: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/small_window_multiple_lines_bad.png
+   :align: center
+   :alt: Bad display when running the script in a small terminal window
+
 It means that you are running the script within a too small terminal window,
 less than the length of a displayed line.
 
 **Solution:** enlarge the window
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The solution is to simply enlarge your terminal window a little bit.
+The solution is to simply **enlarge** your terminal window a little bit:
 
-.. raw:: html
+..
+   raw:: html
 
    <div align="center">
    <img src="https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/small_window_multiple_lines_good.png"/>
    <p><b>Good display when running the script in a larger terminal window</b></p>
    </div>
+
+.. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/small_window_multiple_lines_good.png
+   :target: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/small_window_multiple_lines_good.png
+   :align: center
+   :alt: Good display when running the script in a larger terminal window
 
 **Technical explanation:** the script is supposed to display the LEDs turning
 ON and OFF always on the same line. That is, when a line of LEDs is displayed,
