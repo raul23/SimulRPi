@@ -57,7 +57,7 @@ and monitoring the keyboard.
     GPIO.cleanup()
 
 Add the previous code in a script named for example `script.py`. To run it on
-your **computer**, use the optin ``-s`` like this::
+your **computer**, use the option ``-s`` like this::
 
    $ python script.py -s
 
