@@ -66,9 +66,7 @@ on Channel 22 is colored differently from the others.
    `Darth-Vader-RPi`_ project were added.
 
    If there is enough interest in this library, I will eventually mock more
-   functions from `RPi.GPIO`_. Thus,
-   let me know through `SimulRPi's issues page`_ if you want me to add more
-   things to this library.
+   functions from `RPi.GPIO`_.
 
 Dependencies
 ============
@@ -85,7 +83,7 @@ Installation instructions 😎
 
    $ pip install --upgrade pip
 
-2. Install the ``SimulRPi`` package with *pip*::
+2. Install the package ``SimulRPi`` with *pip*::
 
    $ pip install SimulRPi
 
@@ -533,5 +531,4 @@ References
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-.. _SimulRPi's issues page: https://github.com/raul23/SimulRPi/issues
 
