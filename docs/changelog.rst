@@ -30,12 +30,12 @@ Version 0.1.0a0
    🛑  [LED 1]        🛑  [LED 2]        🛑  [LED 3]        ⬤  [lightsaber]
 
 
-* New modules:
+* New modules: :mod:`SimulRPi.manager` and :mod:`SimulRPi.pindb`
 
-  * :class:`~SimulRPi.pindb.Pin` and :class:`~SimulRPi.pindb.PinDB` are now in
-    their own module :mod:`SimulRPi.pindb`
   * :class:`~SimulRPi.manager.Manager` is now in its own module
     :mod:`SimulRPi.manager`
+  * :class:`~SimulRPi.pindb.Pin` and :class:`~SimulRPi.pindb.PinDB` are now in
+    their own module :mod:`SimulRPi.pindb`
 
   **NOTE:** these classes used to be in :mod:`SimulRPi.GPIO`
 
@@ -67,13 +67,19 @@ Version 0.1.0a0
     raises an exception if there was an error in a thread's target function.
     Hence, the main program can catch these thread exceptions.
 
+* :meth:`SimulRPi.GPIO.output` accepts `channel` and `state` as :obj:`int`,
+  :obj:`list` or :obj:`tuple`
+
+* :meth:`SimulRPi.GPIO.setup` accepts `channel` as :obj:`int`, :obj:`list` or
+  :obj:`tuple`
+
 * The displaying thread in :mod:`SimulRPi.manager` is now an instance of
   :class:`~SimulRPi.manager.ExceptionThread`. Thus, if there is an exception
   raised in :meth:`~SimulRPi.manager.Manager.display_leds()`, it is now
   possible to catch it in the main program
 
 * The keyboard listener thread in :mod:`SimulRPi.manager`  is now an instance
-  of ``SimulRPi.manager.KeyboardExceptionThread`` (a subclass of
+  of ``KeyboardExceptionThread`` (a subclass of
   :class:`pynput.keyboard.Listener`). Thus, if there is an exception raised in
   :meth:`~SimulRPi.manager.Manager.on_press` or
   :meth:`~SimulRPi.manager.Manager.on_release`, it is now possible to catch it
