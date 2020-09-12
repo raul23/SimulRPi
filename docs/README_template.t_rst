@@ -554,17 +554,7 @@ The command line for reproducing the same results for example 3 with the script
 </host>
 
    By default, ``SimulRPi`` maps the key ``cmd_r`` to channel 17 as can be
-<host name="github, pypi">
-   seen from the `default key-to-channel map (Line 19)`_.
-</host>
-<host name="readthedocs">
-   seen from the `default key-to-channel map`_:
-
-   .. literalinclude:: ../SimulRPi/default_keymap.py
-      :language: Python
-      :lines: 1, 16-19
-      :emphasize-lines: 5
-</host>
+   seen from the `default key-to-channel map <https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L19>`__.
 
    See also the documentation for `SimulRPi.mapping`_ where the default keymap
    is defined.
@@ -683,17 +673,7 @@ The command line for reproducing the same results for example 5 with the script
 </host>
 
    By default, ``SimulRPi`` maps the key ``ctrl_r`` to channel 20 as can be
-<host name="github, pypi">
-   seen from the `default key-to-channel map (Line 22)`_.
-</host>
-<host name="readthedocs">
-   seen from the `default key-to-channel map`_:
-
-   .. literalinclude:: ../SimulRPi/default_keymap.py
-      :language: Python
-      :lines: 1, 19-22
-      :emphasize-lines: 5
-</host>
+   seen from the `default key-to-channel map <https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L22>`__.
 
    See also the documentation for `SimulRPi.mapping`_ where the default keymap
    is defined.
@@ -739,6 +719,7 @@ References
 .. 1. External links
 </host>
 <host name="github, pypi">
+.. 1. External links (simulrpi.readthedocs.io)
 .. _ex1_turn_on_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led
 .. _ex2_turn_on_many_leds(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds
 .. _ex3_detect_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button
@@ -750,6 +731,8 @@ References
 .. _GPIO.setup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.setup
 .. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
+
+.. 2. External links (others)
 </host>
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _pynput: https://pynput.readthedocs.io/
@@ -761,14 +744,9 @@ References
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 
-.. 2. Internal links
-<host name="github, pypi">
-.. _default key-to-channel map (Line 19): ./SimulRPi/default_keymap.py#L19
-.. _default key-to-channel map (Line 22): ./SimulRPi/default_keymap.py#L22
-</host>
 <host name="readthedocs">
+.. 2. Internal links
 .. _code examples: #examples-label
-.. _default key-to-channel map: api_reference.html#content-default-keymap-label
 .. _install: #installation-instructions-label
 .. _run_examples: api_reference.html#module-SimulRPi.run_examples
 .. _Examples: #examples-label

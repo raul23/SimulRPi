@@ -393,7 +393,7 @@ The command line for reproducing the same results for example 3 with the script
 `:information_source:`
 
    By default, ``SimulRPi`` maps the key ``cmd_r`` to channel 17 as can be
-   seen from the `default key-to-channel map (Line 19)`_.
+   seen from the `default key-to-channel map <https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L19>`__.
 
    See also the documentation for `SimulRPi.mapping`_ where the default keymap
    is defined.
@@ -489,7 +489,7 @@ The command line for reproducing the same results for example 5 with the script
 `:information_source:`
 
    By default, ``SimulRPi`` maps the key ``ctrl_r`` to channel 20 as can be
-   seen from the `default key-to-channel map (Line 22)`_.
+   seen from the `default key-to-channel map <https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L22>`__.
 
    See also the documentation for `SimulRPi.mapping`_ where the default keymap
    is defined.
@@ -520,6 +520,7 @@ References
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
 .. URLs
+.. 1. External links (simulrpi.readthedocs.io)
 .. _ex1_turn_on_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led
 .. _ex2_turn_on_many_leds(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds
 .. _ex3_detect_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button
@@ -531,6 +532,8 @@ References
 .. _GPIO.setup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.setup
 .. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
+
+.. 2. External links (others)
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _pynput: https://pynput.readthedocs.io/
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
@@ -541,6 +544,3 @@ References
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 
-.. 2. Internal links
-.. _default key-to-channel map (Line 19): ./SimulRPi/default_keymap.py#L19
-.. _default key-to-channel map (Line 22): ./SimulRPi/default_keymap.py#L22
