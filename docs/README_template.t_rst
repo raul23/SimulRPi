@@ -772,6 +772,5 @@ References
 .. _install: #installation-instructions-label
 .. _run_examples: api_reference.html#module-SimulRPi.run_examples
 .. _Examples: #examples-label
-.. _GPIO.cleanup(): api_reference.html#GPIO.cleanup
 .. _SimulRPi.mapping: api_reference.html#module-SimulRPi.mapping
 </host>
