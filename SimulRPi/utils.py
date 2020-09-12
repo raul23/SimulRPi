@@ -16,7 +16,7 @@ def blink_led(channel, time_led_on, time_led_off):
 
     Parameters
     ----------
-    channel : int
+    channel : int or list or tuple
         Channel number associated with a LED which will blink.
     time_led_on : float
         Time in seconds the LED will stay turned ON at a time.
@@ -35,7 +35,7 @@ def turn_off_led(channel):
 
     Parameters
     ----------
-    channel : int
+    channel : int or list or tuple
         Channel number associated with a LED which will be turned off.
 
     """
@@ -47,7 +47,7 @@ def turn_on_led(channel):
 
     Parameters
     ----------
-    channel : int
+    channel : int or list or tuple
         Channel number associated with a LED which will be turned on.
 
     """
