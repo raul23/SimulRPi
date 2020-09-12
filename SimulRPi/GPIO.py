@@ -42,6 +42,7 @@ associated GPIO channel number.
 
 .. internal links
 .. _default_key_to_channel_map: api_reference.html#content-default-keymap-label
+.. _here: display_problems.html
 
 """
 import logging
@@ -323,7 +324,7 @@ def setdefaultsymbols(default_led_symbols):
 
     Parameters
     ----------
-    default_led_symbols : dict
+    default_led_symbols : str or dict
         Dictionary that maps each output state (:obj:`str`, {'`ON`',
         '`OFF`'}) to the LED symbol (:obj:`str`).
 
@@ -333,6 +334,11 @@ def setdefaultsymbols(default_led_symbols):
                 'ON': '🔵',
                 'OFF': '⚪ '
             }
+
+        You can also provide the string ``default_ascii`` to make use of
+        ASCII-based LED symbols for alL output channels. Useful if you are
+        having problems displaying the default LED signs after you have
+        tried many of the solutions enumerated `here`_.
 
     """
     manager.update_default_led_symbols(default_led_symbols)
