@@ -349,17 +349,16 @@ def setdefaultsymbols(default_led_symbols):
 def setkeymap(key_to_channel_map):
     """Set the keymap dictionary with new keys and channels.
 
-    The default dictionary `default_key_to_channel_map`_ (defined in
-    :mod:`SimulRPi.mapping`) that maps keyboard keys to GPIO channels can be
-    modified by providing your own mapping ``key_to_channel_map`` containing
-    only the keys and channels that you want to be modified.
+    The default dictionary `default_key_to_channel_map`_ that maps keyboard
+    keys to GPIO channels can be modified by providing your own mapping
+    ``key_to_channel_map`` containing only the keys and channels that you
+    want to be modified.
 
     Parameters
     ----------
     key_to_channel_map : dict
         A dictionary mapping keys (:obj:`str`) to GPIO channel numbers
-        (:obj:`int`) that will be used to update the default keymap found in
-        :mod:`SimulRPi.mapping`.
+        (:obj:`int`) that will be used to update the default keymap.
 
         **For example**::
 
