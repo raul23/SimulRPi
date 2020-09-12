@@ -204,13 +204,19 @@ To display the script's list of options and their descriptions:
 -b       The channel numbers to be used for a push button. The default value
          is channel 17 which is associated by default with the keyboard key
          *cmd_r*. (default: 17)
--t       Total time in seconds LEDs will be blinking. (default: 4)
 -k       The name of the key associated with the button channel. The name
          must be one of those recognized by the module *pynput*. See the
          *SimulRPi* documentation for a list of valid key names:
          https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *cmd_r*)
+-t       Total time in seconds the LEDs will be blinking. (default: 4)
 --on     Time in seconds the LEDs will stay turned ON at a time. (default: 1)
 --off    Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
+-a       Use ASCII-based LED symbols. Useful if you are having problems
+         displaying the default LED signs that makes use of special characters.
+         However, it is recommended to fix your display problems which might be
+         caused by locale settings not set correctly. Check the article
+         'Display problems' @ https://bit.ly/35B8bfs for more info about
+         solutions to display problems (default: False)
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
