@@ -62,6 +62,8 @@ permanent and you don't have to change any Python code.
       :align: left
       :alt: Terminal output: set locale settings correctly
 
+|
+
 .. seealso::
 
    * `How to Set Locales (i18n) On a Linux or Unix`_: detailed article
