@@ -60,7 +60,7 @@ import traceback
 
 from SimulRPi import __version__
 from SimulRPi.mapping import default_channel_to_key_map
-from SimulRPi.utils import blink_led, turn_on_led
+from SimulRPi.utils import blink_led, turn_off_led, turn_on_led
 
 
 GPIO = None
@@ -119,6 +119,7 @@ def ex1_turn_on_led(channel, time_led_on=3):
     GPIO.setup(channel, GPIO.OUT)
     turn_on_led(channel)
     time.sleep(time_led_on)
+    turn_off_led(channel)
 
 
 def ex2_turn_on_many_leds(channels, time_leds_on=3):
@@ -143,10 +144,10 @@ def ex2_turn_on_many_leds(channels, time_leds_on=3):
             time=time_leds_on,
             plural2="s" if time_leds_on >= 2 else "")
     print(msg)
-    for ch in channels:
-        GPIO.setup(ch, GPIO.OUT)
-        turn_on_led(ch)
+    GPIO.setup(channels, GPIO.OUT)
+    turn_on_led(channels)
     time.sleep(time_leds_on)
+    turn_off_led(channels)
 
 
 def ex3_detect_button(channel):
