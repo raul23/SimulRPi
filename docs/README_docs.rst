@@ -552,14 +552,14 @@ References
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _PyPI: https://pypi.org/project/SimulRPi/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
-.. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
+.. _SimulRPi documentation: https://simulrpi.readthedocs.io/
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
 
 .. 2. Internal links
 .. _code examples: #examples-label
-.. _default key-to-channel map: ../../../SimulRPi/default_keymap.py
+.. _default key-to-channel map: api_reference.html#content-default-keymap-label
 .. _install: #installation-instructions-label
 .. _run_examples: api_reference.html#module-SimulRPi.run_examples
 .. _Examples: #examples-label

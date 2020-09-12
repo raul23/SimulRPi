@@ -763,7 +763,7 @@ References
 </host>
 <host name="readthedocs">
 .. _code examples: #examples-label
-.. _default key-to-channel map: ../../../SimulRPi/default_keymap.py
+.. _default key-to-channel map: api_reference.html#content-default-keymap-label
 .. _install: #installation-instructions-label
 .. _run_examples: api_reference.html#module-SimulRPi.run_examples
 .. _Examples: #examples-label
