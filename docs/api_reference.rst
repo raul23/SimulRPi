@@ -53,8 +53,8 @@ API Reference
    previously, I commented those keyboard keys that need `sudo` on macOS. The
    others don't need `sudo` on macOS such as :obj:`cmd_r` and :obj:`shift`.
 
-   For more information about those platform limitations, see `pynput
-   documentation <https://pynput.readthedocs.io/en/latest/limitations.html>`_.
+   For more information about those platform limitations, see
+   `pynput documentation`_.
 
 .. warning::
 
@@ -97,3 +97,7 @@ API Reference
    :members:
    :undoc-members:
    :show-inheritance:
+
+.. URLs
+.. external links
+.. _pynput: https://pynput.readthedocs.io/en/latest/limitations.html

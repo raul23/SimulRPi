@@ -385,14 +385,11 @@ block.
    top of the thread's caught exception.
 
 .. URLs
-.. external links
-.. TODO: IMPORTANT check links to SimulRPI github
-.. _by default: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L19
-.. _GPIO channel 23: https://github.com/raul23/SimulRPi/blob/master/SimulRPi/default_keymap.py#L25
-
 .. internal links
+.. _by default: api_reference.html#content-default-keymap-label
 .. _default keymap dictionary: api_reference.html#content-default-keymap-label
 .. _simply save the exceptions: api_reference.html#SimulRPi.manager.ExceptionThread.run
 .. _Example\: How to use SimulRPi: example.html
+.. _GPIO channel 23: api_reference.html#content-default-keymap-label
 .. _SimulRPi's API: api_reference.html
 .. _SimulRPi's documentation: api_reference.html#content-default-keymap-label
