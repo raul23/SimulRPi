@@ -28,7 +28,7 @@ the script :mod:`~SimulRPi.run_examples`::
                  [-l [LED_CHANNEL [LED_CHANNEL ...]]]
                  [-b BUTTON_CHANNEL] [-k KEY_NAME]
                  [-t TOTAL_TIME_BLINKING] [--on TIME_LED_ON]
-                 [--off TIME_LED_OFF]
+                 [--off TIME_LED_OFF] [-a]
 
 Run the code for example 1 on the **RPi** with default values for the options
 ``-l`` (channel 10) and ``--on`` (1 second)::
@@ -365,7 +365,11 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
     parser.add_argument(
         "-a", "--ascii", dest="ascii", action="store_true",
         help='''Use ASCII-based LED symbols. Useful if you are having problems 
-        displaying the default LED signs.''')
+        displaying the default LED signs that makes use of special characters.
+        However, it is recommended to fix your display problems which might be
+        caused by locale settings not set correctly. Check the article 
+        'Display problems' @ https://bit.ly/35B8bfs for more info about 
+        solutions to display problems.''')
     return parser.parse_args()
 
 
