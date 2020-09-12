@@ -6,8 +6,8 @@ Display problems
    :depth: 2
    :local:
 
-ASCII characters can't be displayed
-===================================
+Non-ASCII characters can't be displayed
+=======================================
 
 .. highlight:: none
 
@@ -30,7 +30,7 @@ permanent and you don't have to change any Python code.
       export LANGUAGE="en_US:en"
 
    You should provide your own **UTF-8** based locale settings. The example
-   uses the English (US) locale with the **UTF-8** encoding. ``locale -a``
+   uses the English (US) locale with the encoding **UTF-8**. ``locale -a``
    gives you all the available locales on your Linux or Unix-like system.
 
 2. Reload the ``.bashrc``::
@@ -49,6 +49,18 @@ permanent and you don't have to change any Python code.
       LC_NUMERIC="en_US.UTF-8"
       LC_TIME="en_US.UTF-8"
       LC_ALL=
+
+4. Run the script :mod:`SimulRPi.run_examples` to test if you can display the
+   LED symbols fine using the correct encoding **UTF-8**::
+
+      $ run_examples -s -e 1
+
+   **Output:**
+
+   .. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_locale_change.png
+      :target: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_locale_change.png
+      :align: left
+      :alt: Terminal output: set locale settings correctly
 
 .. seealso::
 
@@ -109,8 +121,8 @@ command-line option ``-a`` which will make use of ASCII-based LED symbols::
 
 **Output:**
 
-.. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters.png
-   :target: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters.png
+.. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters_channel9.png
+   :target: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters_channel9.png
    :align: left
    :alt: Terminal output: ASCII characters used for LED symbols
 
@@ -124,6 +136,16 @@ environment variable ``PYTHONIOENCODING`` with the correct encoding::
 
    $ export PYTHONIOENCODING=utf8
    $ run_examples -s -e 1
+
+**Output:**
+
+.. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_locale_change.png
+   :target: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_locale_change.png
+   :align: left
+   :alt: Terminal output: export PYTHONIOENCODING=utf8
+
+|
+|
 
 However, this is **not a permanent solution** because if you use another
 terminal, you will have to export ``PYTHONIOENCODING`` again before running
