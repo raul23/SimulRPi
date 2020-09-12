@@ -29,6 +29,3 @@ default_key_to_channel_map = {
     "shift_r": 27,
 }
 # [end-section]
-
-# IMPORTANT: If the above content is further changed, README also needs to be
-# updated i.e. line numbers in URLs found in notes (Example 3 and 5 sections).
