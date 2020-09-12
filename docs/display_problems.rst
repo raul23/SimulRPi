@@ -30,8 +30,9 @@ permanent and you don't have to change any Python code.
       export LANGUAGE="en_US:en"
 
    You should provide your own **UTF-8** based locale settings. The example
-   uses the English (US) locale with the encoding **UTF-8**. ``locale -a``
-   gives you all the available locales on your Linux or Unix-like system.
+   uses the English (US) locale with the encoding **UTF-8**. The command
+   ``locale -a`` gives you all the available locales on your Linux or Unix-like
+   system.
 
 2. Reload the ``.bashrc``::
 
@@ -79,7 +80,8 @@ ASCII-based LED symbols using ANSI codes to color them:
 
 .. code-block:: python
    :emphasize-lines: 4-9
-   :caption: **Example:** updating the default LED symbols with ASCII characters
+   :caption: **Example:** updating the default LED symbols with ASCII
+             characters and ANSI codes
 
       import time
       import SimulRPi.GPIO as GPIO
