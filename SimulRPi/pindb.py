@@ -9,6 +9,7 @@ such functions as retrieving or setting pins' attributes.
 """
 # NOTE: on Python 3.5 and 3.6, can't use ``import SimulRPi.GPIO as GPIO``
 # AttributeError: module 'SimulRPi' has no attribute 'GPIO
+# if circular import
 import SimulRPi.GPIO
 
 
