@@ -119,7 +119,6 @@ def ex1_turn_on_led(channel, time_led_on=3):
     GPIO.setup(channel, GPIO.OUT)
     turn_on_led(channel)
     time.sleep(time_led_on)
-    turn_off_led(channel)
 
 
 def ex2_turn_on_many_leds(channels, time_leds_on=3):
@@ -147,7 +146,6 @@ def ex2_turn_on_many_leds(channels, time_leds_on=3):
     GPIO.setup(channels, GPIO.OUT)
     turn_on_led(channels)
     time.sleep(time_leds_on)
-    turn_off_led(channels)
 
 
 def ex3_detect_button(channel):
@@ -337,7 +335,7 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
                         help="Enable simulation mode, i.e. SimulRPi.GPIO will "
                              "be used for simulating RPi.GPIO.")
     parser.add_argument(
-        "-l", type=int, dest="led_channel", default=DEFAULT_LED_CHANNELS,
+        "-l", type=int, dest="led_channels", default=DEFAULT_LED_CHANNELS,
         nargs="*",
         help='''The channel numbers to be used for LEDs. If an example only 
         requires 1 channel, the first channel from the provided list will be 
@@ -364,6 +362,10 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
     parser.add_argument(
         "--off", type=float, default=DEFAULT_TIME_LEDS_OFF, dest="time_leds_off",
         help='''Time in seconds the LEDs will stay turned OFF at a time.''')
+    parser.add_argument(
+        "-a", "--ascii", dest="ascii", action="store_true",
+        help='''Use ASCII-based LED symbols. Useful if you are having problems 
+        displaying the default LED signs.''')
     return parser.parse_args()
 
 
@@ -390,6 +392,8 @@ def main():
         if args.key_name != DEFAULT_KEY_NAME:
             key_channel_map = {args.key_name: args.button_channel}
             GPIO.setkeymap(key_channel_map)
+        if args.ascii:
+            GPIO.setdefaultsymbols("default_ascii")
     else:
         import RPi.GPIO as GPIO
     # Make sure utils uses the correct GPIO module based on whether we are working
@@ -403,36 +407,40 @@ def main():
     # Set the numbering system used to identify the I/O pins on an RPi
     modes = {'BOARD': GPIO.BOARD, 'BCM': GPIO.BCM}
     GPIO.setmode(modes[args.mode.upper()])
+    led_channels = []
     try:
         if args.example_number == 1:
-            ex1_turn_on_led(args.led_channel[0], args.time_leds_on)
+            ex1_turn_on_led(args.led_channels[0], args.time_leds_on)
+            led_channels.append(args.led_channels[0])
         elif args.example_number == 2:
-            ex2_turn_on_many_leds(args.led_channel, args.time_leds_on)
+            ex2_turn_on_many_leds(args.led_channels, args.time_leds_on)
+            led_channels.append(args.led_channels)
         elif args.example_number == 3:
-            ex3_detect_button(args.button_channel)
+            ex3_detect_button(args.button_channels)
         elif args.example_number == 4:
-            ex4_blink_led(args.led_channel[0], args.total_time_blinking,
+            ex4_blink_led(args.led_channels[0], args.total_time_blinking,
                           args.time_leds_on, args.time_leds_off)
         elif args.example_number == 5:
-            ex5_blink_led_if_button(args.led_channel[0], args.button_channel,
-                                    args.total_time_blinking, args.time_leds_on,
+            ex5_blink_led_if_button(args.led_channels[0], args.button_channel,
+                                    args.total_time_blinking,
+                                    args.time_leds_on,
                                     args.time_leds_off)
         else:
             print("Example # {} not found".format(args.example_number))
-        if hasattr(GPIO, 'wait'):
+        if SIMULATION:
             GPIO.wait(0.5)
     except Exception:
         retcode = 1
         traceback.print_exc()
     except KeyboardInterrupt:
         # ctrl + c
-        # print("Exiting...                               ")
         pass
     finally:
-        # GPIO.setprinting(False)
-        # time.sleep(0.1)
-        # print("\nExiting...")
-        # print("Cleanup...                               ")
+        if SIMULATION:
+            GPIO.setprinting(False)
+        # Turn off all LEDs
+        for ch in led_channels:
+            turn_off_led(ch)
         # Cleanup will be performed after each code example's function exits
         # or when there is an exception (including ctrl+c = KeyboardInterrupt)
         GPIO.cleanup()
