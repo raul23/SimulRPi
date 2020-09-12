@@ -555,7 +555,7 @@ The command line for reproducing the same results for example 3 with the script
 
    By default, ``SimulRPi`` maps the key ``cmd_r`` to channel 17 as can be
 <host name="github, pypi">
-   seen from the `default key-to-channel map (L19)`_.
+   seen from the `default key-to-channel map (Line 19)`_.
 </host>
 <host name="readthedocs">
    seen from the `default key-to-channel map`_:
@@ -684,7 +684,7 @@ The command line for reproducing the same results for example 5 with the script
 
    By default, ``SimulRPi`` maps the key ``ctrl_r`` to channel 20 as can be
 <host name="github, pypi">
-   seen from the `default key-to-channel map (L22)`_.
+   seen from the `default key-to-channel map (Line 22)`_.
 </host>
 <host name="readthedocs">
    seen from the `default key-to-channel map`_:
@@ -758,8 +758,8 @@ References
 
 .. 2. Internal links
 <host name="github, pypi">
-.. _default key-to-channel map (L19): ./SimulRPi/default_keymap.py#L19
-.. _default key-to-channel map (L22): ./SimulRPi/default_keymap.py#L22
+.. _default key-to-channel map (Line 19): ./SimulRPi/default_keymap.py#L19
+.. _default key-to-channel map (Line 22): ./SimulRPi/default_keymap.py#L22
 </host>
 <host name="readthedocs">
 .. _code examples: #examples-label
