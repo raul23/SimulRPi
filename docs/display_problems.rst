@@ -56,8 +56,8 @@ permanent and you don't have to change any Python code.
    * `How can I change the locale?`_: from raspberrypi.stackexchange.com,
      provides answers to set the locale user and system-wide
 
-**Solution #2:** change the default LED symbols
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Solution #2:** change the default LED symbols using the API
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 If you are using the module :mod:`SimulRPi.GPIO` in your code, you can change
 the default LED symbols used by all output channels with the function
 :meth:`SimulRPi.GPIO.setdefaultsymbols`. Hence, you can provide your own
@@ -100,8 +100,24 @@ ASCII-based LED symbols using ANSI codes to color them:
      Python examples using built-in modules or third-party libraries to color
      text in the terminal.
 
+**Solution #3:** change the default LED symbols when running the script
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+When running the script :mod:`SimulRPi.run_examples`, you can use the
+command-line option ``-a`` which will make use of ASCII-based LED symbols::
 
-**Solution #3:** ``export PYTHONIOENCODING=utf8`` (temporary solution)
+   $ run_examples -s -e -1 -a
+
+**Output:**
+
+.. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters.png
+   :target: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters.png
+   :align: left
+   :alt: Terminal output: ASCII characters used for LED symbols
+
+|
+|
+
+**Solution #4:** ``export PYTHONIOENCODING=utf8`` (temporary solution)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Before running the script :mod:`SimulRPi.run_examples`, export the
 environment variable ``PYTHONIOENCODING`` with the correct encoding::
