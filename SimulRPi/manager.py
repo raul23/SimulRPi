@@ -27,6 +27,7 @@ except ImportError:
     keyboard = None
 
 # NOTE: on Python 3.5 and 3.6, can't use ``import SimulRPi.GPIO as GPIO``
+# if circular import
 # AttributeError: module 'SimulRPi' has no attribute 'GPIO
 import SimulRPi.GPIO
 from SimulRPi.mapping import default_key_to_channel_map
@@ -575,8 +576,8 @@ class Manager:
         """Update the default dictionary mapping keys and GPIO channels.
 
         ``new_keymap`` is a dictionary mapping some keys to their new GPIO
-        channels, and will be used to update the default key-channel mapping
-        defined in :mod:`SimulRPi.mapping`.
+        channels, and will be used to update the default keymap
+        `default_key_to_channel_map`_.
 
         Parameters
         ----------
