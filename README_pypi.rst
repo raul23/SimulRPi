@@ -181,11 +181,11 @@ capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
 push buttons and LEDs.
 
 Here is a list of the functions that implement each code example:
-   - Example 1: `ex1_turn_on_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led>`_
-   - Example 2: `ex2_turn_on_many_leds() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds>`_
-   - Example 3: `ex3_detect_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button>`_
-   - Example 4: `ex4_blink_led() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex4_blink_led>`_
-   - Example 5: `ex5_blink_led_if_button() <https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex5_blink_led_if_button>`_
+   - Example 1: `ex1_turn_on_led()`_
+   - Example 2: `ex2_turn_on_many_leds()`_
+   - Example 3: `ex3_detect_button()`_
+   - Example 4: `ex4_blink_led()`_
+   - Example 5: `ex5_blink_led_if_button()`_
 
 List of options
 ~~~~~~~~~~~~~~~
@@ -533,6 +533,11 @@ References
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
 .. URLs
+.. _ex1_turn_on_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led
+.. _ex2_turn_on_many_leds(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds
+.. _ex3_detect_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button
+.. _ex4_blink_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex4_blink_led
+.. _ex5_blink_led_if_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex5_blink_led_if_button
 .. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.run_examples
 .. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.cleanup
 .. _GPIO.outut(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.output
@@ -544,7 +549,7 @@ References
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _PyPI: https://pypi.org/project/SimulRPi/
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
-.. _SimulRPi documentation: https://simulrpi.readthedocs.io/en/latest/index.html
+.. _SimulRPi documentation: https://simulrpi.readthedocs.io/
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
