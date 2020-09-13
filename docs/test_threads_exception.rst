@@ -61,7 +61,7 @@ We run the ``start_dv`` script::
   ``darth_vader_rpi.darth_vader.activate()``)
 
 * The display of LEDs in the terminal is not working because the displaying
-  thread's target function is not running anymore.
+  thread's target function (``display_leds()``) is not running anymore.
 
 * The listening thread is still working and therfore you can press keys to
   play sounds: lightsaber sound effects, Darth Vader's theme song and quotes.
