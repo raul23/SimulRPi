@@ -19,8 +19,8 @@ printing the `default LED symbols`_ based on special characters::
 
 This is mainly a problem with your **locale** settings used by your terminal.
 
-**Solution #1:** change your ``locale`` settings
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Solution #1:** change your ``locale`` settings (best solution)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The best solution consists in modifying your **locale** settings since it is
 permanent and you don't have to change any Python code.
 
