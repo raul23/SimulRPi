@@ -44,7 +44,8 @@ API Reference
 .. important::
 
    There are some platform limitations on using some of the keyboard keys with
-   `pynput`_ which is used for monitoring the keyboard.
+   `pynput <https://pynput.readthedocs.io/en/latest/limitations.html>`__ which
+   is used for monitoring the keyboard.
 
    For instance, on macOS some keyboard keys may require that you run your
    script with `sudo`. All alphanumeric keys and some special keys
@@ -100,4 +101,4 @@ API Reference
 
 .. URLs
 .. external links
-.. _pynput: https://pynput.readthedocs.io/en/latest/limitations.html
+.. _pynput documentation: https://pynput.readthedocs.io/en/latest/limitations.html
