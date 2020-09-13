@@ -82,12 +82,13 @@ Prepare the setup before running the ``start_dv`` script:
 
    .. code-block:: python
 
-      try:
-          self.pin_db.set_pin_state_from_key(self.get_key_name(key),
-                                             state=SimulRPi.GPIO.LOW)
-      except Exception as e:
-          self.th_listener.exc = e
-          raise e
+      def on_press(self, key):
+          try:
+              self.pin_db.set_pin_state_from_key(self.get_key_name(key),
+                                                 state=SimulRPi.GPIO.LOW)
+          except Exception as e:
+              self.th_listener.exc = e
+              raise e
 
 2. ``SimulRPi.GPIO.input()`` is modified as to comment the call to
    ``SimulRPi.GPIO._raise_if_thread_exception()`` at the end of the function.
@@ -101,13 +102,14 @@ Prepare the setup before running the ``start_dv`` script:
 
    .. code-block:: python
 
-      try:
-          test = 1/0
-          self.pin_db.set_pin_state_from_key(self.get_key_name(key),
-                                             state=SimulRPi.GPIO.LOW)
-      except Exception as e:
-          self.th_listener.exc = e
-          raise e
+      def on_press(self, key):
+          try:
+              test = 1/0
+              self.pin_db.set_pin_state_from_key(self.get_key_name(key),
+                                                 state=SimulRPi.GPIO.LOW)
+          except Exception as e:
+              self.th_listener.exc = e
+              raise e
 
    **NOTE:** ``on_press()`` is the listening thread's callback method.
 
