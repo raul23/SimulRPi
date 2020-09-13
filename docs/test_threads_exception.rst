@@ -18,7 +18,10 @@ so as to test what happens when the threads raise their own exceptions instead
 of letting the main program do it for them as it is the case right now.
 
 To test the modifications, we will run the ``darth_vader_rpi.start_dv`` script
-which is part of the installation of the `Darth-Vader-RPi`_ library.
+which is part of the installation of the `Darth-Vader-RPi`_ library and which
+uses the ``SimulRPi`` library to simulate LEDs and push buttons connected to
+an RPi by displaying LEDs in the terminal and monitoring the keyboard for any
+valid pressed key.
 
 Case 1: the displaying thread raises its own exception
 ======================================================
