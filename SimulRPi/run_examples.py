@@ -51,7 +51,6 @@ from SimulRPi import __version__
 from SimulRPi.mapping import default_channel_to_key_map
 from SimulRPi.utils import blink_led, turn_off_led, turn_on_led
 
-
 GPIO = None
 SIMULATION = False
 # TODO: necessary? maybe in a separate file
