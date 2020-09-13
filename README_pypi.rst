@@ -541,7 +541,7 @@ References
 .. _ex5_blink_led_if_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex5_blink_led_if_button
 .. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.run_examples
 .. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.cleanup
-.. _GPIO.outut(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.output
+.. _GPIO.output(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.output
 .. _GPIO.setup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.setup
 .. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
