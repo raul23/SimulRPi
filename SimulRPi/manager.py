@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
 
 
-class ExceptionThread(threading.Thread):
+class DisplayExceptionThread(threading.Thread):
     """A subclass from :class:`threading.Thread` that defines threads that can
     catch errors if their target functions raise an exception.
 
@@ -64,17 +64,20 @@ class ExceptionThread(threading.Thread):
         target argument, if any, with sequential and keyword arguments taken
         from the args and kwargs arguments, respectively.
 
-        **It also saves any error that the target function might raise.**
+        **It also catches and saves any error that the target function might
+        raise.**
 
         .. important::
 
             The exception is only caught here, not raised. The exception is
-            further raised in :meth:`SimulRPi.GPIO.output`. The reason for not
-            raising it here is to avoid having another thread re-starting the
-            failed thread by calling :meth:`SimulRPi.GPIO.output` while the
-            main program is busy catching the exception. Hence, we avoid
-            raising a :exc:`RuntimeError` on top of the thread's caught
-            exception.
+            further raised in :meth:`SimulRPi.GPIO.output` or
+            :meth:`SimulRPi.GPIO.wait`. The reason for not raising it here is
+            because the main program won't catch it. The exception must be
+            raised outside the thread's ``run`` method so that the thread's
+            exception can be caught by the main program.
+
+            The same reasoning applies to the listening thread's callbacks
+            :meth:`Manager.on_press` and :meth:`Manager.on_release`.
 
         """
         try:
@@ -91,7 +94,7 @@ if keyboard:
 
         """
 
-        # TODO: check if you can modify run() like you did for ExceptionThread
+        # TODO: check if you can modify run() like you did for DisplayExceptionThread
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.exception_raised = False
@@ -140,7 +143,7 @@ class Manager:
     channel_to_key_map : dict
         The reverse dictionary of ``key_to_channel_map``. It maps channels to
         keys.
-    th_display_leds : manager.ExceptionThread
+    th_display_leds : manager.DisplayExceptionThread
         Thread responsible for displaying blinking red dots in the terminal as
         to simulate LEDs connected to an RPi.
     th_listener : manager.KeyboardExceptionThread
@@ -148,7 +151,7 @@ class Manager:
         key as to simulate push buttons connected to an RPi.
 
         If ``pynput`` couldn't be imported, ``th_listener`` is :obj:`None`.
-        Otherwise, it is instantiated from ``GPIO.KeyboardExceptionThread``.
+        Otherwise, it is instantiated from ``manager.KeyboardExceptionThread``.
 
         .. note::
 
@@ -190,9 +193,10 @@ class Manager:
         self.key_to_channel_map = copy.copy(default_key_to_channel_map)
         self.channel_to_key_map = {v: k for k, v in
                                    self.key_to_channel_map.items()}
-        self.th_display_leds = ExceptionThread(name="thread_display_leds",
-                                               target=self.display_leds,
-                                               args=())
+        self.th_display_leds = DisplayExceptionThread(
+            name="thread_display_leds",
+            target=self.display_leds,
+            args=())
         if keyboard:
             self.th_listener = KeyboardExceptionThread(
                 on_press=self.on_press,
@@ -313,7 +317,7 @@ class Manager:
 
             .. code-block:: python
 
-                th = ExceptionThread(target=self.display_leds, args=())
+                th = DisplayExceptionThread(target=self.display_leds, args=())
                 th.start()
 
                 # Your other code ...
@@ -335,8 +339,8 @@ class Manager:
         .. note::
 
             Since the displaying thread ``th_display_leds`` is an
-            :class:`ExceptionThread` object, it has an attribute ``exc`` which
-            stores the exception raised by this target function.
+            :class:`DisplayExceptionThread` object, it has an attribute ``exc``
+            which stores the exception raised by this target function.
 
         """
         # TODO: explain order outputs are setup is how the channels are shown
@@ -445,6 +449,12 @@ class Manager:
             If an exception is raised, it is caught to be further raised in
             :meth:`SimulRPi.GPIO.input` or :meth:`SimulRPi.GPIO.wait`.
 
+        See Also
+        --------
+        :meth:`DisplayExceptionThread`:  Read the **Important** message that
+                                         explains why an exception is not
+                                         raised in a thread's callback.
+
         """
         try:
             # test = 1/0
@@ -481,6 +491,12 @@ class Manager:
 
             If an exception is raised, it is caught to be further raised in
             :meth:`SimulRPi.GPIO.input` or :meth:`SimulRPi.GPIO.wait`.
+
+        See Also
+        --------
+        :meth:`DisplayExceptionThread`:  Read the **Important** message that
+                                         explains why an exception is not
+                                         raised in a thread's callback.
 
         """
         try:
