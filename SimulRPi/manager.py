@@ -91,6 +91,7 @@ if keyboard:
 
         """
 
+        # TODO: check if you can modify run() like you did for ExceptionThread
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.exception_raised = False
