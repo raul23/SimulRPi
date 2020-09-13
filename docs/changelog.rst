@@ -93,10 +93,9 @@ Version 0.1.0a0
 * :mod:`SimulRPi.run_examples`: all simulation-based examples involving "LEDs"
   and pressing keyboard keys worked on the RPi OS (Debian-based)
 
-.. note::
+.. seealso::
 
-  These lists are not exhaustive, only the most important attributes and
-  functions are mentionned. See the `API reference`_ for more info.
+  The `API reference`_ for the library ``SimulRPi``.
 
 Version 0.0.1a0
 ===============
