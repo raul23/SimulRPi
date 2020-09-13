@@ -39,17 +39,6 @@ Run the code for example 1 on your **computer** using :mod:`SimulRPi.GPIO`::
 
     $ run_examples -s -e 1
 
-.. URLs
-.. external links
-.. _pynput: https://pynput.readthedocs.io/en/latest/index.html
-.. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
-.. _SimulRPi: https://pypi.org/project/SimulRPi
-.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi
-
-.. internal links
-.. _installed: README_docs.html#installation-instructions
-.. _script's usage: #usage
-
 .. TODO: find if we can load the list of options from a separate file
 
 """

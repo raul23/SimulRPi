@@ -74,14 +74,6 @@ References
 
     :meth:`SimulRPi.GPIO.setkeymap` allows you to modify the default keymap.
 
-.. URLs
-.. external links
-.. _pynput: https://pynput.readthedocs.io/en/latest/index.html
-.. _pynput reference: https://pynput.readthedocs.io/en/latest/keyboard.html#pynput.keyboard.Key
-
-.. internal links
-.. _default_key_to_channel_map: api_reference.html#content-default-keymap-label
-
 """
 from SimulRPi.default_keymap import default_key_to_channel_map
 

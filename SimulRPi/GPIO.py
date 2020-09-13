@@ -36,13 +36,18 @@ associated GPIO channel number.
 .. URLs
 .. external links
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
+.. _pynput reference: https://pynput.readthedocs.io/en/latest/keyboard.html#pynput.keyboard.Key
 .. _Darth-Vader-RPi project: https://github.com/raul23/Darth-Vader-RPi
 .. _RPi.GPIO: https://pypi.org/project/RPi.GPIO/
 .. _RPi.GPIO wiki: https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
+.. _SimulRPi: https://pypi.org/project/SimulRPi
+.. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi
 
 .. internal links
 .. _default_key_to_channel_map: api_reference.html#content-default-keymap-label
 .. _here: display_problems.html
+.. _installed: README_docs.html#installation-instructions
+.. _script's usage: #usage
 
 """
 import logging

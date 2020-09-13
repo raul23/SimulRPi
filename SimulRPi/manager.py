@@ -7,10 +7,6 @@ to the keyboard.
 The default keymap maps keyboard keys to GPIO channel numbers and is defined
 in `default_key_to_channel_map`_.
 
-.. URLs
-.. internal links
-.. _default_key_to_channel_map: api_reference.html#content-default-keymap-label
-
 """
 import copy
 import logging
