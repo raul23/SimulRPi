@@ -14,25 +14,28 @@ key. They are used to simulate I/O devices connected to a Raspberry Pi.
 
 Case 1: the displaying thread raises its own exception
 ======================================================
-``DisplayExceptionThread.run()`` is modified so as to raise an exception when
-the displaying thread's target function raises one:
+Prepare the setup:
 
-.. code-block:: python
+1. ``DisplayExceptionThread.run()`` is modified so as to raise an exception when
+   the displaying thread's target function raises one:
 
-   def run(self):
-       try:
-         self._target(*self._args, **self._kwargs)
-       except Exception as e:
-           self.exc = e
-           raise e
+   .. code-block:: python
 
-``SimulRPi.GPIO.output()`` is modified as to comment the call to
-``SimulRPi.GPIO._raise_if_thread_exception()`` at the end of the function.
-Thus, we don't want ``output()`` to raise an exception anymore, since the
-thread is now responsible for doing it in its ``run`` method.
+      def run(self):
+          try:
+            self._target(*self._args, **self._kwargs)
+          except Exception as e:
+              self.exc = e
+              raise e
 
-We will raise a ``ZeroDivisionError`` exception in
-``SimulRPi.manager.display_leds()`` by adding ``test = 1/0`` in the method.
+2. ``SimulRPi.GPIO.output()`` is modified as to comment the call to
+   ``SimulRPi.GPIO._raise_if_thread_exception()`` at the end of the function.
+
+   Thus, we don't want ``output()`` to raise an exception anymore, since the
+   thread is now responsible for doing it in its ``run`` method.
+
+3. We will raise a ``ZeroDivisionError`` exception in
+   ``SimulRPi.manager.display_leds()`` by adding ``test = 1/0`` in the method.
 
 We run the ``darth_vader_rpi.start_dv`` script which is part of the
 installation of the `Darth-Vader-RPi`_ library::
