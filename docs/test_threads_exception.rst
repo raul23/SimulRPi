@@ -48,7 +48,7 @@ Prepare the setup before running the ``start_dv`` script:
 3. We will raise a ``ZeroDivisionError`` exception in
    ``SimulRPi.manager.display_leds()`` by adding ``test = 1/0`` in the method.
 
-   **NOTE:** ``display_leds()`` is the displaying thread's target function
+   **NOTE:** ``display_leds()`` is the displaying thread's target function.
 
 We run the ``start_dv`` script::
 
@@ -72,6 +72,36 @@ We run the ``start_dv`` script::
 
 Case 2: the listening thread raises its own exception
 =====================================================
+Almost the same process as in case 1 is applied here where we want the
+listening thread to raise an exception instead of the main program.
+
+Prepare the setup before running the ``start_dv`` script:
+
+1. ``SimulRPi.GPIO.input()`` is modified as to comment the call to
+   ``SimulRPi.GPIO._raise_if_thread_exception()`` at the end of the function.
+
+   Thus, we don't want ``input()`` to raise an exception anymore, since the
+   thread is now responsible for doing it in its callback method.
+
+2. We will raise a ``ZeroDivisionError`` exception in
+   ``SimulRPi.manager.on_press()`` by adding ``test = 1/0`` in the method.
+
+   **NOTE:** ``on_press()`` is the listening thread's callback method.
+
+We run the ``start_dv`` script::
+
+   $ start_dv -s
+
+**Result**:
+* A ``ZeroDivisionError`` exception is raised but is not caught by the main
+  program (more specifically in the ``except block`` at the end of
+  ``darth_vader_rpi.darth_vader.activate()``).
+
+* Monitoring of pressed keys is not working because the listening thread's
+  callback ``on_press()`` stopped because of the raised exception
+
+* The displaying thread is still working and therefore LEDs are showing in the
+  terminal.
 
 .. URLs
 .. external links
