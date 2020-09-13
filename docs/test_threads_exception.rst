@@ -50,7 +50,7 @@ Prepare the setup before running the ``start_dv`` script:
 
    **NOTE:** ``display_leds()`` is the displaying thread's target function.
 
-We run the ``start_dv`` script::
+We can now run the ``start_dv`` script::
 
    $ start_dv -s
 
@@ -113,7 +113,7 @@ Prepare the setup before running the ``start_dv`` script:
 
    **NOTE:** ``on_press()`` is the listening thread's callback method.
 
-We run the ``start_dv`` script::
+We can now run the ``start_dv`` script::
 
    $ start_dv -s
 
