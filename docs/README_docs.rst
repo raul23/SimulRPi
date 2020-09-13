@@ -37,7 +37,7 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 **SimulRPi** also simulates these I/O devices connected to an RPi:
 
 - push buttons by listening to pressed keyboard keys and
-- LEDs by displaying dots blinking in the terminal along with their GPIO pin
+- LEDs by blinking dots in the terminal along with their GPIO pin
   number.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The package
