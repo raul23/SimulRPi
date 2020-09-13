@@ -100,7 +100,7 @@ channels. These attributes are:
      you have specified (`BOARD` or `BCM`).
    * ``led_symbols``: should only be defined for output channels. It is a
      dictionary defining the symbols to be used when the LED is turned ON
-     and OFF.
+     and turned OFF.
    * ``key``: should only defined for input channels. The names of keyboard
      keys that you can use are those specified in the
      `SimulRPi's documentation`_, e.g. `media_play_pause`, `shift`, and
