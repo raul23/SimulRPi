@@ -45,7 +45,7 @@ associated GPIO channel number.
 
 .. internal links
 .. _default_key_to_channel_map: api_reference.html#content-default-keymap-label
-.. _here: display_problems.html
+.. _here: display_problems.html#non-ascii-characters-can-t-be-displayed
 .. _installed: README_docs.html#installation-instructions
 .. _script's usage: #usage
 
@@ -341,9 +341,11 @@ def setdefaultsymbols(default_led_symbols):
             }
 
         You can also provide the string ``default_ascii`` to make use of
-        ASCII-based LED symbols for alL output channels. Useful if you are
-        having problems displaying the default LED signs after you have
-        tried many of the solutions enumerated `here`_.
+        ASCII-based LED symbols for all output channels. Useful if you are
+        having problems displaying the default LED signs (which make use of
+        special characters) after you have tried the solutions shown `here`_::
+
+            default_led_symbols = "default_ascii"
 
     """
     manager.update_default_led_symbols(default_led_symbols)
