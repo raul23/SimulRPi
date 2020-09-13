@@ -2,19 +2,20 @@
 Test threads raising exceptions
 ===============================
 We will show cases where the displaying and listening threads raise their own
-exceptions instead of relying on the main program to do it for them.
+exceptions instead of relying on the main program to do it for them as it is
+the case right now in the ``SimulRPi`` library.
 
 These displaying and listening threads are defined in
 ``SimulRPi.manager.DisplayExceptionThread`` and
 ``SimulRPi.manager.KeyboardExceptionThread``, respectively.
 
-As their names suggest, the display thread is responsible for displaying LEDs
-in the terminal and the listening thread monitors the keyboard for any pressed
-key. They are used to simulate I/O devices connected to a Raspberry Pi.
+As their names suggest, the displaying thread is responsible for displaying
+LEDs in the terminal and the listening thread monitors the keyboard for any
+pressed key. They are used to simulate I/O devices connected to a Raspberry Pi.
 
-In the following cases, we will modify some parts of the ``SimulRPi` library so
-as to test what happens when the threads raise their own exceptions instead of
-letting the main program do it for them as it is the case right now.
+In the following cases, we will modify some parts of the ``SimulRPi`` library
+so as to test what happens when the threads raise their own exceptions instead
+of letting the main program do it for them as it is the case right now.
 
 To test the modifications, we will run the ``darth_vader_rpi.start_dv`` script
 which is part of the installation of the `Darth-Vader-RPi`_ library.
