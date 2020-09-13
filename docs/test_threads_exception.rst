@@ -49,6 +49,7 @@ We run the ``start_dv`` script::
    $ start_dv -s
 
 **Result**:
+
 * ``ZeroDivisionError`` exception is raised but is not caught by the main program
 (more specifically in the ``except block`` at the end of
 ``darth_vader_rpi.darth_vader.activate()``)
