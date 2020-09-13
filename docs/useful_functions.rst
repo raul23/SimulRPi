@@ -385,8 +385,9 @@ block.
    top of the thread's caught exception.
 
 .. URLs
+.. _by default: https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L19
+
 .. internal links
-.. _by default: api_reference.html#content-default-keymap-label
 .. _default keymap dictionary: api_reference.html#content-default-keymap-label
 .. _simply save the exceptions: api_reference.html#SimulRPi.manager.ExceptionThread.run
 .. _Example\: How to use SimulRPi: example.html
