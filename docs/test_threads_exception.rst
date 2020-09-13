@@ -27,8 +27,8 @@ Case 1: the displaying thread raises its own exception
 ======================================================
 Prepare the setup before running the ``start_dv`` script:
 
-1. ``DisplayExceptionThread.run()`` is modified so as to raise an exception when
-   the displaying thread's target function raises one:
+1. ``DisplayExceptionThread.run()`` is modified so as to re-raise an exception
+   when the displaying thread's target function raises one:
 
    .. code-block:: python
 
