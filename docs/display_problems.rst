@@ -19,9 +19,9 @@ printing the `default LED symbols`_ based on special characters::
 
 This is mainly a problem with your **locale** settings used by your terminal.
 
-**Solution #1:** change your ``locale`` settings (best solution)
+**Solution #1:** change your **locale** settings (best solution)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The best solution consists in modifying your **locale** settings since it is
+The best solution consists in fixing your **locale** settings since it is
 permanent and you don't have to change any Python code.
 
 1. Append ``~/.bashrc`` or ``~/.bash_profile`` with::
@@ -38,7 +38,8 @@ permanent and you don't have to change any Python code.
 
       $ source .bashrc
 
-3. Run the following command to make sure that your locale was set correctly::
+3. Run the command ``locale`` to make sure that your locale settings were set
+correctly::
 
       $ locale
 
@@ -126,7 +127,7 @@ ASCII-based LED symbols using ANSI codes to color them:
       GPIO.output(led_channel, GPIO.HIGH)
       GPIO.cleanup()
 
-Or you can provide the argument ``default_ascii`` to the function
+Or you can provide the argument ``"default_ascii"`` to the function
 :meth:`~SimulRPi.GPIO.setdefaultsymbols` which will provide default ASCII-based
 LED symbols for you:
 
@@ -208,12 +209,14 @@ The solution is to simply **enlarge** your terminal window a little bit:
 
 **Technical explanation:** the script is supposed to display the LEDs turning
 ON and OFF always on the same line. That is, when a line of LEDs is displayed,
-it goes to the beginning of the line to display the next state of LEDs.
+the script goes to the beginning of the line to display the next state of LEDs
+by printing over the previous LEDs.
 
-However, since the window is too small, the LEDs are being displayed on
-multiple lines and when the script tries to go to the start of a line, it is
-too late, it is now at another line. So you get this display of multiple lines
-of LEDs.
+However, when the window is too small, the LEDs get printed on the next line
+because there is not enough space on a single line to print everything. Then,
+when the script tries to go to the start of a line to print over the previous
+line, it is instead positioned on the next line further down. So you get this
+display of multiple lines of LEDs.
 
 .. URLs
 .. external links

@@ -92,12 +92,12 @@ Version 0.1.0a0
 
 * :mod:`SimulRPi.run_examples`:
 
-  * all simulation-based examples involving "LEDs" and pressing keyboard keys
-    worked on the RPi OS (Debian-based)
   * accepts new option ``-a`` which will make use of ASCII-based LED symbols in
     case that you are having problems displaying the `default LED symbols`_
     which use special characters (based on the **UTF-8** encoding). See
     `Display problems`_.
+  * all simulation-based examples involving "LEDs" and pressing keyboard keys
+    worked on the RPi OS (Debian-based)
 
 .. seealso::
 
