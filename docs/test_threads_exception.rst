@@ -3,7 +3,7 @@ Test threads raising exceptions
 ===============================
 We will show cases where the displaying and listening threads raise their own
 exceptions instead of relying on the main program to do it for them as it is
-the case right now in the ``SimulRPi`` library v.0.1.0a0
+the case right now in the ``SimulRPi`` library **v.0.1.0a0**.
 
 These displaying and listening threads are defined in
 ``SimulRPi.manager.DisplayExceptionThread`` and
