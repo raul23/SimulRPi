@@ -350,8 +350,8 @@ block after you are done with :mod:`SimulRPi.GPIO` API::
 wait at most for the threads to accomplish their tasks.
 
 **Example:** wait for the threads to do their jobs and if there is an exception
-in one of the threads' target function, it will be caught in our ``except``
-block.
+in one of the threads' target function or callback, it will be caught in our
+``except`` block.
 
 .. code-block:: python
    :emphasize-lines: 12
@@ -366,8 +366,8 @@ block.
       GPIO.output(led_channel, GPIO.HIGH)
       GPIO.wait(1)
    except Exception as e:
-      # Could be an exception raised in a thread's target function from
-      # ``SimulRPi.GPIO``
+      # Could be an exception raised in a thread's target function or callback
+      # from SimulRPi library
       print(e)
    finally:
       GPIO.cleanup()
@@ -376,22 +376,32 @@ block.
 
    If we don't use :meth:`~SimulRPi.GPIO.wait` in the previous example, we
    won't be able to catch any exception occurring in a thread's target function
-   since the threads `simply save the exceptions`_ but don't raise them.
-   :meth:`~SimulRPi.GPIO.wait` takes care of raising an exception if it was
-   saved by a thread.
+   or callback since the threads `simply catch and save the exceptions`_ but
+   don't raise them. :meth:`~SimulRPi.GPIO.wait` takes care of raising an
+   exception if it was already caught and saved by a thread.
 
-   Also, the reason for not raising the exception within a thread's target
-   function is to avoid having another thread re-start the failed thread by
-   calling :meth:`~SimulRPi.GPIO.output` which start a thread if it is not
-   alive. Hence, we avoid raising a :exc:`RuntimeError` on top of a thread's
-   caught exception.
+   Also, the reason for not raising the exception within a thread's ``run``
+   method or its callback is because the main program will not be able to
+   catch it. The thread's exception needs to be raised outside of the thread's
+   ``run`` method or callback so the main program can further catch it. And
+   this is what :meth:`~SimulRPi.GPIO.input`, :meth:`~SimulRPi.GPIO.output`,
+   and :meth:`~SimulRPi.GPIO.wait` do: they raise the thread's exception so the
+   main program can catch it and process it down the line.
+
+   See `Test threads raising exceptions`_ about some tests done to check what
+   happens when a thread raises an exception within its ``run`` method or
+   callback.
 
 .. URLs
+.. default cfg files
 .. _by default: https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L19
+
+.. external links
+.. _Test threads raising exceptions: https://github.com/raul23/SimulRPi/blob/master/docs/test_threads_exception.rst
 
 .. internal links
 .. _default keymap dictionary: api_reference.html#content-default-keymap-label
-.. _simply save the exceptions: api_reference.html#SimulRPi.manager.ExceptionThread.run
+.. _simply catch and save the exceptions: api_reference.html#SimulRPi.manager.DisplayExceptionThread.run
 .. _Example\: How to use SimulRPi: example.html
 .. _GPIO channel 23: api_reference.html#content-default-keymap-label
 .. _SimulRPi API: api_reference.html

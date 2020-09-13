@@ -74,9 +74,9 @@ Version 0.1.0a0
   :obj:`tuple`
 
 * The displaying thread in :mod:`SimulRPi.manager` is now an instance of
-  :class:`~SimulRPi.manager.ExceptionThread`. Thus, if there is an exception
-  raised in :meth:`~SimulRPi.manager.Manager.display_leds()`, it is now
-  possible to catch it in the main program
+  :class:`~SimulRPi.manager.DisplayExceptionThread`. Thus, if there is an
+  exception raised in :meth:`~SimulRPi.manager.Manager.display_leds()`, it is
+  now possible to catch it in the main program
 
 * The keyboard listener thread in :mod:`SimulRPi.manager`  is now an instance
   of ``KeyboardExceptionThread`` (a subclass of
