@@ -126,6 +126,14 @@ ASCII-based LED symbols using ANSI codes to color them:
       GPIO.output(led_channel, GPIO.HIGH)
       GPIO.cleanup()
 
+Or you can provide the argument ``default_ascii`` to the function
+:meth:`~SimulRPi.GPIO.setdefaultsymbols` which will provide default ASCII-based
+LED symbols for you:
+
+.. code-block:: python
+
+   GPIO.setdefaultsymbols("default_ascii")
+
 **Output:**
 
 .. image:: https://raw.githubusercontent.com/raul23/images/master/SimulRPi/v0.1.0a0/solution_with_ascii_characters.png
