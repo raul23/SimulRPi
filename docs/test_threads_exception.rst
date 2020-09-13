@@ -12,9 +12,16 @@ As their names suggest, the display thread is responsible for displaying LEDs
 in the terminal and the listening thread monitors the keyboard for any pressed
 key. They are used to simulate I/O devices connected to a Raspberry Pi.
 
+In the following cases, we will modify some parts of the ``SimulRPi` library so
+as to test what happens when the threads raise their own exceptions instead of
+letting the main program do it for them as it is the case right now.
+
+To test the modifications, we will run the ``darth_vader_rpi.start_dv`` script
+which is part of the installation of the `Darth-Vader-RPi`_ library.
+
 Case 1: the displaying thread raises its own exception
 ======================================================
-Prepare the setup:
+Prepare the setup before running the ``darth_vader_rpi.start_dv`` script:
 
 1. ``DisplayExceptionThread.run()`` is modified so as to raise an exception when
    the displaying thread's target function raises one:
@@ -37,8 +44,7 @@ Prepare the setup:
 3. We will raise a ``ZeroDivisionError`` exception in
    ``SimulRPi.manager.display_leds()`` by adding ``test = 1/0`` in the method.
 
-We run the ``darth_vader_rpi.start_dv`` script which is part of the
-installation of the `Darth-Vader-RPi`_ library::
+We run the ``darth_vader_rpi.start_dv`` script:
 
    $ start_dv -s
 
