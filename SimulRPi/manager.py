@@ -29,7 +29,6 @@ import SimulRPi.GPIO
 from SimulRPi.mapping import default_key_to_channel_map
 from SimulRPi.pindb import PinDB
 
-
 logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
 
