@@ -155,6 +155,6 @@ Version 0.0.0a0
 
 .. 2. Internal links
 .. _code examples: README_docs.html#examples-label
-.. _Display problems: display_problems.html#non-ascii-characters-can-t-be-displayed
 .. _default LED symbols: #default-led-symbols-label
 .. _API reference: api_reference.html
+.. _Display problems: display_problems.html#non-ascii-characters-can-t-be-displayed
