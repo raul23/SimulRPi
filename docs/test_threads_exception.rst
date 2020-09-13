@@ -21,7 +21,7 @@ which is part of the installation of the `Darth-Vader-RPi`_ library.
 
 Case 1: the displaying thread raises its own exception
 ======================================================
-Prepare the setup before running the ``darth_vader_rpi.start_dv`` script:
+Prepare the setup before running the ``start_dv`` script:
 
 1. ``DisplayExceptionThread.run()`` is modified so as to raise an exception when
    the displaying thread's target function raises one:
@@ -44,7 +44,7 @@ Prepare the setup before running the ``darth_vader_rpi.start_dv`` script:
 3. We will raise a ``ZeroDivisionError`` exception in
    ``SimulRPi.manager.display_leds()`` by adding ``test = 1/0`` in the method.
 
-We run the ``darth_vader_rpi.start_dv`` script:
+We run the ``start_dv`` script:
 
    $ start_dv -s
 
