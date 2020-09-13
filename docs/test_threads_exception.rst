@@ -56,12 +56,12 @@ We run the ``start_dv`` script::
 
 **Result**:
 
-* ``ZeroDivisionError`` exception is raised but is not caught by the main program
-  (more specifically in the ``except block`` at the end of
+* A ``ZeroDivisionError`` exception is raised but is not caught by the main
+  program (more specifically in the ``except block`` at the end of
   ``darth_vader_rpi.darth_vader.activate()``)
 
 * The display of LEDs in the terminal is not working because the displaying
-  thread is dead
+  thread's target function is not running anymore.
 
 * The listening thread is still working and therfore you can press keys to
   play sounds: lightsaber sound effects, Darth Vader's theme song and quotes.
