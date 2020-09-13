@@ -50,7 +50,7 @@ Version 0.1.0a0
     (`GPIO.OUT`).
   * ``Pin.led_symbols``: each pin (aka channel) is represented by LED symbols
     if it is an output channel
-  * ``Manager.default_led_symbols``: defines the default `LED symbols`_ used to
+  * ``Manager.default_led_symbols``: defines the `default LED symbols`_ used to
     represent each GPIO channel in the terminal
 
 * New functions in :mod:`SimulRPi.GPIO`:
@@ -90,8 +90,14 @@ Version 0.1.0a0
 
 * If two channels use the same channel numbers, an exception is now raised.
 
-* :mod:`SimulRPi.run_examples`: all simulation-based examples involving "LEDs"
-  and pressing keyboard keys worked on the RPi OS (Debian-based)
+* :mod:`SimulRPi.run_examples`:
+
+  * all simulation-based examples involving "LEDs" and pressing keyboard keys
+    worked on the RPi OS (Debian-based)
+  * accepts new option ``-a`` which will make use of ASCII-based LED symbols in
+    case that you are having problems displaying the `default LED symbols`_
+    which use special characters (based on the **UTF-8** encoding). See
+    `Display problems`_.
 
 .. seealso::
 
@@ -149,5 +155,6 @@ Version 0.0.0a0
 
 .. 2. Internal links
 .. _code examples: README_docs.html#examples-label
-.. _LED symbols: #default-led-symbols-label
+.. _Display problems: display_problems.html#non-ascii-characters-can-t-be-displayed
+.. _default LED symbols: #default-led-symbols-label
 .. _API reference: api_reference.html
