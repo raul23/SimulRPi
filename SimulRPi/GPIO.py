@@ -152,16 +152,24 @@ def input(channel):
     ------
     Exception
         If the listening thread caught an exception that occurred in
-        :meth:`~SimulRPi.manager.Manager.on_press` and
+        :meth:`~SimulRPi.manager.Manager.on_press` or
         :meth:`~SimulRPi.manager.Manager.on_release`, the said exception will
         be raised here.
 
 
     .. note::
 
-        The listening thread (for monitoring pressed key) is started if there
+        The listening thread (for monitoring pressed keys) is started if there
         is no exception caught by the thread and if it is not alive, i.e. it is
         not already running.
+
+    .. important::
+
+        The reason for checking if there is no exception already caught by a
+        thread, i.e. ``if not manager.th_listener.exc``, is to avoid having
+        another thread calling this function and re-starting the failed thread.
+        Hence, we avoid raising a :exc:`RuntimeError` on top of the thread's
+        already caught exception.
 
     """
     # Start the listening thread only if it is not already alive and there is no
@@ -206,6 +214,12 @@ def output(channel, state):
         The displaying thread (for showing "LEDs" on the terminal) is started
         if there is no exception caught by the thread and if it is not alive,
         i.e. it is not already running.
+
+    See Also
+    --------
+    :meth:`input`: Read the **Important** message about why we need to check if
+                   there is an exception caught by the thread when trying to
+                   start it.
 
     """
     channel = [channel] if isinstance(channel, int) else channel
