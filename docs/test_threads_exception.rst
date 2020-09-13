@@ -44,7 +44,7 @@ Prepare the setup before running the ``start_dv`` script:
 3. We will raise a ``ZeroDivisionError`` exception in
    ``SimulRPi.manager.display_leds()`` by adding ``test = 1/0`` in the method.
 
-We run the ``start_dv`` script:
+We run the ``start_dv`` script::
 
    $ start_dv -s
 
