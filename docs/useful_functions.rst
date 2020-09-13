@@ -1,6 +1,6 @@
-=========================
-Useful functions from API
-=========================
+=============================
+Useful functions from the API
+=============================
 We present some useful functions from the `SimulRPi's API`_ along with code
 examples.
 
