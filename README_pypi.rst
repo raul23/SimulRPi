@@ -271,7 +271,7 @@ The code for the examples shown here can be also found as a script in
 
 **Note**
 
-   Since we are showing how to use the ``SimulRPi`` library, the presented code
+   Since we are showing how to use the library ``SimulRPi``, the presented code
    examples are to be executed on your computer. However, the script
    ``run_examples`` which runs the following code examples can be executed on a
    Raspberry Pi or your computer.
