@@ -77,14 +77,37 @@ listening thread to raise an exception instead of the main program.
 
 Prepare the setup before running the ``start_dv`` script:
 
-1. ``SimulRPi.GPIO.input()`` is modified as to comment the call to
+1. ``SimulRPi.manager.on_press()`` is modified so as to re-raise an exception
+   in the ``except`` block:
+
+   .. code-block:: python
+
+      try:
+          self.pin_db.set_pin_state_from_key(self.get_key_name(key),
+                                             state=SimulRPi.GPIO.LOW)
+      except Exception as e:
+          self.th_listener.exc = e
+          raise e
+
+2. ``SimulRPi.GPIO.input()`` is modified as to comment the call to
    ``SimulRPi.GPIO._raise_if_thread_exception()`` at the end of the function.
 
    Thus, we don't want ``input()`` to raise an exception anymore, since the
    thread is now responsible for doing it in its callback method.
 
-2. We will raise a ``ZeroDivisionError`` exception in
-   ``SimulRPi.manager.on_press()`` by adding ``test = 1/0`` in the method.
+3. We will raise a ``ZeroDivisionError`` exception in
+   ``SimulRPi.manager.on_press()`` by adding ``test = 1/0`` at the beginning of
+   the ``try`` statement:
+
+   .. code-block:: python
+
+      try:
+          test = 1/0
+          self.pin_db.set_pin_state_from_key(self.get_key_name(key),
+                                             state=SimulRPi.GPIO.LOW)
+      except Exception as e:
+          self.th_listener.exc = e
+          raise e
 
    **NOTE:** ``on_press()`` is the listening thread's callback method.
 
