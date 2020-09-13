@@ -112,7 +112,7 @@ def cleanup():
     global manager
     # Show cursor again
     # TODO: works on UNIX shell only, not Windows
-    # TODO: space at the end?
+    # TODO: space
     os.system("tput cnorm ")
     # Check if displaying thread is alive. If the user didn't setup any output
     # channels for LEDs, then the displaying thread was never started
