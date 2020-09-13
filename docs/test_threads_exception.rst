@@ -29,10 +29,29 @@ the displaying thread's target function raises one:
 ``SimulRPi.GPIO.output()`` is modified as to comment the call to
 ``SimulRPi.GPIO._raise_if_thread_exception()`` at the end of the function.
 Thus, we don't want ``output()`` to raise an exception anymore, since the
-thread is now responsible for doing in its
+thread is now responsible for doing it in its ``run`` method.
 
+We will raise a ``ZeroDivisionError`` exception in
+``SimulRPi.manager.display_leds()`` by adding ``test = 1/0`` in the method.
 
+We run the ``darth_vader_rpi.start_dv`` script which is part of the
+installation of the `Darth-Vader-RPi`_ library::
+
+   $ start_dv -s
+
+**Result**:
+* ``ZeroDivisionError`` exception is raised but is not caught by the main program
+(more specifically in the ``except block`` at the end of
+``darth_vader_rpi.darth_vader.activate()``)
+* The display of LEDs in the terminal is not working because the displaying
+thread is dead
+* The listening thread is still working and therfore you can press keys to
+play sounds: lightsaber sound effects, Darth Vader's theme song and quotes.
 
 Case 2: the listening thread raises its own exception
 =====================================================
+
+.. URLs
+.. external links
+.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 
