@@ -1,7 +1,7 @@
 =============================
 Useful functions from the API
 =============================
-We present some useful functions from the `SimulRPi's API`_ along with code
+We present some useful functions from the `SimulRPi API`_ along with code
 examples.
 
 .. important::
@@ -14,7 +14,7 @@ examples.
 
    Thus, the code examples are to be executed on your computer, not an RPi
    since the main reasons for these examples is to show how to use the
-   `SimulRPi's API`_.
+   `SimulRPi API`_.
 
 .. seealso::
 
@@ -267,8 +267,8 @@ channel numbers (:obj:`int`)::
 
 ``GPIO.setprinting``
 ====================
-:meth:`~SimulRPi.GPIO.setprinting` enable or disable printing the LED symbols
-and their channel names/numbers to the terminal.
+:meth:`~SimulRPi.GPIO.setprinting` enables or disables printing the LED symbols
+and channel names/numbers to the terminal.
 
 .. code-block:: python
    :emphasize-lines: 3
@@ -336,7 +336,7 @@ was an exception caught by one of the threads, then it is raised by
 :meth:`~SimulRPi.GPIO.wait`.
 
 Thus it is ideal for :meth:`~SimulRPi.GPIO.wait` to be called within a ``try``
-block::
+block after you are done with :mod:`SimulRPi.GPIO` API::
 
    try:
        do_something_with_gpio_api()
@@ -377,12 +377,14 @@ block.
    If we don't use :meth:`~SimulRPi.GPIO.wait` in the previous example, we
    won't be able to catch any exception occurring in a thread's target function
    since the threads `simply save the exceptions`_ but don't raise them.
+   :meth:`~SimulRPi.GPIO.wait` takes care of raising an exception if it was
+   saved by a thread.
 
-   Also, the reason for not raising the exception within the thread's target
-   function is to avoid having another thread re-starting the failed thread by
-   calling :meth:`~SimulRPi.GPIO.output` while the main program is busy
-   processing the exception. Hence, we avoid raising a :exc:`RuntimeError` on
-   top of the thread's caught exception.
+   Also, the reason for not raising the exception within a thread's target
+   function is to avoid having another thread re-start the failed thread by
+   calling :meth:`~SimulRPi.GPIO.output` which start a thread if it is not
+   alive. Hence, we avoid raising a :exc:`RuntimeError` on top of a thread's
+   caught exception.
 
 .. URLs
 .. _by default: https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L19
@@ -392,5 +394,5 @@ block.
 .. _simply save the exceptions: api_reference.html#SimulRPi.manager.ExceptionThread.run
 .. _Example\: How to use SimulRPi: example.html
 .. _GPIO channel 23: api_reference.html#content-default-keymap-label
-.. _SimulRPi's API: api_reference.html
+.. _SimulRPi API: api_reference.html
 .. _SimulRPi's documentation: api_reference.html#content-default-keymap-label
