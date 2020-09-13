@@ -41,7 +41,7 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 
 - push buttons by listening to pressed keyboard keys and
 - LEDs by blinking dots in the terminal along with their GPIO pin
-  number.
+  numbers.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The package
 `pynput`_ is used to monitor the keyboard for any pressed key.
