@@ -715,9 +715,6 @@ References
 * `RPi.GPIO`_: a module to control RPi GPIO channels
 
 .. URLs
-<host name="readthedocs">
-.. 1. External links
-</host>
 <host name="github, pypi">
 .. 1. External links (simulrpi.readthedocs.io)
 .. _ex1_turn_on_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led
@@ -734,6 +731,9 @@ References
 
 .. 2. External links (others)
 </host>
+<host name="readthedocs">
+.. 1. External links
+</host>
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _pynput: https://pynput.readthedocs.io/
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
@@ -743,8 +743,8 @@ References
 .. _SimulRPi GitHub: https://github.com/raul23/SimulRPi
 .. _SimulRPi PyPI: https://pypi.org/project/SimulRPi/
 .. _SimulRPi.GPIO: https://pypi.org/project/SimulRPi/
-
 <host name="readthedocs">
+
 .. 2. Internal links
 .. _code examples: #examples-label
 .. _install: #installation-instructions-label
