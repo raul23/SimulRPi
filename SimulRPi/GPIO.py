@@ -342,8 +342,9 @@ def setdefaultsymbols(default_led_symbols):
 
         You can also provide the string ``default_ascii`` to make use of
         ASCII-based LED symbols for all output channels. Useful if you are
-        having problems displaying the default LED signs (which make use of
-        special characters) after you have tried the solutions shown `here`_::
+        still having problems displaying the default LED signs (which make use
+        of special characters) after you have tried the solutions shown
+        `here`_::
 
             default_led_symbols = "default_ascii"
 
