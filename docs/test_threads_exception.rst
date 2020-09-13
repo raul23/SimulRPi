@@ -60,8 +60,8 @@ We run the ``start_dv`` script::
   program (more specifically in the ``except block`` at the end of
   ``darth_vader_rpi.darth_vader.activate()``).
 
-   Hence, the main program continues running without LEDs being displayed in
-   the terminal but there is sound.
+  Hence, the main program continues running without LEDs being displayed in
+  the terminal but there is sound.
 
 * The display of LEDs in the terminal is not working because the displaying
   thread's target function (``display_leds()``) is not running anymore.
