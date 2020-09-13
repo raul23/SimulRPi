@@ -37,8 +37,8 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 **SimulRPi** also simulates these I/O devices connected to an RPi:
 
 - push buttons by listening to pressed keyboard keys and
-- LEDs by displaying small dots blinking on the terminal along with their GPIO \
-  pin number.
+- LEDs by displaying dots blinking in the terminal along with their GPIO pin
+  number.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The package
 `pynput`_ is used to monitor the keyboard for any pressed key.
@@ -94,7 +94,7 @@ Installation instructions 😎
 .. important::
 
    Make sure that *pip* is working with the correct Python version. It might be
-   the case that *pip* is using Python 2.7. You can find what Python version
+   the case that *pip* is using Python 2. You can find what Python version
    *pip* uses with the following::
 
       $ pip -V
@@ -112,12 +112,6 @@ Installation instructions 😎
    However, this latest version is not as stable as the one from
    `PyPI`_ but you get the latest features being implemented.
 
-**Test installation**
-
-Test your installation by importing ``SimulRPi`` and printing its version::
-
-   $ python -c "import SimulRPi; print(SimulRPi.__version__)"
-
 **Warning message**
 
 If you get the warning message from *pip* that the script :mod:`~SimulRPi.run_examples`
@@ -128,6 +122,12 @@ is not defined in your *PATH*::
 Add the directory mentioned in the warning to your *PATH* by editing your
 configuration file (e.g. *.bashrc*). See this `article`_ on how to set *PATH*
 on Linux.
+
+**Test installation**
+
+Test your installation by importing ``SimulRPi`` and printing its version::
+
+   $ python -c "import SimulRPi; print(SimulRPi.__version__)"
 
 Usage
 =====
@@ -174,7 +174,7 @@ module or the real one.
 Script ``run_examples``
 --------------------------
 The script :mod:`~SimulRPi.run_examples` which you have access to once you `install`_
-the ``SimulRPi`` package allows you to run different code examples on your RPi
+the package ``SimulRPi`` allows you to run different code examples on your RPi
 or computer. If it is run on your computer, it will make use of the module
 :mod:`SimulRPi.GPIO` which partly fakes ``RPi.GPIO``.
 

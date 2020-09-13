@@ -37,8 +37,8 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 **SimulRPi** also simulates these I/O devices connected to an RPi:
 
 - push buttons by listening to pressed keyboard keys and
-- LEDs by displaying small dots blinking on the terminal along with their GPIO \
-  pin number.
+- LEDs by displaying dots blinking in the terminal along with their GPIO pin
+  number.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The package
 `pynput`_ is used to monitor the keyboard for any pressed key.
@@ -93,7 +93,7 @@ Installation instructions 😎
 `:warning:`
 
    Make sure that *pip* is working with the correct Python version. It might be
-   the case that *pip* is using Python 2.7. You can find what Python version
+   the case that *pip* is using Python 2. You can find what Python version
    *pip* uses with the following::
 
       $ pip -V
@@ -111,12 +111,6 @@ Installation instructions 😎
    However, this latest version is not as stable as the one from
    `PyPI`_ but you get the latest features being implemented.
 
-**Test installation**
-
-Test your installation by importing ``SimulRPi`` and printing its version::
-
-   $ python -c "import SimulRPi; print(SimulRPi.__version__)"
-
 **Warning message**
 
 If you get the warning message from *pip* that the script ``run_examples``
@@ -127,6 +121,12 @@ is not defined in your *PATH*::
 Add the directory mentioned in the warning to your *PATH* by editing your
 configuration file (e.g. *.bashrc*). See this `article`_ on how to set *PATH*
 on Linux.
+
+**Test installation**
+
+Test your installation by importing ``SimulRPi`` and printing its version::
+
+   $ python -c "import SimulRPi; print(SimulRPi.__version__)"
 
 Usage
 =====
@@ -171,7 +171,7 @@ module or the real one.
 Script ``run_examples``
 --------------------------
 The script `run_examples`_ which you have access to once you install
-the ``SimulRPi`` package allows you to run different code examples on your RPi
+the package ``SimulRPi`` allows you to run different code examples on your RPi
 or computer. If it is run on your computer, it will make use of the module
 ``SimulRPi.GPIO`` which partly fakes ``RPi.GPIO``.
 
@@ -521,11 +521,11 @@ References
 
 .. URLs
 .. 1. External links (simulrpi.readthedocs.io)
-.. _ex1_turn_on_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex1_turn_on_led
-.. _ex2_turn_on_many_leds(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex2_turn_on_many_leds
-.. _ex3_detect_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex3_detect_button
-.. _ex4_blink_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex4_blink_led
-.. _ex5_blink_led_if_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#run_examples.ex5_blink_led_if_button
+.. _ex1_turn_on_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex1_turn_on_led
+.. _ex2_turn_on_many_leds(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex2_turn_on_many_leds
+.. _ex3_detect_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex3_detect_button
+.. _ex4_blink_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex4_blink_led
+.. _ex5_blink_led_if_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex5_blink_led_if_button
 .. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.run_examples
 .. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.cleanup
 .. _GPIO.outut(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.output
