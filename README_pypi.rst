@@ -257,7 +257,7 @@ Explanation of the previous command-line:
 
 **Important**
 
-   Don't forget the flag *-s* when running the ``run_examples`` script as simulation,
+   Don't forget the *-s* flag when running the ``run_examples`` script as simulation,
    if you want to run a code example on your computer, and not on your RPi.
 
 .. _examples-label:
