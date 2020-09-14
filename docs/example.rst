@@ -20,8 +20,8 @@ and monitoring the keyboard.
 
 .. code-block:: python
    :emphasize-lines: 5, 9
-   :caption: Script that blinks a LED for 3 seconds when a button (or the
-             ``cmd_r`` key) is pressed
+   :caption: Script that blinks a LED for 3 seconds when a button (or the key
+             ``cmd_r``) is pressed
 
     import sys
     import time
@@ -57,12 +57,12 @@ and monitoring the keyboard.
     GPIO.cleanup()
 
 Add the previous code in a script named for example `script.py`. To run it on
-your **computer**, use the option ``-s`` like this::
+your **computer**, use the ``-s`` option like this::
 
    $ python script.py -s
 
 If you run it on your **RPi**, connect a LED to the GPIO channel 10 and a push
-button to the GPIO channel 17. You don't have to add the option ``-s``  when
+button to the GPIO channel 17. You don't have to add the ``-s`` option when
 running the script on the RPi::
 
    $ python script.py
@@ -99,7 +99,7 @@ terminal:
 
 Code explanation
 ================
-At the beginning of the `script`_, we check if the flag ``-s`` was used. If it
+At the beginning of the `script`_, we check if the ``-s`` flag was used. If it
 is the case, then the simulation module :mod:`SimulRPi.GPIO` is imported.
 Otherwise, the module ``RPi.GPIO`` is used::
 
@@ -120,8 +120,8 @@ Then, we setup the LED and button channels using the *BCM* mode::
    GPIO.setup(led_channel, GPIO.OUT)
    GPIO.setup(button_channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-Finally, we enter the infinite loop where we wait for the push button (or key
-``cmd_r``) to be pressed or ``ctrl`` + ``c`` which terminates the script
+Finally, we enter the infinite loop where we wait for the push button (or the
+key ``cmd_r``) to be pressed or ``ctrl`` + ``c`` which terminates the script
 immediately. If the push button (or the key ``cmd_r``) is pressed, we blink a
 LED for 3 seconds, then do a cleanup of GPIO channels (very important), and
 terminate the script:
