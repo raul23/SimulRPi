@@ -194,8 +194,8 @@ To display the script's list of options and their descriptions:
 
 -e       The number of the code example you want to run. It is required.
          (default: None)
--m       Set the numbering system used to identify the I/O pins on an RPi.
-         (default: BCM)
+-m       Set the numbering system (BCM or BOARD) used to identify the I/O pins
+         on an RPi. (default: BCM)
 -s       Enable simulation mode, i.e. ``SimulRPi.GPIO`` will be used for
          simulating ``RPi.GPIO``. (default: False)
 -l       The channel numbers to be used for LEDs. If an example only
