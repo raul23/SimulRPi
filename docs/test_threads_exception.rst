@@ -124,7 +124,7 @@ We can now run the ``start_dv`` script::
   ``darth_vader_rpi.darth_vader.activate()``).
 
 * Monitoring of pressed keys is not working because the listening thread's
-  callback ``on_press()`` stopped because of the raised exception
+  callback (``on_press()``) stopped because of the raised exception
 
   Thus, you can't play any sound when pressing on any of the three valid
   keyboard keys.
