@@ -145,6 +145,17 @@ LED symbols for you:
 |
 |
 
+.. note::
+
+   If working with the `Darth-Vader-RPi`_ library, you can use ASCII LED
+   symbols when running the ``start_dv`` script by assigning the value
+   `"default_ascii"` to the ``default_led_symbols`` setting in the
+   `main configuration file`_:
+
+   .. code-block:: python
+
+      "default_led_symbols": "default_ascii",
+
 .. seealso::
 
    * `Build your own Command Line with ANSI escape codes`_ : more info about
@@ -219,8 +230,12 @@ line, it is instead positioned on the next line further down. So you get this
 display of multiple lines of LEDs.
 
 .. URLs
+.. default cfg files
+.. _main configuration file: https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_main_cfg.json#L7
+
 .. external links
 .. _Build your own Command Line with ANSI escape codes: https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html
+.. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _How can I change the locale?: https://raspberrypi.stackexchange.com/a/19866
 .. _How to print colored text in Python?: https://stackoverflow.com/questions/287871/how-to-print-colored-text-in-python
 .. _How to Set Locales (i18n) On a Linux or Unix: https://www.cyberciti.biz/faq/how-to-set-locales-i18n-on-a-linux-unix/
