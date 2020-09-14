@@ -57,7 +57,7 @@ between brackets is the associated GPIO channel number. Here the "LED" on
 channel 22 toggles between on and off when a key is pressed.
 
 Also, the color of the LEDs can be customized as you can see here where the LED
-on Channel 22 is colored differently from the others.
+on channel 22 is colored differently from the others.
 
 .. important::
 
@@ -88,19 +88,19 @@ Installation instructions 😎
 
    $ pip install SimulRPi
 
-   It will install the dependency ``pynput`` if it is not already found in
-   your system.
+   It will install the ``pynput`` dependency if it is not already found in your
+   system.
 
 .. important::
 
    Make sure that *pip* is working with the correct Python version. It might be
-   the case that *pip* is using Python 2. You can find what Python version
+   the case that *pip* is using Python 2.x You can find what Python version
    *pip* uses with the following::
 
       $ pip -V
 
    If *pip* is working with the wrong Python version, then try to use *pip3*
-   which works with Python 3.
+   which works with Python 3.x
 
 .. note::
 
