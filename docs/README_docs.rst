@@ -40,8 +40,8 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 - LEDs by blinking dots in the terminal along with their GPIO pin
   numbers.
 
-When a LED is turned on, it is shown as a red dot in the terminal. The
-`pynput`_ package is used to monitor the keyboard for any pressed key.
+When a LED is turned on, it is shown as a red dot in the terminal. The package
+`pynput`_ is used to monitor the keyboard for any pressed key.
 
 **Example: terminal output**
 
@@ -84,11 +84,11 @@ Installation instructions 😎
 
    $ pip install --upgrade pip
 
-2. Install the ``SimulRPi`` package with *pip*::
+2. Install the package ``SimulRPi`` with *pip*::
 
    $ pip install SimulRPi
 
-   It will install the ``pynput`` dependency if it is not already found in your
+   It will install the dependency ``pynput`` if it is not already found in your
    system.
 
 .. important::
@@ -104,7 +104,7 @@ Installation instructions 😎
 
 .. note::
 
-   To install the **bleeding-edge version** of the ``SimulRPi`` package,
+   To install the **bleeding-edge version** of the package ``SimulRPi``,
    install it from its github repository::
 
       $ pip install git+https://github.com/raul23/SimulRPi#egg=SimulRPi
@@ -174,7 +174,7 @@ module or the real one.
 Script ``run_examples``
 --------------------------
 The script :mod:`~SimulRPi.run_examples` which you have access to once you `install`_
-the ``SimulRPi`` package allows you to run different code examples on your RPi
+the package ``SimulRPi`` allows you to run different code examples on your RPi
 or computer. If it is run on your computer, it will make use of the
 :mod:`SimulRPi.GPIO` module which partly fakes ``RPi.GPIO``.
 
@@ -224,7 +224,7 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you `install`_ the ``SimulRPi`` package, you should have access to the
+Once you `install`_ the package ``SimulRPi``, you should have access to the
 script :mod:`~SimulRPi.run_examples` which can be called from the terminal by providing some
 arguments.
 
@@ -274,7 +274,7 @@ The code for the examples shown here can be also found as a script in
 
 .. note::
 
-   Since we are showing how to use the ``SimulRPi`` library, the presented code
+   Since we are showing how to use the library ``SimulRPi``, the presented code
    examples are to be executed on your computer. However, the script
    :mod:`~SimulRPi.run_examples` which runs the following code examples can be executed on a
    Raspberry Pi or your computer.
@@ -361,9 +361,9 @@ The command line for reproducing the same results for example 2 with the script
           GPIO.output(ch, GPIO.HIGH)
       GPIO.cleanup()
 
-   The :meth:`~SimulRPi.GPIO.setup()` function accepts channel numbers as
-   :obj:`int`, :obj:`list`, and  :obj:`tuple`. Same with the
-   :meth:`~SimulRPi.GPIO.output()` function which also accepts channel numbers
+   The function :meth:`~SimulRPi.GPIO.setup()` accepts channel numbers as
+   :obj:`int`, :obj:`list`, and  :obj:`tuple`. Same with the function
+   :meth:`~SimulRPi.GPIO.output()` which also accepts channel numbers
    and output states as :obj:`int`, :obj:`list`, and :obj:`tuple`.
 
 Example 3: detect a pressed key
@@ -513,11 +513,11 @@ The command line for reproducing the same results for example 5 with the script
 
 How to uninstall 😞
 ===================
-To uninstall **only** the ``SimulRPi`` package::
+To uninstall **only** the package ``SimulRPi``::
 
    $ pip uninstall simulrpi
 
-To uninstall the ``SimulRPi`` package and its dependency::
+To uninstall the package ``SimulRPi`` and its dependency::
 
    $ pip uninstall simulrpi pynput
 
