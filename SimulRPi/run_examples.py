@@ -254,7 +254,7 @@ def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=4,
 
     """
     msg = "Ex 5: if the {key_or_button} [{button_channel}] is pressed, blink " \
-          "a LED [{led_channel}] for {time} second{plural}".format(
+          "a LED [{led_channel}] for {time} second{plural}\n".format(
             key_or_button="{}",
             button_channel=button_channel,
             led_channel=led_channel,
@@ -329,7 +329,7 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
         requires 1 channel, the first channel from the provided list will be 
         used.''')
     parser.add_argument(
-        "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channel",
+        "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channels",
         help='''The channel number to be used for a push button. The default 
         value is channel {} which is associated by default with the key 
         `{}`.'''.format(DEFAULT_BUTTON_CHANNEL, DEFAULT_KEY_NAME))
@@ -413,7 +413,7 @@ def main():
             ex4_blink_led(args.led_channels[0], args.total_time_blinking,
                           args.time_leds_on, args.time_leds_off)
         elif args.example_number == 5:
-            ex5_blink_led_if_button(args.led_channels[0], args.button_channel,
+            ex5_blink_led_if_button(args.led_channels[0], args.button_channels,
                                     args.total_time_blinking,
                                     args.time_leds_on,
                                     args.time_leds_off)
