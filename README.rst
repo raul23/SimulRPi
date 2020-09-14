@@ -201,7 +201,7 @@ To display the script's list of options and their descriptions:
 -l       The channel numbers to be used for LEDs. If an example only
          requires 1 channel, the first channel from the provided list will
          be used. (default: [9, 10, 11])
--b       The channel numbers to be used for a push button. The default value
+-b       The channel number to be used for a push button. The default value
          is channel 17 which is associated by default with the keyboard key
          *cmd_r*. (default: 17)
 -k       The name of the key associated with the button channel. The name
