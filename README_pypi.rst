@@ -43,8 +43,8 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 - LEDs by blinking dots in the terminal along with their GPIO pin
   numbers.
 
-When a LED is turned on, it is shown as a red dot in the terminal. The package
-`pynput`_ is used to monitor the keyboard for any pressed key.
+When a LED is turned on, it is shown as a red dot in the terminal. The
+`pynput`_ package is used to monitor the keyboard for any pressed key.
 
 **Example: terminal output**
 
@@ -84,7 +84,7 @@ Installation instructions 😎
 
    $ pip install --upgrade pip
 
-2. Install the package ``SimulRPi`` with *pip*::
+2. Install the ``SimulRPi`` package with *pip*::
 
    $ pip install SimulRPi
 
@@ -104,7 +104,7 @@ Installation instructions 😎
 
 **Note**
 
-   To install the **bleeding-edge version** of the package ``SimulRPi``,
+   To install the **bleeding-edge version** of the ``SimulRPi`` package,
    install it from its github repository::
 
       $ pip install git+https://github.com/raul23/SimulRPi#egg=SimulRPi
@@ -136,7 +136,7 @@ Use the library in your own code
 Case 1: with a ``try`` and ``except`` blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can try importing ``RPi.GPIO`` first and if it is not found, then fallback
-on the module ``SimulRPi.GPIO``.
+on the ``SimulRPi.GPIO`` module.
 
 ..
    IMPORTANT:
@@ -172,9 +172,9 @@ module or the real one.
 Script ``run_examples``
 --------------------------
 The script `run_examples`_ which you have access to once you install
-the package ``SimulRPi`` allows you to run different code examples on your RPi
-or computer. If it is run on your computer, it will make use of the module
-``SimulRPi.GPIO`` which partly fakes ``RPi.GPIO``.
+the ``SimulRPi`` package allows you to run different code examples on your RPi
+or computer. If it is run on your computer, it will make use of the
+``SimulRPi.GPIO`` module which partly fakes ``RPi.GPIO``.
 
 The different code examples are those presented in **Examples** and show the
 capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
@@ -206,7 +206,7 @@ To display the script's list of options and their descriptions:
          is channel 17 which is associated by default with the keyboard key
          *cmd_r*. (default: 17)
 -k       The name of the key associated with the button channel. The name
-         must be one of those recognized by the module *pynput*. See the
+         must be one of those recognized by the *pynput* module. See the
          *SimulRPi* documentation for a list of valid key names:
          https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *cmd_r*)
 -t       Total time in seconds the LEDs will be blinking. (default: 4)
@@ -221,7 +221,7 @@ To display the script's list of options and their descriptions:
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
-Once you install the package ``SimulRPi``, you should have access to the
+Once you install the ``SimulRPi`` package, you should have access to the
 script ``run_examples`` which can be called from the terminal by providing some
 arguments.
 
@@ -271,7 +271,7 @@ The code for the examples shown here can be also found as a script in
 
 **Note**
 
-   Since we are showing how to use the library ``SimulRPi``, the presented code
+   Since we are showing how to use the ``SimulRPi`` library, the presented code
    examples are to be executed on your computer. However, the script
    ``run_examples`` which runs the following code examples can be executed on a
    Raspberry Pi or your computer.
@@ -358,8 +358,8 @@ The command line for reproducing the same results for example 2 with the script
           GPIO.output(ch, GPIO.HIGH)
       GPIO.cleanup()
 
-   The function `GPIO.setup()`_ accepts channel numbers as ``int``, ``list``,
-   and ``tuple``. Same with the function `GPIO.output()`_ which also accepts
+   The `GPIO.setup()`_ function accepts channel numbers as ``int``, ``list``,
+   and ``tuple``. Same with the `GPIO.output()`_ function which also accepts
    channel numbers and output states as ``int``, ``list``, and ``tuple``.
 
 Example 3: detect a pressed key
@@ -509,11 +509,11 @@ The command line for reproducing the same results for example 5 with the script
 
 How to uninstall 😞
 ===================
-To uninstall **only** the package ``SimulRPi``::
+To uninstall **only** the ``SimulRPi`` package::
 
    $ pip uninstall simulrpi
 
-To uninstall the package ``SimulRPi`` and its dependency::
+To uninstall the ``SimulRPi`` package and its dependency::
 
    $ pip uninstall simulrpi pynput
 
