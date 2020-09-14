@@ -5,8 +5,6 @@ This script allows you to run different code examples on your Raspberry Pi (RPi)
 or computer in which case it will make use of the library `SimulRPi`_ which
 partly fakes `RPi.GPIO`_.
 
-.. TODO: change URLs for 'SimulRPi.GPIO' to point to the real one
-
 The code examples test different parts of the library ``SimulRPi`` in order to
 show what it is capable of simulating from I/O devices connected to an RPi:
 
