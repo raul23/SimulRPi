@@ -11,7 +11,7 @@ Version 0.1.0a0
 
 .. TODO: IMPORTANT add date
 
-**September 13, 2020**
+**September 14, 2020**
 
 .. _default-led-symbols-label:
 
