@@ -212,7 +212,7 @@ To display the script's list of options and their descriptions::
 -k       The name of the key associated with the button channel. The name
          must be one of those recognized by the *pynput* package. See the
          *SimulRPi* documentation for a list of valid key names:
-         https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *cmd_r*)
+         https://bit.ly/2Pw1OBe. Example: *alt*, *ctrl_r* (default: *cmd_r*)
 -t       Total time in seconds the LEDs will be blinking. (default: 4)
 --on     Time in seconds the LEDs will stay turned ON at a time. (default: 1)
 --off    Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
