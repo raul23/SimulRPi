@@ -30,9 +30,6 @@ associated GPIO channel number.
     If there is enough interest in this library, I will eventually mock more
     functions from `RPi.GPIO`_.
 
-.. TODO: also found in README_docs.rst
-.. TODO: IMPORTANT check URL to config file
-
 .. URLs
 .. external links
 .. _pynput: https://pynput.readthedocs.io/en/latest/index.html
@@ -183,7 +180,6 @@ def input(channel):
     return manager.pin_db.get_pin_state(channel)
 
 
-# TODO: output to several channels, see https://bit.ly/2Dgk2Uf
 def output(channel, state):
     """Set the output state of a GPIO pin.
 
@@ -472,7 +468,6 @@ def setsymbols(led_symbols):
     manager.update_led_symbols(led_symbols)
 
 
-# TODO: setup more than one channel, see https://bit.ly/2Dgk2Uf
 def setup(channel, channel_type, pull_up_down=None, initial=None):
     """Setup a GPIO channel as an input or output.
 
