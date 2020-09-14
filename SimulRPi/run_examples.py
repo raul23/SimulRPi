@@ -17,7 +17,7 @@ Usage
 .. highlight:: console
 
 Once the **SimulRPi** package is `installed`_, you should have access to
-the script :mod:`~SimulRPi.run_examples`::
+the :mod:`~SimulRPi.run_examples` script::
 
     $ run_examples -h
 
@@ -150,10 +150,10 @@ def ex3_detect_button(channel):
 
     .. note::
 
-        If the simulation mode is enabled (`-s`), the specified keyboard key
+        If the simulation mode is enabled (``-s``), the specified keyboard key
         will be detected if pressed. The keyboard key can be specified through
-        the command line option `-b` (button channel) or `-k` (the key name,
-        e.g. '*ctrl*'). See `script's usage`_.
+        the command line option ``-b`` (button channel) or ``-k`` (the key
+        name, e.g. '*ctrl*'). See `script's usage`_.
 
     """
     msg = "Ex 3: detect if the {key_or_button} [{channel}] is pressed\n".format(
@@ -243,10 +243,10 @@ def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=4,
 
     .. note::
 
-        If the simulation mode is enabled (`-s`), the specified keyboard key
+        If the simulation mode is enabled (``-s``), the specified keyboard key
         will be detected if pressed. The keyboard key can be specified through
-        the command line option `-b` (button channel) or `-k` (the key name,
-        e.g. 'ctrl'). See `script's usage`_.
+        the command line option ``-b`` (button channel) or ``-k`` (the key
+        name, e.g. 'ctrl'). See `script's usage`_.
 
     .. TODO: find if we can avoid duplicates of notes and other notices
 

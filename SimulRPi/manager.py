@@ -1,4 +1,4 @@
-"""Module that manages the database :class:`~SimulRPi.pindb.PinDB`, threads,
+"""Module that manages the :class:`~SimulRPi.pindb.PinDB` database, threads,
 and default keymap.
 
 The threads are responsible for displaying LEDs in the terminal and listening
@@ -104,7 +104,7 @@ if keyboard:
 class Manager:
     """Class that manages the pin database (:class:`~SimulRPi.pindb.PinDB`),
     the threads responsible for displaying "LEDs" in the terminal and listening
-    for keys pressed/released, and the default keymap.
+    for pressed/released keys, and the default keymap.
 
     The threads are not started right away in ``__init__()`` but in
     :meth:`SimulRPi.GPIO.input` for the listening thread and
@@ -163,9 +163,9 @@ class Manager:
 
     .. important::
 
-        If the module ``pynput.keyboard`` couldn't be imported, the listening
+        If the ``pynput.keyboard`` module couldn't be imported, the listening
         thread ``th_listener`` will not be created and the parts of the
-        library ``SimulRPi`` that monitors the keyboard for any pressed or
+        ``SimulRPi`` library that monitors the keyboard for any pressed or
         released key will be ignored. Only the thread ``th_display_leds`` that
         displays "LEDs" in the terminal will be created.
 
@@ -290,11 +290,6 @@ class Manager:
         """Displaying thread's **target function** that simulates LEDs
         connected to an RPi by blinking red dots in a terminal.
 
-        In order to simulate LEDs turning on/off on an RPi, red dots are blinked
-        in the terminal along with their GPIO channel number.
-
-        When a LED is turned on, it is shown as a red dot in the terminal.
-
         .. highlight:: none
 
         **Example: terminal output** ::
@@ -385,8 +380,8 @@ class Manager:
     def get_key_name(key):
         """Get the name of a keyboard key as a string.
 
-        The name of the special or alphanumeric key is given by the package
-        `pynput`_.
+        The name of the special or alphanumeric key is given by the `pynput`_
+        package.
 
         Parameters
         ----------

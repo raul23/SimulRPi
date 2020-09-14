@@ -83,7 +83,7 @@ def cleanup():
     avoid accidental damage to your RPi by shorting out the pins.
     [**Ref:** `RPi.GPIO wiki`_]
 
-    Also, the two threads responsible for displaying "LEDs" in the terminal and
+    Also, the two threads responsible for displaying LEDs in the terminal and
     listening for pressed/released keys are stopped.
 
     .. note::
@@ -95,7 +95,7 @@ def cleanup():
 
         **Ref.:** `RPi.GPIO wiki`_
 
-        When using the package ``SimulRPi``, :meth:`cleanup` will:
+        When using the ``SimulRPi`` package, :meth:`cleanup` will:
 
             * stop the displaying thread ``Manager.th_display_leds``
             * stop the listening thread ``Manager.th_listener``

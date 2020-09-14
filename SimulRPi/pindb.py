@@ -3,7 +3,7 @@
 The database is created as a dictionary mapping channel numbers to objects
 representing GPIO pins.
 
-The class :class:`PinDB` provides an API for accessing this database with
+The :class:`PinDB` class provides an API for accessing this database with
 such functions as retrieving or setting pins' attributes.
 
 """
