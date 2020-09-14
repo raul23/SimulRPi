@@ -336,7 +336,7 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
         help='''The name of the keyboard key associated with the button 
         channel. The name must be one of those recognized by the `pynput` 
         package. See the SimulRPi documentation for a list of valid key names: 
-        https://bit.ly/2Pw1OBe. Example: `alt`, `cmd_r`'''.format(
+        https://bit.ly/2Pw1OBe. Example: `alt`, `ctrl_r`'''.format(
             DEFAULT_KEY_NAME))
     parser.add_argument(
         "-t", type=float, default=DEFAULT_TOTAL_TIME_BLINKING,
