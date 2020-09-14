@@ -336,7 +336,7 @@ was an exception caught by one of the threads, then it is raised by
 :meth:`~SimulRPi.GPIO.wait`.
 
 Thus it is ideal for :meth:`~SimulRPi.GPIO.wait` to be called within a ``try``
-block after you are done with :mod:`SimulRPi.GPIO` API::
+block after you are done with the :mod:`SimulRPi.GPIO` API::
 
    try:
        do_something_with_gpio_api()
@@ -354,7 +354,7 @@ in one of the threads' target function or callback, it will be caught in our
 ``except`` block.
 
 .. code-block:: python
-   :emphasize-lines: 12
+   :emphasize-lines: 13
 
    import time
    import SimulRPi.GPIO as GPIO
@@ -390,7 +390,7 @@ in one of the threads' target function or callback, it will be caught in our
 
    See `Test threads raising exceptions`_ about some tests done to check what
    happens when a thread raises an exception within its ``run`` method or
-   callback.
+   callback (**spoiler:** not good!).
 
 .. URLs
 .. default cfg files
