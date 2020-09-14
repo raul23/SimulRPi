@@ -31,14 +31,14 @@ permanent and you don't have to change any Python code.
 
    You should provide your own **UTF-8** based locale settings. The example
    uses the English (US) locale with the encoding **UTF-8**. The command
-   ``locale -a`` gives you all the available locales on your Linux or Unix-like
+   ``$ locale -a`` gives you all the available locales on your Linux or Unix-like
    system.
 
 2. Reload the ``.bashrc``::
 
       $ source .bashrc
 
-3. Run the command ``locale`` to make sure that your locale settings were set
+3. Run the command ``$ locale`` to make sure that your locale settings were set
 correctly::
 
       $ locale
@@ -69,7 +69,7 @@ correctly::
 .. seealso::
 
    * `How to Set Locales (i18n) On a Linux or Unix`_: detailed article
-   * `How can I change the locale?`_: from raspberrypi.stackexchange.com,
+   * `How can I change the locale?`_: from `raspberrypi.stackexchange.com`,
      provides answers to set the locale user and system-wide
 
 **Solution #2:** ``export PYTHONIOENCODING=utf8`` (temporary solution)
@@ -100,7 +100,7 @@ If you tried the `previous two solutions`_, and you still can't display the
 LED symbols that use special characters (UTF-8 encoding), you can instead opt
 for ASCII-based LED symbols.
 
-**Method #1:** use the API ``SimulRPi.GPIO``
+**Method #1:** use the ``SimulRPi.GPIO`` API
 """"""""""""""""""""""""""""""""""""""""""""
 If you are using the module :mod:`SimulRPi.GPIO` in your code, you can change
 the default LED symbols used by all output channels with the function
@@ -160,7 +160,7 @@ LED symbols for you:
 
    * `Build your own Command Line with ANSI escape codes`_ : more info about
      using ANSI escape codes (e.g. color text, move the cursor up)
-   * `How to print colored text in Python?`_ : from stackoverflow, lots of
+   * `How to print colored text in Python?`_ : from `stackoverflow`, lots of
      Python examples using built-in modules or third-party libraries to color
      text in the terminal.
 
