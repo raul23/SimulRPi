@@ -11,9 +11,9 @@ Non-ASCII characters can't be displayed
 
 .. highlight:: none
 
-When running the script :mod:`SimulRPi.run_examples` or using the module
-:mod:`SimulRPi.GPIO` in your own code, your terminal might have difficulties
-printing the `default LED symbols`_ based on special characters::
+When running the :mod:`SimulRPi.run_examples` script or using the
+:mod:`SimulRPi.GPIO` module in your own code, your terminal might have
+difficulties printing the `default LED symbols`_ based on special characters::
 
    UnicodeEncodeError: 'ascii' codec can't encode character '\U0001f6d1' in position 2: ordinal not in range(128)
 
@@ -30,15 +30,15 @@ permanent and you don't have to change any Python code.
       export LANGUAGE="en_US:en"
 
    You should provide your own **UTF-8** based locale settings. The example
-   uses the English (US) locale with the encoding **UTF-8**. The command
-   ``$ locale -a`` gives you all the available locales on your Linux or Unix-like
+   uses the English (US) locale with the encoding **UTF-8**. The ``locale -a``
+   command gives you all the available locales on your Linux or Unix-like
    system.
 
 2. Reload the ``.bashrc``::
 
       $ source .bashrc
 
-3. Run the command ``$ locale`` to make sure that your locale settings were set
+3. Run the ``locale`` command to make sure that your locale settings were set
 correctly::
 
       $ locale
@@ -52,7 +52,7 @@ correctly::
       LC_TIME="en_US.UTF-8"
       LC_ALL=
 
-4. Run the script :mod:`SimulRPi.run_examples` to test if you can display the
+4. Run the :mod:`SimulRPi.run_examples` script to test if you can display the
    LED symbols fine using the correct encoding **UTF-8**::
 
       $ run_examples -s -e 1
@@ -74,7 +74,7 @@ correctly::
 
 **Solution #2:** ``export PYTHONIOENCODING=utf8`` (temporary solution)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Before running the script :mod:`SimulRPi.run_examples`, export the
+Before running the :mod:`SimulRPi.run_examples` script, export the
 environment variable ``PYTHONIOENCODING`` with the correct encoding::
 
    $ export PYTHONIOENCODING=utf8
@@ -102,7 +102,7 @@ for ASCII-based LED symbols.
 
 **Method #1:** use the ``SimulRPi.GPIO`` API
 """"""""""""""""""""""""""""""""""""""""""""
-If you are using the module :mod:`SimulRPi.GPIO` in your code, you can change
+If you are using the :mod:`SimulRPi.GPIO` module in your code, you can change
 the default LED symbols used by all output channels with the function
 :meth:`~SimulRPi.GPIO.setdefaultsymbols`. Hence, you can provide your own
 ASCII-based LED symbols using ANSI codes to color them:
@@ -166,7 +166,7 @@ LED symbols for you:
 
 **Method #2:** use the command-line option ``-a``
 """""""""""""""""""""""""""""""""""""""""""""""""
-When running the script :mod:`SimulRPi.run_examples`, you can use the
+When running the :mod:`SimulRPi.run_examples` script, you can use the
 command-line option ``-a`` which will make use of ASCII-based LED symbols::
 
    $ run_examples -s -e -1 -a
@@ -183,7 +183,7 @@ command-line option ``-a`` which will make use of ASCII-based LED symbols::
 
 Multiple lines of LED symbols
 =============================
-When running the script :mod:`SimulRPi.run_examples`, if you get the following:
+When running the :mod:`SimulRPi.run_examples` script, if you get the following:
 
 ..
    raw:: html
@@ -223,10 +223,10 @@ ON and OFF always on the same line. That is, when a line of LEDs is displayed,
 the script goes to the beginning of the line to display the next state of LEDs
 by printing over the previous LEDs.
 
-However, when the window is too small, the LEDs get printed on the next line
-because there is not enough space on a single line to print everything. Then,
-when the script tries to go to the start of a line to print over the previous
-line, it is instead positioned on the next line further down. So you get this
+However, when the window is too small, the first line of LEDs that gets printed
+overflows on the second line since there is not enough space to print everything
+on the first line. Then, the script won't be able to overwrite the first line of
+LEDs because it will be positioned on the second line instead. So you get this
 display of multiple lines of LEDs.
 
 .. URLs
