@@ -121,7 +121,7 @@ is not defined in your *PATH*::
 
 Add the directory mentioned in the warning to your *PATH* by editing your
 configuration file (e.g. *.bashrc*). See this `article`_ on how to set *PATH*
-on Linux.
+on Linux and macOS.
 
 **Test installation**
 
@@ -136,7 +136,7 @@ Use the library in your own code
 Case 1: with a ``try`` and ``except`` blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can try importing ``RPi.GPIO`` first and if it is not found, then fallback
-on the ``SimulRPi.GPIO`` module.
+on the module ``SimulRPi.GPIO``.
 
 ..
    IMPORTANT:
@@ -173,8 +173,8 @@ Script ``run_examples``
 --------------------------
 The script `run_examples`_ which you have access to once you install
 the package ``SimulRPi`` allows you to run different code examples on your RPi
-or computer. If it is run on your computer, it will make use of the
-``SimulRPi.GPIO`` module which partly fakes ``RPi.GPIO``.
+or computer. If it is run on your computer, it will make use of the module
+``SimulRPi.GPIO`` which partly fakes ``RPi.GPIO``.
 
 The different code examples are those presented in **Examples** and show the
 capability of ``SimulRPi.GPIO`` for simulating I/O devices on an RPi such as
@@ -206,7 +206,7 @@ To display the script's list of options and their descriptions:
          is channel 17 which is associated by default with the keyboard key
          *cmd_r*. (default: 17)
 -k       The name of the key associated with the button channel. The name
-         must be one of those recognized by the *pynput* module. See the
+         must be one of those recognized by the module *pynput*. See the
          *SimulRPi* documentation for a list of valid key names:
          https://bit.ly/2Pw1OBe. Example: *alt*, *cmd_r* (default: *cmd_r*)
 -t       Total time in seconds the LEDs will be blinking. (default: 4)
