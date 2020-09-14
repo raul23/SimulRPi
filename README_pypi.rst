@@ -54,7 +54,7 @@ When a LED is turned on, it is shown as a red dot in the terminal. The
    :alt: Simulating LEDs on an RPi via a terminal
 
 Each dot represents a blinking LED connected to an RPi and the number
-between brackets is the associated GPIO channel number. Here the "LED" on
+between brackets is the associated GPIO channel number. Here the LED on
 channel 22 toggles between on and off when a key is pressed.
 
 Also, the color of the LEDs can be customized as you can see here where the LED
