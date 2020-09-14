@@ -320,7 +320,7 @@ Explanation of the previous command-line:
   instead of an RPi
 - ``-e 5``: we run code example **5** which blinks a LED if a key is pressed
 - ``-l 22``: we blink a LED on channel **22**
-- ``-t 5``: we blink a LED for **5** seconds
+- ``-t 5``: we blink a LED for a total of **5** seconds
 - ``-k ctrl_r``: a LED is blinked if the key ``ctrl_r`` is pressed
 
 **Output:**
@@ -574,7 +574,7 @@ the terminal:
    GPIO.setmode(GPIO.BCM)
    GPIO.setup(channel, GPIO.OUT)
    start = time.time()
-   print("Start")
+   print("Ex 4: blink a LED for 4.0 seconds\n")
    while (time.time() - start) < 4:
        try:
            GPIO.output(channel, GPIO.HIGH)
@@ -584,7 +584,6 @@ the terminal:
        except KeyboardInterrupt:
            break
    GPIO.cleanup()
-   print("\nEnd")
 
 **Output:**
 
