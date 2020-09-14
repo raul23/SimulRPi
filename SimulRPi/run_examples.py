@@ -329,7 +329,7 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
         requires 1 channel, the first channel from the provided list will be 
         used.''')
     parser.add_argument(
-        "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channels",
+        "-b", type=int, default=DEFAULT_BUTTON_CHANNEL, dest="button_channel",
         help='''The channel number to be used for a push button. The default 
         value is channel {} which is associated by default with the key 
         `{}`.'''.format(DEFAULT_BUTTON_CHANNEL, DEFAULT_KEY_NAME))
@@ -408,12 +408,12 @@ def main():
             ex2_turn_on_many_leds(args.led_channels, args.time_leds_on)
             led_channels.append(args.led_channels)
         elif args.example_number == 3:
-            ex3_detect_button(args.button_channels)
+            ex3_detect_button(args.button_channel)
         elif args.example_number == 4:
             ex4_blink_led(args.led_channels[0], args.total_time_blinking,
                           args.time_leds_on, args.time_leds_off)
         elif args.example_number == 5:
-            ex5_blink_led_if_button(args.led_channels[0], args.button_channels,
+            ex5_blink_led_if_button(args.led_channels[0], args.button_channel,
                                     args.total_time_blinking,
                                     args.time_leds_on,
                                     args.time_leds_off)
@@ -441,4 +441,4 @@ def main():
 
 if __name__ == '__main__':
     retcode = main()
-    print("\nProgram exited with {}".format(retcode))
+    print("\n\nProgram exited with {}".format(retcode))
