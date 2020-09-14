@@ -18,7 +18,7 @@ simulates some I/O devices on a Raspberry Pi (RPi).
    </div>
 
 Each dot represents a blinking LED connected to an RPi and the number
-between brackets is the associated GPIO channel number. Here the "LED" on
+between brackets is the associated GPIO channel number. Here the LED on
 channel 22 toggles between on and off when a key is pressed.
 
 See the `README`_ for more info about the library.
