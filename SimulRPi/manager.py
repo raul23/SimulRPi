@@ -167,7 +167,7 @@ class Manager:
         thread ``th_listener`` will not be created and the parts of the
         library ``SimulRPi`` that monitors the keyboard for any pressed or
         released key will be ignored. Only the thread ``th_display_leds`` that
-        displays "LEDs" on the terminal will be created.
+        displays "LEDs" in the terminal will be created.
 
         This is necessary for example in the case we are running tests on
         travis and we don't want travis to install ``pynput`` in a headless
@@ -287,7 +287,8 @@ class Manager:
                     {ch_number: attribute_value})
 
     def display_leds(self):
-        """Simulate LEDs connected to an RPi by blinking red dots in a terminal.
+        """Displaying thread's target function that simulates LEDs connected to
+        an RPi by blinking red dots in a terminal.
 
         In order to simulate LEDs turning on/off on an RPi, red dots are blinked
         in the terminal along with their GPIO channel number.
@@ -304,8 +305,6 @@ class Manager:
 
         where each dot represents a LED and the number between brackets is the
         associated GPIO channel number.
-
-        This is the target function for the displaying thread ``th_display_leds``.
 
         .. important::
 
@@ -421,7 +420,8 @@ class Manager:
         return key_name
 
     def on_press(self, key):
-        """When a valid keyboard key is pressed, set its state to `GPIO.LOW`.
+        """When a valid keyboard key is pressed, set the associated pin's
+        state to `GPIO.LOW`.
 
         Callback invoked from the thread ``th_listener``.
 
@@ -429,8 +429,8 @@ class Manager:
         Only keys defined in the pin database are treated, i.e. keys that were
         configured with :meth:`SimulRPi.GPIO.setup` are further processed.
 
-        Once a valid key is detected as pressed, its state is changed to
-        `GPIO.LOW`.
+        Once a valid key is detected as pressed, the associated pin's state is
+        changed to `GPIO.LOW`.
 
         Parameters
         ----------
@@ -453,7 +453,8 @@ class Manager:
         --------
         :meth:`DisplayExceptionThread`:  Read the **Important** message that
                                          explains why an exception is not
-                                         raised in a thread's callback.
+                                         raised in a thread's callback or
+                                         target function.
 
         """
         try:
@@ -464,7 +465,8 @@ class Manager:
             self.th_listener.exc = e
 
     def on_release(self, key):
-        """When a valid keyboard key is released, set its state to `GPIO.HIGH`.
+        """When a valid keyboard key is released, set the associated pin's
+        state to `GPIO.HIGH`.
 
         Callback invoked from the thread ``th_listener``.
 
@@ -472,8 +474,8 @@ class Manager:
         Only keys defined in the pin database are treated, i.e. keys that were
         configured with :meth:`SimulRPi.GPIO.setup` are further processed.
 
-        Once a valid key is detected as released, its state is changed to
-        `GPIO.HIGH`.
+        Once a valid key is detected as released, the associated pin's state is
+        changed to `GPIO.HIGH`.
 
         Parameters
         ----------
@@ -496,7 +498,8 @@ class Manager:
         --------
         :meth:`DisplayExceptionThread`:  Read the **Important** message that
                                          explains why an exception is not
-                                         raised in a thread's callback.
+                                         raised in a thread's callback or
+                                         target function.
 
         """
         try:
@@ -538,7 +541,7 @@ class Manager:
         ----------
         new_default_led_symbols : dict
             Dictionary that maps each output state (:obj:`str`, {'`ON`',
-            '`OFF`'}) to the LED symbol (:obj:`str`).
+            '`OFF`'}) to a LED symbol (:obj:`str`).
 
             **Example**::
 
@@ -551,37 +554,6 @@ class Manager:
         # TODO: assert on new_led_symbols
         new_default_led_symbols = self._clean_led_symbols(new_default_led_symbols)
         self.default_led_symbols.update(new_default_led_symbols)
-
-    def update_led_symbols(self, new_led_symbols):
-        """Update the LED symbols for multiple channels.
-
-        If a channel number is associated with a not yet created
-        :class:`~SimulRPi.pindb.Pin`, the corresponding LED symbols will be
-        temporary saved for later when the pin object will be created with
-        :meth:`add_pin`.
-
-        Parameters
-        ----------
-        new_led_symbols : dict
-            Dictionary that maps channel numbers (:obj:`int`) to LED symbols
-            (:obj:`dict`).
-
-            **Example**::
-
-                new_led_symbols = {
-                    1: {
-                        'ON': '🔵',
-                        'OFF': '⚪ '
-                    },
-                    2: {
-                        'ON': '🔵',
-                        'OFF': '⚪ '
-                    }
-                }
-
-        """
-        # TODO: assert on new_led_symbols
-        self._update_attribute_pins('led_symbols', new_led_symbols)
 
     # TODO: unique keymap in both ways
     def update_keymap(self, new_keymap):
@@ -619,8 +591,8 @@ class Manager:
 
             If the key to be updated is associated to a channel that is already
             taken by another key, both keys' channels will be swapped. However,
-            if any key is being linked to a :obj:`None` channel, then it will take
-            on the maximum channel number available + 1.
+            if a key is being linked to a :obj:`None` channel, then it will
+            take on the maximum channel number available + 1.
 
         """
         # TODO: assert keys (str) and channels (int)
@@ -676,6 +648,37 @@ class Manager:
                 msg += '\t Key "{}"{}: Channel {} ------> Channel {}\n'.format(
                     key, " " * (20 - len(key)), old_ch, new_ch)
             logger.debug(msg)
+
+    def update_led_symbols(self, new_led_symbols):
+        """Update the LED symbols for multiple channels.
+
+        If a channel number is associated with a not yet created
+        :class:`~SimulRPi.pindb.Pin`, the corresponding LED symbols will be
+        temporary saved for later when the pin object will be created with
+        :meth:`add_pin`.
+
+        Parameters
+        ----------
+        new_led_symbols : dict
+            Dictionary that maps channel numbers (:obj:`int`) to LED symbols
+            (:obj:`dict`).
+
+            **Example**::
+
+                new_led_symbols = {
+                    1: {
+                        'ON': '🔵',
+                        'OFF': '⚪ '
+                    },
+                    2: {
+                        'ON': '🔵',
+                        'OFF': '⚪ '
+                    }
+                }
+
+        """
+        # TODO: assert on new_led_symbols
+        self._update_attribute_pins('led_symbols', new_led_symbols)
 
     @staticmethod
     def validate_key(key):

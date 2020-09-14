@@ -134,6 +134,8 @@ def cleanup():
 def input(channel):
     """Read the value of a GPIO pin.
 
+    The listening thread is also started if possible.
+
     Parameters
     ----------
     channel : int
@@ -185,6 +187,8 @@ def input(channel):
 def output(channel, state):
     """Set the output state of a GPIO pin.
 
+    The displaying thread is also started if possible.
+
     Parameters
     ----------
     channel : int or list or tuple
@@ -199,6 +203,7 @@ def output(channel, state):
 
         You can also provide a list of states::
 
+            chan_list = [11,12]
             GPIO.output(chan_list, GPIO.LOW)               # sets all to LOW
             GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))  # sets 1st HIGH and 2nd LOW.
 
@@ -206,7 +211,8 @@ def output(channel, state):
     ------
     Exception
         If the displaying thread caught an exception that occurred in its
-        target function, the said exception will be raised here.
+        target function :meth:`~SimulRPi.manager.Manager.display_leds`, the
+        said exception will be raised here.
 
 
     .. note::
@@ -369,7 +375,7 @@ def setdefaultsymbols(default_led_symbols):
 # TODO: explain that the mapping is unique in both ways, i.e. one keyboard key
 # can only be associated to a one GPIO channel, and vice versa.
 def setkeymap(key_to_channel_map):
-    """Set the keymap dictionary with new keys and channels.
+    """Set the default keymap dictionary with new keys and channels.
 
     The default dictionary `default_key_to_channel_map`_ that maps keyboard
     keys to GPIO channels can be modified by providing your own mapping
@@ -532,7 +538,7 @@ def wait(timeout=2):
     """Wait for certain events to complete.
 
     Wait for the displaying and listening threads to do their tasks. If there
-    was an exception caught by one thread, then it is raised here.
+    was an exception caught and saved by one thread, then it is raised here.
 
     If more than ``timeout`` seconds elapsed without any of the events
     described previously happening, the function exits.
@@ -554,16 +560,17 @@ def wait(timeout=2):
 
         This function is not called in :meth:`cleanup` because if a thread
         exception is raised, it will not be caught in the main program because
-        :meth:`cleanup` is found in a ``finally`` block:
+        :meth:`cleanup` should be found in a ``finally`` block:
 
         .. code-block:: python
-           :emphasize-lines: 7
+           :emphasize-lines: 8
 
            try:
                do_something_with_gpio_api()
                GPIO.wait()
            except Exception as e:
                # Do something with error
+               print(e)
            finally:
                GPIO.cleanup()
 

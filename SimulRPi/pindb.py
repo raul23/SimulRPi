@@ -36,7 +36,7 @@ class Pin:
         It should only be defined for output channels. It is a dictionary
         defining the symbols to be used when the LED is turned ON and OFF. If
         not found for an ouput channel, then the default LED symbols will be
-        used as specified in :class:`~SimulRPi.managerManager`.
+        used as specified in :class:`~SimulRPi.manager.Manager`.
 
         **Example**::
 
@@ -82,13 +82,13 @@ class Pin:
 class PinDB:
     """Class for storing and modifying :class:`Pin`\s.
 
-    Each instance of :class:`Pin` is saved in a dictionary that maps it
-    to its channel number.
+    Each instance of :class:`Pin` is saved in a dictionary that maps its
+    channel number to the :class:`Pin` object.
 
     Attributes
     ----------
     output_pins : list
-        List containing :class:`Pin` objects that are **Output** channels.
+        List containing :class:`Pin` objects that are **output** channels.
 
 
     .. note::
@@ -312,7 +312,7 @@ class PinDB:
         """Set a :class:`Pin`\'s state from a given channel.
 
         A :class:`Pin` is retrieved based on a given channel, then its
-        ``state``.
+        ``state`` is set.
 
         Parameters
         ----------

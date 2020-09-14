@@ -44,10 +44,10 @@ API Reference
 .. important::
 
    There are some platform limitations on using some of the keyboard keys with
-   `pynput <https://pynput.readthedocs.io/en/latest/limitations.html>`__ which
-   is used for monitoring the keyboard.
+   `pynput <https://pynput.readthedocs.io/>`__ which is used for monitoring the
+   keyboard.
 
-   For instance, on macOS some keyboard keys may require that you run your
+   For instance, on macOS, some keyboard keys may require that you run your
    script with `sudo`. All alphanumeric keys and some special keys
    (e.g. :obj:`backspace` and :obj:`right`) require `sudo`. In the content of
    :ref:`default_key_to_channel_map <content-default-keymap-label>` shown
@@ -62,7 +62,7 @@ API Reference
    If you want to be able to run your python script with `sudo` in order to use
    some keys that require it, you might need to edit **/etc/sudoers** to add
    your :obj:`PYTHONPATH` if your script makes use of your :obj:`PYTHONPATH` as
-   setup in the `~/.bashrc` file. However, I don't recommend editing
+   configured in your `~/.bashrc` file. However, I don't recommend editing
    **/etc/sudoers** since you might break your `sudo` command (e.g.
    ``sudo: /etc/sudoers is owned by uid 501, should be 0``).
 

@@ -11,8 +11,7 @@ The code examples test different parts of the library ``SimulRPi`` in order to
 show what it is capable of simulating from I/O devices connected to an RPi:
 
     * Turn on/off LEDs: blink LED symbols in the terminal
-    * Detect pressed button and perform an action: monitor keyboard with
-      `pynput`_
+    * Detect pressed button: monitor keyboard with `pynput`_
 
 Usage
 -----
@@ -35,7 +34,8 @@ Run the code for example 1 on the **RPi** with default values for the options
 
     $ run_examples -e 1
 
-Run the code for example 1 on your **computer** using :mod:`SimulRPi.GPIO`::
+Run the code for example 1 on your **computer** using the simulation module
+:mod:`SimulRPi.GPIO`::
 
     $ run_examples -s -e 1
 
@@ -154,7 +154,7 @@ def ex3_detect_button(channel):
 
         If the simulation mode is enabled (`-s`), the specified keyboard key
         will be detected if pressed. The keyboard key can be specified through
-        the command line options `-b` (button channel) or `-k` (the key name,
+        the command line option `-b` (button channel) or `-k` (the key name,
         e.g. '*ctrl*'). See `script's usage`_.
 
     """
@@ -247,7 +247,7 @@ def ex5_blink_led_if_button(led_channel, button_channel, total_time_blinking=4,
 
         If the simulation mode is enabled (`-s`), the specified keyboard key
         will be detected if pressed. The keyboard key can be specified through
-        the command line options `-b` (button channel) or `-k` (the key name,
+        the command line option `-b` (button channel) or `-k` (the key name,
         e.g. 'ctrl'). See `script's usage`_.
 
     .. TODO: find if we can avoid duplicates of notes and other notices

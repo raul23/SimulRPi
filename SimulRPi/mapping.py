@@ -1,9 +1,9 @@
 """Module that defines the :ref:`dictionary <content-default-keymap-label>`
-that  maps keys and GPIO channels.
+that maps keys to GPIO channels.
 
 This module defines the default mapping between keyboard keys and GPIO
-channels. It is used by :mod:`SimulRPi.GPIO` when monitoring the keyboard with
-the package `pynput`_ for any pressed/released key as to simulate a push
+channels. It is used by :mod:`SimulRPi.manager` when monitoring the keyboard
+with the package `pynput`_ for any pressed/released key as to simulate a push
 button connected to a Raspberry Pi.
 
 Notes
