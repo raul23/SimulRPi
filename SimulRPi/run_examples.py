@@ -2,12 +2,12 @@
 """Script for executing code examples on a Raspberry Pi or computer (simulation).
 
 This script allows you to run different code examples on your Raspberry Pi (RPi)
-or computer in which case it will make use of the library `SimulRPi`_ which
+or computer in which case it will make use of the `SimulRPi`_ library which
 partly fakes `RPi.GPIO`_.
 
 .. TODO: change URLs for 'SimulRPi.GPIO' to point to the real one
 
-The code examples test different parts of the library ``SimulRPi`` in order to
+The code examples test different parts of the ``SimulRPi`` library in order to
 show what it is capable of simulating from I/O devices connected to an RPi:
 
     * Turn on/off LEDs: blink LED symbols in the terminal
@@ -280,8 +280,8 @@ def setup_argparser():
     """Setup the argument parser for the command-line script.
 
     The script allows you to run a code example on your RPi or on your
-    computer. In the latter case, it will make use of the module
-    `SimulRPi.GPIO`_ which partly fakes `RPi.GPIO`_.
+    computer. In the latter case, it will make use of the `SimulRPi.GPIO`_
+    module which partly fakes `RPi.GPIO`_.
 
     Returns
     -------
@@ -301,7 +301,7 @@ def setup_argparser():
         # prog=os.path.basename(__file__),
         description='''\
 Run a code example on your Raspberry Pi (RPi) or computer. In the latter case, 
-the script will make use of the library SimulRPi which partly fakes RPi.GPIO 
+the script will make use of the SimulRPi library which partly fakes RPi.GPIO 
 and also simulates I/O devices connected to an RPi such as LEDs and push buttons 
 by blinking small circles on the terminal and listening to pressed keyboard keys.
 ''',
@@ -336,8 +336,8 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
     parser.add_argument(
         "-k", default=DEFAULT_KEY_NAME, dest="key_name",
         help='''The name of the keyboard key associated with the button 
-        channel. The name must be one of those recognized by the module 
-        `pynput`. See the SimulRPi documentation for a list of valid key names: 
+        channel. The name must be one of those recognized by the `pynput`
+        module. See the SimulRPi documentation for a list of valid key names: 
         https://bit.ly/2Pw1OBe. Example: `alt`, `cmd_r`'''.format(
             DEFAULT_KEY_NAME))
     parser.add_argument(
@@ -367,8 +367,8 @@ def main():
     According to the user's choice of action, the script might run one of the
     specified code examples.
 
-    If the simulation flag (`-s`) is used, then the module
-    `SimulRPi.GPIO`_ will be used which partly fakes `RPi.GPIO`_.
+    If the simulation flag (`-s`) is used, then the `SimulRPi.GPIO`_  module
+    will be used which partly fakes `RPi.GPIO`_.
 
     Notes
     -----
