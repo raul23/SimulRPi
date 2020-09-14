@@ -46,7 +46,7 @@ extensions = [
     'sphinx_rtd_theme'
 ]
 
-autodoc_mock_imports = ['pynput', 'pyutils']
+autodoc_mock_imports = ['pynput']
 
 # This value controls the docstrings inheritance. Default is True.
 # Ref.: https://bit.ly/2ofNvGi
@@ -62,7 +62,7 @@ source_suffix = '.rst'
 intersphinx_mapping = {
     'pynput': ('https://pynput.readthedocs.io/en/latest/', None),
     'python': ('https://docs.python.org/3', None),
-    'pyutils': ('https://py-common-utils.readthedocs.io/en/latest', None)
+    # 'pyutils': ('https://py-common-utils.readthedocs.io/en/latest', None)
 }
 
 # Add any paths that contain templates here, relative to this directory.
