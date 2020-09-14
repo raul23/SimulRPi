@@ -114,7 +114,7 @@ Installation instructions 😎
 
 **Warning message**
 
-If you get the warning message from *pip* that the script ``run_examples``
+If you get the warning message from *pip* that the ``run_examples`` script
 is not defined in your *PATH*::
 
    WARNING: The script run_examples is installed in '/home/pi/.local/bin' which is not on PATH.
@@ -171,7 +171,7 @@ module or the real one.
 
 Script ``run_examples``
 --------------------------
-The script `run_examples`_ which you have access to once you install
+The `run_examples`_ script which you have access to once you install
 the ``SimulRPi`` package allows you to run different code examples on your RPi
 or computer. If it is run on your computer, it will make use of the
 ``SimulRPi.GPIO`` module which partly fakes ``RPi.GPIO``.
@@ -190,8 +190,9 @@ Here is a list of the functions that implement each code example:
 List of options
 ~~~~~~~~~~~~~~~
 
-To display the script's list of options and their descriptions:
-``run_examples -h``
+To display the script's list of options and their descriptions::
+
+   $ run_examples -h
 
 -e       The number of the code example you want to run. It is required.
          (default: None)
@@ -222,7 +223,7 @@ To display the script's list of options and their descriptions:
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
 Once you install the ``SimulRPi`` package, you should have access to the
-script ``run_examples`` which can be called from the terminal by providing some
+``run_examples`` script which can be called from the terminal by providing some
 arguments.
 
 For example::
@@ -256,7 +257,7 @@ Explanation of the previous command-line:
 
 **Important**
 
-   Don't forget the flag *-s* when running the script ``run_examples`` as simulation,
+   Don't forget the flag *-s* when running the ``run_examples`` script as simulation,
    if you want to run a code example on your computer, and not on your RPi.
 
 .. _examples-label:
@@ -272,8 +273,8 @@ The code for the examples shown here can be also found as a script in
 **Note**
 
    Since we are showing how to use the ``SimulRPi`` library, the presented code
-   examples are to be executed on your computer. However, the script
-   ``run_examples`` which runs the following code examples can be executed on a
+   examples are to be executed on your computer. However, the
+   ``run_examples`` script which runs the following code examples can be executed on a
    Raspberry Pi or your computer.
 
 Example 1: display 1 LED
@@ -302,8 +303,8 @@ the code along with the output from the terminal:
 |
 |
 
-The command line for reproducing the same results for example 1 with the script
-``run_examples`` is the following::
+The command line for reproducing the same results for example 1 with the
+``run_examples`` script is the following::
 
    $ run_examples -s -e 1 -l 10
 
@@ -337,8 +338,8 @@ respectively. Here is the code along with the output from the terminal:
 |
 |
 
-The command line for reproducing the same results for example 2 with the script
-``run_examples`` is the following::
+The command line for reproducing the same results for example 2 with the
+``run_examples`` script is the following::
 
    $ run_examples -s -e 2
 
@@ -393,8 +394,8 @@ printing a message. Here is the code along with the output from the terminal:
 |
 |
 
-The command line for reproducing the same results for example 3 with the script
-``run_examples`` is the following::
+The command line for reproducing the same results for example 3 with the
+``run_examples`` script is the following::
 
    $ run_examples -s -e 3 -k cmd_r
 
@@ -444,8 +445,8 @@ the terminal:
 |
 |
 
-The command line for reproducing the same results for example 4 with the script
-``run_examples`` is the following::
+The command line for reproducing the same results for example 4 with the
+``run_examples`` script is the following::
 
    $ run_examples -s -e 4 -t 4 -l 22
 
@@ -493,8 +494,8 @@ along with the output from the terminal:
 |
 |
 
-The command line for reproducing the same results for example 5 with the script
-``run_examples`` is the following::
+The command line for reproducing the same results for example 5 with the
+``run_examples`` script is the following::
 
    $ run_examples -s -e 5 -t 3 -l 10 -b 27
 
