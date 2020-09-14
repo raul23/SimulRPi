@@ -12,8 +12,8 @@ examples.
 
       import SimulRPi.GPIO as GPIO
 
-   Thus, the code examples are to be executed on your computer, not an RPi
-   since the main reasons for these examples is to show how to use the
+   The code examples are to be executed on your computer, not on an RPi since
+   the main reason for these examples is to show how to use the
    `SimulRPi API`_.
 
 .. seealso::
@@ -101,9 +101,9 @@ channels. These attributes are:
    * ``led_symbols``: should only be defined for output channels. It is a
      dictionary defining the symbols to be used when the LED is turned ON
      and turned OFF.
-   * ``key``: should only defined for input channels. The names of keyboard
+   * ``key``: should only be defined for input channels. The names of keyboard
      keys that you can use are those specified in the
-     `SimulRPi's documentation`_, e.g. `media_play_pause`, `shift`, and
+     `SimulRPi's API documentation`_, e.g. `media_play_pause`, `shift`, and
      `shift_r`.
 
 :meth:`~SimulRPi.GPIO.setchannels` accepts as argument a list where each item
@@ -395,6 +395,7 @@ in one of the threads' target function or callback, it will be caught in our
 .. URLs
 .. default cfg files
 .. _by default: https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L19
+.. _GPIO channel 23: https://github.com/raul23/archive/blob/master/SimulRPi/v0.1.0a0/default_keymap.py#L25
 
 .. external links
 .. _Test threads raising exceptions: https://github.com/raul23/SimulRPi/blob/master/docs/test_threads_exception.rst
@@ -403,6 +404,5 @@ in one of the threads' target function or callback, it will be caught in our
 .. _default keymap dictionary: api_reference.html#content-default-keymap-label
 .. _simply catch and save the exceptions: api_reference.html#SimulRPi.manager.DisplayExceptionThread.run
 .. _Example\: How to use SimulRPi: example.html
-.. _GPIO channel 23: api_reference.html#content-default-keymap-label
 .. _SimulRPi API: api_reference.html
-.. _SimulRPi's documentation: api_reference.html#content-default-keymap-label
+.. _SimulRPi's API documentation: api_reference.html#content-default-keymap-label

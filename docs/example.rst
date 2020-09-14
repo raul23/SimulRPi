@@ -84,7 +84,8 @@ On your **RPi**, you get almost the same result without the LED shown in the
 terminal:
 
 .. code-block:: console
-   :caption: Output for the script when it is run on an **RPi**
+   :caption: Output for the script when it is run on an **RPi** (the LED will
+             blink for 3 seconds)
 
    $ python script.py
 
