@@ -316,9 +316,9 @@ by blinking small circles on the terminal and listening to pressed keyboard keys
         help='''The number of the code example you want to run. It is 
         required.''')
     parser.add_argument(
-        "-m", "--mode", choices=["BOARD", "BCM"], default="BCM",
-        help="Set the numbering system used to identify the I/O pins on an "
-             "RPi. ")
+        "-m", "--mode", choices=["BCM", "BOARD"], default="BCM",
+        help="Set the numbering system (BCM or BOARD) used to identify the "
+             "I/O pins on an RPi. ")
     parser.add_argument("-s", "--simulation", action="store_true",
                         help="Enable simulation mode, i.e. SimulRPi.GPIO will "
                              "be used for simulating RPi.GPIO.")
