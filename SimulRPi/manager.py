@@ -287,8 +287,8 @@ class Manager:
                     {ch_number: attribute_value})
 
     def display_leds(self):
-        """Displaying thread's target function that simulates LEDs connected to
-        an RPi by blinking red dots in a terminal.
+        """Displaying thread's **target function** that simulates LEDs
+        connected to an RPi by blinking red dots in a terminal.
 
         In order to simulate LEDs turning on/off on an RPi, red dots are blinked
         in the terminal along with their GPIO channel number.
@@ -423,7 +423,7 @@ class Manager:
         """When a valid keyboard key is pressed, set the associated pin's
         state to `GPIO.LOW`.
 
-        Callback invoked from the thread ``th_listener``.
+        **Callback** invoked from the thread ``th_listener``.
 
         This thread is used to monitor the keyboard for any valid pressed key.
         Only keys defined in the pin database are treated, i.e. keys that were
@@ -468,7 +468,7 @@ class Manager:
         """When a valid keyboard key is released, set the associated pin's
         state to `GPIO.HIGH`.
 
-        Callback invoked from the thread ``th_listener``.
+        **Callback** invoked from the thread ``th_listener``.
 
         This thread is used to monitor the keyboard for any valid released key.
         Only keys defined in the pin database are treated, i.e. keys that were

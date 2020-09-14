@@ -8,7 +8,7 @@ It simulates these I/O devices connected to a Raspberry Pi:
       their GPIO channel number.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The
-package `pynput`_ is used to monitor the keyboard for any pressed key.
+`pynput`_ package is used to monitor the keyboard for any pressed key.
 
 .. TODO: also found in README_docs.rst
 
