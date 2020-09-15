@@ -102,7 +102,7 @@ if keyboard:
 
 
 class Manager:
-    """Class that manages the pin database (:class:`~SimulRPi.pindb.PinDB`),
+    """Class that manages the pin database (:class:`SimulRPi.pindb.PinDB`),
     the threads responsible for displaying "LEDs" in the terminal and listening
     for pressed/released keys, and the default keymap.
 
@@ -800,7 +800,7 @@ class Manager:
         these changes:
 
         * the two keymaps ``key_to_channel_map`` and ``channel_to_key_map``
-        * the pin database (:class:`~SimulRPi.pindb.PinDB`)
+        * the pin database (:class:`SimulRPi.pindb.PinDB`)
 
         Parameters
         ----------
