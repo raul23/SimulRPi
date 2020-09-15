@@ -36,7 +36,7 @@ class Pin:
         It should only be defined for output channels. It is a dictionary
         defining the symbols to be used when the LED is turned ON and OFF. If
         not found for an ouput channel, then the default LED symbols will be
-        used as specified in :class:`~SimulRPi.manager.Manager`.
+        used as specified in :class:`SimulRPi.manager.Manager`.
 
         **Example**::
 
