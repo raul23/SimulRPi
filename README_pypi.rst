@@ -21,14 +21,13 @@ README
 `RPi.GPIO`_ and simulates some I/O devices
 on a Raspberry Pi (RPi).
 
-**Example: terminal output**
+**Example:** simulating LEDs connected to an RPi via a terminal
 
 .. image:: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif
    :target: https://raw.githubusercontent.com/raul23/images/master/Darth-Vader-RPi/simulation_terminal_channel_number_430x60.gif
    :align: center
    :alt: Simulating LEDs on an RPi via a terminal
 
-Simulating LEDs connected to an RPi via a terminal
 
 .. contents::
    :depth: 3
