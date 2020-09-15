@@ -521,17 +521,17 @@ References
 
 .. URLs
 .. 1. External links (simulrpi.readthedocs.io)
-.. _ex1_turn_on_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex1_turn_on_led
-.. _ex2_turn_on_many_leds(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex2_turn_on_many_leds
-.. _ex3_detect_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex3_detect_button
-.. _ex4_blink_led(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex4_blink_led
-.. _ex5_blink_led_if_button(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.run_examples.ex5_blink_led_if_button
-.. _run_examples: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.run_examples
-.. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.cleanup
-.. _GPIO.output(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.output
-.. _GPIO.setup(): https://simulrpi.readthedocs.io/en/latest/api_reference.html#SimulRPi.GPIO.setup
-.. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
-.. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/latest/api_reference.html#module-SimulRPi.mapping
+.. _ex1_turn_on_led(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.run_examples.ex1_turn_on_led
+.. _ex2_turn_on_many_leds(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.run_examples.ex2_turn_on_many_leds
+.. _ex3_detect_button(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.run_examples.ex3_detect_button
+.. _ex4_blink_led(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.run_examples.ex4_blink_led
+.. _ex5_blink_led_if_button(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.run_examples.ex5_blink_led_if_button
+.. _run_examples: https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#module-SimulRPi.run_examples
+.. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.GPIO.cleanup
+.. _GPIO.output(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.GPIO.output
+.. _GPIO.setup(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.GPIO.setup
+.. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/0.1.0a0/changelog.html
+.. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#module-SimulRPi.mapping
 
 .. 2. External links (others)
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
