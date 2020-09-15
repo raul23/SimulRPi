@@ -523,7 +523,7 @@ Resources
 * `SimulRPi GitHub`_: source code
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
-  testing on a computer when no RPi available
+  testing on a computer when no RPi is available
 
 References
 ==========

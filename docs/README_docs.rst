@@ -527,7 +527,7 @@ Resources
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and :mod:`SimulRPi.GPIO` as fallback if
-  testing on a computer when no RPi available
+  testing on a computer when no RPi is available
 
 References
 ==========
