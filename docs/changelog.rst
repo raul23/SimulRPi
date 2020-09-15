@@ -32,10 +32,10 @@ Version 0.1.0a0
 
 * New modules: :mod:`SimulRPi.manager` and :mod:`SimulRPi.pindb`
 
-  * :class:`~SimulRPi.manager.Manager` is now in its own module
+  * :class:`~SimulRPi.manager.Manager` is now in its own module:
     :mod:`SimulRPi.manager`
   * :class:`~SimulRPi.pindb.Pin` and :class:`~SimulRPi.pindb.PinDB` are now in
-    their own module :mod:`SimulRPi.pindb`
+    their own module: :mod:`SimulRPi.pindb`
 
   **NOTE:** these classes used to be in :mod:`SimulRPi.GPIO`
 
