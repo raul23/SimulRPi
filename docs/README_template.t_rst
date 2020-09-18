@@ -694,12 +694,12 @@ Resources
 =========
 <host name="github">
 * `SimulRPi documentation`_
-* `SimulRPi changelog`_
+* `SimulRPi Changelog`_
 * `SimulRPi PyPI`_
 </host>
 <host name="pypi">
 * `SimulRPi documentation`_
-* `SimulRPi changelog`_
+* `SimulRPi Changelog`_
 * `SimulRPi GitHub`_: source code
 </host>
 <host name="readthedocs">

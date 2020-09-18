@@ -510,7 +510,7 @@ To uninstall the package ``SimulRPi`` and its dependency::
 Resources
 =========
 * `SimulRPi documentation`_
-* `SimulRPi changelog`_
+* `SimulRPi Changelog`_
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and ``SimulRPi.GPIO`` as fallback if
