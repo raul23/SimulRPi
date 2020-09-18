@@ -33,8 +33,8 @@ on a Raspberry Pi (RPi).
 
 Introduction
 ============
-In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
-**SimulRPi** also simulates these I/O devices connected to an RPi:
+In addition to partly faking `RPi.GPIO`_, **SimulRPi** also simulates these I/O
+devices connected to an RPi:
 
 - push buttons by listening to pressed keyboard keys and
 - LEDs by blinking dots in the terminal along with their GPIO pin
@@ -43,8 +43,8 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
 When a LED is turned on, it is shown as a red dot in the terminal. The
 `pynput`_ package is used to monitor the keyboard for any pressed key. Thus,
 the **SimulRPi** library can be useful in the case that you want to try your
-``RPi.GPIO``-based script by running it on your computer when no RPi is available
-at the moment.
+`RPi.GPIO`_-based script by running it on your computer when no RPi is
+available at the moment.
 
 **Example: terminal output**
 
