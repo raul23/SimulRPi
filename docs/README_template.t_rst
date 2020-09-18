@@ -70,7 +70,10 @@ In addition to partly faking `RPi.GPIO <https://pypi.org/project/RPi.GPIO/>`_,
   numbers.
 
 When a LED is turned on, it is shown as a red dot in the terminal. The
-`pynput`_ package is used to monitor the keyboard for any pressed key.
+`pynput`_ package is used to monitor the keyboard for any pressed key. Thus,
+the **SimulRPi** library can be useful in the case that you want to try your
+RPi.GPIO-based script by running it on your computer when no RPi is available
+at the moment.
 
 **Example: terminal output**
 
@@ -372,7 +375,7 @@ The code for the examples shown here can be also found as a script in
 .. note::
 </host>
 
-   Since we are showing how to use the ``SimulRPi`` library, the presented code
+   Since we are showing how to use the ``SimulRPi`` package, the presented code
    examples are to be executed on your computer. However, the
    <host name="github, pypi">``run_examples``</host><host name="readthedocs">:mod:`~SimulRPi.run_examples`</host> script which runs the following code examples can be executed on a
    Raspberry Pi or your computer.
