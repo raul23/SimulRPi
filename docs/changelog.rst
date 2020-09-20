@@ -6,8 +6,8 @@ Changelog
    :depth: 2
    :local:
 
-Version 0.1.0a0post1
-====================
+Version 0.1.0a0.post1
+=====================
 
 **September 20, 2020**
 
