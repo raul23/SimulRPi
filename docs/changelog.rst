@@ -128,7 +128,7 @@ Version 0.0.0a0
 
 **August 9, 2020**
 
-* First version
+* Initial release
 
 * Tested `code examples`_ on different platforms and here are the results
 

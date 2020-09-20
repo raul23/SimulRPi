@@ -7,7 +7,6 @@ README
    :align: center
    :alt: SimulRPi logo
 
-🚧 **Work-In-Progress**
 
 .. image:: https://readthedocs.org/projects/simulrpi/badge/?version=latest
    :target: https://simulrpi.readthedocs.io/en/latest/?badge=latest
