@@ -6,10 +6,15 @@ Changelog
    :depth: 2
    :local:
 
+Version 0.1.0a0post1
+====================
+
+**September 20, 2020**
+
+* Remove *Work-In-Progress* from documentation
+
 Version 0.1.0a0
 ===============
-
-.. TODO: IMPORTANT add date
 
 **September 15, 2020**
 
