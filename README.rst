@@ -72,7 +72,7 @@ on channel 22 is colored differently from the others.
 
 Dependencies
 ============
-* **Platforms:** macOS, Linux
+* **Platforms:** Linux, macOS
 * **Python**: 3.5, 3.6, 3.7, 3.8
 * ``pynput`` >=1.6.8: for monitoring the keyboard for any pressed key
 
