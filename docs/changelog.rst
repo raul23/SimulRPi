@@ -6,12 +6,13 @@ Changelog
    :depth: 2
    :local:
 
-Version 0.1.0a0.post1
-=====================
+Version 0.1.0a1
+===============
 
 **September 20, 2020**
 
 * Remove *Work-In-Progress* from documentation
+* Version 0.1.0a0.post1 was yanked for a clearer version number
 
 Version 0.1.0a0
 ===============
