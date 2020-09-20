@@ -5,6 +5,6 @@ some I/O devices on a Raspberry Pi (RPi).
 
 """
 # For debugging purposes
-__test_version__ = "0.3.0.post7"
+__test_version__ = "0.3.0.post8"
 # Version of package
 __version__ = "0.1.0a0post1"
