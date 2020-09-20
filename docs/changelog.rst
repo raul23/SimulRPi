@@ -146,7 +146,8 @@ Version 0.0.0a0
       ``PYTHONPATH`` to *etc/sudoers* and ran the script with ``sudo``. To be
       further investigated.
 
-[*EDIT:* tested the code examples with :mod:`~SimulRPi.run_examples`]
+[*NOTE:* tested the code examples with :mod:`~SimulRPi.run_examples`]
+[*EDIT:* use *Initial release*]
 
 .. URLs
 
