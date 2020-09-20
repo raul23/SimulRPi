@@ -726,7 +726,7 @@ References
 .. _GPIO.cleanup(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.GPIO.cleanup
 .. _GPIO.output(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.GPIO.output
 .. _GPIO.setup(): https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#SimulRPi.GPIO.setup
-.. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/0.1.0a0/changelog.html
+.. _SimulRPi changelog: https://simulrpi.readthedocs.io/en/latest/changelog.html
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#module-SimulRPi.mapping
 
 .. 2. External links (others)
