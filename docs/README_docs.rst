@@ -80,13 +80,14 @@ Dependencies
 
 Installation instructions 😎
 ============================
+.. TODO IMPORTANT update released version in step 2
 .. highlight:: none
 
 1. Make sure to update *pip*::
 
    $ pip install --upgrade pip
 
-2. Install the package ``SimulRPi`` with *pip*::
+2. Install the package ``SimulRPi`` (released version **0.1.0a1**) with *pip*::
 
    $ pip install SimulRPi
 
@@ -106,7 +107,8 @@ Installation instructions 😎
 
 .. note::
 
-   To install the **bleeding-edge version** of the ``SimulRPi`` package,
+   To install the **bleeding-edge version** (|version|) of the ``SimulRPi``
+   package,
    install it from its github repository::
 
       $ pip install git+https://github.com/raul23/SimulRPi#egg=SimulRPi
