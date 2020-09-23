@@ -544,7 +544,7 @@ References
 .. URLs
 .. 1. External links
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
-.. _conda: https://docs.conda.io/projects/conda-build/en/latest/index.html
+.. _conda: https://docs.conda.io/en/latest/
 .. _pynput: https://pynput.readthedocs.io/
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _PyPI: https://pypi.org/project/SimulRPi/
