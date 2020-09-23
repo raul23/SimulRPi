@@ -133,7 +133,12 @@ Installation instructions 😎
 
    $ pip install --upgrade pip
 
-2. Install the package ``SimulRPi`` (released version **0.1.0a1**) with *pip*::
+<host name="github, pypi">
+2. Install the package ``SimulRPi`` with *pip*::
+</host>
+<host name="readthedocs">
+2. Install the package ``SimulRPi`` (**v0.1.0a1**) with *pip*::
+</host>
 
    $ pip install SimulRPi
 
