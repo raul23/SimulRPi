@@ -86,7 +86,10 @@ Installation instructions 😎
 
    $ pip install --upgrade pip
 
-2. Install the package ``SimulRPi`` with *pip*::
+2. It is highly recommended to install ``SimulRPi`` in a virtual environment using
+   for example :mod:`venv` or `conda`_.
+
+   Install the package ``SimulRPi`` with *pip*::
 
    $ pip install SimulRPi
 
@@ -549,6 +552,7 @@ References
 
 .. 2. External links (others)
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
+.. _conda: https://docs.conda.io/projects/conda-build/en/latest/index.html
 .. _pynput: https://pynput.readthedocs.io/
 .. _Darth-Vader-RPi: https://github.com/raul23/Darth-Vader-RPi
 .. _PyPI: https://pypi.org/project/SimulRPi/
