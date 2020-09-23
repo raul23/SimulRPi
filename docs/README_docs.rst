@@ -531,13 +531,12 @@ Resources
 * `SimulRPi PyPI`_
 * `Darth-Vader-RPi`_: personal project using ``RPi.GPIO`` for activating a Darth
   Vader action figure with light and sounds and :mod:`SimulRPi.GPIO` as fallback if
-  testing on a computer when no RPi is available
+  testing on a computer when no RPi is available.
 
 References
 ==========
-* `pynput`_: package used for monitoring the keyboard for any pressed key as to
-  simulate push buttons connected to an RPi
-* `RPi.GPIO`_: a module to control RPi GPIO channels
+* `pynput`_: a package to control and monitor input devices.
+* `RPi.GPIO`_: a module to control RPi GPIO channels.
 
 .. URLs
 .. 1. External links
