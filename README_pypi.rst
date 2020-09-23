@@ -87,7 +87,7 @@ Installation instructions 😎
    $ pip install --upgrade pip
 
 2. It is highly recommended to install ``SimulRPi`` in a virtual environment using
-   for example :mod:`venv` or `conda`_.
+   for example `venv`_ or `conda`_.
 
    Install the package ``SimulRPi`` with *pip*::
 
@@ -551,6 +551,7 @@ References
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#module-SimulRPi.mapping
 
 .. 2. External links (others)
+.. _venv: https://docs.python.org/3/library/venv.html#module-venv
 .. _article: https://docs.oracle.com/cd/E19062-01/sun.mgmt.ctr36/819-5418/gaznb/index.html
 .. _conda: https://docs.conda.io/projects/conda-build/en/latest/index.html
 .. _pynput: https://pynput.readthedocs.io/

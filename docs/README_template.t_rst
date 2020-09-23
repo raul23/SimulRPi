@@ -134,7 +134,12 @@ Installation instructions 😎
    $ pip install --upgrade pip
 
 2. It is highly recommended to install ``SimulRPi`` in a virtual environment using
+<host name="github, pypi">
+   for example `venv`_ or `conda`_.
+</host>
+<host name="readthedocs">
    for example :mod:`venv` or `conda`_.
+</host>
 
 <host name="github, pypi">
    Install the package ``SimulRPi`` with *pip*::
@@ -744,6 +749,7 @@ References
 .. _SimulRPi.mapping: https://simulrpi.readthedocs.io/en/0.1.0a0/api_reference.html#module-SimulRPi.mapping
 
 .. 2. External links (others)
+.. _venv: https://docs.python.org/3/library/venv.html#module-venv
 </host>
 <host name="readthedocs">
 .. 1. External links
