@@ -129,23 +129,23 @@ Installation instructions 😎
 .. highlight:: none
 </host>
 
-1. Make sure to update *pip*::
+1. It is highly recommended to install ``SimulRPi`` in a virtual
+<host name="github, pypi">
+   environment using for example `venv`_ or `conda`_.
+</host>
+<host name="readthedocs">
+   environment using for example :mod:`venv` or `conda`_.
+</host>
+
+2. Make sure to update *pip*::
 
    $ pip install --upgrade pip
 
-2. It is highly recommended to install ``SimulRPi`` in a virtual environment using
 <host name="github, pypi">
-   for example `venv`_ or `conda`_.
+3. Install the package ``SimulRPi`` with *pip*::
 </host>
 <host name="readthedocs">
-   for example :mod:`venv` or `conda`_.
-</host>
-
-<host name="github, pypi">
-   Install the package ``SimulRPi`` with *pip*::
-</host>
-<host name="readthedocs">
-   Install the package ``SimulRPi`` (**v0.1.0a1**) with *pip*::
+3. Install the package ``SimulRPi`` (**v0.1.0a1**) with *pip*::
 </host>
 
    $ pip install SimulRPi

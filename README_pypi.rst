@@ -82,14 +82,14 @@ Installation instructions 😎
 ============================
 .. TODO IMPORTANT update released version in step 2
 
-1. Make sure to update *pip*::
+1. It is highly recommended to install ``SimulRPi`` in a virtual
+   environment using for example `venv`_ or `conda`_.
+
+2. Make sure to update *pip*::
 
    $ pip install --upgrade pip
 
-2. It is highly recommended to install ``SimulRPi`` in a virtual environment using
-   for example `venv`_ or `conda`_.
-
-   Install the package ``SimulRPi`` with *pip*::
+3. Install the package ``SimulRPi`` with *pip*::
 
    $ pip install SimulRPi
 
