@@ -26,10 +26,6 @@ on a Raspberry Pi (RPi).
    <p><b>Simulating LEDs on an RPi via a terminal</b></p>
    </div>
 
-.. contents::
-   :depth: 3
-   :local:
-
 Introduction
 ============
 In addition to partly faking `RPi.GPIO`_, **SimulRPi** also simulates these I/O
@@ -199,31 +195,21 @@ To display the script's list of options and their descriptions::
 
    $ run_examples -h
 
--e       The number of the code example you want to run. It is required.
-         (default: None)
--m       Set the numbering system (BCM or BOARD) used to identify the I/O pins
-         on an RPi. (default: BCM)
--s       Enable simulation mode, i.e. ``SimulRPi.GPIO`` will be used for
-         simulating ``RPi.GPIO``. (default: False)
--l       The channel numbers to be used for LEDs. If an example only
-         requires 1 channel, the first channel from the provided list will
-         be used. (default: [9, 10, 11])
--b       The channel number to be used for a push button. The default value
-         is channel 17 which is associated by default with the keyboard key
-         *cmd_r*. (default: 17)
--k       The name of the key associated with the button channel. The name
-         must be one of those recognized by the *pynput* package. See the
-         *SimulRPi* documentation for a list of valid key names:
-         https://bit.ly/2Pw1OBe. Example: *alt*, *ctrl_r* (default: *cmd_r*)
--t       Total time in seconds the LEDs will be blinking. (default: 4)
---on     Time in seconds the LEDs will stay turned ON at a time. (default: 1)
---off    Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
--a       Use ASCII-based LED symbols. Useful if you are having problems
-         displaying the default LED signs that make use of special characters.
-         However, it is recommended to fix your display problems which might be
-         caused by locale settings not set correctly. Check the article
-         'Display problems' @ https://bit.ly/35B8bfs for more info about
-         solutions to display problems (default: False)
+* ``-e``: The number of the code example you want to run. It is required. (default: None)
+* ``-m``: Set the numbering system (BCM or BOARD) used to identify the I/O pins on an RPi. (default: BCM)
+* ``-s``: Enable simulation mode, i.e. ``SimulRPi.GPIO`` will be used for simulating ``RPi.GPIO``. (default: False)
+* ``-l``: The channel numbers to be used for LEDs. If an example only requires 1 channel, 
+  the first channel from the provided list will be used. (default: [9, 10, 11])
+* ``-b``: The channel number to be used for a push button. The default value 
+  is channel 17 which is associated by default with the keyboard key *cmd_r*. (default: 17)
+* ``-k``: The name of the key associated with the button channel. The name must be one of those recognized by the *pynput* package. See the 
+  *SimulRPi* documentation for a list of valid key names: https://bit.ly/2Pw1OBe. Example: *alt*, *ctrl_r* (default: *cmd_r*)
+* ``-t``: Total time in seconds the LEDs will be blinking. (default: 4)
+* ``--on``: Time in seconds the LEDs will stay turned ON at a time. (default: 1)
+* ``--off``: Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
+* ``-a``: Use ASCII-based LED symbols. Useful if you are having problems displaying the default LED signs that make use of special characters. 
+  However, it is recommended to fix your display problems which might be caused by locale settings not set correctly. Check the article 
+ 'Display problems' @ https://bit.ly/35B8bfs for more info about solutions to display problems (default: False)
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
