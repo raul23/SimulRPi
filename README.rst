@@ -207,9 +207,7 @@ To display the script's list of options and their descriptions::
 * ``-t``: Total time in seconds the LEDs will be blinking. (default: 4)
 * ``--on``: Time in seconds the LEDs will stay turned ON at a time. (default: 1)
 * ``--off``: Time in seconds the LEDs will stay turned OFF at a time. (default: 1)
-* ``-a``: Use ASCII-based LED symbols. Useful if you are having problems displaying the default LED signs that make use of special characters. 
-  However, it is recommended to fix your display problems which might be caused by locale settings not set correctly. Check the article 
- 'Display problems' @ https://bit.ly/35B8bfs for more info about solutions to display problems (default: False)
+* ``-a``: Use ASCII-based LED symbols. Useful if you are having problems displaying the default LED signs that make use of special characters. However, it is recommended to fix your display problems which might be caused by locale settings not set correctly. Check the article 'Display problems' @ https://bit.ly/35B8bfs for more info about solutions to display problems (default: False)
 
 How to run the script
 ~~~~~~~~~~~~~~~~~~~~~
